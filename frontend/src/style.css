@@ -1,0 +1,83 @@
+body {
+  user-select: none;
+  margin: auto;
+  padding: 15px;
+  text-align: center;
+  font-family: "Alegreya Sans SC";
+}
+
+header {
+  display: flex;
+  width: 100%;
+  height: 60px;
+  background: rgba(243, 240, 240, 0.734);
+}
+
+.menuOpen {
+  font-size: 30px;
+  line-height: 60px;
+  padding-left: 20px;
+  cursor: pointer;
+}
+
+.search {
+  margin-left: auto;
+  line-height: 60px;
+  padding-right: 25px;
+}
+
+button {
+  font-family: "Alegreya Sans SC";
+  border-radius: 5px;
+  border: 1px solid green;
+  color: green;
+  padding: 10px 15px;
+  cursor: pointer;
+  letter-spacing: 2px;
+}
+
+.aboutEWG {
+  height: 400px;
+  margin: 0 auto;
+  position: relative;
+  max-width: 1400px;
+}
+
+.title {
+  font-size: 50px;
+  font-weight: bold;
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  margin: 30px auto 0 auto;
+  background: linear-gradient(
+      120deg,
+      rgba(105, 194, 199, 0.2),
+      rgba(141, 203, 193, 0.5)
+    ),
+    url("./img/Whiteday2020-09.JPG");
+}
+
+.explain {
+  margin: 30px 60px;
+  font-size: 25px;
+}
+
+h2 {
+  max-width: 1400px;
+  background: #4dc9b2c9;
+  color: white;
+  padding: 10px 0;
+  margin: 30px auto;
+}
+
+p {
+  margin: 0;
+}
