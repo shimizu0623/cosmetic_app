@@ -14,7 +14,7 @@ services:
         volume:
           nocopy: true
       - type: bind
-        source: ./backend
+        source: ./
         target: /work/backend
     environment:
       - DB_CONNECTION=mysql
@@ -40,7 +40,7 @@ services:
         volume:
           nocopy: true
       - type: bind
-        source: ./backend
+        source: ./
         target: /work/backend
 
   db:
