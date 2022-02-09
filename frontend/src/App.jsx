@@ -1,14 +1,20 @@
 import React from 'react';
 import { Header } from './components/header';
+import { Footer } from './components/footer';
+import { TopPage } from './components/topPage';
 import { EWG } from './components/aboutEWG';
+import { LoginPage } from './components/loginPage';
+
 import './style.css'
 import './img/Whiteday2020-09.JPG';
+import './img/cosmetic_background3.jpg';
+
 
 
 const App = () =>{
 
 
-  const webName = "(サイトの名前)"
+  const webName = "(サイトの名前)";
 
 
   const onClickSearch = () => {
@@ -21,26 +27,26 @@ const App = () =>{
   return (
     <>
  
-      <Header 
+      {/* <Header 
         onClickMenu={onClickMenu}
         onClickSearch={onClickSearch}
+      /> */}
+      {/* <LoginPage /> */}
+
+
+      <TopPage 
+        webName={webName}
       />
+
+
       <EWG
         webName={webName}
       />
 
-  
-
-
-
-
-
-
-      <div className>
-
-      </div>
+      <Footer />
+    
     </>
-  )
-}
+  );
+};
 
 export default App;

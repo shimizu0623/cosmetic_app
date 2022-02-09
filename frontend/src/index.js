@@ -1,5 +1,26 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import App from "./App"
+import App from "./App";
+import {LoginPage} from "./components/loginPage";
 
-ReactDom.render(<App />, document.getElementById("root"));
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from 'react-router-dom'
+
+ReactDom.render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<App />}>
+          <Route
+              path='/login'
+              element={<LoginPage />}
+            />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  </React.StrictMode>,
+  document.getElementById('root')
+);
