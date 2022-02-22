@@ -1,3 +1,15 @@
+@media screen and (max-width: 959px) {
+  /* 959px以下に適用されるCSS（タブレット用） */
+  body {
+  }
+}
+@media screen and (max-width: 480px) {
+  /* 480px以下に適用されるCSS（スマホ用） */
+  .PageTop {
+    width: 200px;
+  }
+}
+
 body {
   user-select: none;
   margin: auto;
@@ -25,8 +37,22 @@ header {
   color: green;
 }
 
+/* .LoginBtn button {
+  font-size: 17px;
+  color: white;
+  letter-spacing: 3px;
+  margin: 10px auto;
+  padding: 10px 40px;
+  height: 60;
+  max-width: 300px;
+  background: linear-gradient(45deg #00bcd4 30% #1de9b6 90%);
+  border: 0;
+  border-radius: 5;
+  box-shadow: 0 3px 5px 2px rgba(255 105 135 0.3);
+} */
+
 .header_search button:hover,
-.loginBtn button:hover {
+.LoginBtn button:hover {
   border-color: green;
   background-color: rgba(205, 226, 168, 0.612);
 }
@@ -42,22 +68,30 @@ header {
   line-height: 60px;
 }
 
-.loginBtn {
-  margin: 40px 0;
+.PageTop {
+  background-color: rgba(225, 224, 213, 0.694);
+  max-width: 1400px;
+  margin: 70px auto 0;
+  padding: 120px 1px;
+  border-radius: 6px;
 }
 
-.loginBtn button {
+.PageTop h1 {
   color: white;
-  letter-spacing: 3px;
-  padding: 10px 40px;
-  border-radius: 5px;
-  max-width: 300px;
-  margin: 10px auto;
-  font-size: 17px;
+  font-size: 70px;
+  text-shadow: -1px 1px 0 rgb(81, 78, 78);
+  letter-spacing: 4px;
+  font-weight: bold;
+  margin: 0 auto;
 }
 
-img {
-  margin: 20px auto;
+.PageTop p {
+  color: white;
+  font-size: 20px;
+}
+
+.StyleLink {
+  margin: 10px auto 0 10px;
 }
 
 .topImage {
@@ -86,27 +120,48 @@ img {
 #smile_img {
   height: 130px;
   width: auto;
-  margin-top: 0;
+  margin: 0 0 20px 0;
 }
 
 #EWGlevel_img {
-  height: 50px;
+  height: 90px;
   width: auto;
   margin: 10px 0;
 }
 
 #EWG-logo_img {
-  height: 120px;
+  height: 160px;
   width: auto;
   margin: 0;
 }
-#Hazard_img,
+
+#Hazard_img {
+  height: 90px;
+  width: auto;
+  margin: 0;
+}
+
 #LowHazard_img,
 #ModerateHazard_img,
 #HighHazard_img {
-  height: 80px;
+  display: inline-block;
+  height: 90px;
   width: auto;
-  margin: 0;
+  margin: 0px auto;
+  vertical-align: bottom;
+}
+
+.level_LowHazard p,
+.level_ModerateHazard p,
+.level_HighHazard p {
+  display: inline-block;
+  line-height: 70px;
+  padding-left: 20px;
+}
+.level_LowHazard,
+.level_ModerateHazard,
+.level_HighHazard {
+  margin: 10px;
 }
 
 .balloonLeft {
@@ -175,6 +230,11 @@ img {
   margin: 50px auto;
 }
 
+.topMain p {
+  margin: 0;
+  padding: 0;
+}
+
 .topIconLeft {
   position: absolute;
   left: -200px;
@@ -185,10 +245,6 @@ img {
   position: absolute;
   right: -200px;
   top: 20px;
-}
-.topMain p {
-  margin: 0;
-  padding: 0;
 }
 
 .aboutEWG,
@@ -241,7 +297,7 @@ h3 {
   border-radius: 10px;
 }
 
-.triangle {
+.Triangle {
   width: 0;
   height: 0;
   margin: 0 auto;
