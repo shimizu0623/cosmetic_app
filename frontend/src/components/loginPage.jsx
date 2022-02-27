@@ -25,7 +25,7 @@ export const LoginPage = () => {
         TOP
       </Link>,
       <Typography key="2" color="text.primary">
-      ログイン
+        Login
       </Typography>,
     ];
 
@@ -52,94 +52,104 @@ export const LoginPage = () => {
         event.preventDefault();
       };
 
-      const formStyle = {
+      const styleForm = {
           width:'250px',
-          marginBottom:'15px',
+          margin:'10px 0',
       }
 
       const styleLoginForm = {
-        margin: '70px auto',
+        margin: 'auto',
+        flexGrow: '1',
+      }
 
+      const styleParent = {
+        display: 'flex',
+        justifyContent: 'center',
+      }
+
+      const styleChild = {
+        flexGrow: '1',
+        maxWidth: '600px',
       }
 
 
     return(
     <>
-
-    <section className='PageTop'>
-      <h1>Login</h1>
-      <p>ログイン</p>
-    </section>
-    
-    <Stack spacing={2} >
-      <Breadcrumbs
-      separator={<NavigateNextIcon fontSize="small" />}
-      aria-label="breadcrumb"
-      className='StyleLink'
-      >
-      {breadcrumbs}
-      </Breadcrumbs>
-    </Stack>
-
-    <div className='LoginForm' style={styleLoginForm}>
-        <Box>
-        <TextField
-            style={formStyle}
-            helperText="Please enter your name"
-            id="demo-helper-text-aligned"
-            label="Name"
-        />
-        </Box>
-        <FormControl  variant="outlined" style={formStyle}>
-          <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-          <OutlinedInput
-            id="outlined-adornment-password"
-            type={values.showPassword ? 'text' : 'password'}
-            value={values.password}
-            onChange={handleChange('password')}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-            label="Password"
-          />
-        </FormControl>
-        <Box>
-        <Button
-          style={formStyle}
-          variant="outlined"
-          to="/sign-in"
-        >
-          ログイン
-        </Button>
-        </Box>
-        <Box>
-        <Button
-          style={formStyle}
-          variant="outlined"
-          to="/sign-in"
-        >
-          ゲストログイン
-        </Button>
-        </Box>
-        <Link
-        component="button"
-        variant="body2"
-        onClick={() => {
-          console.info("I'm a button.");
-        }}
-        >
-        アカウントをお持ちでない方はこちら
-        </Link>
-
+    <div className='MainContainer' style={styleParent}>
+      <section className='Sidebar' style={styleChild}>
+        <div className='PageTop'>
+          <h1>Login</h1>
+          <p>ログイン</p>
+        </div>
+      </section>
+      <section className='LoginForm' style={styleLoginForm}>
+          <Stack spacing={2} >
+            <Breadcrumbs
+            separator={<NavigateNextIcon fontSize="small" />}
+            aria-label="breadcrumb"
+            className='StyleLink'
+            >
+            {breadcrumbs}
+            </Breadcrumbs>
+          </Stack>
+          <Box>
+          <TextField
+              style={styleForm}
+              helperText="Please enter your name"
+              id="demo-helper-text-aligned"
+              label="Name"
+              />
+          </Box>
+          <FormControl  variant="outlined" style={styleForm}>
+            <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+            <OutlinedInput
+              id="outlined-adornment-password"
+              type={values.showPassword ? 'text' : 'password'}
+              value={values.password}
+              onChange={handleChange('password')}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                    >
+                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+              label="Password"
+              />
+          </FormControl>
+          <Box>
+          <Button
+            style={styleForm}
+            variant="outlined"
+            to="/sign-in"
+            >
+            ログイン
+          </Button>
+          </Box>
+          <Box>
+          <Button
+            style={styleForm}
+            variant="outlined"
+            to="/sign-in"
+            >
+            ゲストログイン
+          </Button>
+          </Box>
+          <Link
+          component="button"
+          variant="body2"
+          onClick={() => {
+            console.info("I'm a button.");
+          }}
+          >
+          アカウントをお持ちでない方はこちら
+          </Link>
+      </section>
     </div>
     </>
     )
