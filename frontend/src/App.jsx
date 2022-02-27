@@ -46,8 +46,6 @@ const App = () =>{
         webName={webName}
       /> */}
 
-
-
       <Footer />
     
     </>

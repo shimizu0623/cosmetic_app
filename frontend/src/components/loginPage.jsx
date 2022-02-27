@@ -95,9 +95,9 @@ export const LoginPage = () => {
           <Box>
           <TextField
               style={styleForm}
-              helperText="Please enter your name"
+              helperText="Please enter your email"
               id="demo-helper-text-aligned"
-              label="Name"
+              label="Email"
               />
           </Box>
           <FormControl  variant="outlined" style={styleForm}>
@@ -143,10 +143,8 @@ export const LoginPage = () => {
           <Link
           component="button"
           variant="body2"
-          onClick={() => {
-            console.info("I'm a button.");
-          }}
-          >
+          component={RouterLink}
+          to="/createAccount">
           アカウントをお持ちでない方はこちら
           </Link>
       </section>

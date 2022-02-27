@@ -2,8 +2,9 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import App from "./App";
 import { TopPage } from "./components/topPage";
-import { EWG } from "./components/aboutEWG";
 import { LoginPage } from "./components/loginPage";
+import { CreateAccount } from "./components/createAccountPage";
+import { EWG } from "./components/aboutEWG";
 
 import {
   BrowserRouter,
@@ -19,19 +20,18 @@ ReactDom.render(
           <Route
               path='/'
               element={<TopPage />}
-              // element={<EWG />}
             />
           <Route
-              path='/login'
-              element={<LoginPage />}
+              path='/createAccount'
+              element={<CreateAccount />}
             />  
           <Route
               path='/login'
               element={<LoginPage />}
             />  
           <Route
-              path='/login'
-              element={<LoginPage />}
+              path='/ewg'
+              element={<EWG />}
             />  
         </Route>
       </Routes>
