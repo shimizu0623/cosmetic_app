@@ -50,20 +50,6 @@ body {
   margin: 10px auto;
 }
 
-/* .LoginBtn button {
-  font-size: 17px;
-  color: white;
-  letter-spacing: 3px;
-  margin: 10px auto;
-  padding: 10px 40px;
-  height: 60;
-  max-width: 300px;
-  background: linear-gradient(45deg #00bcd4 30% #1de9b6 90%);
-  border: 0;
-  border-radius: 5;
-  box-shadow: 0 3px 5px 2px rgba(255 105 135 0.3);
-} */
-
 .header_search button:hover {
   border-color: green;
   background-color: rgba(205, 226, 168, 0.612);

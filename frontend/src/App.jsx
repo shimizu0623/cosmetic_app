@@ -1,9 +1,9 @@
 import React from 'react';
 import { Header } from './components/header';
 import { Footer } from './components/footer';
-import { TopPage } from './components/topPage';
-import { EWG } from './components/aboutEWG';
-import { LoginPage } from './components/loginPage';
+// import { TopPage } from './components/topPage';
+// import { EWG } from './components/aboutEWG';
+// import { LoginPage } from './components/loginPage';
 import { Outlet } from "react-router-dom";
 
 import './style.css'

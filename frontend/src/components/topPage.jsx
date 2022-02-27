@@ -1,12 +1,11 @@
 import React from 'react';
 import { LoginBtn } from './loginBtn';
+import { EWG } from "./aboutEWG";
 
 import trouble_face_img from '../img/trouble_face.jpg';
 import thinking_img from '../img/thinking.jpg';
 import use_pc_img from '../img/use_pc.jpg';
 import smile_img from '../img/smile.jpg';
-import { EWG } from "./aboutEWG";
-
 
 
 
