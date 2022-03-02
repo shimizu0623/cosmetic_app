@@ -5,6 +5,7 @@ import { TopPage } from "./components/topPage";
 import { LoginPage } from "./components/loginPage";
 import { CreateAccount } from "./components/createAccountPage";
 import { EWG } from "./components/aboutEWG";
+import { Test } from "./components/test";
 
 import {
   BrowserRouter,
@@ -32,6 +33,10 @@ ReactDom.render(
           <Route
               path='/ewg'
               element={<EWG />}
+            />  
+          <Route
+              path='/test'
+              element={<Test />}
             />  
         </Route>
       </Routes>

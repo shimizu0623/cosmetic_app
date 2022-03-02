@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
@@ -34,10 +34,26 @@ const useStyles = makeStyles((theme) => ({
 export const CreateAccount = () => {
     const classes = useStyles();
     const [gender, setGender] = React.useState('');
+    const [userInformation, setUserInformation] = useState()
+
     
     const handleChangeGender = (event) => {
       setGender(event.target.value);
+      setUserInformation({...userInformation, gender: event.target.value})
     };
+    const handleChangeName = (event) => {
+      setUserInformation({...userInformation, name: event.target.value})
+    };
+    const handleChangeEmail = (event) => {
+      setUserInformation({...userInformation, email: event.target.value})
+    };
+    const handleChangeDate = (event) => {
+      setUserInformation({...userInformation, date: event.target.value})
+    };
+
+    const onClickRegister = () => {
+        console.log(userInformation)
+    }
     
     const breadcrumbs = [
       <Link underline="hover" key="1" color="inherit" component={RouterLink} to='/'>
@@ -62,7 +78,8 @@ export const CreateAccount = () => {
     
       const handleChange = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
-      };
+        setUserInformation({...userInformation, password: event.target.value})
+    };
     
       const handleClickShowPassword = () => {
         setValues({
@@ -117,21 +134,19 @@ export const CreateAccount = () => {
                 </Breadcrumbs>
             </Stack>
 
-            <div>
             <FormControl style={styleForm}>
                 <InputLabel id="demo-simple-select-helper-label">性別</InputLabel>
                 <Select
                 labelId="demo-simple-select-helper-label"
                 id="demo-simple-select-helper"
                 value={gender}
-                label="Age"
+                label="gender"
                 onChange={handleChangeGender}
                 >
                 <MenuItem value={1}>女性</MenuItem>
                 <MenuItem value={2}>男性</MenuItem>
                 </Select>
             </FormControl>
-            </div>
 
             <Box>
             <TextField
@@ -139,14 +154,7 @@ export const CreateAccount = () => {
                 // helperText="Please enter your name"
                 id="demo-helper-text-aligned"
                 label="ニックネーム"
-                />
-            </Box>
-            <Box>
-            <TextField
-                style={styleForm}
-                // helperText="Please enter your email"
-                id="demo-helper-text-aligned"
-                label="メールアドレス"
+                onClick={handleChangeName}
                 />
             </Box>
             <form className={classes.container} noValidate>
@@ -159,8 +167,18 @@ export const CreateAccount = () => {
                 InputLabelProps={{
                 shrink: true,
                 }}
+                onChange={handleChangeDate}
             />
             </form>          
+            <Box>
+            <TextField
+                style={styleForm}
+                // helperText="Please enter your email"
+                id="demo-helper-text-aligned"
+                label="メールアドレス"
+                onChange={handleChangeEmail}
+                />
+            </Box>
             <FormControl  variant="outlined" style={styleForm}>
                 <InputLabel htmlFor="outlined-adornment-password">パスワード</InputLabel>
                 <OutlinedInput
@@ -183,8 +201,9 @@ export const CreateAccount = () => {
                 label="パスワード"
                 />
             </FormControl>
-
-        <RegisterBtn />
+        <RegisterBtn
+          onClick={onClickRegister}
+        />
         </section>
         </div>
         </>
