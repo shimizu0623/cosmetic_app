@@ -25,10 +25,11 @@ use App\Http\Controllers\ItemIngredientsController;
 Route::get('/skin_types', [SkinTypeController::class, 'index']);
 Route::get('/brands', [BrandsController::class, 'index']);
 Route::get('/categories', [CategoriesController::class, 'index']);
-Route::get('/users', [UsersController::class, 'index']);
 Route::get('/items', [ItemsController::class, 'index']);
 Route::get('/ingredients', [IngredientsController::class, 'index']);
 Route::get('/item_ingredients', [IngredientsController::class, 'index']);
+// Route::get('/users', [UsersController::class, 'index']);
+Route::get('/me', [UsersController::class, 'me']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

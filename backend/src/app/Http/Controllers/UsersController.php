@@ -19,6 +19,13 @@ class UsersController extends Controller
         );
     }
 
+    public function me()
+    {
+        return response()->json(
+            Users::find(1)
+        );
+    }
+
     /**
      * Store a newly created resource in storage.
      *
