@@ -6,7 +6,7 @@ import Menu from '@material-ui/core/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import IconButton from '@material-ui/core/IconButton';
 // import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
-
+import { Link as RouterLink } from "react-router-dom";
 
 
 export const Header = (props) => {
@@ -48,8 +48,20 @@ export const Header = (props) => {
                     open={open}
                     onClose={handleClose}
                 >
-                    <MenuItem onClick={handleClose}>My Page</MenuItem>
-                    <MenuItem onClick={handleClose}>Log out</MenuItem>
+                    <MenuItem 
+                      onClick={handleClose}
+                      component={RouterLink}
+                      to='/myPage'
+                      >
+                        My Page
+                    </MenuItem>
+                    <MenuItem 
+                      onClick={handleClose}
+                      component={RouterLink}
+                      to='/'
+                      >
+                        Log out
+                    </MenuItem>
                 </Menu>
             </div>
 

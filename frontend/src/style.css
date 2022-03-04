@@ -1,10 +1,10 @@
 @media screen and (max-width: 959px) {
-  /* 959px以下に適用されるCSS（タブレット用） */
+  /* （タブレット用） */
   body {
   }
 }
 @media screen and (max-width: 480px) {
-  /* 480px以下に適用されるCSS（スマホ用） */
+  /* （スマホ用） */
   .PageTop {
     width: 200px;
   }
@@ -276,6 +276,39 @@ body {
 .explain {
   margin: 30px 60px;
   font-size: 20px;
+}
+.SkinType ul,
+.menu ul {
+  padding: 0;
+  margin: 0 auto;
+}
+
+.SkinType li {
+  font-size: 20px;
+  color: white;
+  list-style: none;
+  width: 90px;
+  line-height: 90px;
+  border-radius: 50%;
+  background: #4dc9b2c9;
+  margin: 4px;
+  display: inline-block;
+}
+/* .menu li {
+  font-size: 23px;
+  color: white;
+  list-style: none;
+  width: 200px;
+  line-height: 200px;
+  border-radius: 50%;
+  background: #4dc9b2c9;
+  margin: 4px;
+  display: inline-block;
+} */
+
+.SkinType li:hover {
+  cursor: pointer;
+  background: #4dc9b27d;
 }
 
 h2 {

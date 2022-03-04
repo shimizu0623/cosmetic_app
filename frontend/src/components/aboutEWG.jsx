@@ -12,7 +12,6 @@ import HighHazard from "../img/level_HighHazard.PNG"
 export const EWG = (props) => {
     const {webName} = props;
 
-
     return(
         <>
         <div className='MainContainer'>
