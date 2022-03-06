@@ -64,7 +64,8 @@ const useStyles = makeStyles({
         backgroundSize: "90px auto",
         margin: '0 20px 10px',
         '&:hover':{
-            cursor: 'pointer',          
+            cursor: 'pointer',
+            opacity: '0.6',        
         }
     },
     p: {
@@ -76,15 +77,16 @@ const useStyles = makeStyles({
         lineHeight:'90px',
         textShadow: '0 -1px 0 #cdeef1',
     },
-    cardBox: {
-        maxWidth: '800px',
-        margin: '0 auto',
+    // cardBox: {
+    //     maxWidth: '800px',
+    //     margin: '0 auto',
 
-    },
+    // },
     cardPaper: {
 
         '&:hover':{
-            cursor: 'pointer',          
+            cursor: 'pointer', 
+            opacity: '0.6',         
         }
     },
     styleParent: {
@@ -247,6 +249,7 @@ export const MyPage = () => {
                         srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
                         alt={item.name}
                         loading="lazy"
+                        className={classes.cardPaper}
                     />
                     <ImageListItemBar
                         title={item.brand}
@@ -283,6 +286,7 @@ export const MyPage = () => {
                         srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
                         alt={item.name}
                         loading="lazy"
+                        className={classes.cardPaper}
                     />
                     <ImageListItemBar
                         title={item.brand}
