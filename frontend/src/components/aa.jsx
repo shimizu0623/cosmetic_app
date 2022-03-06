@@ -17,8 +17,8 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import ListSubheader from '@mui/material/ListSubheader';
-import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
+import IconButton from '@mui/material/IconButton';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 
 
@@ -48,34 +48,29 @@ export const MyPage = () => {
         <div className='MainContainer'>
 
 
-                        <ImageList>
-                            <ImageListItem key="Subheader" cols={7}>
-                                {/* <ListSubheader component="div">December</ListSubheader> */}
-                            </ImageListItem>
-                            {itemData.map((item) => (
-                                <ImageListItem key={item.img}>
-                                <img
-                                    src={`${item.img}?w=248&fit=crop&auto=format`}
-                                    srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                                    alt={item.name}
-                                    loading="lazy"
-                                />
-                                <ImageListItemBar
-                                title={item.brand}
-                                subtitle={item.name}
-                                classes={{
-                                    root: classes.titleBar,
-                                    title: classes.title,
-                                }}
-                                // actionIcon={
-                                //     <IconButton aria-label={`star ${item.title}`}>
-                                //     <StarBorderIcon className={classes.title} />
-                                //     </IconButton>
-                                // }
-                                />
-                                </ImageListItem>
-                            ))}
-                        </ImageList>
+          {/* <Box
+              className={classes.cardBox}
+              sx={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  '& > :not(style)': {
+                  margin: '0 auto',
+                  width: 128,
+                  height: 128,
+                  },
+              }}
+          >
+              <Paper className={classes.cardPaper}></Paper>
+              <Paper className={classes.cardPaper}></Paper>
+              <Paper className={classes.cardPaper}></Paper>
+              <Paper className={classes.cardPaper}></Paper>
+              <Paper className={classes.cardPaper}></Paper>
+          </Box> */}
+
+
+
+
+
 
                 
         <div>
@@ -110,79 +105,6 @@ export const MyPage = () => {
     }
 
 
-    const itemData = [
-        {
-          img: 'https://source.unsplash.com/random',
-          brand: 'Dior',
-          name: 'emulsion',
-        //   rows: 2,
-        //   cols: 2,
-        //   featured: true,
-        },
-        {
-          img: 'https://source.unsplash.com/random',
-          brand: 'Dior',
-          name: 'cream',
-        },
-        {
-          img: 'https://source.unsplash.com/random',
-          brand: 'Dior',
-          name: 'skinToner',
-        },
-        {
-          img: 'https://source.unsplash.com/random',
-          brand: 'Dior',
-          name: 'skinToner',
-        //   cols: 2,
-        },
-        {
-          img: 'https://source.unsplash.com/random',
-          brand: 'Dior',
-          name: 'skinToner',
-        //   cols: 2,
-        },
-        {
-          img: 'https://source.unsplash.com/random',
-          brand: 'Dior',
-          name: 'emulsion',
-        //   rows: 2,
-        //   cols: 2,
-        //   featured: true,
-        },
-        {
-          img: 'https://source.unsplash.com/random',
-          brand: 'Dior',
-          name: 'skinToner',
-        },
-        {
-          img: 'https://source.unsplash.com/random',
-          brand: 'Dior',
-          name: 'washCream',
-        },
-        {
-          img: 'https://source.unsplash.com/random',
-          brand: 'Dior',
-          name: 'serum',
-        //   rows: 2,
-        //   cols: 2,
-        },
-        {
-          img: 'https://source.unsplash.com/random',
-          brand: 'Dior',
-          name: 'cream',
-        },
-        {
-          img: 'https://source.unsplash.com/random',
-          brand: 'Dior',
-          name: 'skinToner',
-        },
-        {
-          img: 'https://source.unsplash.com/random',
-          brand: 'Dior',
-          name: 'serum',
-        //   cols: 2,
-        },
-      ];
 
 
 

@@ -1,4 +1,6 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import axios from 'axios'
+
 import leaf_menu_img from '../img/leaf_menu_img.jpg';
 import leaf_favorite_img from '../img/leaf_favorite_img.jpg';
 import leaf_history_img from '../img/leaf_history_img.jpg';
@@ -7,6 +9,7 @@ import oily_skin_img from '../img/oily_skin_img.jpg';
 import combination_skin_img from '../img/combination_skin_img.jpg';
 import sensitive_skin_img from '../img/sensitive_skin_img.jpg';
 
+import CircularProgress from '@mui/material/CircularProgress';
 import Avatar from '@mui/material/Avatar';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import Link from '@material-ui/core/Link';
@@ -14,7 +17,10 @@ import { Link as RouterLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Box from '@mui/material/Box';
 import { Paper } from '@mui/material';
-import smile_img from '../img/smile.jpg';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+import ImageListItemBar from '@mui/material/ImageListItemBar';
+
 
 
 const useStyles = makeStyles({
@@ -45,7 +51,7 @@ const useStyles = makeStyles({
     // },
     skinPaper: {
         backgroundSize: "90px auto",
-        margin: '0 20px',
+        margin: '0 20px 10px',
         '&:hover':{
             cursor: 'pointer',          
         }
@@ -65,7 +71,7 @@ const useStyles = makeStyles({
 
     },
     cardPaper: {
-        
+
         '&:hover':{
             cursor: 'pointer',          
         }
@@ -78,7 +84,7 @@ const useStyles = makeStyles({
     styleChild: {
         // flexGrow: '1',
         maxWidth: '200px',
-        margin: '0 50px',
+        margin: 'auto 30px',
 
     }
 
@@ -104,14 +110,38 @@ const onClickSensitiveSkin = () => {
 
 export const MyPage = () => {
     const classes = useStyles();
+    const [user, setUser] = useState();
+    useEffect(async () => {
+        const response = await axios.get('http://localhost/api/me')
+        const u = response.data
+        setUser(u)
+    }, [])
+
+    const userInformation = () => {
+            // if(user === null){
+            //     return console.log('none')
+            //     // return <CircularProgress color="success" size="15px" />
+            // }
+            return(
+                // console.log(user)
+                <div style={{margin: 'auto 0', width: '200px'}}>
+                    <p>{user && user.name}</p>
+                    <p>20代/女性</p>
+                    <p>SENSITIVE SKIN</p>
+                </div>
+            )
+    }
 
     return(
         <>
         <div className='MainContainer'>
+            <div>マイページ</div>
+            
+            
             <div className={classes.styleParent}>
                 <div className={classes.styleChild} >
                     <Avatar 
-                    //   src="/broken-image.jpg"
+                        //   src="/broken-image.jpg"
                         // src={smile_img}
                         sx={{ width: 150, height: 150 }}
                         variant="rounded"
@@ -119,11 +149,9 @@ export const MyPage = () => {
                     <AssignmentIcon />
                     </Avatar>
                 </div>
-                <div style={{margin: 'auto 0'}}>
-                    <p>名前</p>
-                    <p>DRYスキンタイプ</p>
-                    <p>20代/女性</p>
-                </div>
+
+                {userInformation()}
+                
                 <div className={classes.skinTypeForm}>
                     <p style={{marginBottom: '20px'}}>＜自分のスキンタイプを変更する＞</p>
                     <Box
@@ -185,52 +213,67 @@ export const MyPage = () => {
 
             <div className='favorite'>
                 <img src={leaf_favorite_img} alt="leaf_favorite_img" className={classes.img}/>
-                <Box
-                    className={classes.cardBox}
-                    sx={{
-                        display: 'flex',
-                        flexWrap: 'wrap',
-                        '& > :not(style)': {
-                        margin: '0 auto',
-                        width: 128,
-                        height: 128,
-                        },
+                
+
+
+                <ImageList>
+                <ImageListItem key="Subheader" cols={7}>
+                    {/* <ListSubheader component="div">December</ListSubheader> */}
+                </ImageListItem>
+                {itemData.map((item) => (
+                    <ImageListItem key={item.img}>
+                    <img
+                        src={`${item.img}?w=248&fit=crop&auto=format`}
+                        srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                        alt={item.name}
+                        loading="lazy"
+                    />
+                    <ImageListItemBar
+                    title={item.brand}
+                    subtitle={item.name}
+                    classes={{
+                        root: classes.titleBar,
+                        title: classes.title,
                     }}
-                >
-                    <Paper className={classes.cardPaper}></Paper>
-                    <Paper className={classes.cardPaper}></Paper>
-                    <Paper className={classes.cardPaper}></Paper>
-                    <Paper className={classes.cardPaper}></Paper>
-                    <Paper className={classes.cardPaper}></Paper>
-                </Box>
+                    />
+                    </ImageListItem>
+                ))}
+                </ImageList>
+
+
 
             </div>
             
+
+
+
             <div className='history'>
                 <img src={leaf_history_img} alt="leaf_history_img" className={classes.img}/>
-                <Box
-                    className={classes.cardBox}
-                    sx={{
-                        display: 'flex',
-                        flexWrap: 'wrap',
-                        '& > :not(style)': {
-                        margin: '0 auto',
-                        width: 128,
-                        height: 128,
-                        },
+                
+                
+                <ImageList>
+                <ImageListItem key="Subheader" cols={7}>
+                    {/* <ListSubheader component="div">December</ListSubheader> */}
+                </ImageListItem>
+                {itemData.map((item) => (
+                    <ImageListItem key={item.img}>
+                    <img
+                        src={`${item.img}?w=248&fit=crop&auto=format`}
+                        srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                        alt={item.name}
+                        loading="lazy"
+                    />
+                    <ImageListItemBar
+                    title={item.brand}
+                    subtitle={item.name}
+                    classes={{
+                        root: classes.titleBar,
+                        title: classes.title,
                     }}
-                >
-                    <Paper className={classes.cardPaper}></Paper>
-                    <Paper className={classes.cardPaper}></Paper>
-                    <Paper className={classes.cardPaper}></Paper>
-                    <Paper className={classes.cardPaper}></Paper>
-                    <Paper className={classes.cardPaper}></Paper>
-                </Box>
-
-
-
-
-
+                    />
+                    </ImageListItem>
+                ))}
+                </ImageList>
 
 
             </div>
@@ -246,7 +289,14 @@ export const MyPage = () => {
                       >
                         お客様情報変更
                     </Link>
-                    {/* <Link style={StyleLink} component={RouterLink} to='/'>リクエスト</Link> */}
+                    <Link 
+                      className={classes.menu}
+                      underline="none"
+                      component={RouterLink} 
+                      to='/'
+                      >
+                          リクエスト
+                    </Link>
                     <Link 
                       className={classes.menu}
                       underline="none"
@@ -264,3 +314,77 @@ export const MyPage = () => {
         </>
     )
 }
+
+const itemData = [
+    {
+      img: 'https://source.unsplash.com/random',
+      brand: 'Dior',
+      name: 'emulsion',
+    //   rows: 2,
+    //   cols: 2,
+    //   featured: true,
+    },
+    {
+      img: 'https://source.unsplash.com/random',
+      brand: 'Dior',
+      name: 'cream',
+    },
+    {
+      img: 'https://source.unsplash.com/random',
+      brand: 'Dior',
+      name: 'skinToner',
+    },
+    {
+      img: 'https://source.unsplash.com/random',
+      brand: 'Dior',
+      name: 'skinToner',
+    //   cols: 2,
+    },
+    {
+      img: 'https://source.unsplash.com/random',
+      brand: 'Dior',
+      name: 'skinToner',
+    //   cols: 2,
+    },
+    {
+      img: 'https://source.unsplash.com/random',
+      brand: 'Dior',
+      name: 'emulsion',
+    //   rows: 2,
+    //   cols: 2,
+    //   featured: true,
+    },
+    {
+      img: 'https://source.unsplash.com/random',
+      brand: 'Dior',
+      name: 'skinToner',
+    },
+    {
+      img: 'https://source.unsplash.com/random',
+      brand: 'Dior',
+      name: 'washCream',
+    },
+    {
+      img: 'https://source.unsplash.com/random',
+      brand: 'Dior',
+      name: 'serum',
+    //   rows: 2,
+    //   cols: 2,
+    },
+    // {
+    //   img: 'https://source.unsplash.com/random',
+    //   brand: 'Dior',
+    //   name: 'cream',
+    // },
+    // {
+    //   img: 'https://source.unsplash.com/random',
+    //   brand: 'Dior',
+    //   name: 'skinToner',
+    // },
+    // {
+    //   img: 'https://source.unsplash.com/random',
+    //   brand: 'Dior',
+    //   name: 'serum',
+    // //   cols: 2,
+    // },
+  ];
