@@ -8,6 +8,8 @@ import dry_skin_img from '../img/dry_skin_img.jpg';
 import oily_skin_img from '../img/oily_skin_img.jpg';
 import combination_skin_img from '../img/combination_skin_img.jpg';
 import sensitive_skin_img from '../img/sensitive_skin_img.jpg';
+import rightArrow_img from '../img/rightArrow_yellow.jpg';
+import leftArrow_img from '../img/leftArrow_yellow.jpg';
 
 import CircularProgress from '@mui/material/CircularProgress';
 import Avatar from '@mui/material/Avatar';
@@ -20,6 +22,7 @@ import { Paper } from '@mui/material';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
+import ListSubheader from '@mui/material/ListSubheader';
 
 
 
@@ -41,7 +44,15 @@ const useStyles = makeStyles({
     },
     img: {
         maxWidth: '200px',
-        margin: '60px auto 30px',
+        margin: '90px auto 0',
+    },
+    arrow: {
+        maxWidth: '50px',
+        margin: 'auto 0',
+        '&:hover':{
+            cursor: 'pointer',
+            opacity: '0.6',
+        }
     },
     skinTypeForm: {
         margin: '0 auto',
@@ -105,6 +116,12 @@ const onClickCombinationSkin = () => {
 const onClickSensitiveSkin = () => {
     console.log('SensitiveSkin')
     alert("スキンタイプをSensitiveSkinに変更しました")
+}
+const onClickRight = () => {
+    console.log('onClickRight')
+}
+const onClickLeft = () => {
+    console.log('onClickLeft')
 }
 
 
@@ -214,12 +231,15 @@ export const MyPage = () => {
             <div className='favorite'>
                 <img src={leaf_favorite_img} alt="leaf_favorite_img" className={classes.img}/>
                 
+                
 
 
                 <ImageList>
-                <ImageListItem key="Subheader" cols={7}>
-                    {/* <ListSubheader component="div">December</ListSubheader> */}
+                <ImageListItem key="Subheader" cols={12}>
+                    <ListSubheader component="div">お気に入りに登録中のアイテム</ListSubheader>
                 </ImageListItem>
+
+                <img src={leftArrow_img} className={classes.arrow} onClick={onClickLeft} />
                 {itemData.map((item) => (
                     <ImageListItem key={item.img}>
                     <img
@@ -229,16 +249,15 @@ export const MyPage = () => {
                         loading="lazy"
                     />
                     <ImageListItemBar
-                    title={item.brand}
-                    subtitle={item.name}
-                    classes={{
-                        root: classes.titleBar,
-                        title: classes.title,
-                    }}
+                        title={item.brand}
+                        subtitle={item.name}
                     />
                     </ImageListItem>
                 ))}
+                <img src={rightArrow_img} className={classes.arrow} onClick={onClickRight} />
                 </ImageList>
+
+
 
 
 
@@ -252,9 +271,11 @@ export const MyPage = () => {
                 
                 
                 <ImageList>
-                <ImageListItem key="Subheader" cols={7}>
-                    {/* <ListSubheader component="div">December</ListSubheader> */}
+                <ImageListItem key="Subheader" cols={12}>
+                    <ListSubheader component="div">最近チェックしたアイテム</ListSubheader>
                 </ImageListItem>
+
+                <img src={leftArrow_img} className={classes.arrow} onClick={onClickLeft} />
                 {itemData.map((item) => (
                     <ImageListItem key={item.img}>
                     <img
@@ -264,15 +285,12 @@ export const MyPage = () => {
                         loading="lazy"
                     />
                     <ImageListItemBar
-                    title={item.brand}
-                    subtitle={item.name}
-                    classes={{
-                        root: classes.titleBar,
-                        title: classes.title,
-                    }}
+                        title={item.brand}
+                        subtitle={item.name}
                     />
                     </ImageListItem>
                 ))}
+                <img src={rightArrow_img} className={classes.arrow} onClick={onClickRight} />
                 </ImageList>
 
 
@@ -354,23 +372,23 @@ const itemData = [
     //   cols: 2,
     //   featured: true,
     },
-    {
-      img: 'https://source.unsplash.com/random',
-      brand: 'Dior',
-      name: 'skinToner',
-    },
-    {
-      img: 'https://source.unsplash.com/random',
-      brand: 'Dior',
-      name: 'washCream',
-    },
-    {
-      img: 'https://source.unsplash.com/random',
-      brand: 'Dior',
-      name: 'serum',
+    // {
+    //   img: 'https://source.unsplash.com/random',
+    //   brand: 'Dior',
+    //   name: 'skinToner',
+    // },
+    // {
+    //   img: 'https://source.unsplash.com/random',
+    //   brand: 'Dior',
+    //   name: 'washCream',
+    // },
+    // {
+    //   img: 'https://source.unsplash.com/random',
+    //   brand: 'Dior',
+    //   name: 'serum',
     //   rows: 2,
     //   cols: 2,
-    },
+    // },
     // {
     //   img: 'https://source.unsplash.com/random',
     //   brand: 'Dior',
