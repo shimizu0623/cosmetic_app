@@ -44,7 +44,7 @@ const useStyles = makeStyles({
         }
     },
     img: {
-        maxWidth: '200px',
+        maxWidth: '250px',
         margin: '90px auto 0',
     },
     header: {
@@ -98,12 +98,11 @@ const useStyles = makeStyles({
         justifyContent: 'center',
         padding: '30px 0 0 0',
     },
-    styleChild: {
-        // flexGrow: '1',
-        maxWidth: '200px',
-        margin: 'auto 30px',
-
-    }
+    // styleChild: {
+    //     // flexGrow: '1',
+    //     maxWidth: '200px',
+    //     margin: 'auto 30px',
+    // }
 
 })
 
@@ -147,8 +146,8 @@ export const MyPage = () => {
             // }
             return(
                 // console.log(user)
-                <div style={{margin: 'auto 0', width: '200px'}}>
-                    <p>{user && user.name}</p>
+                <div style={{margin: 'auto 0', width: '300px'}}>
+                    <p style={{ fontSize: '30px', marginBottom: '15px' }}>{user && user.name}</p>
                     <p>20代/女性</p>
                     <p>SENSITIVE SKIN</p>
                 </div>
@@ -162,7 +161,7 @@ export const MyPage = () => {
             
             
             <div className={classes.styleParent}>
-                <div className={classes.styleChild} >
+                {/* <div className={classes.styleChild} >
                     <Avatar 
                         //   src="/broken-image.jpg"
                         // src={smile_img}
@@ -171,7 +170,7 @@ export const MyPage = () => {
                     >
                     <AssignmentIcon />
                     </Avatar>
-                </div>
+                </div> */}
 
                 {userInformation()}
                 

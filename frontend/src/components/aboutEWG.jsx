@@ -7,6 +7,7 @@ import Hazard from "../img/img_Hazard.PNG"
 import LowHazard from "../img/level_LowHazard.PNG"
 import ModerateHazard from "../img/level_ModerateHazard.PNG"
 import HighHazard from "../img/level_HighHazard.PNG"
+// import headerAboutEWG from "../img/headerAboutEWG.jpg"
 
 
 export const EWG = (props) => {
@@ -18,6 +19,7 @@ export const EWG = (props) => {
           <div className="aboutEWG">
               <div className="aboutEWGImage"></div>
               <h1 className="aboutEWGTitle"> EWGってなに？</h1>
+              {/* <img src={headerAboutEWG} alt="header_img" /> */}
           </div>
           <div className="explain">
               <img src={EWGLogo} id="EWG-logo_img" alt="EWG-logo_img" />
