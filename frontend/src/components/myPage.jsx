@@ -319,7 +319,7 @@ export const MyPage = () => {
                       className={classes.menu}
                       underline="none"
                       component={RouterLink} 
-                      to=''
+                      to='/confirm'
                       >
                         退会
                     </Link>

@@ -7,6 +7,8 @@ import { CreateAccount } from "./components/createAccountPage";
 import { EWG } from "./components/aboutEWG";
 import { MyPage } from "./components/myPage";
 import { Test } from "./components/test";
+import { DeleteConfirm } from "./components/deleteConfirm";
+import { DeleteInformation } from "./components/deletedInformation";
 
 import {
   BrowserRouter,
@@ -42,6 +44,14 @@ ReactDom.render(
           <Route
               path='/test'
               element={<Test />}
+            />  
+          <Route
+              path='/confirm'
+              element={<DeleteConfirm />}
+            />  
+          <Route
+              path='/delete'
+              element={<DeleteInformation />}
             />  
         </Route>
       </Routes>
