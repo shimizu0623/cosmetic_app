@@ -233,13 +233,11 @@ export const MyPage = () => {
                 </div>
             </div>
 
+{/* favorite */}
 
             <div className='favorite'>
                 <img src={leaf_favorite_img} alt="leaf_favorite_img" className={classes.img}/>
                 
-                
-
-
                 <ImageList>
                 <ImageListItem key="Subheader" cols={12}>
                     <ListSubheader component="div">お気に入りに登録中のアイテム</ListSubheader>
@@ -247,13 +245,13 @@ export const MyPage = () => {
 
                 <img src={leftArrow_img} className={classes.arrow} onClick={onClickLeft} />
                 {itemData.map((item) => (
-                    <ImageListItem key={item.img}>
+                    <ImageListItem key={item.img} className={classes.cardPaper}>
                     <img
                         src={`${item.img}?w=248&fit=crop&auto=format`}
                         srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
                         alt={item.name}
                         loading="lazy"
-                        className={classes.cardPaper}
+                        
                     />
                     <ImageListItemBar
                         title={item.brand}
@@ -264,18 +262,13 @@ export const MyPage = () => {
                 <img src={rightArrow_img} className={classes.arrow} onClick={onClickRight} />
                 </ImageList>
 
-
-
-
-
             </div>
             
-
+{/* history */}
 
 
             <div className='history'>
                 <img src={leaf_history_img} alt="leaf_history_img" className={classes.img}/>
-                
                 
                 <ImageList>
                 <ImageListItem key="Subheader" cols={12}>
@@ -284,13 +277,12 @@ export const MyPage = () => {
 
                 <img src={leftArrow_img} className={classes.arrow} onClick={onClickLeft} />
                 {itemData.map((item) => (
-                    <ImageListItem key={item.img}>
+                    <ImageListItem key={item.img} className={classes.cardPaper}>
                     <img
                         src={`${item.img}?w=248&fit=crop&auto=format`}
                         srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
                         alt={item.name}
                         loading="lazy"
-                        className={classes.cardPaper}
                     />
                     <ImageListItemBar
                         title={item.brand}
@@ -300,10 +292,11 @@ export const MyPage = () => {
                 ))}
                 <img src={rightArrow_img} className={classes.arrow} onClick={onClickRight} />
                 </ImageList>
-
-
             </div>
             
+{/* menu */}
+
+
             <div className='menu'>
                 <img src={leaf_menu_img} alt="leaf_menu_img" className={classes.img}/>
                 <div>
