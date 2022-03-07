@@ -10,6 +10,7 @@ import combination_skin_img from '../img/combination_skin_img.jpg';
 import sensitive_skin_img from '../img/sensitive_skin_img.jpg';
 import rightArrow_img from '../img/rightArrow_yellow.jpg';
 import leftArrow_img from '../img/leftArrow_yellow.jpg';
+import header_img from '../img/headerMyPage.jpg';
 
 import CircularProgress from '@mui/material/CircularProgress';
 import Avatar from '@mui/material/Avatar';
@@ -45,6 +46,9 @@ const useStyles = makeStyles({
     img: {
         maxWidth: '200px',
         margin: '90px auto 0',
+    },
+    header: {
+        width: '100%',
     },
     arrow: {
         maxWidth: '50px',
@@ -154,7 +158,7 @@ export const MyPage = () => {
     return(
         <>
         <div className='MainContainer'>
-            <div>マイページ</div>
+            <img src={header_img} alt="header" className={classes.header}/>
             
             
             <div className={classes.styleParent}>
