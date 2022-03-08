@@ -132,7 +132,7 @@ const onClickLeft = () => {
 
 export const MyPage = () => {
     const classes = useStyles();
-    const [user, setUser] = useState();
+    const [user, setUser] = useState(null);
     useEffect(async () => {
         const response = await axios.get('http://localhost/api/me')
         const u = response.data
@@ -140,16 +140,14 @@ export const MyPage = () => {
     }, [])
 
     const userInformation = () => {
-            // if(user === null){
-            //     return console.log('none')
-            //     // return <CircularProgress color="success" size="15px" />
-            // }
+            if(user === null){
+                return <CircularProgress color="success" size="35px" />
+            }
             return(
-                // console.log(user)
                 <div style={{margin: 'auto 0', width: '300px'}}>
-                    <p style={{ fontSize: '30px', marginBottom: '15px' }}>{user && user.name}</p>
-                    <p>20代/女性</p>
-                    <p>SENSITIVE SKIN</p>
+                    <p style={{ fontSize: '30px', marginBottom: '15px' }}>{user.name}</p>
+                    <p>{user.birthday_string}/{user.gender_name}</p>
+                    <p>{user.skin_type_name}</p>
                 </div>
             )
     }
@@ -250,7 +248,6 @@ export const MyPage = () => {
                         srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
                         alt={item.name}
                         loading="lazy"
-                        
                     />
                     <ImageListItemBar
                         title={item.brand}

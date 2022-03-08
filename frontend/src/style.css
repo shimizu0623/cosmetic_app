@@ -34,7 +34,10 @@ body {
   user-select: none;
   margin: auto;
   text-align: center;
-  font-family: "Alegreya Sans SC";
+  /* font-family: "Alegreya Sans SC"; */
+  font-family: "Open Sans", "Segoe UI", Verdana, Arial,
+    "UD デジタル 教科書体 NK-R", "游ゴシック Medium", "Yu Gothic Medium",
+    "游ゴシック", YuGothic, "メイリオ", Meiryo, "ヒラギノ角ゴ Pro W3";
 }
 
 .MainContainer {
@@ -60,10 +63,11 @@ body {
 }
 
 .menu button {
-  font-size: 20px;
+  font-size: 25px;
   padding: 0 20px;
   color: #455a64;
   line-height: 60px;
+  font-family: "Alegreya Sans SC";
 }
 
 .PageTop {
