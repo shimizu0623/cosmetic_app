@@ -15,16 +15,16 @@ class SkinTypeSeeder extends Seeder
     public function run()
     {
         DB::table('skin_types')->insert([
-            'name' => '乾燥肌',
+            'name' => 'DRY SKIN',
         ]);
         DB::table('skin_types')->insert([
-            'name' => '脂性肌',
+            'name' => 'OILY SKIN',
         ]);
         DB::table('skin_types')->insert([
-            'name' => '混合肌',
+            'name' => 'COMBINATION SKIN',
         ]);
         DB::table('skin_types')->insert([
-            'name' => '敏感肌',
+            'name' => 'SENSITIVE SKIN',
         ]);
     }
 }

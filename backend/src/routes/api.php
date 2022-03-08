@@ -9,6 +9,8 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ItemsController;
 use App\Http\Controllers\IngredientsController;
 use App\Http\Controllers\ItemIngredientsController;
+use App\Http\Controllers\GendersController;
+use App\Http\Controllers\SkinTroublesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +29,9 @@ Route::get('/brands', [BrandsController::class, 'index']);
 Route::get('/categories', [CategoriesController::class, 'index']);
 Route::get('/items', [ItemsController::class, 'index']);
 Route::get('/ingredients', [IngredientsController::class, 'index']);
-Route::get('/item_ingredients', [IngredientsController::class, 'index']);
+Route::get('/item_ingredients', [ItemIngredientsController::class, 'index']);
+Route::get('/genders', [GendersController::class, 'index']);
+Route::get('/skin_troubles', [SkinTroublesController::class, 'index']);
 // Route::get('/users', [UsersController::class, 'index']);
 Route::get('/me', [UsersController::class, 'me']);
 
