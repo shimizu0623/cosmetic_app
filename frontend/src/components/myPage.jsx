@@ -74,7 +74,7 @@ const useStyles = makeStyles({
     },
     p: {
         color: '#0c5b64',
-        fontSize: '20px',
+        fontSize: '18px',
         fontWeight: 'bold',
         textAlign:'center',
         height:'90px',
@@ -144,7 +144,7 @@ export const MyPage = () => {
                 return <CircularProgress color="success" size="35px" />
             }
             return(
-                <div style={{margin: 'auto 0', width: '300px'}}>
+                <div style={{margin: 'auto 0', width: '400px'}}>
                     <p style={{ fontSize: '30px', marginBottom: '15px' }}>{user.name}</p>
                     <p>{user.birthday_string}/{user.gender_name}</p>
                     <p>{user.skin_type_name}</p>
