@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import axios from 'axios'
+import axios from 'axios';
 
 import leaf_menu_img from '../img/leaf_menu_img.jpg';
 import leaf_favorite_img from '../img/leaf_favorite_img.jpg';

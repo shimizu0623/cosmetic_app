@@ -1,5 +1,6 @@
 import React from 'react';
 import { Header } from './components/header';
+import { HeaderLogoOnly } from './components/headerLogoOnly';
 import { Footer } from './components/footer';
 // import { TopPage } from './components/topPage';
 // import { EWG } from './components/aboutEWG';
@@ -32,6 +33,8 @@ const App = () =>{
         onClickMenu={onClickMenu}
         onClickSearch={onClickSearch}
       />
+
+      {/* <HeaderLogoOnly /> */}
 
       <Outlet />
       {/* <LoginPage /> */}

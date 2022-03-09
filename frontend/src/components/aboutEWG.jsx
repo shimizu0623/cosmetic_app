@@ -1,5 +1,4 @@
 import React from 'react';
-import { LoginBtn } from './loginBtn';
 
 import EWGLogo from "../img/EWG-logo.jpeg"
 import Level from "../img/level.PNG"
@@ -50,10 +49,6 @@ export const EWG = (props) => {
                   </div>
               <p>「EWG Green等級」は、1~2等級の安全性が高い等級のことです。</p>
               <p>{webName}では、EWG等級を表示し、消費者の皆様がより安心安全に製品を選ぶことができるようにサポート致します。</p>
-
-              <div className='LoginBtn'>
-              <LoginBtn />
-              </div>
 
           </div>
         </div>
