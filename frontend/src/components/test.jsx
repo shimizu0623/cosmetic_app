@@ -13,6 +13,9 @@
 // }
 
 import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+
 import Avatar from '@mui/material/Avatar';
 // import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -60,30 +63,39 @@ const theme = createTheme();
 
 export const Test = () => {
   const classes = useStyles();
-  const [gender, setGender] = React.useState('');
-  const [userInformation, setUserInformation] = useState()
+  const [userInformation, setUserInformation] = useState({})
+  const navigate = useNavigate();
 
-
-  const handleChangeGender = (event) => {
-    setGender(event.target.value);
-    setUserInformation({...userInformation, gender: event.target.value})
+  const handleUserInformationChange = (event) => {
+    setUserInformation({...userInformation, [event.target.name]: event.target.value})
   };
 
-  const handleChangeName = (event) => {
-    setUserInformation({...userInformation, name: event.target.value})
-  };
+  // const handleChangeName = (event) => {
+  //   setUserInformation({...userInformation, name: event.target.value})
+  // };
 
-  const onChangeMailAddress = (event) => {
-    setUserInformation({...userInformation, email: event.target.value})
+  // const onChangeMailAddress = (event) => {
+  //   // console.log(event.target.name)
+  //   setUserInformation({...userInformation, email: event.target.value})
+  // }
+
+  // const handleChangeDate = (event) => {
+  //   setUserInformation({...userInformation, date: event.target.value})
+  // };
+
+  const onClickRegister = async () => {
+    try {
+      console.log(userInformation);
+      const response = await axios.post('http://localhost/api/register', userInformation);
+      console.log(response);
+      // TODO: トークンを取得する処理を書く
+      navigate("/");
+    } catch (e) {
+      window.alert('登録に失敗しました');
+      console.error(e)
+      return;
+    }
   }
-
-  const handleChangeDate = (event) => {
-    setUserInformation({...userInformation, date: event.target.value})
-  };
-
-  const onClickRegister = () => {
-    console.log(userInformation)
-}
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -103,8 +115,8 @@ export const Test = () => {
         showPassword: false,
       });
     
-      const handleChange = (prop) => (event) => {
-        setValues({ ...values, [prop]: event.target.value });
+      const handleChange = (event) => {
+        // setValues({ ...values, [prop]: event.target.value });
         setUserInformation({...userInformation, password:event.target.value})
       };
     
@@ -185,11 +197,12 @@ export const Test = () => {
               <FormControl>
                   <InputLabel id="demo-simple-select-helper-label">性別</InputLabel>
                   <Select
+                  name="gender_id"
                   labelId="demo-simple-select-helper-label"
                   id="demo-simple-select-helper"
-                  value={gender}
-                  label="gender"
-                  onChange={handleChangeGender}
+                  value={userInformation.gender_id}
+                  label="gender_id"
+                  onChange={handleUserInformationChange}
                 //   margin="normal"
                 //   required
                 //   fullWidth
@@ -217,7 +230,7 @@ export const Test = () => {
                 name="name"
                 autoComplete="name"
                 autoFocus
-                onChange={handleChangeName}
+                onChange={handleUserInformationChange}
               />
 
             <form className={classes.container} noValidate>
@@ -227,7 +240,7 @@ export const Test = () => {
                 fullWidth
                 id="date"
                 label="生年月日"
-                name="date"
+                name="birth_date"
                 type="date"
                 className={classes.textField}
                 autoComplete="date"
@@ -235,7 +248,7 @@ export const Test = () => {
                 InputLabelProps={{
                     shrink: true,
                 }}
-                onChange={handleChangeDate}
+                onChange={handleUserInformationChange}
               />
             </form>          
               <TextField
@@ -247,7 +260,7 @@ export const Test = () => {
                 name="email"
                 autoComplete="email"
                 autoFocus
-                onChange={onChangeMailAddress}
+                onChange={handleUserInformationChange}
               />
               <OutlinedInput
                 margin="normal"
@@ -256,7 +269,7 @@ export const Test = () => {
                 name="password"
                 label="パスワード"
                 type={values.showPassword ? 'text' : 'password'}
-                onChange={handleChange('password')}
+                onChange={handleUserInformationChange}
                 id="password"
                 autoComplete="current-password"
                 endAdornment={

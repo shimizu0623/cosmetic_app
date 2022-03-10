@@ -28,29 +28,54 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: theme.spacing(1),
         marginRight: theme.spacing(1),
         width: 200,
-    },
-}));
-
-export const CreateAccount = () => {
-    const classes = useStyles();
-    const [gender, setGender] = React.useState('');
-    const [userInformation, setUserInformation] = useState()
-
+      },
+    }));
+    
+    export const CreateAccount = () => {
+      const classes = useStyles();
+      // const [gender, setGender] = React.useState('');
+      const [userInformation, setUserInformation] = useState({});
+      
+      const [values, setValues] = React.useState({
+          // amount: '',
+          // weight: '',
+          // weightRange: '',
+          // password: '',
+          showPassword: false,
+        });
     
     const handleChangeGender = (event) => {
-      setGender(event.target.value);
-      setUserInformation({...userInformation, gender: event.target.value})
+      // setGender(event.target.value);
+      setUserInformation({...userInformation, gender_id: event.target.value})
     };
     const handleChangeName = (event) => {
       setUserInformation({...userInformation, name: event.target.value})
     };
     const handleChangeEmail = (event) => {
-      setUserInformation({...userInformation, email: event.target.value})
+      // setUserInformation({...userInformation, email: event.target.value})
+      console.log(event.target.name)
+
     };
     const handleChangeDate = (event) => {
-      setUserInformation({...userInformation, date: event.target.value})
+      setUserInformation({...userInformation, birth_date: event.target.value})
     };
 
+    const handleChange = (event) => {
+      // setValues({ ...values, [prop]: event.target.value });
+      console.log(event.target.name)
+      setUserInformation({...userInformation, password: event.target.value})
+    };
+    
+    const handleClickShowPassword = () => {
+      setValues({
+        ...values,
+        showPassword: !values.showPassword,
+      });
+    };
+  
+    const handleMouseDownPassword = (event) => {
+      event.preventDefault();
+    };
     const onClickRegister = () => {
         console.log(userInformation)
     }
@@ -68,29 +93,7 @@ export const CreateAccount = () => {
       
     ];
 
-    const [values, setValues] = React.useState({
-        amount: '',
-        password: '',
-        weight: '',
-        weightRange: '',
-        showPassword: false,
-      });
     
-      const handleChange = (prop) => (event) => {
-        setValues({ ...values, [prop]: event.target.value });
-        setUserInformation({...userInformation, password: event.target.value})
-    };
-    
-      const handleClickShowPassword = () => {
-        setValues({
-          ...values,
-          showPassword: !values.showPassword,
-        });
-      };
-    
-      const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-      };
 
       const styleForm = {
           width:'250px',
@@ -119,7 +122,7 @@ export const CreateAccount = () => {
         <div className='MainContainer' style={styleParent}>
             <section className='Sidebar' style={styleChild}>
             <div className='PageTop'>
-            <h1>Sign up</h1>
+            <h1>1111Sign up</h1>
             <p>アカウント作成</p>
             </div>
             </section>
@@ -135,11 +138,13 @@ export const CreateAccount = () => {
             </Stack>
 
             <FormControl style={styleForm}>
+              
                 <InputLabel id="demo-simple-select-helper-label">性別</InputLabel>
                 <Select
+                name="gender_id"
                 labelId="demo-simple-select-helper-label"
                 id="demo-simple-select-helper"
-                value={gender}
+                value={userInformation.gender_id}
                 label="gender"
                 onChange={handleChangeGender}
                 >
@@ -150,6 +155,7 @@ export const CreateAccount = () => {
 
             <Box>
             <TextField
+                name="name"
                 style={styleForm}
                 // helperText="Please enter your name"
                 id="demo-helper-text-aligned"
@@ -159,10 +165,11 @@ export const CreateAccount = () => {
             </Box>
             <form className={classes.container} noValidate>
             <TextField
+                name="birth_date"
                 style={styleForm}
                 id="date"
                 label="生年月日"
-                type="date"
+                type="birth_date"
                 className={classes.textField}
                 InputLabelProps={{
                 shrink: true,
@@ -172,6 +179,7 @@ export const CreateAccount = () => {
             </form>          
             <Box>
             <TextField
+                name="email"
                 style={styleForm}
                 // helperText="Please enter your email"
                 id="demo-helper-text-aligned"
@@ -182,10 +190,11 @@ export const CreateAccount = () => {
             <FormControl  variant="outlined" style={styleForm}>
                 <InputLabel htmlFor="outlined-adornment-password">パスワード</InputLabel>
                 <OutlinedInput
+                name="password"
                 id="outlined-adornment-password"
                 type={values.showPassword ? 'text' : 'password'}
                 value={values.password}
-                onChange={handleChange('password')}
+                onChange={handleChange}
                 endAdornment={
                     <InputAdornment position="end">
                     <IconButton
