@@ -1,11 +1,11 @@
 import React from 'react';
 
-export const itemComparison = () => {
+export const ItemComparison = () => {
     return(
         <>
         <div className='MainContainer'>
 
-         <p>comparison</p>
+         <p>商品比較</p>
 
         </div>
         </>

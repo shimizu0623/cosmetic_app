@@ -177,8 +177,8 @@ export const LoginPage = () => {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3}}
-                // component={RouterLink}
-                // to="/homePage"
+                component={RouterLink}
+                to="/homePage"
                 onClick={onClickLogin}
               >
                 ログイン
@@ -188,8 +188,8 @@ export const LoginPage = () => {
                 fullWidth
                 variant="outlined"
                 sx={{ mt: 2, mb: 2 }}
-                // component={RouterLink}
-                // to="/homePage"
+                component={RouterLink}
+                to="/homePage"
               >
                 ゲストログイン
               </Button>
@@ -203,8 +203,7 @@ export const LoginPage = () => {
                 <Grid item>
                   <Link
                     component={RouterLink}
-                    to="/test" 
-                    // to="/createAccount" 
+                    to="/createAccount" 
                     variant="body2">
                     {"アカウントをお持ちでない方はこちら"}
                   </Link>

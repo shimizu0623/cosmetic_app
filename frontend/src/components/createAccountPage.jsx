@@ -1,21 +1,31 @@
 import React, { useState } from 'react';
-import Box from '@mui/material/Box';
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+
+import Avatar from '@mui/material/Avatar';
+import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
-import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
-import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import Link from '@material-ui/core/Link';
 import { Link as RouterLink } from "react-router-dom";
-import { makeStyles } from '@material-ui/core/styles';
 import { RegisterBtn } from './registerBtn';
+
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 
@@ -27,194 +37,229 @@ const useStyles = makeStyles((theme) => ({
     textField: {
         marginLeft: theme.spacing(1),
         marginRight: theme.spacing(1),
-        width: 200,
-      },
-    }));
-    
-    export const CreateAccount = () => {
-      const classes = useStyles();
-      // const [gender, setGender] = React.useState('');
-      const [userInformation, setUserInformation] = useState({});
-      
-      const [values, setValues] = React.useState({
-          // amount: '',
-          // weight: '',
-          // weightRange: '',
-          // password: '',
-          showPassword: false,
-        });
-    
-    const handleChangeGender = (event) => {
-      // setGender(event.target.value);
-      setUserInformation({...userInformation, gender_id: event.target.value})
-    };
-    const handleChangeName = (event) => {
-      setUserInformation({...userInformation, name: event.target.value})
-    };
-    const handleChangeEmail = (event) => {
-      // setUserInformation({...userInformation, email: event.target.value})
-      console.log(event.target.name)
+    },
+}));
 
-    };
-    const handleChangeDate = (event) => {
-      setUserInformation({...userInformation, birth_date: event.target.value})
-    };
 
-    const handleChange = (event) => {
-      // setValues({ ...values, [prop]: event.target.value });
-      console.log(event.target.name)
-      setUserInformation({...userInformation, password: event.target.value})
-    };
-    
-    const handleClickShowPassword = () => {
-      setValues({
-        ...values,
-        showPassword: !values.showPassword,
-      });
-    };
-  
-    const handleMouseDownPassword = (event) => {
-      event.preventDefault();
-    };
-    const onClickRegister = () => {
-        console.log(userInformation)
+const theme = createTheme();
+
+export const Test = () => {
+  const classes = useStyles();
+  const [userInformation, setUserInformation] = useState({})
+  const navigate = useNavigate();
+
+  const handleUserInformationChange = (event) => {
+    setUserInformation({...userInformation, [event.target.name]: event.target.value})
+  };
+
+  const onClickRegister = async () => {
+    try {
+      console.log(userInformation);
+      const response = await axios.post('http://localhost/api/register', userInformation);
+      console.log(response);
+      // TODO: トークンを取得する処理を書く
+      navigate("/");
+    } catch (e) {
+      window.alert('登録に失敗しました');
+      console.error(e)
+      return;
     }
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    // eslint-disable-next-line no-console
+    console.log({
+      email: data.get('email'),
+      password: data.get('password'),
+    });
+  };
+
+  const [values, setValues] = React.useState({
+        amount: '',
+        password: '',
+        weight: '',
+        weightRange: '',
+        showPassword: false,
+  });
+        
+  const handleClickShowPassword = () => {
+    setValues({
+      ...values,
+      showPassword: !values.showPassword,
+    });
+  };
     
-    const breadcrumbs = [
-      <Link underline="hover" key="1" color="inherit" component={RouterLink} to='/'>
-        TOP
-      </Link>,
-      <Link underline="hover" key="2" color="inherit" component={RouterLink} to='/login'>
-        Login
-      </Link>,
-      <Typography key="3" color="text.primary">
-        Sign up
-      </Typography>,
-      
-    ];
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
+  const styleMain = {
+    margin: '60px auto 0',
+  }
+
+  const breadcrumbs = [
+    <Link underline="hover" key="1" color="inherit" component={RouterLink} to='/'>
+      TOP
+    </Link>,
+    <Link underline="hover" key="2" color="inherit" component={RouterLink} to='/login'>
+      Login
+    </Link>,
+    <Typography key="3" color="text.primary">
+      Sign up
+    </Typography>,
     
+  ];
 
-      const styleForm = {
-          width:'250px',
-          margin:'5px auto',
-      }
+  return (
+    <div className='Main' style={styleMain}>
+    <ThemeProvider theme={theme}>
+    <Stack spacing={2} >
+            <Breadcrumbs
+            separator={<NavigateNextIcon fontSize="small" />}
+            aria-label="breadcrumb"
+            className='StyleLink'
+            >
+            {breadcrumbs}
+            </Breadcrumbs>
+          </Stack>
+      <Grid container component="main" sx={{ height: '100vh' }}>
+        <CssBaseline />
+        <Grid
+          item
+          xs={false}
+          sm={4}
+          md={7}
+          sx={{
+            backgroundImage: 'url(https://source.unsplash.com/random)',
+            backgroundRepeat: 'no-repeat',
+            backgroundColor: (t) =>
+              t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+          <Box
+            sx={{
+              my: 8,
+              mx: 4,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign up
+            </Typography>
 
-      const styleLoginForm = {
-        margin: 'auto',
-        flexGrow: '1',
-      }
-
-      const styleParent = {
-        display: 'flex',
-        justifyContent: 'center',
-      }
-
-      const styleChild = {
-        flexGrow: '1',
-        maxWidth: '600px',
-      }
-
-
-
-    return(
-        <>
-        <div className='MainContainer' style={styleParent}>
-            <section className='Sidebar' style={styleChild}>
-            <div className='PageTop'>
-            <h1>1111Sign up</h1>
-            <p>アカウント作成</p>
-            </div>
-            </section>
-        <section className='LoginForm' style={styleLoginForm}>
-            <Stack spacing={2} >
-                <Breadcrumbs
-                separator={<NavigateNextIcon fontSize="small" />}
-                aria-label="breadcrumb"
-                className='StyleLink'
-                >
-                {breadcrumbs}
-                </Breadcrumbs>
-            </Stack>
-
-            <FormControl style={styleForm}>
+            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+              <FormControl>
+                  <InputLabel id="demo-simple-select-helper-label">性別</InputLabel>
+                  <Select
+                  name="gender_id"
+                  labelId="demo-simple-select-helper-label"
+                  id="demo-simple-select-helper"
+                  value={userInformation.gender_id}
+                  label="gender_id"
+                  onChange={handleUserInformationChange}
+                //   margin="normal"
+                //   required
+                //   fullWidth
+                //   name="gender"
+                //   autoComplete="gender"
+                //   autoFocus
+  
+  
+                  sx={{
+                    margin: '0 auto',
+                    minWidth: '200px',
+                  }}
+                  >
+                  <MenuItem value={1}>女性</MenuItem>
+                  <MenuItem value={2}>男性</MenuItem>
+                  </Select>
+              </FormControl>
               
-                <InputLabel id="demo-simple-select-helper-label">性別</InputLabel>
-                <Select
-                name="gender_id"
-                labelId="demo-simple-select-helper-label"
-                id="demo-simple-select-helper"
-                value={userInformation.gender_id}
-                label="gender"
-                onChange={handleChangeGender}
-                >
-                <MenuItem value={1}>女性</MenuItem>
-                <MenuItem value={2}>男性</MenuItem>
-                </Select>
-            </FormControl>
-
-            <Box>
-            <TextField
-                name="name"
-                style={styleForm}
-                // helperText="Please enter your name"
-                id="demo-helper-text-aligned"
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="name"
                 label="ニックネーム"
-                onClick={handleChangeName}
-                />
-            </Box>
+                name="name"
+                autoComplete="name"
+                autoFocus
+                onChange={handleUserInformationChange}
+              />
+
             <form className={classes.container} noValidate>
-            <TextField
-                name="birth_date"
-                style={styleForm}
+              <TextField
+                margin="normal"
+                required
+                fullWidth
                 id="date"
                 label="生年月日"
-                type="birth_date"
+                name="birth_date"
+                type="date"
                 className={classes.textField}
+                autoComplete="date"
+                autoFocus
                 InputLabelProps={{
-                shrink: true,
+                    shrink: true,
                 }}
-                onChange={handleChangeDate}
-            />
+                onChange={handleUserInformationChange}
+              />
             </form>          
-            <Box>
-            <TextField
-                name="email"
-                style={styleForm}
-                // helperText="Please enter your email"
-                id="demo-helper-text-aligned"
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="email"
                 label="メールアドレス"
-                onChange={handleChangeEmail}
-                />
-            </Box>
-            <FormControl  variant="outlined" style={styleForm}>
-                <InputLabel htmlFor="outlined-adornment-password">パスワード</InputLabel>
-                <OutlinedInput
+                name="email"
+                autoComplete="email"
+                autoFocus
+                onChange={handleUserInformationChange}
+              />
+              <OutlinedInput
+                margin="normal"
+                required
+                fullWidth
                 name="password"
-                id="outlined-adornment-password"
+                label="パスワード"
                 type={values.showPassword ? 'text' : 'password'}
-                value={values.password}
-                onChange={handleChange}
+                onChange={handleUserInformationChange}
+                id="password"
+                autoComplete="current-password"
                 endAdornment={
                     <InputAdornment position="end">
-                    <IconButton
+                      <IconButton
                         aria-label="toggle password visibility"
                         onClick={handleClickShowPassword}
                         onMouseDown={handleMouseDownPassword}
                         edge="end"
                         >
                         {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
+                      </IconButton>
                     </InputAdornment>
-                }
-                label="パスワード"
-                />
-            </FormControl>
-        <RegisterBtn
-          onClick={onClickRegister}
-        />
-        </section>
-        </div>
-        </>
-        );
-};
+                  }
+    
+              />
+
+            <RegisterBtn
+              onClick={onClickRegister}
+            />
+              
+            </Box>
+          </Box>
+        </Grid>
+      </Grid>
+    </ThemeProvider>
+    </div>
+  );
+}

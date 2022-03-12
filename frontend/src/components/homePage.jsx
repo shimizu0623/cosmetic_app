@@ -1,11 +1,11 @@
 import React from 'react';
 
-export const ItemLists = () => {
+export const HomePage = () => {
     return(
         <>
         <div className='MainContainer'>
 
-         <p>list</p>
+         <p>HomePage</p>
 
         </div>
         </>
