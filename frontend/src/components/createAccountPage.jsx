@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 
 const theme = createTheme();
 
-export const Test = () => {
+export const CreateAccount = () => {
   const classes = useStyles();
   const [userInformation, setUserInformation] = useState({})
   const navigate = useNavigate();
@@ -167,14 +167,6 @@ export const Test = () => {
                   value={userInformation.gender_id}
                   label="gender_id"
                   onChange={handleUserInformationChange}
-                //   margin="normal"
-                //   required
-                //   fullWidth
-                //   name="gender"
-                //   autoComplete="gender"
-                //   autoFocus
-  
-  
                   sx={{
                     margin: '0 auto',
                     minWidth: '200px',
@@ -254,7 +246,6 @@ export const Test = () => {
             <RegisterBtn
               onClick={onClickRegister}
             />
-              
             </Box>
           </Box>
         </Grid>
