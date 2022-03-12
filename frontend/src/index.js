@@ -7,7 +7,6 @@ import { CreateAccount } from "./components/createAccountPage";
 import { FixAccount } from "./components/fixAccount";
 import { EWG } from "./components/aboutEWG";
 import { MyPage } from "./components/myPage";
-import { Test } from "./components/test";
 import { DeleteConfirm } from "./components/deleteConfirm";
 import { DeleteInformation } from "./components/deletedInformation";
 import { HomePage } from "./components/homePage";
