@@ -236,7 +236,7 @@ export const MyPage = () => {
                 <img src={leaf_favorite_img} alt="leaf_favorite_img" className={classes.img}/>
                 
                 <ImageList>
-                <ImageListItem key="Subheader" cols={12}>
+                <ImageListItem key="Subheader" cols={8}>
                     <ListSubheader component="div">お気に入りに登録中のアイテム</ListSubheader>
                 </ImageListItem>
 
@@ -267,7 +267,7 @@ export const MyPage = () => {
                 <img src={leaf_history_img} alt="leaf_history_img" className={classes.img}/>
                 
                 <ImageList>
-                <ImageListItem key="Subheader" cols={12}>
+                <ImageListItem key="Subheader" cols={8}>
                     <ListSubheader component="div">最近チェックしたアイテム</ListSubheader>
                 </ImageListItem>
 
