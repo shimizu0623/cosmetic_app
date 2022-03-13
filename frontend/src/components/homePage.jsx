@@ -10,7 +10,9 @@ import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import Button from '@mui/material/Button';
 
-
+import rank_1 from '../img/rank_1.jpg';
+import rank_2 from '../img/rank_2.jpg';
+import rank_3 from '../img/rank_3.jpg';
 import green_leaf from '../img/green_leaf_img.jpg';
 import top_img from '../img/Whiteday2020-09.JPG';
 import { borderRadius } from '@mui/system';
@@ -52,7 +54,7 @@ const useStyles = makeStyles({
         maxWidth: '120px',
     },
     itemImg : {
-        maxWidth: '350px',
+        maxWidth: '300px',
     },
     rank : {
         margin: '0 auto',
@@ -169,6 +171,64 @@ export const HomePage = () => {
                 </div>
                 <p style={{fontSize: '20px'}}>肌悩みやEWG等級などもっと詳しく探すなら、<Link component={RouterLink} to="/itemList">こちら</Link></p>
             </div>
+            </div>
+
+            {/* ranking */}
+            <div className='ranking'>
+                <div className='TitleForm'>
+                    <img src={green_leaf} alt="" className={classes.TitleImg} />
+                    <p className={classes.Title}>本日の総合ランキング</p>
+                </div>
+                <div className='RankingForm'>
+                    <ul className={classes.rank} style={{padding: 0}}>
+                        <li><img src={rank_1} alt="rank_1" className={classes.rankingImg}/></li>
+                        <ImageListItem>
+                            <li><img src='https://source.unsplash.com/random' alt="item_img"  className={classes.itemImg}/></li>
+                            <ImageListItemBar
+                            title='商品名'
+                            subtitle='￥10,000'
+                            />
+                        </ImageListItem>
+                    </ul>
+                    <ul className={classes.rank}>
+                        <li><img src={rank_2} alt="rank_2"  className={classes.rankingImg}/></li>
+                        <ImageListItem>
+                            <li><img src='https://source.unsplash.com/random' alt="item_img"  className={classes.itemImg}/></li>
+                            <ImageListItemBar
+                            title='商品名'
+                            subtitle='￥10,000'
+                            />
+                        </ImageListItem>
+                    </ul>
+                    <ul className={classes.rank}>
+                        <li><img src={rank_3} alt="rank_3" className={classes.rankingImg}/></li>
+                        <ImageListItem>
+                            <li><img src='https://source.unsplash.com/random' alt="item_img"  className={classes.itemImg}/></li>
+                            <ImageListItemBar
+                            title='商品名'
+                            subtitle='￥10,000'
+                            />
+                        </ImageListItem>
+                    </ul>
+                </div>
+                <div className='SeeMoreBtn' style={{textAlign: 'right'}}>
+                    <Button 
+                    variant="outlined"
+                    component={RouterLink}
+                    to="/ranking"
+                    style={{
+                        fontSize: '17px',
+                        margin: '20px 0',
+                        padding: '10px',
+                        width: '250px',
+                        color: 'green', 
+                        borderColor: '#a5ca9a', 
+                        border: 'double', 
+                    }}
+                    >
+                        ランキングをもっと見る
+                    </Button>
+                </div>
             </div>
             
             {/* recommend */}
