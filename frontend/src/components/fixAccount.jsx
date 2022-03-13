@@ -94,15 +94,11 @@ export const FixAccount = () => {
     event.preventDefault();
   };
 
-  const styleMain = {
-    margin: '60px auto 0',
-  }
-
 
   return (
     <>
     <div className='MainContainer'>
-    <div className='Main' style={styleMain}>
+    <div className='Main'>
           <Box
             sx={{
               display: 'flex',
@@ -120,7 +116,8 @@ export const FixAccount = () => {
             <img src={header_img} alt="header" style={{width: '100%'}}/>
 
 
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+              <p style={{paddingTop: '50px'}}>変更が完了いたしましたら、修正するボタンを押してください。</p>
+            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 5 }}>
               <FormControl>
                   <InputLabel id="demo-simple-select-helper-label">性別</InputLabel>
                   <Select
