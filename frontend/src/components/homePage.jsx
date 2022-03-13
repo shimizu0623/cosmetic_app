@@ -1,32 +1,37 @@
 import React from 'react';
-
+import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
+import Autocomplete from '@mui/material/Autocomplete';
+import Link from '@mui/material/Link';
 import { Link as RouterLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
+import Button from '@mui/material/Button';
 
 
 import green_leaf from '../img/green_leaf_img.jpg';
-import rightArrow_img from '../img/rightArrow_yellow.jpg';
-import leftArrow_img from '../img/leftArrow_yellow.jpg';
-import rank_1 from '../img/rank_1.jpg';
-import rank_2 from '../img/rank_2.jpg';
-import rank_3 from '../img/rank_3.jpg';
+import top_img from '../img/Whiteday2020-09.JPG';
+import { borderRadius } from '@mui/system';
 
 const useStyles = makeStyles({
+    TopImg: {
+        margin: '0px auto 0',
+        height: '400px',
+        width: '100%',
+        objectFit: 'cover',
+        filter: 'blur(4px)',
+      
+    },
     Form: {
         maxWidth: '1400px',
-    },
-    TitleForm: {
-        // lineHeight: '40px',
-        textAlign : 'left',
     },
     TitleImg: {
         maxWidth: '90px',
         display: 'inline-block',
         verticalAlign: 'middle',
-        // fontSize: '40px',
+        margin: '40px auto',
 
     },
     Title: {
@@ -38,14 +43,6 @@ const useStyles = makeStyles({
         '&:hover':{
             cursor: 'pointer', 
             opacity: '0.6',         
-        }
-    },
-    Arrow: {
-        maxWidth: '50px',
-        margin: 'auto 0',
-        '&:hover':{
-            cursor: 'pointer',
-            opacity: '0.6',
         }
     },
     rankingTitle: {
@@ -62,18 +59,47 @@ const useStyles = makeStyles({
         display: 'inline-block',
         listStyle: 'none',
     },
-    guideMessage : {
-        color: 'rgba(243, 240, 240)',
+    message : {
+        fontSize: '30px',
+        fontWeight: 'bold',
+        color: 'white',
+        textShadow: '2px 0 5px rgb(74, 86, 58)',
+        position: 'relative',
+    },
+    TopMessage: {
+        maxWidth: '1400px',
+        position: 'absolute',
+        top: '50%',
+        left: '40%',
+        transform: 'translate(-30%, -50%)',
+    },
+    guideMessage: {
+        fontSize: '20px',
+        paddingBottom: '20px',
+        color: 'gray',
+    },
+    StyleSearch: {
+        margin: '0 auto',
+        height: '200px',
+        background: '-webkit-gradient(linear,left top,left bottom,from(#cce9cc),to(#e1e9b8))',
+        borderRadius: '10px',
+        position: 'relative',
+        maxWidth: '1100px',
+
+    },
+    SearchMessage: {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+    },
+    SearchForm: {
+        display: 'flex',
+        margin: '0 15%',
+
     },
 
 })
-
-const onClickRight = () => {
-    console.log('onClickRight')
-}
-const onClickLeft = () => {
-    console.log('onClickLeft')
-}
 
 
 export const HomePage = () => {
@@ -82,31 +108,82 @@ export const HomePage = () => {
     return(
         <>
         <div className='MainContainer'>
-                <div className='message'>
-                    <p>〇〇さん、こんにちは！</p>
-                    <p>最近のお肌の調子はいかがですか？</p>
-                    <p>おすすめアイテムは、〇〇さんのスキンタイプに合うように設定されています。</p>
-                    <p>また、過去にお肌に合わなかった商品の中で共通成分がある時は、その成分が含まれていないものを選んでおります。</p>
-                    <p>〇〇さんのお肌に合ったアイテムが見つかりますように。</p>
+                <div className={classes.message}>
+                    <img src={top_img} className={classes.TopImg}/>
+                    <div className={classes.TopMessage}>
+                        <p>〇〇さん、こんにちは！<br/>
+                        最近のお肌の調子はいかがですか？<br/>
+                        おすすめは、〇〇さんのスキンタイプに合うアイテムの中から、<br/>
+                        過去にお肌に合わなかった商品の<br/>
+                        共通成分が含まれていないものを選んでおります。<br/>
+                        〇〇さんのお肌に合ったアイテムが見つかりますように．．</p>
+                    </div>
                 </div>
-                <div className='guideMessage'>
-                    <p className='guideMessage'>スキンタイプはマイページよりいつでも変更できます。</p>
-                    <p>肌に合わなかったアイテムは各商品のページより登録できます。</p>
+                <div className={classes.guideMessage}>
+                    <p>スキンタイプは<Link component={RouterLink} to="/myPage">マイページ</Link>よりいつでも変更できます。</p>
+                    <p>肌に合わなかったアイテムは各商品ページより登録できます。</p>
                 </div>
+
+            {/* search */}
+            <div className={classes.StyleSearch}>
+            <div className={classes.SearchMessage}>
+                <p style={{paddingBottom: '20px', fontSize: '20px'}}>あなたのスキンケアは安全ですか？<br />
+                商品ページからひとつひとつの成分を確認することができます。</p>
+                <div className={classes.SearchForm}>
+
+                <Stack spacing={2} sx={{ width: 250,}}>
+                    <Autocomplete
+                        freeSolo
+                        id="free-solo-2-demo"
+                        disableClearable
+                        options={top100Films.map((option) => option.brand)}
+                        renderInput={(params) => (
+                            <TextField
+                            {...params}
+                            label="ブランドや商品から探す"
+                            InputProps={{
+                                ...params.InputProps,
+                                type: 'search',
+                            }}
+                            />
+                        )}
+                    />
+                </Stack>
+                <Button
+                variant="contained"
+                className={classes.SearchBtn}
+                sx={{
+                    margin: '0 auto 4px 10px',
+                    padding: '10px 25px', 
+                    fontSize: '17px',
+                    background: '#73baae',
+                    '&:hover':{
+                        background: 'rgba(141, 203, 193)', 
+                    }
+                    
+                }}
+                
+                //   component={RouterLink}
+                //   to="/homePage"
+                >検索
+                </Button>
+                </div>
+                <p>肌悩みやEWG等級などもっと詳しく探すなら、<Link component={RouterLink} to="/myPage">こちら</Link></p>
+            </div>
+            </div>
             
             {/* recommend */}
                 <div className='recommend'>
                     <div className='TitleForm'>
                         <img src={green_leaf} alt="" className={classes.TitleImg} />
-                        <p className={classes.Title}>○○さんにおすすめ化粧品5選！</p>
+                        <p className={classes.Title}>○○さんにおすすめの化粧水</p>
                     </div>
                     <div className='Form'>
                     <ImageList>
-                    <ImageListItem cols={8}>
+                    <ImageListItem cols={6}>
                     {/* <ListSubheader component="div">お気に入りに登録中のアイテム</ListSubheader> */}
                     </ImageListItem>
 
-                    <img src={leftArrow_img} className={classes.Arrow} onClick={onClickLeft} />
                     {itemData.map((item) => (
                         <ImageListItem key={item.img} className={classes.CardPaper}>
                         <img
@@ -122,128 +199,73 @@ export const HomePage = () => {
                         />
                         </ImageListItem>
                     ))}
-                    <img src={rightArrow_img} className={classes.Arrow} onClick={onClickRight} />
                     </ImageList>
                     </div>
                 </div>
+                
 
-
-            {/* ranking */}
+            {/* recommend */}
+                <div className='recommend'>
                     <div className='TitleForm'>
                         <img src={green_leaf} alt="" className={classes.TitleImg} />
-                        <span className={classes.Title}>人気ランキング</span>
+                        <p className={classes.Title}>○○さんにおすすめの乳液</p>
                     </div>
+                    <div className='Form'>
+                    <ImageList>
+                    <ImageListItem cols={6}>
+                    </ImageListItem>
 
-                    <div className={classes.rankingForm}>
-                        <p className={classes.rankingTitle}>～総合～</p>
-                        <ul className={classes.rank}>
-                            <li><img src={rank_1} alt="rank_1" className={classes.rankingImg}/></li>
-                            <ImageListItem>
-                                <li><img src='https://source.unsplash.com/random' alt="item_img"  className={classes.itemImg}/></li>
-                                <ImageListItemBar
-                                title='商品名'
-                                subtitle='￥10,000'
-                                />
-                            </ImageListItem>
-                        </ul>
-                        <ul className={classes.rank}>
-                            <li><img src={rank_2} alt="rank_2"  className={classes.rankingImg}/></li>
-                            <ImageListItem>
-                                <li><img src='https://source.unsplash.com/random' alt="item_img"  className={classes.itemImg}/></li>
-                                <ImageListItemBar
-                                title='商品名'
-                                subtitle='￥10,000'
-                                />
-                            </ImageListItem>
-                        </ul>
-                        <ul className={classes.rank}>
-                            <li><img src={rank_3} alt="rank_3" className={classes.rankingImg}/></li>
-                            <ImageListItem>
-                                <li><img src='https://source.unsplash.com/random' alt="item_img"  className={classes.itemImg}/></li>
-                                <ImageListItemBar
-                                title='商品名'
-                                subtitle='￥10,000'
-                                />
-                            </ImageListItem>
-                        </ul>
+                    {itemData.map((item) => (
+                        <ImageListItem key={item.img} className={classes.CardPaper}>
+                        <img
+                            className={classes.img}
+                            src={`${item.img}?w=248&fit=crop&auto=format`}
+                            srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                            alt={item.name}
+                            loading="lazy"
+                        />
+                        <ImageListItemBar
+                            title={item.name}
+                            subtitle={`￥${item.price}`}
+                        />
+                        </ImageListItem>
+                    ))}
+                    </ImageList>
                     </div>
+                </div>
+                
 
 
-
-                    <div className={classes.rankingForm}>
-                        <p className={classes.rankingTitle}>～口コミ数～</p>
-                        <ul className={classes.rank}>
-                            <li><img src={rank_1} alt="rank_1" className={classes.rankingImg}/></li>
-                            <ImageListItem>
-                                <li><img src='https://source.unsplash.com/random' alt="item_img"  className={classes.itemImg}/></li>
-                                <ImageListItemBar
-                                title='商品名'
-                                subtitle='￥10,000'
-                                />
-                            </ImageListItem>
-                        </ul>
-                        <ul className={classes.rank}>
-                            <li><img src={rank_2} alt="rank_2"  className={classes.rankingImg}/></li>
-                            <ImageListItem>
-                                <li><img src='https://source.unsplash.com/random' alt="item_img"  className={classes.itemImg}/></li>
-                                <ImageListItemBar
-                                title='商品名'
-                                subtitle='￥10,000'
-                                />
-                            </ImageListItem>
-                        </ul>
-                        <ul className={classes.rank}>
-                            <li><img src={rank_3} alt="rank_3" className={classes.rankingImg}/></li>
-                            <ImageListItem>
-                                <li><img src='https://source.unsplash.com/random' alt="item_img"  className={classes.itemImg}/></li>
-                                <ImageListItemBar
-                                title='商品名'
-                                subtitle='￥10,000'
-                                />
-                            </ImageListItem>
-                        </ul>
+            {/* recommend */}
+                <div className='recommend'>
+                    <div className='TitleForm'>
+                        <img src={green_leaf} alt="" className={classes.TitleImg} />
+                        <p className={classes.Title}>○○さんにおすすめの美容液</p>
                     </div>
+                    <div className='Form'>
+                    <ImageList>
+                    <ImageListItem cols={6}>
+                    </ImageListItem>
 
-
-
-                    <div className={classes.rankingForm}>
-                        <p className={classes.rankingTitle}>～乾燥肌タイプ～</p>
-                        <ul className={classes.rank}>
-                            <li><img src={rank_1} alt="rank_1" className={classes.rankingImg}/></li>
-                            <ImageListItem>
-                                <li><img src='https://source.unsplash.com/random' alt="item_img"  className={classes.itemImg}/></li>
-                                <ImageListItemBar
-                                title='商品名'
-                                subtitle='￥10,000'
-                                />
-                            </ImageListItem>
-                        </ul>
-                        <ul className={classes.rank}>
-                            <li><img src={rank_2} alt="rank_2"  className={classes.rankingImg}/></li>
-                            <ImageListItem>
-                                <li><img src='https://source.unsplash.com/random' alt="item_img"  className={classes.itemImg}/></li>
-                                <ImageListItemBar
-                                title='商品名'
-                                subtitle='￥10,000'
-                                />
-                            </ImageListItem>
-                        </ul>
-                        <ul className={classes.rank}>
-                            <li><img src={rank_3} alt="rank_3" className={classes.rankingImg}/></li>
-                            <ImageListItem>
-                                <li><img src='https://source.unsplash.com/random' alt="item_img"  className={classes.itemImg}/></li>
-                                <ImageListItemBar
-                                title='商品名'
-                                subtitle='￥10,000'
-                                />
-                            </ImageListItem>
-                        </ul>
+                    {itemData.map((item) => (
+                        <ImageListItem key={item.img} className={classes.CardPaper}>
+                        <img
+                            className={classes.img}
+                            src={`${item.img}?w=248&fit=crop&auto=format`}
+                            srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                            alt={item.name}
+                            loading="lazy"
+                        />
+                        <ImageListItemBar
+                            title={item.name}
+                            subtitle={`￥${item.price}`}
+                        />
+                        </ImageListItem>
+                    ))}
+                    </ImageList>
                     </div>
-
-
-
-
-
+                </div>
+                
 
 
 
@@ -251,6 +273,12 @@ export const HomePage = () => {
         </>
     )
 }
+
+const top100Films = [
+    { brand: 'Dior'},
+    { brand: '資生堂'},
+    { brand: 'FANCL'},
+];
 
 const itemData = [
     {
