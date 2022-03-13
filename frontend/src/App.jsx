@@ -19,20 +19,10 @@ const App = () =>{
   const webName = "(サイトの名前)";
 
 
-  const onClickSearch = () => {
-    alert('search');
-  }
-  const onClickMenu = () => {
-    alert('menu');
-  }
-
   return (
     <>
  
-      <Header
-        onClickMenu={onClickMenu}
-        onClickSearch={onClickSearch}
-      />
+      <Header />
 
       {/* <HeaderLogoOnly /> */}
 

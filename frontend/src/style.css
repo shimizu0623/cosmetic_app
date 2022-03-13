@@ -12,22 +12,13 @@
 
 header {
   position: fixed;
+  text-align: right;
   top: 0;
-  display: flex;
+  /* display: flex; */
   width: 100%;
   height: 60px;
   line-height: 60px;
   background: rgba(243, 240, 240, 0.734);
-}
-
-.header_search button {
-  font-family: "Alegreya Sans SC";
-  letter-spacing: 2px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  border: 1px solid green;
-  border-color: green;
-  color: green;
 }
 
 body {

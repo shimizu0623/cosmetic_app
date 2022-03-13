@@ -1,128 +1,162 @@
 import React from 'react';
 import Button from '@mui/material/Button';
-import SearchIcon from '@material-ui/icons/Search';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import IconButton from '@material-ui/core/IconButton';
 // import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import { Link as RouterLink } from "react-router-dom";
+import Box from '@mui/material/Box';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import ClearIcon from '@mui/icons-material/Clear';
+
+import HomeIcon from '@material-ui/icons/Home';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import ContactSupportIcon from '@material-ui/icons/ContactSupport';
+import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import MailOutlineIcon from '@material-ui/icons/MailOutline';
+import NotInterestedIcon from '@material-ui/icons/NotInterested';
+import PortraitIcon from '@material-ui/icons/Portrait';
+import SearchIcon from '@material-ui/icons/Search';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
+import EqualizerIcon from '@material-ui/icons/Equalizer';
 
 
-export const Header = (props) => {
-    const {onClickMenu,onClickSearch} = props;
+
+export const Header = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
 
-  
-    const handleMenu = (event) => {
-        setAnchorEl(event.currentTarget);
-      };
-      const handleClose = () => {
-        setAnchorEl(null);
-      };
-    return(
-        <>
-        <header>
-            <div className="header_icon">
-                <IconButton
-                    // aria-label="account of current user"
-                    // aria-controls="icon_bar"
-                    // aria-haspopup="true"
-                    onClick={handleMenu}
-                    >
-                    <AccountCircle />
-                </IconButton>
-                <Menu
-                    id="icon_bar"
-                    anchorEl={anchorEl}
-                    // anchorOrigin={{
-                        //   vertical: 'top',
-                        //   horizontal: 'right',
-                        // }}
-                        // keepMounted
-                        // transformOrigin={{
-                            //   vertical: 'top',
-                            //   horizontal: 'right',
-                            // }}
-                    open={open}
-                    onClose={handleClose}
-                >
-                    <MenuItem 
-                      onClick={handleClose}
-                      component={RouterLink}
-                      to='/myPage'
-                      >
-                        My Page
-                    </MenuItem>
-                    <MenuItem 
-                      onClick={handleClose}
-                      component={RouterLink}
-                      to='/'
-                      >
-                        Log out
-                    </MenuItem>
-                </Menu>
-            </div>
+    const [state, setState] = React.useState({left: false});
 
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event &&
+      event.type === 'keydown' &&
+      (event.key === 'Tab' || event.key === 'Shift')
+    ) {
+      return;
+    }
 
+    setState({ ...state, [anchor]: open });
+  };
 
+  const onClickMenu = (anchor) => (
+    <Box
+      sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 300 }}
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
+    <List>
+        {/* <ListItem button>
+          <ClearIcon />
+        </ListItem> */}
+        <ListItem button component={RouterLink} to="/homePage">
+            <ListItemIcon>
+                <HomeIcon />
+            </ListItemIcon>
+            <ListItemText primary='ホームへ戻る' style={{textAlign: 'center'}}/>
+        </ListItem>
+        <ListItem button component={RouterLink} to="/itemList">
+            <ListItemIcon>
+                <SearchIcon />
+            </ListItemIcon>
+            <ListItemText primary='アイテムを探す' style={{textAlign: 'center'}}/>
+        </ListItem>
+        <ListItem button component={RouterLink} to="/myPage">
+            <ListItemIcon>
+                <FavoriteBorderIcon />
+            </ListItemIcon>
+            <ListItemText primary='マイページ' style={{textAlign: 'center'}}/>
+        </ListItem>
+        <ListItem button component={RouterLink} to="/myFolder">
+            <ListItemIcon>
+                <FolderSpecialIcon />
+            </ListItemIcon>
+            <ListItemText primary='マイフォルダ' style={{textAlign: 'center'}}/>
+        </ListItem>
+        <ListItem button component={RouterLink} to="/itemComparison">
+            <ListItemIcon>
+                <EqualizerIcon />
+            </ListItemIcon>
+            <ListItemText primary='コスメ比較' style={{textAlign: 'center'}}/>
+        </ListItem>
+        <ListItem button component={RouterLink} to="/ewg">
+            <ListItemIcon>
+                <ContactSupportIcon />
+            </ListItemIcon>
+            <ListItemText primary='EWGってなに？' style={{textAlign: 'center'}}/>
+        </ListItem>
+        <ListItem button component={RouterLink} to="/ranking">
+            <ListItemIcon>
+                <EmojiEventsIcon />
+            </ListItemIcon>
+            <ListItemText primary='ランキング' style={{textAlign: 'center'}}/>
+        </ListItem>
+        <ListItem button component={RouterLink} to="/rashItemList">
+            <ListItemIcon>
+                <NotInterestedIcon />
+            </ListItemIcon>
+            <ListItemText primary='肌に合わなかったアイテム' style={{textAlign: 'center'}}/>
+        </ListItem>
+        <ListItem button component={RouterLink} to="/help">
+            <ListItemIcon>
+                <HelpOutlineIcon />
+            </ListItemIcon>
+            <ListItemText primary='使い方ヘルプ' style={{textAlign: 'center'}}/>
+        </ListItem>
+        <ListItem button component={RouterLink} to="/fixAccount">
+            <ListItemIcon>
+                <MailOutlineIcon />
+            </ListItemIcon>
+            <ListItemText primary='リクエスト' style={{textAlign: 'center'}}/>
+        </ListItem>
+        <ListItem button component={RouterLink} to="/requestPage">
+            <ListItemIcon>
+                <PortraitIcon />
+            </ListItemIcon>
+            <ListItemText primary='個人情報修正' style={{textAlign: 'center'}}/>
+        </ListItem>
+        <ListItem button component={RouterLink} to="/">
+            <ListItemIcon>
+                <ExitToAppIcon />
+            </ListItemIcon>
+            <ListItemText primary='ログアウト' style={{textAlign: 'center'}}/>
+        </ListItem>
+    </List>
+    </Box>
+  );
+
+return(
+    <>
+    <header>
+
+      <div>
+        {['menu'].map((anchor) => (
+          <React.Fragment key={anchor}>
             <div className="menu">
-                <Button color="success" onClick={onClickMenu}>Menu</Button>
-
-                {/* <span className="material-icons">close</span> */}
+            <Button color="success" onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
             </div>
-            {/* <PopupState variant="popover" popupId="demo-popup-menu">
-              {(popupState) => (
-                <React.Fragment>
-                  <Button variant="contained" color="primary" {...bindTrigger(popupState)}>
-                    Open Menu
-                  </Button>
-                  <Menu {...bindMenu(popupState)}>
-                    <MenuItem onClick={popupState.close}>Cake</MenuItem>
-                    <MenuItem onClick={popupState.close}>Death</MenuItem>
-                  </Menu>
-                </React.Fragment>
-              )}
-            </PopupState> */}
-
-            
-            <div className="header_search">
-                    <Button onClick={onClickSearch} variant="outlined" size='small'><SearchIcon />SEARCH...</Button>
-
-                    {/* <span className="material-icons">close</span> */}
-                    {/* <input id="searchText" type="text" placeholder="キーワードを入力"/> */}
-            </div>
+            <SwipeableDrawer
+              anchor={anchor}
+              open={state[anchor]}
+              onClose={toggleDrawer(anchor, false)}
+              onOpen={toggleDrawer(anchor, true)}
+            >
+              {onClickMenu(anchor)}
+            </SwipeableDrawer>
+          </React.Fragment>
+        ))}
+      </div>
 
 
-
-
-
-
-
-            {/* <nav>
-                <ul>
-                    <li><a href="">ホームへ戻る</a></li>
-                    <li><a href="">マイページ</a></li>
-                    <li><a href="">お気に入り</a></li>
-                    <li><a href="">マイフォルダ</a></li>
-                    <li><a href="">コスメ比較</a></li>
-                    <li><a href="">気になる</a></li>
-                    <li><a href="">肌に合わなかった</a></li>
-                    <li><a href="">EWGってなに？</a></li>
-                    <li><a href="">使い方ヘルプ</a></li>
-                    <li><a href="">個人情報修正</a></li>
-                    <li><a href="">ログアウト</a></li>
-                </ul>
-            </nav> */}
-
-
-
-
-
-
-        </header>
-   
-        </>
+    </header>
+    </>
     )
 }
