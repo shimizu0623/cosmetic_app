@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 
 const theme = createTheme();
 
-export const CreateAccount = () => {
+export const SignUpPage = () => {
   const classes = useStyles();
   const [userInformation, setUserInformation] = useState({})
   const navigate = useNavigate();

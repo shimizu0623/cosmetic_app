@@ -3,7 +3,7 @@ import ReactDom from 'react-dom';
 import App from "./App";
 import { TopPage } from "./components/topPage";
 import { LoginPage } from "./components/loginPage";
-import { CreateAccount } from "./components/createAccountPage";
+import { SignUpPage } from "./components/signUpPage";
 import { FixAccount } from "./components/fixAccount";
 import { EWG } from "./components/aboutEWG";
 import { MyPage } from "./components/myPage";
@@ -32,8 +32,8 @@ ReactDom.render(
               element={<TopPage />}
             />
           <Route
-              path='/createAccount'
-              element={<CreateAccount />}
+              path='/signUpPage'
+              element={<SignUpPage />}
             />  
           <Route
               path='/fixAccount'
