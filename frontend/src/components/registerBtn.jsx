@@ -4,7 +4,7 @@ import { Link as RouterLink } from "react-router-dom";
 
 
 export const RegisterBtn = (props) => {
-    const {onClick} = props;
+    const {onClick, message} = props;
 
 
 
@@ -23,7 +23,7 @@ export const RegisterBtn = (props) => {
         //   component={RouterLink} 
         //   to='/test'
           onClick={onClick}>
-            登録する
+            {message}
         </Button>
         </>
     );

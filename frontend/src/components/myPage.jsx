@@ -300,7 +300,7 @@ export const MyPage = () => {
                       className={classes.menu}
                       underline="none"
                       component={RouterLink} 
-                      to=''                
+                      to='/fixAccount'                
                       >
                         お客様情報変更
                     </Link>

@@ -245,6 +245,7 @@ export const SignUpPage = () => {
 
             <RegisterBtn
               onClick={onClickRegister}
+              message='登録する'
             />
             </Box>
           </Box>
