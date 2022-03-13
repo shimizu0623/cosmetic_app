@@ -141,7 +141,18 @@ return(
         {['menu'].map((anchor) => (
           <React.Fragment key={anchor}>
             <div className="menu">
-            <Button color="success" onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
+            <Button 
+              color="success" 
+              style={{
+                fontSize: '30px', 
+                fontFamily: 'bold', 
+                padding: '0 50px',
+                color: '#455a64', 
+              }} 
+              onClick={toggleDrawer(anchor, true)}
+            >
+              {anchor}
+            </Button>
             </div>
             <SwipeableDrawer
               anchor={anchor}

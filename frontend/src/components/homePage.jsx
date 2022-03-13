@@ -19,7 +19,7 @@ import { borderRadius } from '@mui/system';
 
 const useStyles = makeStyles({
     TopImg: {
-        margin: '0px auto 0',
+        margin: '0px auto',
         height: '400px',
         width: '100%',
         objectFit: 'cover',

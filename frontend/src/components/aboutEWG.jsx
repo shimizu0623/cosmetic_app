@@ -9,6 +9,7 @@ import HighHazard from "../img/level_HighHazard.PNG"
 // import headerAboutEWG from "../img/headerAboutEWG.jpg"
 
 
+
 export const EWG = (props) => {
     const {webName} = props;
 

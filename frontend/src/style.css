@@ -44,22 +44,14 @@ body {
   margin: 10px auto;
 }
 
-.header_search button:hover {
+/* .header_search button:hover {
   border-color: green;
   background-color: rgba(205, 226, 168, 0.612);
-}
-
+} */
+/* 
 .header_search {
   margin: 0 20px 0 auto;
-}
-
-.menu button {
-  font-size: 25px;
-  padding: 0 20px;
-  color: #455a64;
-  line-height: 60px;
-  font-family: "Alegreya Sans SC";
-}
+} */
 
 .PageTop {
   background-color: #cdeef1;

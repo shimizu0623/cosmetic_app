@@ -141,6 +141,7 @@ export const MyPage = () => {
 
     const userInformation = () => {
             if(user === null){
+                // return console.log(user)
                 return <CircularProgress color="success" size="35px" />
             }
             return(
@@ -159,16 +160,6 @@ export const MyPage = () => {
             
             
             <div className={classes.styleParent}>
-                {/* <div className={classes.styleChild} >
-                    <Avatar 
-                        //   src="/broken-image.jpg"
-                        // src={smile_img}
-                        sx={{ width: 150, height: 150 }}
-                        variant="rounded"
-                    >
-                    <AssignmentIcon />
-                    </Avatar>
-                </div> */}
 
                 {userInformation()}
                 
