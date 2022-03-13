@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+
+import header_img from '../img/headerLogin.jpg';
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -118,19 +121,18 @@ export const LoginPage = () => {
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
             sx={{
-              my: 8,
-              mx: 4,
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
               <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
+            </Avatar> */}
+            <img src={header_img} alt="header" style={{width: '100%'}}/>
+            {/* <Typography component="h1" variant="h5">
               Login
-            </Typography>
+            </Typography> */}
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
                 margin="normal"
@@ -148,7 +150,7 @@ export const LoginPage = () => {
                 required
                 fullWidth
                 name="password"
-                label="パスワード"
+                // label="パスワード"
                 type={values.showPassword ? 'text' : 'password'}
                 onChange={handleChange('password')}
                 id="password"
