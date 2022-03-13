@@ -111,13 +111,13 @@ export const Header = () => {
             </ListItemIcon>
             <ListItemText primary='使い方ヘルプ' style={{textAlign: 'center'}}/>
         </ListItem>
-        <ListItem button component={RouterLink} to="/fixAccount">
+        <ListItem button component={RouterLink} to="/requestPage">
             <ListItemIcon>
                 <MailOutlineIcon />
             </ListItemIcon>
             <ListItemText primary='リクエスト' style={{textAlign: 'center'}}/>
         </ListItem>
-        <ListItem button component={RouterLink} to="/requestPage">
+        <ListItem button component={RouterLink} to="/fixAccount">
             <ListItemIcon>
                 <PortraitIcon />
             </ListItemIcon>
