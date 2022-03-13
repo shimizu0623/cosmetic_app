@@ -10,9 +10,11 @@ import { MyPage } from "./components/myPage";
 import { DeleteConfirm } from "./components/deleteConfirm";
 import { DeleteInformation } from "./components/deletedInformation";
 import { HomePage } from "./components/homePage";
+import { ItemList } from "./components/itemList";
 import { ItemDetail } from "./components/itemDetail";
 import { ItemComparison } from "./components/itemComparison";
 import { RequestPage } from "./components/requestPage";
+import { Ranking } from "./components/ranking";
 
 import {
   BrowserRouter,
@@ -62,6 +64,10 @@ ReactDom.render(
               element={<HomePage />}
             />  
           <Route
+              path='/itemList'
+              element={<ItemList />}
+            />  
+          <Route
               path='/itemDetail'
               element={<ItemDetail />}
             />  
@@ -72,6 +78,10 @@ ReactDom.render(
           <Route
               path='/requestPage'
               element={<RequestPage />}
+            />  
+          <Route
+              path='/ranking'
+              element={<Ranking />}
             />  
         </Route>
       </Routes>
