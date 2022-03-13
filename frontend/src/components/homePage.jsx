@@ -95,7 +95,7 @@ const useStyles = makeStyles({
     },
     SearchForm: {
         display: 'flex',
-        margin: '0 15%',
+        margin: '0 10%',
 
     },
 
@@ -131,7 +131,7 @@ export const HomePage = () => {
                 商品ページからひとつひとつの成分を確認することができます。</p>
                 <div className={classes.SearchForm}>
 
-                <Stack spacing={2} sx={{ width: 250,}}>
+                <Stack spacing={2} sx={{ width: 300 }}>
                     <Autocomplete
                         freeSolo
                         id="free-solo-2-demo"
@@ -167,7 +167,7 @@ export const HomePage = () => {
                 >検索
                 </Button>
                 </div>
-                <p>肌悩みやEWG等級などもっと詳しく探すなら、<Link component={RouterLink} to="/itemList">こちら</Link></p>
+                <p style={{fontSize: '20px'}}>肌悩みやEWG等級などもっと詳しく探すなら、<Link component={RouterLink} to="/itemList">こちら</Link></p>
             </div>
             </div>
             
