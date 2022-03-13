@@ -80,34 +80,22 @@ body {
   margin: 10px auto 0 10px;
 }
 
-.topImage {
+/* .topImage {
   width: 100%;
   height: 420px;
   margin: auto 0;
   background: url("./img/cosmetic_background3.jpg");
   filter: blur(4px);
-}
+} */
 
-.aboutEWGImage {
-  width: 100%;
-  height: 100%;
-  margin: auto 0;
-  background: linear-gradient(
-      120deg,
-      rgba(105, 194, 199, 0.2),
-      rgba(141, 203, 193, 0.5)
-    ),
-    url("./img/Whiteday2020-09.JPG");
-}
-
-#trouble_face_img,
+/* #trouble_face_img,
 #thinking_img,
 #use_pc_img,
 #smile_img {
   height: 130px;
   width: auto;
   margin: 0 0 20px 0;
-}
+} */
 
 #EWGlevel_img {
   height: 90px;
@@ -150,7 +138,7 @@ body {
   margin: 10px;
 }
 
-.balloonLeft {
+/* .balloonLeft {
   position: relative;
   margin: 10px auto 15px 250px;
   padding: 10px;
@@ -210,19 +198,19 @@ body {
   bottom: 3px;
   background: #bee7bca5;
   border-radius: 50%;
-}
+} */
 
-.topMain {
+/* .topMain {
   max-width: 1400px;
   margin: 50px auto 0;
-}
+} */
 
-.topMain p {
+/* .topMain p {
   margin: 0;
   padding: 0;
-}
+} */
 
-.topIconLeft {
+/* .topIconLeft {
   position: absolute;
   left: -200px;
   top: 20px;
@@ -232,25 +220,21 @@ body {
   position: absolute;
   right: -200px;
   top: 20px;
-}
+} */
 
-.aboutEWG,
-.top {
+/* .top {
   height: 400px;
   margin: 0 auto;
   position: relative;
   max-width: 1400px;
-}
+} */
 
-.topTitle {
+/* .topTitle {
   margin: 0 auto;
   line-height: 100px;
-  max-width: 1000px;
-}
-
-.aboutEWGTitle,
-.topTitle {
-  font-size: 50px;
+  max-width: 1000px; */
+/* width: 800px; */
+/* font-size: 50px;
   font-weight: bold;
   color: white;
   text-shadow: 2px 0 5px rgb(74, 86, 58);
@@ -258,7 +242,7 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
+} */
 
 .explain {
   margin: 30px 60px;
@@ -281,17 +265,6 @@ body {
   margin: 4px;
   display: inline-block;
 }
-/* .menu li {
-  font-size: 23px;
-  color: white;
-  list-style: none;
-  width: 200px;
-  line-height: 200px;
-  border-radius: 50%;
-  background: #4dc9b2c9;
-  margin: 4px;
-  display: inline-block;
-} */
 
 .SkinType li:hover {
   cursor: pointer;

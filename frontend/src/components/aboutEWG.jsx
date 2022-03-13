@@ -6,7 +6,10 @@ import Hazard from "../img/img_Hazard.PNG"
 import LowHazard from "../img/level_LowHazard.PNG"
 import ModerateHazard from "../img/level_ModerateHazard.PNG"
 import HighHazard from "../img/level_HighHazard.PNG"
-// import headerAboutEWG from "../img/headerAboutEWG.jpg"
+import headerAboutEWG from "../img/headerAboutEWG.jpg"
+
+import Link from '@mui/material/Link';
+import { Link as RouterLink } from "react-router-dom";
 
 
 
@@ -16,11 +19,7 @@ export const EWG = (props) => {
     return(
         <>
         <div className='MainContainer'>
-          <div className="aboutEWG">
-              <div className="aboutEWGImage"></div>
-              <h1 className="aboutEWGTitle"> EWGってなに？</h1>
               {/* <img src={headerAboutEWG} alt="header_img" /> */}
-          </div>
           <div className="explain">
               <img src={EWGLogo} id="EWG-logo_img" alt="EWG-logo_img" />
 
@@ -51,6 +50,14 @@ export const EWG = (props) => {
               <p>「EWG Green等級」は、1~2等級の安全性が高い等級のことです。</p>
               <p>{webName}では、EWG等級を表示し、消費者の皆様がより安心安全に製品を選ぶことができるようにサポート致します。</p>
 
+              <h2>EWG等級が低いものを探すには？</h2>
+              <p>右上にあるMENUボタン → <Link component={RouterLink} to="/itemList">アイテムを探す</Link>より検索することができます。</p>
+              <p>①画面〇〇にある、EWGランクの低いアイテムという欄にチェックをします</p>
+              {/* <img src="" alt="" /> */}
+              <p>②ご希望に合わせて、カテゴリーや肌悩みを選択し、検索ボタンをクリックします。</p>
+              {/* <img src="" alt="" /> */}
+              <p>過去にお肌に合わなかった商品の共通成分がある時は、<br />
+                肌に合わない成分という欄にもチェックを入れておくと、〇〇さんに合ったアイテムを見つけやすくなります。</p>
           </div>
         </div>
         </>
