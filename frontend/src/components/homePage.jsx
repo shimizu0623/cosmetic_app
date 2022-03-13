@@ -162,13 +162,12 @@ export const HomePage = () => {
                     }
                     
                 }}
-                
-                //   component={RouterLink}
-                //   to="/homePage"
+                  component={RouterLink}
+                  to="/itemList"
                 >検索
                 </Button>
                 </div>
-                <p>肌悩みやEWG等級などもっと詳しく探すなら、<Link component={RouterLink} to="/myPage">こちら</Link></p>
+                <p>肌悩みやEWG等級などもっと詳しく探すなら、<Link component={RouterLink} to="/itemList">こちら</Link></p>
             </div>
             </div>
             
