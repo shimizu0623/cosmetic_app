@@ -153,7 +153,6 @@ export const HomePage = () => {
                 </Stack>
                 <Button
                 variant="contained"
-                className={classes.SearchBtn}
                 sx={{
                     margin: '0 auto 4px 10px',
                     padding: '10px 25px', 
@@ -169,7 +168,7 @@ export const HomePage = () => {
                 >検索
                 </Button>
                 </div>
-                <p style={{fontSize: '20px'}}>肌悩みやEWG等級などもっと詳しく探すなら、<Link component={RouterLink} to="/itemList">こちら</Link></p>
+                <p style={{fontSize: '20px'}}>肌悩みやEWG等級別など<Link component={RouterLink} to="/itemList">条件をつける</Link>こともできます</p>
             </div>
             </div>
 
@@ -212,18 +211,22 @@ export const HomePage = () => {
                     </ul>
                 </div>
                 <div className='SeeMoreBtn' style={{textAlign: 'right'}}>
+
                     <Button 
-                    variant="outlined"
+                    variant="contained"
                     component={RouterLink}
                     to="/ranking"
-                    style={{
+                    sx={{
+                        color: 'white',
                         fontSize: '17px',
                         margin: '20px 0',
                         padding: '10px',
                         width: '250px',
-                        color: 'green', 
-                        borderColor: '#a5ca9a', 
-                        border: 'double', 
+                        borderColor: 'none', 
+                        background: '#73baae',
+                        '&:hover':{
+                            background: 'rgba(141, 203, 193)', 
+                        }
                     }}
                     >
                         ランキングをもっと見る
