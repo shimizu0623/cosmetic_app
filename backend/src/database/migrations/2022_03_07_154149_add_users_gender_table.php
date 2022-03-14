@@ -15,7 +15,7 @@ class AddUsersGenderTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->bigInteger('gender_id')->unsigned()->after('name');
-            $table->foreign('gender_id')->references('id')->on('genders') ;
+            $table->foreign('gender_id')->references('id')->on('genders');
         });
     }
 

@@ -14,6 +14,9 @@ use App\Http\Controllers\IngredientsController;
 use App\Http\Controllers\ItemIngredientsController;
 use App\Http\Controllers\GendersController;
 use App\Http\Controllers\SkinTroublesController;
+use App\Http\Controllers\ContactsController;
+use App\Http\Controllers\UserContactsController;
+use App\Http\Controllers\UserItemsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +43,9 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/item_ingredients', [ItemIngredientsController::class, 'index']);
     Route::get('/genders', [GendersController::class, 'index']);
     Route::get('/skin_troubles', [SkinTroublesController::class, 'index']);
+    Route::get('/contacts', [ContactsController::class, 'index']);
+    Route::get('/user_contacts', [UserContactsController::class, 'index']);
+    Route::get('/user_items', [UserItemsController::class, 'index']);
     // Route::get('/users', [UsersController::class, 'index']);
     Route::get('/me', [UsersController::class, 'me']);    
     

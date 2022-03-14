@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\Contact;
 
-class UsersController extends Controller
+
+class ContactsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,29 +16,7 @@ class UsersController extends Controller
     public function index()
     {
         return response()->json(
-            User::all()
-        );
-    }
-
-    public function me()
-    {
-        $user = User::find(1);
-
-        return response()->json(
-            // User::find(1)
-            // [
-            //     'id' => 1,
-            //     'name' => 'Shimizu',             
-            // ]
-            [
-                'id' => $user->id,
-                'name' => $user->name,
-                'birthday_string' => $user->birthday_string(),
-                'gender_name' => $user->gender->name,
-                // 'gender_name' => $user->gender()->name,
-                'skin_type_name' => $user->skin_type->name,
-                // 'skin_type_name' => $user->skin_type()->name,
-            ]
+            Contact::all()
         );
     }
 

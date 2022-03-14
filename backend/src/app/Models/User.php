@@ -14,7 +14,7 @@ class User extends Authenticatable
     // use HasFactory;
     use HasApiTokens, HasFactory, Notifiable;
     
-    protected $fillable = ['name','gender_id','birth_date','email','password','skin_type_id'];
+    protected $fillable = ['name','gender_id','birth_date','email','password','skin_type_id','contact_id'];
 
     public function skin_type()
     {
@@ -24,6 +24,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Genders::class);
     }
+    // public function contact()
+    // {
+    //     return $this->belongsTo(Contact::class);
+    // }
 
     public function birthday_string() {
         $today = date('Ymd');
