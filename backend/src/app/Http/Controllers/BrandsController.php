@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Brands;
+use App\Models\Brand;
 
 class BrandsController extends Controller
 {
@@ -15,7 +15,7 @@ class BrandsController extends Controller
     public function index()
     {
         return response()->json(
-            Brands::all()
+            Brand::all()
         );
     }
 

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Categories;
+use App\Models\Category;
 
 class CategoriesController extends Controller
 {
@@ -15,7 +15,7 @@ class CategoriesController extends Controller
     public function index()
     {
         return response()->json(
-            Categories::all()
+            Category::all()
         );
     }
 

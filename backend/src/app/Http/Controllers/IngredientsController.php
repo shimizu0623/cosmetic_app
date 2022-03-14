@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Ingredients;
+use App\Models\Ingredient;
 
 class IngredientsController extends Controller
 {
@@ -15,7 +15,7 @@ class IngredientsController extends Controller
     public function index()
     {
         return response()->json(
-            Ingredients::all()
+            Ingredient::all()
         );
     }
 

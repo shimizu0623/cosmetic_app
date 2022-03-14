@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Users;
+use App\Models\User;
 
 class UsersController extends Controller
 {
@@ -15,16 +15,16 @@ class UsersController extends Controller
     public function index()
     {
         return response()->json(
-            Users::all()
+            User::all()
         );
     }
 
     public function me()
     {
-        $user = Users::find(1);
+        $user = User::find(1);
 
         return response()->json(
-            // Users::find(1)
+            // User::find(1)
             // [
             //     'id' => 1,
             //     'name' => 'Shimizu',             

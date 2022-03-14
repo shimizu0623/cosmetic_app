@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Genders;
+use App\Models\Gender;
 
 
 class GendersController extends Controller
@@ -16,7 +16,7 @@ class GendersController extends Controller
     public function index()
     {
         return response()->json(
-            Genders::all()
+            Gender::all()
         );
     }
 

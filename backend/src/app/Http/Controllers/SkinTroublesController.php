@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\SkinTroubles;
+use App\Models\SkinTrouble;
 
 class SkinTroublesController extends Controller
 {
@@ -15,7 +15,7 @@ class SkinTroublesController extends Controller
     public function index()
     {
         return response()->json(
-            SkinTroubles::all()
+            SkinTrouble::all()
         );
     }
 
