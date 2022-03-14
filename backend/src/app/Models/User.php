@@ -22,7 +22,7 @@ class User extends Authenticatable
     }
     public function gender()
     {
-        return $this->belongsTo(Genders::class);
+        return $this->belongsTo(Gender::class);
     }
     // public function contact()
     // {
@@ -37,7 +37,7 @@ class User extends Authenticatable
         if($age < 1){
             return '10歳以下';
         }else{
-            return $age . '0代'; //11歳以上から
+            return $age . '0代';
         }
     }
 }
