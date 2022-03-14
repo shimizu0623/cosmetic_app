@@ -1,4 +1,6 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import axios from 'axios';
+
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -9,13 +11,14 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import rank_1 from '../img/rank_1.jpg';
 import rank_2 from '../img/rank_2.jpg';
 import rank_3 from '../img/rank_3.jpg';
 import green_leaf from '../img/green_leaf_img.jpg';
 import top_img from '../img/Whiteday2020-09.JPG';
-import { borderRadius } from '@mui/system';
+// import { borderRadius } from '@mui/system';
 
 const useStyles = makeStyles({
     TopImg: {
@@ -106,19 +109,35 @@ const useStyles = makeStyles({
 
 export const HomePage = () => {
     const classes = useStyles();
+    const [user, setUser] = useState(null);
+    useEffect(async () => {
+        const response = await axios.get('http://localhost/api/me')
+        const u = response.data
+        setUser(u)
+    }, [])
 
+    const userName = () => {
+        if(user === null){
+            // return console.log(user)
+            return <CircularProgress color="success" size="15px" />
+        }
+        return(
+                <p>{user.name}</p>
+        )
+    }
+    
     return(
         <>
         <div className='MainContainer'>
                 <div className={classes.message}>
                     <img src={top_img} className={classes.TopImg}/>
                     <div className={classes.TopMessage}>
-                        <p>〇〇さん、こんにちは！<br/>
+                        <p>{userName()}さん、こんにちは！<br/>
                         最近のお肌の調子はいかがですか？<br/>
-                        おすすめは、〇〇さんのスキンタイプに合うアイテムの中から、<br/>
+                        おすすめは、{userName()}さんのスキンタイプに合うアイテムの中から、<br/>
                         過去にお肌に合わなかった商品の<br/>
                         共通成分が含まれていないものを選んでおります。<br/>
-                        〇〇さんのお肌に合ったアイテムが見つかりますように．．</p>
+                        {userName()}さんのお肌に合ったアイテムが見つかりますように．．</p>
                     </div>
                 </div>
                 <div className={classes.guideMessage}>
@@ -238,7 +257,7 @@ export const HomePage = () => {
                 <div className='recommend'>
                     <div className='TitleForm'>
                         <img src={green_leaf} alt="" className={classes.TitleImg} />
-                        <p className={classes.Title}>○○さんにおすすめの化粧水</p>
+                        <p className={classes.Title}>{userName()}さんにおすすめの化粧水</p>
                     </div>
                     <div className='Form'>
                     <ImageList>
@@ -270,7 +289,7 @@ export const HomePage = () => {
                 <div className='recommend'>
                     <div className='TitleForm'>
                         <img src={green_leaf} alt="" className={classes.TitleImg} />
-                        <p className={classes.Title}>○○さんにおすすめの乳液</p>
+                        <p className={classes.Title}>{userName()}さんにおすすめの乳液</p>
                     </div>
                     <div className='Form'>
                     <ImageList>
@@ -302,7 +321,7 @@ export const HomePage = () => {
                 <div className='recommend'>
                     <div className='TitleForm'>
                         <img src={green_leaf} alt="" className={classes.TitleImg} />
-                        <p className={classes.Title}>○○さんにおすすめの美容液</p>
+                        <p className={classes.Title}>{userName()}さんにおすすめの美容液</p>
                     </div>
                     <div className='Form'>
                     <ImageList>

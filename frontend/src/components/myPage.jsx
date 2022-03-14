@@ -13,8 +13,8 @@ import leftArrow_img from '../img/leftArrow_yellow.jpg';
 import header_img from '../img/headerMyPage.jpg';
 
 import CircularProgress from '@mui/material/CircularProgress';
-import Avatar from '@mui/material/Avatar';
-import AssignmentIcon from '@mui/icons-material/Assignment';
+// import Avatar from '@mui/material/Avatar';
+// import AssignmentIcon from '@mui/icons-material/Assignment';
 import Link from '@material-ui/core/Link';
 import { Link as RouterLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
