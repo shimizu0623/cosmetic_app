@@ -25,12 +25,24 @@ import SearchIcon from '@material-ui/icons/Search';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
-
+import Avatar from '@mui/material/Avatar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Tooltip from '@mui/material/Tooltip';
+import PersonAdd from '@mui/icons-material/PersonAdd';
+import Settings from '@mui/icons-material/Settings';
+import Logout from '@mui/icons-material/Logout';
 
 
 export const HeaderTest = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
     const [state, setState] = React.useState({left: false});
 
@@ -46,126 +58,203 @@ export const HeaderTest = () => {
     setState({ ...state, [anchor]: open });
   };
 
-  const onClickMenu = (anchor) => (
-    <Box
-      sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 300 }}
-      role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-    >
-    <List>
-        {/* <ListItem button>
-          <ClearIcon />
-        </ListItem> */}
-        <ListItem button component={RouterLink} to="/homePage">
-            <ListItemIcon>
-                <HomeIcon />
-            </ListItemIcon>
-            <ListItemText primary='ホームへ戻る' style={{textAlign: 'center'}}/>
-        </ListItem>
-        <ListItem button component={RouterLink} to="/itemList">
-            <ListItemIcon>
-                <SearchIcon />
-            </ListItemIcon>
-            <ListItemText primary='アイテムを探す' style={{textAlign: 'center'}}/>
-        </ListItem>
-        <ListItem button component={RouterLink} to="/myPage">
-            <ListItemIcon>
-                <FavoriteBorderIcon />
-            </ListItemIcon>
-            <ListItemText primary='マイページ' style={{textAlign: 'center'}}/>
-        </ListItem>
-        <ListItem button component={RouterLink} to="/myFolder">
-            <ListItemIcon>
-                <FolderSpecialIcon />
-            </ListItemIcon>
-            <ListItemText primary='マイフォルダ' style={{textAlign: 'center'}}/>
-        </ListItem>
-        <ListItem button component={RouterLink} to="/itemComparison">
-            <ListItemIcon>
-                <EqualizerIcon />
-            </ListItemIcon>
-            <ListItemText primary='コスメ比較' style={{textAlign: 'center'}}/>
-        </ListItem>
-        <ListItem button component={RouterLink} to="/ewg">
-            <ListItemIcon>
-                <ContactSupportIcon />
-            </ListItemIcon>
-            <ListItemText primary='EWGってなに？' style={{textAlign: 'center'}}/>
-        </ListItem>
-        <ListItem button component={RouterLink} to="/ranking">
-            <ListItemIcon>
-                <EmojiEventsIcon />
-            </ListItemIcon>
-            <ListItemText primary='ランキング' style={{textAlign: 'center'}}/>
-        </ListItem>
-        <ListItem button component={RouterLink} to="/rashItemList">
-            <ListItemIcon>
-                <NotInterestedIcon />
-            </ListItemIcon>
-            <ListItemText primary='肌に合わなかったアイテム' style={{textAlign: 'center'}}/>
-        </ListItem>
-        <ListItem button component={RouterLink} to="/help">
-            <ListItemIcon>
-                <HelpOutlineIcon />
-            </ListItemIcon>
-            <ListItemText primary='使い方ヘルプ' style={{textAlign: 'center'}}/>
-        </ListItem>
-        <ListItem button component={RouterLink} to="/requestPage">
-            <ListItemIcon>
-                <MailOutlineIcon />
-            </ListItemIcon>
-            <ListItemText primary='リクエスト' style={{textAlign: 'center'}}/>
-        </ListItem>
-        <ListItem button component={RouterLink} to="/fixAccount">
-            <ListItemIcon>
-                <PortraitIcon />
-            </ListItemIcon>
-            <ListItemText primary='個人情報修正' style={{textAlign: 'center'}}/>
-        </ListItem>
-        <ListItem button component={RouterLink} to="/">
-            <ListItemIcon>
-                <ExitToAppIcon />
-            </ListItemIcon>
-            <ListItemText primary='ログアウト' style={{textAlign: 'center'}}/>
-        </ListItem>
-    </List>
-    </Box>
-  );
+//         <ListItem button component={RouterLink} to="/homePage">
+//             <ListItemIcon>
+//                 <HomeIcon />
+//             </ListItemIcon>
+//             <ListItemText primary='ホームへ戻る' style={{textAlign: 'center'}}/>
+//         </ListItem>
+//         <ListItem button component={RouterLink} to="/itemList">
+//             <ListItemIcon>
+//                 <SearchIcon />
+//             </ListItemIcon>
+//             <ListItemText primary='アイテムを探す' style={{textAlign: 'center'}}/>
+//         </ListItem>
+//         <ListItem button component={RouterLink} to="/myPage">
+//             <ListItemIcon>
+//                 <FavoriteBorderIcon />
+//             </ListItemIcon>
+//             <ListItemText primary='マイページ' style={{textAlign: 'center'}}/>
+//         </ListItem>
+//         <ListItem button component={RouterLink} to="/myFolder">
+//             <ListItemIcon>
+//                 <FolderSpecialIcon />
+//             </ListItemIcon>
+//             <ListItemText primary='マイフォルダ' style={{textAlign: 'center'}}/>
+//         </ListItem>
+//         <ListItem button component={RouterLink} to="/itemComparison">
+//             <ListItemIcon>
+//                 <EqualizerIcon />
+//             </ListItemIcon>
+//             <ListItemText primary='コスメ比較' style={{textAlign: 'center'}}/>
+//         </ListItem>
+//         <ListItem button component={RouterLink} to="/ewg">
+//             <ListItemIcon>
+//                 <ContactSupportIcon />
+//             </ListItemIcon>
+//             <ListItemText primary='EWGってなに？' style={{textAlign: 'center'}}/>
+//         </ListItem>
+//         <ListItem button component={RouterLink} to="/ranking">
+//             <ListItemIcon>
+//                 <EmojiEventsIcon />
+//             </ListItemIcon>
+//             <ListItemText primary='ランキング' style={{textAlign: 'center'}}/>
+//         </ListItem>
+//         <ListItem button component={RouterLink} to="/rashItemList">
+//             <ListItemIcon>
+//                 <NotInterestedIcon />
+//             </ListItemIcon>
+//             <ListItemText primary='肌に合わなかったアイテム' style={{textAlign: 'center'}}/>
+//         </ListItem>
+//         <ListItem button component={RouterLink} to="/help">
+//             <ListItemIcon>
+//                 <HelpOutlineIcon />
+//             </ListItemIcon>
+//             <ListItemText primary='使い方ヘルプ' style={{textAlign: 'center'}}/>
+//         </ListItem>
+//         <ListItem button component={RouterLink} to="/requestPage">
+//             <ListItemIcon>
+//                 <MailOutlineIcon />
+//             </ListItemIcon>
+//             <ListItemText primary='リクエスト' style={{textAlign: 'center'}}/>
+//         </ListItem>
+//         <ListItem button component={RouterLink} to="/fixAccount">
+//             <ListItemIcon>
+//                 <PortraitIcon />
+//             </ListItemIcon>
+//             <ListItemText primary='個人情報修正' style={{textAlign: 'center'}}/>
+//         </ListItem>
+//         <ListItem button component={RouterLink} to="/">
+//             <ListItemIcon>
+//                 <ExitToAppIcon />
+//             </ListItemIcon>
+//             <ListItemText primary='ログアウト' style={{textAlign: 'center'}}/>
+//         </ListItem>
+//     </List>
+//     </Box>
+//   );
 
 return(
     <>
     <header>
       {/* <img src="" alt="logo" style={{}}/> */}
-
       <div>
-        {['menu'].map((anchor) => (
-          <React.Fragment key={anchor}>
-            <div className="menu">
-            <Button 
-              color="success" 
-              style={{
-                fontSize: '30px', 
-                fontFamily: 'bold', 
-                padding: '0 50px',
-                color: '#455a64', 
-              }} 
-              onClick={toggleDrawer(anchor, true)}
-            >
-              {anchor}
-            </Button>
-            </div>
-            <SwipeableDrawer
-              anchor={anchor}
-              open={state[anchor]}
-              onClose={toggleDrawer(anchor, false)}
-              onOpen={toggleDrawer(anchor, true)}
-            >
-              {onClickMenu(anchor)}
-            </SwipeableDrawer>
-          </React.Fragment>
-        ))}
+      <Button
+        id="basic-button"
+        aria-controls={open ? 'basic-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleClick}
+        style={{
+            fontSize: '25px', 
+            fontFamily: 'bold', 
+            padding: '0 40px',
+            color: '#455a64', 
+          }} 
+      >
+        <SearchIcon />
+      </Button>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+        style={{
+            marginTop: '45px',
+            // color: '#455a64', 
+          }} 
+      >
+        {/* <MenuItem>
+          <ListItemIcon>
+            <Logout fontSize="small" />
+          </ListItemIcon>
+          Logout
+        </MenuItem> */}
+
+      </Menu>
+
+
+      
+      <Button
+        id="basic-button"
+        aria-controls={open ? 'basic-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleClick}
+        style={{
+            fontSize: '25px', 
+            fontFamily: 'bold', 
+            padding: '0 40px',
+            color: '#455a64', 
+          }} 
+  >
+        <HelpOutlineIcon />
+      </Button>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+        style={{
+            marginTop: '45px',
+            // color: '#455a64', 
+          }} 
+      >
+        {/* <MenuItem>
+          <ListItemIcon>
+            <Logout fontSize="small" />
+          </ListItemIcon>
+          Logout
+        </MenuItem> */}
+
+      </Menu>
+
+
+
+      <Button
+        id="basic-button"
+        aria-controls={open ? 'basic-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleClick}
+        style={{
+            fontSize: '25px', 
+            fontFamily: 'bold', 
+            padding: '0 40px',
+            color: '#455a64', 
+          }} 
+  >
+        <Avatar />
+      </Button>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+        style={{
+            marginTop: '45px',      
+          }} 
+      >
+        <MenuItem>
+          <ListItemIcon>
+            <Logout fontSize="small" />
+          </ListItemIcon>
+          Logout
+        </MenuItem>
+
+      </Menu>
       </div>
+
+
 
 
     </header>
