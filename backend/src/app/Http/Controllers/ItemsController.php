@@ -19,6 +19,21 @@ class ItemsController extends Controller
         );
     }
 
+    public function item()
+    {
+        $item = Item::find(1);
+
+        return response()->json(
+            [
+                'id' => $item->id,
+                'name' => $item->name,
+                'brand' => $item->brand->name,
+                'price' => $item->price,
+                'img' => $item->img,
+            ]
+        );
+    }
+
     /**
      * Store a newly created resource in storage.
      *
