@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import axios from 'axios';
+import axios from '../axios';
 
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
@@ -110,10 +110,17 @@ const useStyles = makeStyles({
 export const HomePage = () => {
     const classes = useStyles();
     const [user, setUser] = useState(null);
+    const [item, setItem] = useState(null);
     useEffect(async () => {
-        const response = await axios.get('http://localhost/api/me')
+        const response = await axios.get('/me')
         const u = response.data
         setUser(u)
+    }, [])
+
+    useEffect(async () => {
+        const response = await axios.get('/item')
+        const i = response.data
+        setItem(i)
     }, [])
 
     const userName = () => {
@@ -125,6 +132,32 @@ export const HomePage = () => {
                 <p>{user.name}</p>
         )
     }
+
+    const itemName = () => {
+        if(item === null){
+            return <CircularProgress color="success" size="15px" />
+        }
+        return(
+                <p>{item.name}</p>                
+        )
+    }
+    const itemPrice = () => {
+        if(item === null){
+            return <CircularProgress color="success" size="15px" />
+        }
+        return(
+                <p>{item.price}</p>                
+        )
+    }
+    const itemImg = () => {
+        if(item === null){
+            return <CircularProgress color="success" size="15px" />
+        }
+        return(
+             <p>{item.img}</p>                
+        )
+    }
+    
     
     return(
         <>
@@ -201,30 +234,30 @@ export const HomePage = () => {
                     <ul className={classes.rank} style={{padding: 0}}>
                         <li><img src={rank_1} alt="rank_1" className={classes.rankingImg}/></li>
                         <ImageListItem>
-                            <li><img src='https://source.unsplash.com/random' alt="item_img"  className={classes.itemImg}/></li>
+                            <li><img src={itemImg()} alt="item_img"  className={classes.itemImg}/></li>
                             <ImageListItemBar
-                            title='商品名'
-                            subtitle='￥10,000'
+                            title={itemName()}
+                            subtitle={itemPrice()}
                             />
                         </ImageListItem>
                     </ul>
                     <ul className={classes.rank}>
                         <li><img src={rank_2} alt="rank_2"  className={classes.rankingImg}/></li>
                         <ImageListItem>
-                            <li><img src='https://source.unsplash.com/random' alt="item_img"  className={classes.itemImg}/></li>
+                            <li><img src={itemImg()} alt="item_img"  className={classes.itemImg}/></li>
                             <ImageListItemBar
-                            title='商品名'
-                            subtitle='￥10,000'
+                            title={itemName()}
+                            subtitle={itemPrice()}
                             />
                         </ImageListItem>
                     </ul>
                     <ul className={classes.rank}>
                         <li><img src={rank_3} alt="rank_3" className={classes.rankingImg}/></li>
                         <ImageListItem>
-                            <li><img src='https://source.unsplash.com/random' alt="item_img"  className={classes.itemImg}/></li>
+                            <li><img src={itemImg()} alt="item_img"  className={classes.itemImg}/></li>
                             <ImageListItemBar
-                            title='商品名'
-                            subtitle='￥10,000'
+                            title={itemName()}
+                            subtitle={itemPrice()}
                             />
                         </ImageListItem>
                     </ul>
@@ -275,8 +308,8 @@ export const HomePage = () => {
                             loading="lazy"
                         />
                         <ImageListItemBar
-                            title={item.name}
-                            subtitle={`￥${item.price}`}
+                            title={itemName()}
+                            subtitle={itemPrice()}
                         />
                         </ImageListItem>
                     ))}
@@ -306,8 +339,8 @@ export const HomePage = () => {
                             loading="lazy"
                         />
                         <ImageListItemBar
-                            title={item.name}
-                            subtitle={`￥${item.price}`}
+                            title={itemName()}
+                            subtitle={itemPrice()}
                         />
                         </ImageListItem>
                     ))}
@@ -338,8 +371,8 @@ export const HomePage = () => {
                             loading="lazy"
                         />
                         <ImageListItemBar
-                            title={item.name}
-                            subtitle={`￥${item.price}`}
+                            title={itemName()}
+                            subtitle={itemPrice()}
                         />
                         </ImageListItem>
                     ))}

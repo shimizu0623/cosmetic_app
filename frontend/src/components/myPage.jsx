@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import axios from 'axios';
+import axios from '../axios';
 
 import leaf_menu_img from '../img/leaf_menu_img.jpg';
 import leaf_favorite_img from '../img/leaf_favorite_img.jpg';
@@ -25,7 +25,15 @@ import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import ListSubheader from '@mui/material/ListSubheader';
 
-
+// axios.interceptors.request.use(config => {
+//     const token = localStorage.getItem('access-token')
+//     config.headers['Authorization'] = `Bearer ${token}`
+//     config.baseURL = 'http://localhost/api'
+//     return config
+//   }, err => {
+//     return Promise.reject(err)
+//   })
+  
 
 const useStyles = makeStyles({
     menu: {
@@ -133,11 +141,28 @@ const onClickLeft = () => {
 export const MyPage = () => {
     const classes = useStyles();
     const [user, setUser] = useState(null);
+    const [item, setItem] = useState(null);
+
     useEffect(async () => {
-        const response = await axios.get('http://localhost/api/me')
+        // const token = localStorage.getItem('access-token')
+        const response = await axios.get('/me')
+        // const response = await axios.get('http://localhost/api/me')
+        // const response = await axios.get('http://localhost/api/me',{
+        //     headers: {
+        //       'Authorization': `Bearer ${token}`,
+        //     },
+        //   })
         const u = response.data
         setUser(u)
     }, [])
+    
+    
+    useEffect(async () => {
+        const response = await axios.get('/item')
+        const i = response.data
+        setItem(i)
+    }, [])
+
 
     const userInformation = () => {
             if(user === null){
@@ -152,7 +177,41 @@ export const MyPage = () => {
                 </div>
             )
     }
+    
+    const itemName = () => {
+        if(item === null){
+            return <CircularProgress color="success" size="15px" />
+        }
+        return(
+                <p>{item.name}</p>                
+        )
+    }
+    const itemBrand = () => {
+        if(item === null){
+            return <CircularProgress color="success" size="15px" />
+        }
+        return(
+                <p>{item.brand}</p>                
+        )
+    }
+    // const itemPrice = () => {
+    //     if(item === null){
+    //         return <CircularProgress color="success" size="15px" />
+    //     }
+    //     return(
+    //             <p>{item.price}</p>                
+    //     )
+    // }
+    const itemImg = () => {
+        if(item === null){
+            return <CircularProgress color="success" size="15px" />
+        }
+        return(
+             <p>{item.img}</p>                
+        )
+    }
 
+    
     return(
         <>
         <div className='MainContainer'>
@@ -237,12 +296,12 @@ export const MyPage = () => {
                     <img
                         src={`${item.img}?w=248&fit=crop&auto=format`}
                         srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                        alt={item.name}
+                        alt={itemName()}
                         loading="lazy"
                     />
                     <ImageListItemBar
-                        title={item.brand}
-                        subtitle={item.name}
+                        title={itemBrand()}
+                        subtitle={itemName()}
                     />
                     </ImageListItem>
                 ))}
@@ -268,12 +327,12 @@ export const MyPage = () => {
                     <img
                         src={`${item.img}?w=248&fit=crop&auto=format`}
                         srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                        alt={item.name}
+                        alt={itemName()}
                         loading="lazy"
                     />
                     <ImageListItemBar
-                        title={item.brand}
-                        subtitle={item.name}
+                        title={itemBrand()}
+                        subtitle={itemName()}
                     />
                     </ImageListItem>
                 ))}

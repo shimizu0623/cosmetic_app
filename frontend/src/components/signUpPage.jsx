@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import axios from '../axios';
 import header_img from '../img/headerSignUp.jpg';
 
 import { useNavigate } from "react-router-dom";
@@ -54,9 +54,13 @@ export const SignUpPage = () => {
   const onClickRegister = async () => {
     try {
       console.log(userInformation);
-      const response = await axios.post('http://localhost/api/register', userInformation);
+      const response = await axios.post('/register', userInformation);
       console.log(response);
-      // TODO: トークンを取得する処理を書く
+      const loginResponse = await axios.post('/login', {
+        email: userInformation.email,
+        password: userInformation.password,
+      });
+      localStorage.setItem('access-token', loginResponse.data.token);
       navigate("/");
     } catch (e) {
       window.alert('登録に失敗しました');

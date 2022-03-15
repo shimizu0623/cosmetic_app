@@ -5,7 +5,7 @@
 //         <div className='MainContainer'>
 //         <img src={header_img} alt="header" style={{width: '100%'}}/>
 
-import React, { useState } from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import header_img from '../img/headerYourInformation.jpg';
 
@@ -21,6 +21,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Link from '@material-ui/core/Link';
 import { Link as RouterLink } from "react-router-dom";
 import { RegisterBtn } from './registerBtn';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
@@ -44,8 +45,58 @@ const theme = createTheme();
 
 export const FixAccount = () => {
   const classes = useStyles();
+  const [user, setUser] = useState(null);
   const [userInformation, setUserInformation] = useState({})
   const navigate = useNavigate();
+
+  useEffect(async () => {
+    const response = await axios.get('http://localhost/api/me')
+    const u = response.data
+    setUser(u)
+  }, [])
+
+  // const userGender = () => {
+  //   if(user === null){
+  //       // return console.log(user)
+  //       return <CircularProgress color="success" size="15px" />
+  //   }
+  //   return(
+  //           <p>{user.gender_id}</p>
+  //   )
+  // }
+  // const userName = () => {
+  //   if(user === null){
+  //       return <CircularProgress color="success" size="15px" />
+  //   }
+  //   return(
+  //           <p>{user.name}</p>
+  //   )
+  // }
+  // const userBirthDay = () => {
+  //   if(user === null){
+  //       return <CircularProgress color="success" size="15px" />
+  //   }
+  //   return(
+  //           <p>{user.birth_date}</p>
+  //   )
+  // }
+  // const userEmail = () => {
+  //   if(user === null){
+  //       return <CircularProgress color="success" size="15px" />
+  //   }
+  //   return(
+  //           <p>{user.email}</p>
+  //   )
+  // }
+  // const userPassword = () => {
+  //   if(user === null){
+  //       return <CircularProgress color="success" size="15px" />
+  //   }
+  //   return(
+  //           <p>{user.password}</p>
+  //   )
+  // }
+
 
   const handleUserInformationChange = (event) => {
     setUserInformation({...userInformation, [event.target.name]: event.target.value})
@@ -53,7 +104,7 @@ export const FixAccount = () => {
 
   const onClickRegister = async () => {
     try {
-      console.log(userInformation);
+      // console.log(userInformation);
       const response = await axios.post('http://localhost/api/register', userInformation);
       console.log(response);
       // TODO: トークンを取得する処理を書く
