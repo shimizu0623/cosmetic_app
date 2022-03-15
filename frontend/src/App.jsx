@@ -1,4 +1,5 @@
 import React from 'react';
+import { HeaderTest } from './components/headertest';
 import { Header } from './components/header';
 import { HeaderLogoOnly } from './components/headerLogoOnly';
 import { Footer } from './components/footer';
@@ -22,7 +23,8 @@ const App = () =>{
   return (
     <>
  
-      <Header />
+      <HeaderTest />
+      {/* <Header /> */}
 
       {/* <HeaderLogoOnly /> */}
 
