@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { Btn } from './btn';
 import header_img from '../img/headerLogin.jpg';
 
 import Button from '@mui/material/Button';
@@ -100,14 +100,14 @@ export const LoginPage = () => {
             {breadcrumbs}
             </Breadcrumbs>
           </Stack>
-      <Grid container component="main" sx={{ height: '100vh' }}>
+      <Grid container component="main" style={{ height: '100vh' }}>
         <CssBaseline />
         <Grid
           item
           xs={false}
           sm={4}
           md={7}
-          sx={{
+          style={{
             backgroundImage: 'url(https://source.unsplash.com/random)',
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
@@ -118,20 +118,15 @@ export const LoginPage = () => {
         />
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
-            sx={{
+            style={{
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
             }}
           >
-            {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              <LockOutlinedIcon />
-            </Avatar> */}
             <img src={header_img} alt="header" style={{width: '100%'}}/>
-            {/* <Typography component="h1" variant="h5">
-              Login
-            </Typography> */}
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+
+            <Box component="form" noValidate onSubmit={handleSubmit} style={{ mt: 1 }}>
               <TextField
                 margin="normal"
                 required
@@ -168,15 +163,11 @@ export const LoginPage = () => {
     
               />
               
-              {/* <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              /> */}
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3}}
+                style={{marginTop: '10px',color: 'white',fontWeight: 'bold',background: 'rgba(141, 203, 193)'}}
                 component={RouterLink}
                 to="/homePage"
                 onClick={onClickLogin}
@@ -186,14 +177,16 @@ export const LoginPage = () => {
               <Button
                 type="submit"
                 fullWidth
-                variant="outlined"
-                sx={{ mt: 2, mb: 2 }}
+                variant="contained"
+                style={{marginTop: '10px',color: 'rgba(141, 203, 193)',fontWeight: 'bold',background: 'white'}}
                 component={RouterLink}
                 to="/homePage"
               >
                 ゲストログイン
               </Button>
-
+              {/* <Btn message='ログイン'/>
+              <Btn message='ゲストログイン'/> */}
+              
               <Grid container>
                 {/* <Grid item xs>
                   <Link href="#" variant="body2">
@@ -204,7 +197,8 @@ export const LoginPage = () => {
                   <Link
                     component={RouterLink}
                     to="/signUpPage" 
-                    variant="body2">
+                    variant="body2"
+                    style={{color: 'green'}}>
                     {"アカウントをお持ちでない方はこちら"}
                   </Link>
                 </Grid>

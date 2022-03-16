@@ -151,18 +151,11 @@ export const SignUpPage = () => {
               alignItems: 'center',
             }}
           >
-            {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              <LockOutlinedIcon />
-            </Avatar>
-            
-            <Typography component="h1" variant="h5">
-              Sign up
-            </Typography> */}
             <img src={header_img} alt="header" style={{width: '100%'}}/>
 
 
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
-              <FormControl>
+            <Box component="form" noValidate onSubmit={handleSubmit}>
+              <FormControl style={{marginTop: '20px'}}>
                   <InputLabel id="demo-simple-select-helper-label">性別</InputLabel>
                   <Select
                   name="gender_id"
@@ -171,7 +164,7 @@ export const SignUpPage = () => {
                   value={userInformation.gender_id}
                   label="gender_id"
                   onChange={handleUserInformationChange}
-                  sx={{
+                  style={{
                     margin: '0 auto',
                     minWidth: '200px',
                   }}
@@ -183,6 +176,7 @@ export const SignUpPage = () => {
               
               <TextField
                 margin="normal"
+                style={{margin: '10px 0'}}
                 required
                 fullWidth
                 id="name"
@@ -196,6 +190,7 @@ export const SignUpPage = () => {
             <form className={classes.container} noValidate>
               <TextField
                 margin="normal"
+                style={{margin: '2px 0'}}
                 required
                 fullWidth
                 id="date"
@@ -213,6 +208,7 @@ export const SignUpPage = () => {
             </form>          
               <TextField
                 margin="normal"
+                style={{margin: '5px 0'}}
                 required
                 fullWidth
                 id="email"
@@ -224,6 +220,7 @@ export const SignUpPage = () => {
               />
               <OutlinedInput
                 margin="normal"
+                style={{margin: '5px 0 10px'}}
                 required
                 fullWidth
                 name="password"
@@ -244,7 +241,6 @@ export const SignUpPage = () => {
                       </IconButton>
                     </InputAdornment>
                   }
-    
               />
 
             <Btn

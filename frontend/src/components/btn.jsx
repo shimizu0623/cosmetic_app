@@ -19,6 +19,7 @@ export const Btn = (props) => {
             fontSize: '17px',
             letterSpacing: 2,
             background: '#73baae',
+            borderRadius: '5px',
               //     '&:hover':{
               //         background: 'rgba(141, 203, 193)', 
               //     }
