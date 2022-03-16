@@ -61,6 +61,7 @@ return(
             padding: '0 15px',
             color: '#455a64',
             letterSpacing: '2px',
+            lineHeight: '60px',
           }} 
       >
         <SearchIcon />
@@ -104,6 +105,7 @@ return(
             padding: '0 15px',
             color: '#455a64',
             letterSpacing: '2px',
+            lineHeight: '60px',
           }} 
       >
         <HelpOutlineIcon />
@@ -145,7 +147,8 @@ return(
             fontSize: '25px', 
             fontFamily: 'bold', 
             padding: '0 30px 0 15px',
-            margin: '0 auto'
+            margin: '0 auto',
+            height: '60px',
           }} 
       >
         <Avatar />
