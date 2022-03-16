@@ -20,7 +20,7 @@ import Stack from '@mui/material/Stack';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import Link from '@material-ui/core/Link';
 import { Link as RouterLink } from "react-router-dom";
-import { RegisterBtn } from './registerBtn';
+import { Btn } from './btn';
 
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
@@ -247,9 +247,10 @@ export const SignUpPage = () => {
     
               />
 
-            <RegisterBtn
+            <Btn
               onClick={onClickRegister}
               message='登録する'
+              // pageLink='/'
             />
             </Box>
           </Box>

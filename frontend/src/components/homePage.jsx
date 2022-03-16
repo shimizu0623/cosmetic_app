@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from '../axios';
 
+import { Btn } from './btn';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -165,6 +166,7 @@ export const HomePage = () => {
                 <div className={classes.message}>
                     <img src={top_img} className={classes.TopImg}/>
                     <div className={classes.TopMessage}>
+                        {/* <p>{`${userName()}さん、こんにちは！`}<br/> */}
                         <p>{userName()}さん、こんにちは！<br/>
                         最近のお肌の調子はいかがですか？<br/>
                         おすすめは、{userName()}さんのスキンタイプに合うアイテムの中から、<br/>
@@ -189,6 +191,7 @@ export const HomePage = () => {
                     <Autocomplete
                         freeSolo
                         id="free-solo-2-demo"
+                        style={{marginRight: '10px'}}
                         disableClearable
                         options={top100Films.map((option) => option.brand)}
                         renderInput={(params) => (
@@ -203,22 +206,11 @@ export const HomePage = () => {
                         )}
                     />
                 </Stack>
-                <Button
-                variant="contained"
-                sx={{
-                    margin: '0 auto 4px 10px',
-                    padding: '10px 25px', 
-                    fontSize: '17px',
-                    background: '#73baae',
-                    '&:hover':{
-                        background: 'rgba(141, 203, 193)', 
-                    }
-                    
-                }}
-                  component={RouterLink}
-                  to="/itemList"
-                >検索
-                </Button>
+
+                <Btn message='検索' />
+                {/* component={RouterLink}
+                to="/itemList" */}
+
                 </div>
                 <p style={{fontSize: '20px'}}>肌悩みやEWG等級別など<Link component={RouterLink} to="/itemList">条件をつける</Link>こともできます</p>
             </div>
@@ -264,25 +256,8 @@ export const HomePage = () => {
                 </div>
                 <div className='SeeMoreBtn' style={{textAlign: 'right'}}>
 
-                    <Button 
-                    variant="contained"
-                    component={RouterLink}
-                    to="/ranking"
-                    sx={{
-                        color: 'white',
-                        fontSize: '17px',
-                        margin: '20px 0',
-                        padding: '10px',
-                        width: '250px',
-                        borderColor: 'none', 
-                        background: '#73baae',
-                        '&:hover':{
-                            background: 'rgba(141, 203, 193)', 
-                        }
-                    }}
-                    >
-                        ランキングをもっと見る
-                    </Button>
+                    <Btn message='ランキングをもっと見る' />
+                    {/* <Btn message='ランキングをもっと見る' component={RouterLink} to="/ranking" /> */}
                 </div>
             </div>
             

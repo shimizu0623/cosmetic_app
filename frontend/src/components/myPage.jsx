@@ -13,8 +13,6 @@ import leftArrow_img from '../img/leftArrow_yellow.jpg';
 import header_img from '../img/headerMyPage.jpg';
 
 import CircularProgress from '@mui/material/CircularProgress';
-// import Avatar from '@mui/material/Avatar';
-// import AssignmentIcon from '@mui/icons-material/Assignment';
 import Link from '@material-ui/core/Link';
 import { Link as RouterLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
@@ -25,15 +23,6 @@ import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import ListSubheader from '@mui/material/ListSubheader';
 
-// axios.interceptors.request.use(config => {
-//     const token = localStorage.getItem('access-token')
-//     config.headers['Authorization'] = `Bearer ${token}`
-//     config.baseURL = 'http://localhost/api'
-//     return config
-//   }, err => {
-//     return Promise.reject(err)
-//   })
-  
 
 const useStyles = makeStyles({
     menu: {
@@ -144,14 +133,7 @@ export const MyPage = () => {
     const [item, setItem] = useState(null);
 
     useEffect(async () => {
-        // const token = localStorage.getItem('access-token')
         const response = await axios.get('/me')
-        // const response = await axios.get('http://localhost/api/me')
-        // const response = await axios.get('http://localhost/api/me',{
-        //     headers: {
-        //       'Authorization': `Bearer ${token}`,
-        //     },
-        //   })
         const u = response.data
         setUser(u)
     }, [])
@@ -166,7 +148,6 @@ export const MyPage = () => {
 
     const userInformation = () => {
             if(user === null){
-                // return console.log(user)
                 return <CircularProgress color="success" size="35px" />
             }
             return(
@@ -239,7 +220,7 @@ export const MyPage = () => {
                         <Paper 
                             className={classes.skinPaper}
                             onClick={onClickDrySkin} 
-                            sx={{
+                            style={{
                                 borderRadius: '50%', 
                                 backgroundImage: `url(${dry_skin_img})`
                             }}
@@ -249,7 +230,7 @@ export const MyPage = () => {
                         <Paper 
                             className={classes.skinPaper}
                             onClick={onClickOilySkin} 
-                            sx={{
+                            style={{
                                 borderRadius: '50%', 
                                 backgroundImage: `url(${oily_skin_img})`
                                 }}                
@@ -259,7 +240,7 @@ export const MyPage = () => {
                         <Paper 
                             className={classes.skinPaper}
                             onClick={onClickCombinationSkin}  
-                            sx={{
+                            style={{
                                 borderRadius: '50%', 
                                 backgroundImage: `url(${combination_skin_img})`
                                 }}
@@ -269,7 +250,7 @@ export const MyPage = () => {
                         <Paper 
                             className={classes.skinPaper} 
                             onClick={onClickSensitiveSkin}
-                            sx={{
+                            style={{
                                 borderRadius: '50%', 
                                 backgroundImage: `url(${sensitive_skin_img})`
                                 }}
@@ -358,7 +339,7 @@ export const MyPage = () => {
                       className={classes.menu}
                       underline="none"
                       component={RouterLink} 
-                      to='/'
+                      to='/request'
                       >
                           リクエスト
                     </Link>

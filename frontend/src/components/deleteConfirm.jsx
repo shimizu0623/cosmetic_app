@@ -1,4 +1,5 @@
 import React from 'react';
+import { Btn } from './btn';
 import { Link as RouterLink } from "react-router-dom";
 import Button from '@mui/material/Button';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
@@ -14,23 +15,19 @@ export const DeleteConfirm = () => {
                 <TextareaAutosize
                 aria-label="minimum height"
                 minRows={20}
-                // placeholder=""
                 style={{ width: 400 }}
                 />
             </div>
-            <div style={{marginTop: '50px'}}>
+            <div style={{margin: '30px auto'}}>
                 <p>退会すると、登録データが全て削除されます。</p>
                 <p>よろしければ、下のボタンより退会手続きを行ってください。</p>
-                <Button 
-                    variant="contained"
-                    sx={{
-                        marginTop: "20px",
-                    }}
+            </div>
+
+            <Btn message='退会する' />
+                {/* <Button 
                     component={RouterLink}
                     to="/delete">
-                退会する
-                </Button>
-            </div>
+                </Button> */}
         </div>
         </>
     )

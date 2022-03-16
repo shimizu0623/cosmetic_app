@@ -1,10 +1,3 @@
-
-// export const FixAccount = () => {
-//     return(
-//         <>
-//         <div className='MainContainer'>
-//         <img src={header_img} alt="header" style={{width: '100%'}}/>
-
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import header_img from '../img/headerYourInformation.jpg';
@@ -20,7 +13,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Link from '@material-ui/core/Link';
 import { Link as RouterLink } from "react-router-dom";
-import { RegisterBtn } from './registerBtn';
+import { Btn } from './btn';
 import CircularProgress from '@mui/material/CircularProgress';
 
 import InputLabel from '@mui/material/InputLabel';
@@ -104,7 +97,6 @@ export const FixAccount = () => {
 
   const onClickRegister = async () => {
     try {
-      // console.log(userInformation);
       const response = await axios.post('http://localhost/api/register', userInformation);
       console.log(response);
       // TODO: トークンを取得する処理を書く
@@ -151,40 +143,32 @@ export const FixAccount = () => {
     <div className='MainContainer'>
     <div className='Main'>
           <Box
-            sx={{
+            style={{
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
             }}
           >
-            {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              <LockOutlinedIcon />
-            </Avatar>
-            
-            <Typography component="h1" variant="h5">
-              Sign up
-            </Typography> */}
-            <img src={header_img} alt="header" style={{width: '100%'}}/>
+          <img src={header_img} alt="header" style={{width: '100%'}}/>
 
-
-              <p style={{paddingTop: '50px'}}>変更が完了いたしましたら、修正するボタンを押してください。</p>
+          <p style={{paddingTop: '50px'}}>変更が完了いたしましたら、修正するボタンを押してください。</p>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 5 }}>
               <FormControl>
                   <InputLabel id="demo-simple-select-helper-label">性別</InputLabel>
                   <Select
-                  name="gender_id"
-                  labelId="demo-simple-select-helper-label"
-                  id="demo-simple-select-helper"
-                  value={userInformation.gender_id}
-                  label="gender_id"
-                  onChange={handleUserInformationChange}
-                  sx={{
-                    margin: '0 auto',
-                    minWidth: '200px',
-                  }}
+                    name="gender_id"
+                    labelId="demo-simple-select-helper-label"
+                    id="demo-simple-select-helper"
+                    value={userInformation.gender_id}
+                    label="gender_id"
+                    onChange={handleUserInformationChange}
+                    style={{
+                      margin: '0 auto',
+                      minWidth: '200px',
+                    }}
                   >
-                  <MenuItem value={1}>女性</MenuItem>
-                  <MenuItem value={2}>男性</MenuItem>
+                  <MenuItem value={1}>男性</MenuItem>
+                  <MenuItem value={2}>女性</MenuItem>
                   </Select>
               </FormControl>
               
@@ -203,6 +187,7 @@ export const FixAccount = () => {
             <form className={classes.container} noValidate>
               <TextField
                 margin="normal"
+                style={{margin: '16px 0 8px 0'}}
                 required
                 fullWidth
                 id="date"
@@ -231,6 +216,7 @@ export const FixAccount = () => {
               />
               <OutlinedInput
                 margin="normal"
+                style={{margin: '16px 0 20px 0'}}
                 required
                 fullWidth
                 name="password"
@@ -254,7 +240,7 @@ export const FixAccount = () => {
     
               />
 
-            <RegisterBtn
+            <Btn
               onClick={onClickRegister}
               message='修正する'
             />
