@@ -339,7 +339,7 @@ export const MyPage = () => {
                       className={classes.menu}
                       underline="none"
                       component={RouterLink} 
-                      to='/request'
+                      to='/requestPage'
                       >
                           リクエスト
                     </Link>
