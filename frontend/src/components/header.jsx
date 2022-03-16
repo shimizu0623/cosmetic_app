@@ -201,12 +201,12 @@ return(
           </ListItemIcon>
           リクエスト
         </MenuItem>
-        <MenuItem component={RouterLink} to="/fixAccount">
+        {/* <MenuItem component={RouterLink} to="/fixAccount">
           <ListItemIcon>
             <PortraitIcon />
           </ListItemIcon>
           個人情報修正
-        </MenuItem>
+        </MenuItem> */}
         <MenuItem component={RouterLink} to="/">
           <ListItemIcon>
             <Logout fontSize="small" />

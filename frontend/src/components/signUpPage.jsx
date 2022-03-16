@@ -25,6 +25,7 @@ import { Btn } from './btn';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import { makeStyles } from '@material-ui/core/styles';
+import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 
@@ -155,7 +156,7 @@ export const SignUpPage = () => {
 
 
             <Box component="form" noValidate onSubmit={handleSubmit}>
-              <FormControl style={{marginTop: '20px'}}>
+              <FormControl style={{margin: '20px 20px 0 0'}}>
                   <InputLabel id="demo-simple-select-helper-label">性別</InputLabel>
                   <Select
                   name="gender_id"
@@ -169,10 +170,51 @@ export const SignUpPage = () => {
                     minWidth: '200px',
                   }}
                   >
-                  <MenuItem value={1}>女性</MenuItem>
-                  <MenuItem value={2}>男性</MenuItem>
+                  <MenuItem value={1} style={{minWidth: '200px'}}>女性</MenuItem>
+                  <MenuItem value={2} style={{minWidth: '200px'}}>男性</MenuItem>
                   </Select>
               </FormControl>
+              {/* <FormControl style={{margin: '20px 20px 0 0'}}>
+                  <InputLabel id="demo-simple-select-helper-label">性別</InputLabel>
+                  <Select
+                  name="gender_id"
+                  labelId="demo-simple-select-helper-label"
+                  id="demo-simple-select-helper"
+                  value={userInformation.gender_id}
+                  label="gender_id"
+                  onChange={handleUserInformationChange}
+                  style={{
+                    margin: '0 auto',
+                    minWidth: '200px',
+                  }}
+                  >
+                  <MenuItem value={1} style={{padding: 0}}>女性</MenuItem>
+                  <MenuItem value={2} style={{padding: 0}}>男性</MenuItem>
+                  </Select>
+              </FormControl> */}
+              <FormControl style={{marginTop: '20px'}}>
+
+                  <InputLabel id="demo-simple-select-helper-label">スキンタイプ</InputLabel>
+                  <Select
+                  name="gender_id"
+                  labelId="demo-simple-select-helper-label"
+                  id="demo-simple-select-helper"
+                  value={userInformation.gender_id}
+                  label="gender_id"
+                  onChange={handleUserInformationChange}
+                  style={{
+                    margin: '0 auto',
+                    minWidth: '200px',
+                  }}
+                  >
+                    <MenuItem value={1}>Normal Skin（水分と皮脂のバランスが良い）</MenuItem>
+                    <MenuItem value={2}>InnerDry Skin（水分が少なく、皮脂が多い）</MenuItem>
+                    <MenuItem value={3}>Dry Skin（水分も皮脂も少ない）</MenuItem>
+                    <MenuItem value={4}>Oily Skin（水分・皮脂ともに多い）</MenuItem>
+                    <MenuItem value={5}>Combination Skin（部分的に皮脂が多く、乾燥しがち）</MenuItem>
+                    <MenuItem value={6}>Sensitive Skin（敏感な肌）</MenuItem>
+                  </Select>
+              </FormControl>          
               
               <TextField
                 margin="normal"
@@ -242,6 +284,9 @@ export const SignUpPage = () => {
                     </InputAdornment>
                   }
               />
+              <div style={{margin: '10px'}}>
+                <p style={{color: 'gray'}}>登録情報はマイページからいつでも変更できます。</p>
+              </div>
 
             <Btn
               onClick={onClickRegister}
