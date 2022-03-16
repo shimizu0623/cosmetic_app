@@ -3,7 +3,10 @@ import axios from 'axios';
 import { Btn } from './btn';
 import header_img from '../img/headerYourInformation.jpg';
 
+import Link from '@material-ui/core/Link';
+import { Link as RouterLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -12,8 +15,6 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import Link from '@material-ui/core/Link';
-import { Link as RouterLink } from "react-router-dom";
 import CircularProgress from '@mui/material/CircularProgress';
 
 import InputLabel from '@mui/material/InputLabel';
@@ -240,10 +241,25 @@ export const FixAccount = () => {
     
               />
 
+            <Button 
+              variant="contained"
+              style={{
+                marginRight: '20px', 
+                padding: '10px', 
+                borderRadius: '5px',
+                letterSpacing: '2px',
+                background: '#f3f0f0d9',
+              }}
+              component={RouterLink}
+              to="/myPage"
+            >
+                マイページへ戻る
+            </Button>
             <Btn
               onClick={onClickRegister}
               message='修正する'
             />
+
             </Box>
           </Box>
     </div>
