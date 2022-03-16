@@ -22,7 +22,7 @@ class RegisterController extends Controller
             'birth_date' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|alpha_num',
-            // 'skin_type_id' => 'required',
+            'skin_type_id' => 'required',
         ]);
 
         //バリデーションで問題があった際にはエラーを返す。
@@ -37,6 +37,7 @@ class RegisterController extends Controller
             'birth_date' => $request->birth_date,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'skin_type_id' => $request->skin_type_id,
         ]);
 
         //ユーザの作成が完了するとjsonを返す
