@@ -1,21 +1,23 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import App from "./App";
-import { TopPage } from "./components/topPage";
-import { LoginPage } from "./components/loginPage";
-import { SignUpPage } from "./components/signUpPage";
-import { FixAccount } from "./components/fixAccount";
+import { TopPage } from "./pages/topPage";
+import { LoginPage } from "./pages/loginPage";
+import { SignUpPage } from "./pages/signUpPage";
+import { FixAccount } from "./pages/fixAccount";
 import { Ewg } from "./components/aboutEWG";
-import { EwgPage } from "./components/ewgPage";
-import { MyPage } from "./components/myPage";
-import { DeleteConfirm } from "./components/deleteConfirm";
-import { DeleteInformation } from "./components/deletedInformation";
-import { HomePage } from "./components/homePage";
-import { ItemList } from "./components/itemList";
-import { ItemDetail } from "./components/itemDetail";
-import { ItemComparison } from "./components/itemComparison";
-import { RequestPage } from "./components/requestPage";
-import { Ranking } from "./components/ranking";
+import { EwgPage } from "./pages/ewgPage";
+import { MyPage } from "./pages/myPage";
+import { DeleteConfirm } from "./pages/deleteConfirm";
+import { DeleteInformation } from "./pages/deletedInformation";
+import { HomePage } from "./pages/homePage";
+import { ItemList } from "./pages/itemList";
+import { ItemDetail } from "./pages/itemDetail";
+import { ItemComparison } from "./pages/itemComparison";
+import { RequestPage } from "./pages/requestPage";
+import { Ranking } from "./pages/ranking";
+import { Btn } from "./components/btn";
+import { LoginBtn } from "./components/loginBtn";
 
 import {
   BrowserRouter,
@@ -88,6 +90,14 @@ ReactDom.render(
           <Route
               path='/ranking'
               element={<Ranking />}
+            />  
+          <Route
+              path='/btn'
+              element={<Btn />}
+            />  
+          <Route
+              path='/loginBtn'
+              element={<LoginBtn />}
             />  
         </Route>
       </Routes>

@@ -11,10 +11,6 @@ export const EwgPage = () => {
               <img 
                 src={headerAboutEwg} 
                 alt="header_img" 
-                // style={{
-                //     width: '100%',
-                //     height: '100%',
-                // }} 
               />
             </>
         )

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from '../axios';
 
-import { Btn } from './btn';
+import { Btn } from '../components/btn';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';

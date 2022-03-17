@@ -20,7 +20,7 @@ import Stack from '@mui/material/Stack';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import Link from '@material-ui/core/Link';
 import { Link as RouterLink } from "react-router-dom";
-import { Btn } from './btn';
+import { Btn } from '../components/btn';
 
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';

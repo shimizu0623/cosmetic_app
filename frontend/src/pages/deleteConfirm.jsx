@@ -1,5 +1,5 @@
 import React from 'react';
-import { Btn } from './btn';
+import { Btn } from '../components/btn';
 import { Link as RouterLink } from "react-router-dom";
 import Button from '@mui/material/Button';
 import TextareaAutosize from '@mui/material/TextareaAutosize';

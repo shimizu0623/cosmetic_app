@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import { Btn } from './btn';
+import { Btn } from '../components/btn';
 import header_img from '../img/headerYourInformation.jpg';
 
 import Link from '@material-ui/core/Link';

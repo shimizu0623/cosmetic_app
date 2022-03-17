@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from '../axios';
-import { Btn } from './btn';
+import { Btn } from '../components/btn';
 import header_img from '../img/headerLogin.jpg';
 
 import Button from '@mui/material/Button';
