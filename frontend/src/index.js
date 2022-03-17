@@ -5,7 +5,7 @@ import { TopPage } from "./pages/topPage";
 import { LoginPage } from "./pages/loginPage";
 import { SignUpPage } from "./pages/signUpPage";
 import { FixAccount } from "./pages/fixAccount";
-import { Ewg } from "./components/aboutEWG";
+import { Ewg } from "./components/aboutEwg";
 import { EwgPage } from "./pages/ewgPage";
 import { MyPage } from "./pages/myPage";
 import { DeleteConfirm } from "./pages/deleteConfirm";

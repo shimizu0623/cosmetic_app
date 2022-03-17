@@ -1,6 +1,6 @@
 import React from 'react';
 
-import EwgLogo from "../img/EWG-logo.jpeg"
+import EwgLogo from "../img/Ewg-logo.jpeg"
 import Level from "../img/level.PNG"
 import Hazard from "../img/img_Hazard.PNG"
 import LowHazard from "../img/level_LowHazard.PNG"
@@ -20,13 +20,13 @@ export const Ewg = (props) => {
         <div className='MainContainer'>
               {HeaderEwg}
           <div className="explain">
-              <img src={EwgLogo} id="EWG-logo_img" alt="EWG-logo_img" />
+              <img src={EwgLogo} id="Ewg-logo_img" alt="Ewg-logo_img" />
 
               <p>EWG (Environmental Working Group)とは、</p>
               <p><span>「人々の健康を守り、より健康的な環境で生活をおくるための後押しをする」</span>というミッションのもと</p>
               <p>食品やコスメなどの分野において活動を続けている、アメリカの非営利環境市民団体です。</p>
               <p>コスメに関してはEWGの中でSkin Deepと呼ばれる分野において、安全を確認することができます。</p>
-              <img src={Level} id="EWGlevel_img"  alt="EWGlevel_img" />
+              <img src={Level} id="EwgLevel_img"  alt="EwgLevel_img" />
               <p>化粧品原料の有害性の程度を<span>1~10のレベル</span>で示してくれているので、</p>
               <p>コスメの安全性を簡単に判断することができるのです。</p>
 

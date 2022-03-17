@@ -1,5 +1,5 @@
 import React from 'react';
-import { Ewg } from "../components/aboutEWG";
+import { Ewg } from "../components/aboutEwg";
 import headerAboutEwg from "../img/headerAboutEWG.jpg";
 
 

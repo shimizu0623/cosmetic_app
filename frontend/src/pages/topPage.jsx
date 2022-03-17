@@ -1,24 +1,24 @@
 import React from 'react';
 import { LoginBtn } from '../components/loginBtn';
-import { Ewg } from "../components/aboutEWG";
+import { Ewg } from "../components/aboutEwg";
 
 import trouble_face_img from '../img/trouble_face.jpg';
 import thinking_img from '../img/thinking.jpg';
 import use_pc_img from '../img/use_pc.jpg';
 import smile_img from '../img/smile.jpg';
-import aboutEWG_img from '../img/Whiteday2020-09.JPG';
+import aboutEwg_img from '../img/Whiteday2020-09.JPG';
 import topImage from '../img/cosmetic_background3.jpg';
 
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
-    aboutEWG: {
+    aboutEwg: {
         height: '400px',
         margin: '0 auto',
         position: 'relative',
         maxWidth: '1400px',      
     },
-    aboutEWGImage: {
+    aboutEwgImage: {
         width: '100%',
         height: '100%',
         margin: '30px auto 0',
@@ -30,7 +30,7 @@ const useStyles = makeStyles({
         //     rgba(141, 203, 193, 0.5)
         //   ),
     },
-    aboutEWGTitle: {
+    aboutEwgTitle: {
         fontSize: '50px',
         fontWeight: 'bold',
         color: 'white',
@@ -185,9 +185,9 @@ export const TopPage = (props) => {
     const headerEwg = () => {
         return (
             <>
-                <div className={classes.aboutEWG}>
-                <img src={aboutEWG_img} alt="aboutEWG_img" className={classes.aboutEWGImage} />
-                <h1 className={classes.aboutEWGTitle}>EWGってなに？</h1>
+                <div className={classes.aboutEwg}>
+                <img src={aboutEwg_img} alt="aboutEwg_img" className={classes.aboutEwgImage} />
+                <h1 className={classes.aboutEwgTitle}>EWGってなに？</h1>
                 </div>
             </>
         )
