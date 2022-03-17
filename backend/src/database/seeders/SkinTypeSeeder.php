@@ -15,6 +15,12 @@ class SkinTypeSeeder extends Seeder
     public function run()
     {
         DB::table('skin_types')->insert([
+            'name' => 'NORMAL SKIN',
+        ]);
+        DB::table('skin_types')->insert([
+            'name' => 'INNER DRY SKIN',
+        ]);
+        DB::table('skin_types')->insert([
             'name' => 'DRY SKIN',
         ]);
         DB::table('skin_types')->insert([
