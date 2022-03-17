@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from '../axios';
 import { Btn } from './btn';
 import header_img from '../img/headerLogin.jpg';
 
@@ -25,6 +26,7 @@ import Stack from '@mui/material/Stack';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import Link from '@material-ui/core/Link';
 import { Link as RouterLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -32,13 +34,32 @@ const theme = createTheme();
 
 export const LoginPage = () => {
   const [inputInformation, setInputInformation] = useState()
+  const [userInformation, setUserInformation] = useState({})
+  const navigate = useNavigate();
 
   const onChangeMailAddress = (event) => {
       setInputInformation({...inputInformation, email: event.target.value})
   }
 
-  const onClickLogin = () =>{
-    console.log(inputInformation)
+
+  const onClickLogin = async () =>{
+    try {
+      console.log(userInformation);
+      const loginResponse = await axios.get('/login', {
+        email: userInformation.email,
+        password: userInformation.password,
+      });
+      localStorage.setItem('access-token', loginResponse.data.token);
+      navigate("/homePage");
+    } catch (e) {
+      window.alert('ログインに失敗しました');
+      console.error(e)
+      return;
+    }
+  }
+
+  const onClickGuestLogin = () => {
+    console.log('guest')
   }
 
   const handleSubmit = (event) => {
@@ -168,8 +189,8 @@ export const LoginPage = () => {
                 fullWidth
                 variant="contained"
                 style={{marginTop: '10px',color: 'white',fontWeight: 'bold',background: 'rgba(141, 203, 193)'}}
-                component={RouterLink}
-                to="/homePage"
+                // component={RouterLink}
+                // to="/homePage"
                 onClick={onClickLogin}
               >
                 ログイン
@@ -179,8 +200,9 @@ export const LoginPage = () => {
                 fullWidth
                 variant="contained"
                 style={{marginTop: '10px',color: 'rgba(141, 203, 193)',fontWeight: 'bold',background: 'white'}}
-                component={RouterLink}
-                to="/homePage"
+                // component={RouterLink}
+                // to="/homePage"
+                onClick={onClickGuestLogin}
               >
                 ゲストログイン
               </Button>

@@ -1,6 +1,6 @@
 import React from 'react';
-import { LoginBtn } from './loginBtn';
-import { EWG } from "./aboutEWG";
+import { LoginBtn } from '../components/loginBtn';
+import { Ewg } from "../components/aboutEWG";
 
 import trouble_face_img from '../img/trouble_face.jpg';
 import thinking_img from '../img/thinking.jpg';
@@ -39,7 +39,6 @@ const useStyles = makeStyles({
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',      
-
     },
     topMain: {
         maxWidth: '1400px',
@@ -183,6 +182,17 @@ export const TopPage = (props) => {
     const {webName} = props;
     const classes = useStyles();
 
+    const headerEwg = () => {
+        return (
+            <>
+                <div className={classes.aboutEWG}>
+                <img src={aboutEWG_img} alt="aboutEWG_img" className={classes.aboutEWGImage} />
+                <h1 className={classes.aboutEWGTitle}>EWGってなに？</h1>
+                </div>
+            </>
+        )
+    }
+
     return(
         <>
         <div className='MainContainer'>
@@ -224,12 +234,8 @@ export const TopPage = (props) => {
             </div>
         </div>
 
-        <div className={classes.aboutEWG}>
-            <img src={aboutEWG_img} alt="aboutEWG_img" className={classes.aboutEWGImage} />
-            <h1 className={classes.aboutEWGTitle}> EWGってなに？</h1>
-        </div>
 
-        <EWG />
+        <Ewg HeaderEwg={headerEwg()} />
 
         <LoginBtn />
 

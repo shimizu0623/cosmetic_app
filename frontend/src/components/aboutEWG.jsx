@@ -1,27 +1,26 @@
 import React from 'react';
 
-import EWGLogo from "../img/EWG-logo.jpeg"
+import EwgLogo from "../img/EWG-logo.jpeg"
 import Level from "../img/level.PNG"
 import Hazard from "../img/img_Hazard.PNG"
 import LowHazard from "../img/level_LowHazard.PNG"
 import ModerateHazard from "../img/level_ModerateHazard.PNG"
 import HighHazard from "../img/level_HighHazard.PNG"
-import headerAboutEWG from "../img/headerAboutEWG.jpg"
 
 import Link from '@mui/material/Link';
 import { Link as RouterLink } from "react-router-dom";
 
 
 
-export const EWG = (props) => {
-    const {webName} = props;
+export const Ewg = (props) => {
+    const {webName, HeaderEwg} = props;
 
     return(
         <>
         <div className='MainContainer'>
-              {/* <img src={headerAboutEWG} alt="header_img" /> */}
+              {HeaderEwg}
           <div className="explain">
-              <img src={EWGLogo} id="EWG-logo_img" alt="EWG-logo_img" />
+              <img src={EwgLogo} id="EWG-logo_img" alt="EWG-logo_img" />
 
               <p>EWG (Environmental Working Group)とは、</p>
               <p><span>「人々の健康を守り、より健康的な環境で生活をおくるための後押しをする」</span>というミッションのもと</p>

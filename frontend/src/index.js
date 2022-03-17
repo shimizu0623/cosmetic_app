@@ -5,7 +5,8 @@ import { TopPage } from "./components/topPage";
 import { LoginPage } from "./components/loginPage";
 import { SignUpPage } from "./components/signUpPage";
 import { FixAccount } from "./components/fixAccount";
-import { EWG } from "./components/aboutEWG";
+import { Ewg } from "./components/aboutEWG";
+import { EwgPage } from "./components/ewgPage";
 import { MyPage } from "./components/myPage";
 import { DeleteConfirm } from "./components/deleteConfirm";
 import { DeleteInformation } from "./components/deletedInformation";
@@ -21,6 +22,7 @@ import {
   Routes,
   Route,
 } from 'react-router-dom'
+
 
 ReactDom.render(
   <React.StrictMode>
@@ -45,7 +47,11 @@ ReactDom.render(
             />  
           <Route
               path='/ewg'
-              element={<EWG />}
+              element={<Ewg />}
+            />  
+          <Route
+              path='/ewgPage'
+              element={<EwgPage />}
             />  
           <Route
               path='/myPage'

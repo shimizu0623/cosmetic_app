@@ -123,7 +123,7 @@ return(
             marginTop: '45px',      
           }} 
       >
-        <MenuItem component={RouterLink} to="/ewg">
+        <MenuItem component={RouterLink} to="/ewgPage">
           <ListItemIcon>
             <ContactSupportIcon />
           </ListItemIcon>
