@@ -40,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-
 const theme = createTheme();
 
 export const SignUpPage = () => {

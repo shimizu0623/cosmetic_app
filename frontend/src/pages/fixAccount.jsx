@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import axios from 'axios';
+import axios from '../axios';
 import { Btn } from '../components/btn';
 import header_img from '../img/headerYourInformation.jpg';
 
@@ -39,85 +39,189 @@ const theme = createTheme();
 
 export const FixAccount = () => {
   const classes = useStyles();
+  const [genders, setGenders] = useState(null);
   const [user, setUser] = useState(null);
-  const [userInformation, setUserInformation] = useState({})
   const navigate = useNavigate();
 
+
   useEffect(async () => {
-    const response = await axios.get('http://localhost/api/me')
+    const responseGenders = await axios.get('/genders')
+    const response = await axios.get('/me')
+    const g = responseGenders.data
     const u = response.data
+    setGenders(g)
     setUser(u)
+    console.log(genders)
+    console.log(user)
   }, [])
 
   // const userGender = () => {
   //   if(user === null){
-  //       // return console.log(user)
   //       return <CircularProgress color="success" size="15px" />
   //   }
   //   return(
-  //           <p>{user.gender_id}</p>
-  //   )
-  // }
-  // const userName = () => {
-  //   if(user === null){
-  //       return <CircularProgress color="success" size="15px" />
-  //   }
-  //   return(
-  //           <p>{user.name}</p>
-  //   )
-  // }
-  // const userBirthDay = () => {
-  //   if(user === null){
-  //       return <CircularProgress color="success" size="15px" />
-  //   }
-  //   return(
-  //           <p>{user.birth_date}</p>
-  //   )
-  // }
-  // const userEmail = () => {
-  //   if(user === null){
-  //       return <CircularProgress color="success" size="15px" />
-  //   }
-  //   return(
-  //           <p>{user.email}</p>
-  //   )
-  // }
-  // const userPassword = () => {
-  //   if(user === null){
-  //       return <CircularProgress color="success" size="15px" />
-  //   }
-  //   return(
-  //           <p>{user.password}</p>
+  //     <FormControl>
+  //     {/* <InputLabel id="demo-simple-select-helper-label">性別</InputLabel> */}
+  //     <p style={{textAlign: 'left', marginTop: '30px'}}>性別</p>
+  //     <Select
+  //       name="gender_id"
+  //       labelId="demo-simple-select-helper-label"
+  //       id="demo-simple-select-helper"
+  //       value={user.gender_id}
+  //       // label="gender_id"
+  //       onChange={handleUserInformationChange}
+  //       style={{
+  //         margin: '0 auto',
+  //         minWidth: '200px',
+  //       }}
+  //     >
+  //     {genders.map((gender) => (
+  //       <MenuItem value={gender.id}>{gender.name}</MenuItem>
+  //     ))}      
+  //     </Select>
+  //     </FormControl>
   //   )
   // }
 
+  const userName = () => {
+    if(user === null){
+        return <CircularProgress color="success" size="15px" />
+    }
+    return(
+      <>
+      <p style={{textAlign: 'left', marginTop: '30px'}}>ニックネーム</p>
+      <TextField
+      margin="normal"
+      value={user.name}
+      required
+      fullWidth
+      id="name"
+      // label="ニックネーム"
+      name="name"
+      autoComplete="name"
+      autoFocus
+      onChange={handleUserChange}
+      />
+      </>
+    )
+  }
+  const userBirthDay = () => {
+    if(user === null){
+        return <CircularProgress color="success" size="15px" />
+    }
+    return(
+      <form className={classes.container} noValidate>
+      <p style={{textAlign: 'left', marginTop: '30px'}}>生年月日</p>
+      <TextField
+        margin="normal"
+        style={{margin: '16px 0 8px 0'}}
+        required
+        fullWidth
+        id="date"
+        // label="生年月日"
+        name="birth_date"
+        value={user.birth_date}
+        type="date"
+        className={classes.textField}
+        autoComplete="date"
+        autoFocus
+        InputLabelProps={{
+            shrink: true,
+        }}
+        onChange={handleUserChange}
+      />
+    </form>          
+      )
+  }
+  const userEmail = () => {
+    if(user === null){
+        return <CircularProgress color="success" size="15px" />
+    }
+    return(
+      <>
+      <p style={{textAlign: 'left', marginTop: '30px'}}>メールアドレス</p>
+      <TextField
+      margin="normal"
+      required
+      fullWidth
+      id="email"
+      // label="メールアドレス"
+      name="email"
+      value={user.email}
+      autoComplete="email"
+      autoFocus
+      onChange={handleUserChange}
+      />
+      </>
+    )
+  }
+  const userPassword = () => {
+    if(user === null){
+        return <CircularProgress color="success" size="15px" />
+    }
+    return(
+      <>
+      <p style={{textAlign: 'left', marginTop: '30px'}}>パスワード</p>
+      <OutlinedInput
+      margin="normal"
+      style={{margin: '16px 0 20px 0s'}}
+      required
+      fullWidth
+      name="password"
+      value={user.password}
+      // label="パスワード"
+      type={values.showPassword ? 'text' : 'password'}
+      onChange={handleUserChange}
+      id="password"
+      autoComplete="current-password"
+      endAdornment={
+          <InputAdornment position="end">
+            <IconButton
+              aria-label="toggle password visibility"
+              onClick={handleClickShowPassword}
+              onMouseDown={handleMouseDownPassword}
+              edge="end"
+              >
+              {values.showPassword ? <VisibilityOff /> : <Visibility />}
+            </IconButton>
+          </InputAdornment>
+      }
+      />
+      </>
+    )
+  }
 
-  const handleUserInformationChange = (event) => {
-    setUserInformation({...userInformation, [event.target.name]: event.target.value})
+
+  const handleUserChange = (event) => {
+    setUser({...user, [event.target.name]: event.target.value})
   };
 
-  const onClickRegister = async () => {
+  const onClickUpdate = async () => {
     try {
-      const response = await axios.post('http://localhost/api/register', userInformation);
+      console.log(user);
+      const response = await axios.post('/me', user);
       console.log(response);
-      // TODO: トークンを取得する処理を書く
-      navigate("/");
+      window.alert('登録変更しました');
     } catch (e) {
       window.alert('登録に失敗しました');
       console.error(e)
       return;
     }
+
+
   }
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+  // const onClickUpdate = async () => {
+  //   try {
+  //     const response = await axios.post('/register', user);
+  //     console.log(response);
+  //     window.alert('登録が完了しました');
+  //   } catch (e) {
+  //     window.alert('登録に失敗しました');
+  //     console.error(e)
+  //     return;
+  //   }
+  // }
 
   const [values, setValues] = React.useState({
         amount: '',
@@ -153,97 +257,22 @@ export const FixAccount = () => {
           <img src={header_img} alt="header" style={{width: '100%'}}/>
 
           <p style={{paddingTop: '50px'}}>変更が完了いたしましたら、修正するボタンを押してください。</p>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 5 }}>
-              <FormControl>
-                  <InputLabel id="demo-simple-select-helper-label">性別</InputLabel>
-                  <Select
-                    name="gender_id"
-                    labelId="demo-simple-select-helper-label"
-                    id="demo-simple-select-helper"
-                    value={userInformation.gender_id}
-                    label="gender_id"
-                    onChange={handleUserInformationChange}
-                    style={{
-                      margin: '0 auto',
-                      minWidth: '200px',
-                    }}
-                  >
-                  <MenuItem value={1}>男性</MenuItem>
-                  <MenuItem value={2}>女性</MenuItem>
-                  </Select>
-              </FormControl>
+            <Box component="form" noValidate sx={{ mt: 5 }}>
               
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="name"
-                label="ニックネーム"
-                name="name"
-                autoComplete="name"
-                autoFocus
-                onChange={handleUserInformationChange}
-              />
+              {/* {userGender()} */}
+              
+              {userName()}
 
-            <form className={classes.container} noValidate>
-              <TextField
-                margin="normal"
-                style={{margin: '16px 0 8px 0'}}
-                required
-                fullWidth
-                id="date"
-                label="生年月日"
-                name="birth_date"
-                type="date"
-                className={classes.textField}
-                autoComplete="date"
-                autoFocus
-                InputLabelProps={{
-                    shrink: true,
-                }}
-                onChange={handleUserInformationChange}
-              />
-            </form>          
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="メールアドレス"
-                name="email"
-                autoComplete="email"
-                autoFocus
-                onChange={handleUserInformationChange}
-              />
-              <OutlinedInput
-                margin="normal"
-                style={{margin: '16px 0 20px 0'}}
-                required
-                fullWidth
-                name="password"
-                label="パスワード"
-                type={values.showPassword ? 'text' : 'password'}
-                onChange={handleUserInformationChange}
-                id="password"
-                autoComplete="current-password"
-                endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                        edge="end"
-                        >
-                        {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-    
-              />
+              {userBirthDay()}
 
+              {userEmail()}
+
+              {userPassword()}
+              
             <Button 
               variant="contained"
               style={{
+                color: 'gray',
                 marginRight: '20px', 
                 padding: '10px', 
                 borderRadius: '5px',
@@ -256,7 +285,7 @@ export const FixAccount = () => {
                 マイページへ戻る
             </Button>
             <Btn
-              onClick={onClickRegister}
+              onClick={onClickUpdate}
               message='修正する'
             />
 
