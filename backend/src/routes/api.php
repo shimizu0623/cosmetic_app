@@ -49,6 +49,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/user_contacts', [UserContactsController::class, 'index']);
     Route::get('/user_items', [UserItemsController::class, 'index']);
     // Route::get('/users', [UsersController::class, 'index']);
+    Route::post('/me', [UsersController::class, 'updateMe']);    
     Route::get('/me', [UsersController::class, 'me']);    
     Route::get('/item', [ItemsController::class, 'item']);    
     Route::get('/requests', [RequestTextsController::class, 'index']);    
