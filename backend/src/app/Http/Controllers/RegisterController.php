@@ -36,6 +36,7 @@ class RegisterController extends Controller
             'name' => $request->name,
             'birth_date' => $request->birth_date,
             'email' => $request->email,
+            // 'password' => $request->password,
             'password' => Hash::make($request->password),
             'skin_type_id' => $request->skin_type_id,
         ]);

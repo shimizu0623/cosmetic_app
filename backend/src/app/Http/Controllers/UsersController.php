@@ -32,7 +32,10 @@ class UsersController extends Controller
             [
                 'id' => $user->id,
                 'name' => $user->name,
+                'email' => $user->email,
+                'password' => $user->password,
                 'birthday_string' => $user->birthday_string(),
+                'birth_date' => $user->birth_date,
                 'gender_name' => $user->gender->name,
                 // 'gender_name' => $user->gender()->name,
                 'skin_type_name' => $user->skin_type->name,
