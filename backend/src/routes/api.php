@@ -40,7 +40,6 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/skin_types', [SkinTypeController::class, 'index']);
     Route::get('/brands', [BrandsController::class, 'index']);
     Route::get('/categories', [CategoriesController::class, 'index']);
-    // Route::get('/items', [ItemsController::class, 'index']);
     Route::get('/ingredients', [IngredientsController::class, 'index']);
     Route::get('/item_ingredients', [ItemIngredientsController::class, 'index']);
     Route::get('/genders', [GendersController::class, 'index']);
@@ -51,6 +50,7 @@ Route::middleware('auth:sanctum')->group(function(){
     // Route::get('/users', [UsersController::class, 'index']);
     Route::post('/me', [UsersController::class, 'updateMe']);    
     Route::get('/me', [UsersController::class, 'me']);    
+    // Route::get('/items', [ItemsController::class, 'index']);
     Route::get('/item', [ItemsController::class, 'item']);    
     Route::get('/requests', [RequestTextsController::class, 'index']);    
     Route::get('/reasons', [ReasonsController::class, 'index']);    
