@@ -168,7 +168,7 @@ export const FixAccount = () => {
       required
       fullWidth
       name="password"
-      value={user.password}
+      // value={user.password}
       // label="パスワード"
       type={values.showPassword ? 'text' : 'password'}
       onChange={handleUserChange}
