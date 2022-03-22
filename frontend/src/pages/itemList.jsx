@@ -34,8 +34,7 @@ const useStyles = makeStyles({
     },
     SearchBox: {
         display: 'flex',
-        margin: '0 40%',
-
+        margin: '0 auto',
     },
 
 
@@ -72,106 +71,112 @@ export const ItemList = () => {
     return(
         <>
         <div className='MainContainer'>
-            <img src={header_img} alt="header" style={{width: '100%'}}/>
-            <p>ここでは条件検索することができます</p>
-            <div>
-                <h2>~STEP1~ 改善したい肌の悩みはございますか？</h2>
-                <Checkbox
-                checked={checked}
-                onChange={handleChange}
-                color="primary"
-                inputProps={{ 'aria-label': 'primary checkbox' }}
-                />乾燥
-                <Checkbox
-                checked={checked}
-                onChange={handleChange}
-                color="primary"
-                inputProps={{ 'aria-label': 'primary checkbox' }}
-                />
-                <Checkbox
-                checked={checked}
-                onChange={handleChange}
-                color="primary"
-                inputProps={{ 'aria-label': 'primary checkbox' }}
-                />
-            </div>
-
-            <div>
-                <h2>~STEP2~ お探しのカテゴリーはどちらですか？</h2>
-                <Checkbox
-                checked={checked}
-                onChange={handleChange}
-                color="primary"
-                inputProps={{ 'aria-label': 'primary checkbox' }}
-                />
-                <Checkbox
-                checked={checked}
-                onChange={handleChange}
-                color="primary"
-                inputProps={{ 'aria-label': 'primary checkbox' }}
-                />
-                <Checkbox
-                checked={checked}
-                onChange={handleChange}
-                color="primary"
-                inputProps={{ 'aria-label': 'primary checkbox' }}
-                />
-            </div>
-
-            <div>
-                <h2>~STEP3~ 他に条件はありますか？</h2>
-                <Checkbox
-                checked={checked}
-                onChange={handleChange}
-                color="primary"
-                inputProps={{ 'aria-label': 'primary checkbox' }}
-                />
-                <Checkbox
-                checked={checked}
-                onChange={handleChange}
-                color="primary"
-                inputProps={{ 'aria-label': 'primary checkbox' }}
-                />
-                <Checkbox
-                checked={checked}
-                onChange={handleChange}
-                color="primary"
-                inputProps={{ 'aria-label': 'primary checkbox' }}
-                />
-
-                <div className={classes.SearchBox}>
-                <Stack spacing={2} sx={{ width: 300 }}>
-                <Autocomplete
-                    freeSolo
-                    id="free-solo-2-demo"
-                    style={{margin: '0px'}}
-                    disableClearable
-                    renderInput={(params) => (
-                        <TextField
-                        {...params}
-                        label="キーワードを入力する"
-                        InputProps={{
-                            ...params.InputProps,
-                            type: 'search',
-                        }}
-                        />
-                    )}
-                />
-                </Stack>
+            <div className='conditionForm'>
+                <img src={header_img} alt="header" style={{width: '100%'}}/>
+                <p>ここでは条件検索することができます</p>
+                <div>
+                    <h2>~STEP1~ 改善したい肌の悩みはございますか？</h2>
+                    <Checkbox
+                    checked={checked}
+                    onChange={handleChange}
+                    color="primary"
+                    inputProps={{ 'aria-label': 'primary checkbox' }}
+                    />乾燥
+                    <Checkbox
+                    checked={checked}
+                    onChange={handleChange}
+                    color="primary"
+                    inputProps={{ 'aria-label': 'primary checkbox' }}
+                    />
+                    <Checkbox
+                    checked={checked}
+                    onChange={handleChange}
+                    color="primary"
+                    inputProps={{ 'aria-label': 'primary checkbox' }}
+                    />
                 </div>
-            </div>
 
-            <Btn message="この条件で検索する" />
+                <div>
+                    <h2>~STEP2~ お探しのカテゴリーはどちらですか？</h2>
+                    <Checkbox
+                    checked={checked}
+                    onChange={handleChange}
+                    color="primary"
+                    inputProps={{ 'aria-label': 'primary checkbox' }}
+                    />化粧水
+                    <Checkbox
+                    checked={checked}
+                    onChange={handleChange}
+                    color="primary"
+                    inputProps={{ 'aria-label': 'primary checkbox' }}
+                    />
+                    <Checkbox
+                    checked={checked}
+                    onChange={handleChange}
+                    color="primary"
+                    inputProps={{ 'aria-label': 'primary checkbox' }}
+                    />
+                </div>
+
+                <div>
+                    <h2>~STEP3~ 他に条件はありますか？</h2>
+                    <Checkbox
+                    checked={checked}
+                    onChange={handleChange}
+                    color="primary"
+                    inputProps={{ 'aria-label': 'primary checkbox' }}
+                    />EWGランクが１のアイテムだけを表示
+                    <Checkbox
+                    checked={checked}
+                    onChange={handleChange}
+                    color="primary"
+                    inputProps={{ 'aria-label': 'primary checkbox' }}
+                    />EWGランクが３以下のアイテムで探す
+                    <Checkbox
+                    checked={checked}
+                    onChange={handleChange}
+                    color="primary"
+                    inputProps={{ 'aria-label': 'primary checkbox' }}
+                    />肌に合わない成分が入っていないアイテムで探す
+                </div>
+
+                <div>
+                {/* <div className={classes.SearchBox}> */}
+                    <h2>ブランド名を入力すると、そのブランドの中で条件に当てはまるアイテムを探すことができます。</h2>
+                    <Stack spacing={2} sx={{ width: 300 }} className={classes.SearchBox}>
+                    <Autocomplete
+                        freeSolo
+                        id="free-solo-2-demo"
+                        style={{marginBottom: '20px'}}
+                        disableClearable
+                        renderInput={(params) => (
+                            <TextField
+                            {...params}
+                            label="ブランド名を入力する"
+                            InputProps={{
+                                ...params.InputProps,
+                                type: 'search',
+                            }}
+                            />
+                            )}
+                            />
+                    </Stack>
+                </div>
+
+                <Btn message="この条件で検索する" />
+            </div>
 
 
 {/* search_results */}
 
-            <div className='search_results'>
+            <div className='search_results' style={{marginTop: '50px'}}>
                 {/* <img src={leaf_favorite_img} alt="leaf_favorite_img" className={classes.img}/> */}
                 
+                <p>条件に当てはまるアイテムが〇点見つかりました！</p>
+
                 <ImageList>
                 <ImageListItem key="Subheader" cols={8}>
-                    <ListSubheader component="div">条件に当てはまるアイテムが見つかりました</ListSubheader>
+                    {/* <ListSubheader component="div">条件に当てはまるアイテムが見つかりました</ListSubheader> */}
                 </ImageListItem>
 
                 <img src={leftArrow_img} className={classes.arrow} onClick={onClickLeft} />
@@ -193,6 +198,36 @@ export const ItemList = () => {
                 </ImageList>
 
             </div>
+
+{/* recommend */}
+        
+        <div>
+            <h2>STEP1で選択した肌悩みにおすすめのアイテム</h2>
+
+            <ImageList>
+                <ImageListItem key="Subheader" cols={8}>
+                    {/* <ListSubheader component="div">条件に当てはまるアイテムが見つかりました</ListSubheader> */}
+                </ImageListItem>
+
+                <img src={leftArrow_img} className={classes.arrow} onClick={onClickLeft} />
+                {itemData.map((item) => (
+                    <ImageListItem key={item.img} className={classes.cardPaper}>
+                    <img
+                        src={`${item.img}?w=248&fit=crop&auto=format`}
+                        srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                        alt={itemName()}
+                        loading="lazy"
+                    />
+                    <ImageListItemBar
+                        title={itemBrand()}
+                        subtitle={itemName()}
+                    />
+                    </ImageListItem>
+                ))}
+                <img src={rightArrow_img} className={classes.arrow} onClick={onClickRight} />
+                </ImageList>
+
+        </div>
 
         </div>
         </>
