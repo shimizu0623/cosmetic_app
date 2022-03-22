@@ -34,7 +34,7 @@ const theme = createTheme();
 
 export const LoginPage = () => {
   const [inputInformation, setInputInformation] = useState()
-  const [userInformation, setUserInformation] = useState({})
+  // const [userInformation, setUserInformation] = useState({})
   const navigate = useNavigate();
 
   const onChangeMailAddress = (event) => {
@@ -44,10 +44,12 @@ export const LoginPage = () => {
 
   const onClickLogin = async () =>{
     try {
-      console.log(userInformation);
-      const loginResponse = await axios.get('/login', {
-        email: userInformation.email,
-        password: userInformation.password,
+      console.log(inputInformation); //入力した内容
+      // const response = await axios.get('/me', userInformation);
+      // console.log(response); //meの内容
+      const loginResponse = await axios.post('/login', {
+        email: inputInformation.email,
+        password: inputInformation.password,
       });
       localStorage.setItem('access-token', loginResponse.data.token);
       navigate("/homePage");
@@ -189,8 +191,6 @@ export const LoginPage = () => {
                 fullWidth
                 variant="contained"
                 style={{marginTop: '10px',color: 'white',fontWeight: 'bold',background: 'rgba(141, 203, 193)'}}
-                // component={RouterLink}
-                // to="/homePage"
                 onClick={onClickLogin}
               >
                 ログイン
@@ -206,8 +206,6 @@ export const LoginPage = () => {
               >
                 ゲストログイン
               </Button>
-              {/* <Btn message='ログイン'/>
-              <Btn message='ゲストログイン'/> */}
               
               <Grid container>
                 {/* <Grid item xs>
