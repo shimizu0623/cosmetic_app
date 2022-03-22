@@ -75,7 +75,7 @@ export const ItemList = () => {
                 <img src={header_img} alt="header" style={{width: '100%'}}/>
                 <p>ここでは条件検索することができます</p>
                 <div>
-                    <h2>~STEP1~ 改善したい肌の悩みはございますか？</h2>
+                    <h3>改善したい肌の悩みはございますか？</h3>
                     <Checkbox
                     checked={checked}
                     onChange={handleChange}
@@ -97,7 +97,7 @@ export const ItemList = () => {
                 </div>
 
                 <div>
-                    <h2>~STEP2~ お探しのカテゴリーはどちらですか？</h2>
+                    <h3>お探しのカテゴリーはどちらですか？</h3>
                     <Checkbox
                     checked={checked}
                     onChange={handleChange}
@@ -119,7 +119,7 @@ export const ItemList = () => {
                 </div>
 
                 <div>
-                    <h2>~STEP3~ 他に条件はありますか？</h2>
+                    <h3>他に条件はありますか？</h3>
                     <Checkbox
                     checked={checked}
                     onChange={handleChange}
@@ -142,12 +142,12 @@ export const ItemList = () => {
 
                 <div>
                 {/* <div className={classes.SearchBox}> */}
-                    <h2>ブランド名を入力すると、そのブランドの中で条件に当てはまるアイテムを探すことができます。</h2>
+                    <h3>ブランド名を入力すると、ブランドの中から条件に当てはまるアイテムを探すことができます。</h3>
                     <Stack spacing={2} sx={{ width: 300 }} className={classes.SearchBox}>
                     <Autocomplete
                         freeSolo
                         id="free-solo-2-demo"
-                        style={{marginBottom: '20px'}}
+                        style={{margin: '20px 0'}}
                         disableClearable
                         renderInput={(params) => (
                             <TextField
