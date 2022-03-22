@@ -12,7 +12,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
-import ListSubheader from '@mui/material/ListSubheader';
+// import ListSubheader from '@mui/material/ListSubheader';
 import CircularProgress from '@mui/material/CircularProgress';
 
 const onClickRight = () => {
@@ -172,7 +172,7 @@ export const ItemList = () => {
             <div className='search_results' style={{marginTop: '50px'}}>
                 {/* <img src={leaf_favorite_img} alt="leaf_favorite_img" className={classes.img}/> */}
                 
-                <p>条件に当てはまるアイテムが〇点見つかりました！</p>
+                <p style={{fontSize: '20px', color: 'green'}}>条件に当てはまるアイテムが〇点見つかりました！</p>
 
                 <ImageList>
                 <ImageListItem key="Subheader" cols={8}>
@@ -202,7 +202,7 @@ export const ItemList = () => {
 {/* recommend */}
         
         <div>
-            <h2>STEP1で選択した肌悩みにおすすめのアイテム</h2>
+            <h2>選択した肌悩みにおすすめのアイテム</h2>
 
             <ImageList>
                 <ImageListItem key="Subheader" cols={8}>
