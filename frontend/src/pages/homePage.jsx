@@ -209,10 +209,10 @@ export const HomePage = () => {
 
                 <Btn message='検索' />
                 {/* component={RouterLink}
-                to="/itemList" */}
+                to="/itemSearch" */}
 
                 </div>
-                <p style={{fontSize: '20px'}}>肌悩みやEWG等級別など<Link component={RouterLink} to="/itemList">条件をつける</Link>こともできます</p>
+                <p style={{fontSize: '20px'}}>肌悩みやEWG等級別など<Link component={RouterLink} to="/itemSearch">条件をつける</Link>こともできます</p>
             </div>
             </div>
 

@@ -79,7 +79,8 @@ return(
             marginTop: '45px',
           }} 
       >
-        <MenuItem component={RouterLink} to="/itemList">
+
+        <MenuItem component={RouterLink} to="/itemSearch">
           <ListItemIcon>
             <SearchIcon />
           </ListItemIcon>

@@ -41,7 +41,7 @@ const useStyles = makeStyles({
 })
 
 
-export const ItemList = () => {
+export const ItemSearch = () => {
     const classes = useStyles();
     const [item, setItem] = useState(null);
     const [checked, setChecked] = React.useState(false);

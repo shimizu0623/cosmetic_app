@@ -11,7 +11,7 @@ import { MyPage } from "./pages/myPage";
 import { DeleteConfirm } from "./pages/deleteConfirm";
 import { DeleteInformation } from "./pages/deletedInformation";
 import { HomePage } from "./pages/homePage";
-import { ItemList } from "./pages/itemList";
+import { ItemSearch } from "./pages/itemSearchPage";
 import { ItemDetail } from "./pages/itemDetail";
 import { ItemComparison } from "./pages/itemComparison";
 import { RequestPage } from "./pages/requestPage";
@@ -72,8 +72,8 @@ ReactDom.render(
               element={<HomePage />}
             />  
           <Route
-              path='/itemList'
-              element={<ItemList />}
+              path='/itemSearch'
+              element={<ItemSearch />}
             />  
           <Route
               path='/itemDetail'
