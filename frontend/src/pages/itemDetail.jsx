@@ -42,7 +42,6 @@ const useStyles = makeStyles({
         fontWeight: 'bold',
         padding: '7px',
         color: '#459319ef',
-        // background: '#cfdd9cef',
         background: '#e3f5a4ef',
         border: 'none',
         textShadow: '1px 1px 1px white',
@@ -75,9 +74,20 @@ const useStyles = makeStyles({
         boxShadow: '0px 0px 0px 5px #cae1df',
 
     },
+    reviewBtn: {
+        color: '#60501c',
+        background: '#f6dd89f5',
+        marginLeft: '40px',
+        padding: '5px',
+        borderRadius: '4px',
+        borderColor: '#f5d97ff5',
+        border: '2px solid',
+        '&:hover':{
+            cursor: 'pointer',
+            background: '#f5d56d',
 
-    
-
+        }
+    },
 
 })
 
@@ -120,7 +130,7 @@ export const ItemDetail = () => {
                             {/* <Typography component="legend">Read only</Typography> */}
                             <Rating name="read-only" value={value} readOnly />
                         </Box>
-                        <button onClick={onClickReview} style={{marginLeft: '20px', }}>この商品のレビューを見る</button>
+                        <button onClick={onClickReview} className={classes.reviewBtn}>この商品のレビューを見る</button>
                     </div>
                     <div className={classes.styleP}>
                         <p className={classes.itemDetail}>内容量：</p>
