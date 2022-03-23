@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\RequestText;
+use App\Models\Request as RequestText;
 
 class RequestTextsController extends Controller
 {
