@@ -38,6 +38,23 @@ const useStyles = makeStyles({
         marginRight: '20px',
     },
     btn: {
+        borderRadius: '10px',
+        fontWeight: 'bold',
+        padding: '7px',
+        color: '#459319ef',
+        // background: '#cfdd9cef',
+        background: '#e3f5a4ef',
+        border: 'none',
+        textShadow: '1px 1px 1px white',
+        '&:hover':{
+            cursor: 'pointer',
+            color: 'green',
+            background: '#deeca5ef',
+            borderColor: 'green',
+            textShadow: 'none',
+        }
+    },
+    btnForm: {
         display: 'flex',
         padding: '5px 0 0 0',
     },
@@ -50,6 +67,14 @@ const useStyles = makeStyles({
             textDecoration: 'underline',
         }
     },
+    ewgForm: {
+        margin: '40px',
+        background: '#cae1df',
+        borderRadius: '20px',
+        border: 'dashed 2px #019401b8',
+        boxShadow: '0px 0px 0px 5px #cae1df',
+
+    },
 
     
 
@@ -61,6 +86,9 @@ const onClickReview = () => {
 }
 const onClickAddFavorite = () => {
     console.log('onClickAddFavorite')
+}
+const onClickAddComparison = () => {
+    console.log('ClickAddComparison')
 }
 const onClickAddUnmatchedItems = () => {
     console.log('onClickAddUnmatchedItems')
@@ -92,7 +120,7 @@ export const ItemDetail = () => {
                             {/* <Typography component="legend">Read only</Typography> */}
                             <Rating name="read-only" value={value} readOnly />
                         </Box>
-                        <button onClick={onClickReview} style={{marginLeft: '20px'}}>この商品のレビューを見る</button>
+                        <button onClick={onClickReview} style={{marginLeft: '20px', }}>この商品のレビューを見る</button>
                     </div>
                     <div className={classes.styleP}>
                         <p className={classes.itemDetail}>内容量：</p>
@@ -107,25 +135,25 @@ export const ItemDetail = () => {
                         <p>例：化粧水</p>
                     </div>
 
-                    <div className={classes.btn}>
-                        <button onClick={onClickAddFavorite}>お気に入りへ追加</button>
+                    <div className={classes.btnForm}>
+                        <button  className={classes.btn} onClick={onClickAddFavorite}>お気に入りへ追加</button>
                     </div>
-                    <div className={classes.btn}>
-                        <button onClick={onClickAddFavorite}>コスメ比較へ追加</button>
+                    <div className={classes.btnForm}>
+                        <button  className={classes.btn} onClick={onClickAddComparison}>コスメ比較へ追加</button>
                     </div>
                         <p>→<Link component={RouterLink} to="/myPage">コスメ比較ページ</Link>を見る</p>
-                    <div className={classes.btn}>
-                        <button onClick={onClickAddUnmatchedItems}>肌に合わなかったアイテムへ追加</button>
+                    <div className={classes.btnForm}>
+                        <button  className={classes.btn} onClick={onClickAddUnmatchedItems}>肌に合わなかったアイテムへ追加</button>
                     </div>
 
                     
                 </div>
             </div>
 
-            <div style={{margin: '40px', background: '#cae1df', borderRadius: '20px'}}>
+            <div className={classes.ewgForm}>
                 <p style={{fontSize: '30px', color: 'green', textShadow: '2px 2px 1px white'}}>EWG安全性</p>
                 <PieChart width={1000} height={250}>
-                <Pie data={data} dataKey="value" cx="90%" cy="50%" outerRadius={100} fill="#8bcba4" label/>
+                <Pie data={data} dataKey="value" cx="90%" cy="50%" outerRadius={100} fill="#4aab9980" label/>
                 </PieChart>
             </div>
 
