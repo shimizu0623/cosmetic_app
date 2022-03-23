@@ -88,6 +88,11 @@ const useStyles = makeStyles({
 
         }
     },
+    alertForm: {
+        background: '#ffeaea',
+        maxWidth: '300px',
+        margin: '0 auto',
+    },
 
 })
 
@@ -160,6 +165,14 @@ export const ItemDetail = () => {
                 </div>
             </div>
 
+            <div  className={classes.alertForm}>
+                <h4 style={{color: 'red', paddingTop: '10px'}}>注意！</h4>
+                <p>肌に合わなかった共通成分があります</p>
+                <div style={{padding: '10px'}}>
+                    <p>○○酸</p>
+                </div>
+            </div>
+
             <div className={classes.ewgForm}>
                 <p style={{fontSize: '30px', color: 'green', textShadow: '2px 2px 1px white'}}>EWG安全性</p>
                 <PieChart width={1000} height={250}>
@@ -209,21 +222,21 @@ const data = [
     {
       index: 0,
       name: 'データ1',
-      value: 300,
+      value: 80,
     },
     {
       index: 1,
       name: 'データ2',
-      value: 200,
+      value: 10,
     },
     {
       index: 2,
       name: 'データ3',
-      value: 380,
+      value: 10,
     },
   ];
   
-  const COLORS = [
-    '#2250A2',
-    '#da50a2',
-  ];
+//   const COLORS = [
+//     '#2250A2',
+//     '#da50a2',
+//   ];
