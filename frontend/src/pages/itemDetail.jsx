@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Link from '@mui/material/Link';
 import { Link as RouterLink } from "react-router-dom";
-
+import { PieChart, Pie, Text } from 'recharts'
 
 import sample_itemImg from '../img/sample_itemImg.PNG';
 
@@ -66,7 +66,6 @@ export const ItemDetail = () => {
         <>
         <div className='MainContainer'>
 
-
             <div className={classes.styleParent}>
                 <img src={sample_itemImg} alt="sampleImg" style={{marginRight: '50px'}} />
                 <div>
@@ -108,8 +107,11 @@ export const ItemDetail = () => {
                 </div>
             </div>
 
-            <div style={{margin: '40px auto'}}>
-                <p>EWG安全性</p>
+            <div style={{margin: '40px', background: '#cae1df', borderRadius: '20px'}}>
+                <p style={{fontSize: '30px', color: 'green', textShadow: '2px 2px 1px white'}}>EWG安全性</p>
+                <PieChart width={1000} height={250}>
+                <Pie data={data} dataKey="value" cx="90%" cy="50%" outerRadius={100} fill="#8bcba4" label/>
+                </PieChart>
             </div>
 
             <div style={{margin: '50px 0 20px 0'}}>
@@ -149,3 +151,26 @@ export const ItemDetail = () => {
         </>
     )
 }
+
+const data = [
+    {
+      index: 0,
+      name: 'データ1',
+      value: 300,
+    },
+    {
+      index: 1,
+      name: 'データ2',
+      value: 200,
+    },
+    {
+      index: 2,
+      name: 'データ3',
+      value: 380,
+    },
+  ];
+  
+  const COLORS = [
+    '#2250A2',
+    '#da50a2',
+  ];
