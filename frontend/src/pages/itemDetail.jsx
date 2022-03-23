@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Link from '@mui/material/Link';
 import { Link as RouterLink } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import { PieChart, Pie, Text } from 'recharts'
 
 import sample_itemImg from '../img/sample_itemImg.PNG';
@@ -40,6 +41,15 @@ const useStyles = makeStyles({
         display: 'flex',
         padding: '5px 0 0 0',
     },
+    back: {
+        textAlign: 'left',
+        color: 'gray',
+        '&:hover':{
+            cursor: 'pointer',
+            color: 'black',
+            textDecoration: 'underline',
+        }
+    },
 
     
 
@@ -59,12 +69,17 @@ const onClickAddUnmatchedItems = () => {
 
 export const ItemDetail = () => {
     const classes = useStyles();
-    const [value, setValue] = React.useState(3);
-
+    const [value, setValue] = React.useState(3); //☆
+    const navigate = useNavigate();
 
     return(
         <>
         <div className='MainContainer'>
+        <div  className={classes.back}>
+            <span onClick={() => navigate(-1)}>前のページへ戻る</span>
+        </div>
+
+        {/* <button onClick={() => navigate(-1)}>検索結果へ戻る</button> */}
 
             <div className={classes.styleParent}>
                 <img src={sample_itemImg} alt="sampleImg" style={{marginRight: '50px'}} />
