@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -37,7 +38,6 @@ class UsersController extends Controller
                 'name' => $user->name,
                 'email' => $user->email,
                 'password' => $user->password,
-                // 'password' => $user->password,
                 'birthday_string' => $user->birthday_string(),
                 'birth_date' => $user->birth_date,
                 'gender_name' => $user->gender->name,
@@ -53,7 +53,6 @@ class UsersController extends Controller
         
         //入力バリデーション
         $validator = Validator::make($request->all(),[
-            // 'id' => 'required',
             'name' => 'required',
             'birth_date' => 'required',
             'email' => 'required|email',
@@ -68,28 +67,20 @@ class UsersController extends Controller
         //バリエーションで問題がなかったらユーザを作成する。
         $user = $request->user();
 
-        // $user->id = $user->id;
+        Log::debug('before ' . $user->password);
+
         $user->name = $request->name;
         $user->birth_date = $request->birth_date;
         $user->email = $request->email;
         
         
-        if($request->password === ''){
-            $user->password = $user->password;
-        }else{
+        if(!empty($request->password) && $request->password !== 0){
             $user->password = Hash::make($request->password);
         }
 
-        // if($request->password === ""){
-        //     // return $user->password = $user->password;
-        //     // $user->password = Hash::make($request->password);
-        //     $request->password = '1234'
-        //     $user->password = Hash::make($request->password);
-        // // }else{
-        // //     $user->password = Hash::make($request->password);
-        // }
-
         $user->save();
+
+        Log::debug('after ' . $user->password);
 
         //ユーザの作成が完了するとjsonを返す
         return response()->json($user, Response::HTTP_OK);
