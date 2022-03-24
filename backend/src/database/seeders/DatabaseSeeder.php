@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             GenderSeeder::class,
             SkinTypeSeeder::class,
             CategorySeeder::class,
+            SkinTroubleSeeder::class,
         ]);    
     }
 }
