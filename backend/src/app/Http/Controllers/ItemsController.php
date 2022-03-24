@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Item;
+use Illuminate\Support\Facades\Log;
 
 class ItemsController extends Controller
 {
@@ -12,11 +13,19 @@ class ItemsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $skinTroubleIds = $request->query('skin_trouble_id');
+        // Log::debug(print_r($skinTroubleIds, true));
+        $items = Item::withSkinTroubles($skinTroubleIds)
+        ->get();
+
         return response()->json(
-            Item::all()
+            $items
         );
+
+
+
     }
 
     public function item()
