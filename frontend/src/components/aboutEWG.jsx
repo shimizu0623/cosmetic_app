@@ -2,10 +2,14 @@ import React from 'react';
 
 import EwgLogo from "../img/Ewg-logo.jpeg"
 import Level from "../img/level.PNG"
-import Hazard from "../img/img_Hazard.PNG"
+// import Hazard from "../img/img_Hazard.PNG"
 import LowHazard from "../img/level_LowHazard.PNG"
 import ModerateHazard from "../img/level_ModerateHazard.PNG"
 import HighHazard from "../img/level_HighHazard.PNG"
+
+import leaf_green from '../img/leaf_green.png';
+import leaf_yellow from '../img/leaf_yellow.png';
+import leaf_brown from '../img/leaf_brown.png';
 
 import Link from '@mui/material/Link';
 import { Link as RouterLink } from "react-router-dom";
@@ -31,7 +35,9 @@ export const Ewg = (props) => {
               <p>コスメの安全性を簡単に判断することができるのです。</p>
 
               <h2>どうやって見ればいいの？</h2>
-              <img src={Hazard} id="Hazard_img"  alt="Hazard_img" />
+              <img src={leaf_green} id="leaf_green_img"  alt="leaf_green_img" style={{maxWidth: '80px'}} />
+              <img src={leaf_yellow} id="leaf_yellow_img"  alt="leaf_yellow_img" style={{maxWidth: '80px'}} />
+              <img src={leaf_brown} id="leaf_brown_img"  alt="leaf_brown_img" style={{maxWidth: '80px'}} />
               <p>EWG等級は、数字が低ければ低いほど有害性の低い安全な成分となっています。</p>
               <p>つまり、<span>1が最も安全で、10が最も危険</span>ということをを示しています。</p>
                   <div className='level_LowHazard'>
