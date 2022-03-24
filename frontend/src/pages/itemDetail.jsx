@@ -6,8 +6,8 @@ import Box from '@material-ui/core/Box';
 import Link from '@mui/material/Link';
 import { Link as RouterLink } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
-import { PieChart, Pie, Text } from 'recharts'
-
+import { PieChart, Pie, Cell } from 'recharts'
+import Grid from '@mui/material/Grid';
 import sample_itemImg from '../img/sample_itemImg.PNG';
 
 
@@ -174,10 +174,36 @@ export const ItemDetail = () => {
             </div>
 
             <div className={classes.ewgForm}>
-                <p style={{fontSize: '30px', color: 'green', textShadow: '2px 2px 1px white'}}>EWG安全性</p>
-                <PieChart width={1000} height={250}>
-                <Pie data={data} dataKey="value" cx="90%" cy="50%" outerRadius={100} fill="#4aab9980" label/>
-                </PieChart>
+                <p style={{fontSize: '30px', color: 'green', textShadow: '2px 2px 1px white', margin: '20px auto'}}>EWG安全性</p>
+                <Grid container spacing={1}>
+                <Grid item xs={4}>
+                <div>
+                    <div className={classes.styleParent}>
+                        <img src={sample_itemImg} alt="sampleImg" style={{width: '80px'}} />
+                        <p>20 / 28</p>
+                    </div>
+                    <div className={classes.styleParent}>
+                        <img src={sample_itemImg} alt="sampleImg" style={{width: '80px'}} />
+                        <p>7 / 28</p>
+                    </div>
+                    <div className={classes.styleParent}>
+                        <img src={sample_itemImg} alt="sampleImg" style={{width: '80px'}} />
+                        <p>1 / 28</p>
+                    </div>
+                </div>
+                </Grid>
+                <Grid item xs={8}>
+                <div style={{display: 'inline-block'}}>
+                    <PieChart width={300} height={300}>
+                    <Pie data={data} dataKey="value" outerRadius={100} label>
+                    {data.map((entry, index) => (
+                        <Cell key={entry.name} fill={ChartColors[index % ChartColors.length]} />
+                    ))}
+                    </Pie>
+                    </PieChart>
+                </div>
+                </Grid>
+            </Grid>
             </div>
 
             <div style={{margin: '50px 0 20px 0'}}>
@@ -221,19 +247,24 @@ export const ItemDetail = () => {
 const data = [
     {
       index: 0,
-      name: 'データ1',
-      value: 80,
-    },
-    {
-      index: 1,
-      name: 'データ2',
-      value: 10,
+      name: 'Low Hazard',
+      value: 70,
     },
     {
       index: 2,
-      name: 'データ3',
+      name: 'Moderate Hazard',
+      value: 20,
+    },
+    {
+      index: 1,
+      name: 'High Hazard',
       value: 10,
     },
+  ];
+const ChartColors = [
+    '#5ac9b4',
+    '#f5c56b',
+    '#f04b4be7',
   ];
   
 //   const COLORS = [
