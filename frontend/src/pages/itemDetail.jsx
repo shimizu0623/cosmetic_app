@@ -10,6 +10,9 @@ import { useNavigate } from 'react-router-dom';
 import { PieChart, Pie, Cell } from 'recharts'
 import Grid from '@mui/material/Grid';
 import sample_itemImg from '../img/sample_itemImg.PNG';
+import leaf_green from '../img/leaf_green.png';
+import leaf_yellow from '../img/leaf_yellow.png';
+import leaf_brown from '../img/leaf_brown.png';
 
 
 const useStyles = makeStyles({
@@ -68,11 +71,12 @@ const useStyles = makeStyles({
         }
     },
     ewgForm: {
-        margin: '40px',
+        margin: '40px auto 0',
         background: '#cae1df',
         borderRadius: '20px',
         border: 'dashed 2px #019401b8',
         boxShadow: '0px 0px 0px 5px #cae1df',
+        width: '70%',
 
     },
     reviewBtn: {
@@ -181,16 +185,16 @@ export const ItemDetail = () => {
                 <div>
                     <p style={{color: 'green', textShadow: '2px 2px 1px white'}}>配合成分合計： 28種類</p>
                     <div className={classes.styleParent}>
-                        <img src={sample_itemImg} alt="sampleImg" style={{width: '80px', marginRight: '30px'}} />
-                        <div style={{fontSize: '15px'}}><span style={{fontSize: '25px', fontWeight: 'bold', color: '#5ac9b4'}}>20</span> / 28</div>
+                        <img src={leaf_green} alt="sampleImg" style={{width: '80px', marginRight: '30px'}} />
+                        <div style={{fontSize: '15px', marginTop: '20px'}}><span style={{fontSize: '25px', fontWeight: 'bold', color: '#5ac9b4'}}>20</span> / 28</div>
                     </div>
                     <div className={classes.styleParent}>
-                        <img src={sample_itemImg} alt="sampleImg" style={{width: '80px', marginRight: '30px'}} />
-                        <div style={{fontSize: '15px'}}><span style={{fontSize: '25px', fontWeight: 'bold', color: '#f5c56b'}}>7</span> / 28</div>
+                        <img src={leaf_yellow} alt="sampleImg" style={{width: '80px', marginRight: '30px'}} />
+                        <div style={{fontSize: '15px', marginTop: '20px'}}><span style={{fontSize: '25px', fontWeight: 'bold', color: '#f5c56b'}}>7</span> / 28</div>
                     </div>
                     <div className={classes.styleParent}>
-                        <img src={sample_itemImg} alt="sampleImg" style={{width: '80px', marginRight: '30px'}} />
-                        <div style={{fontSize: '15px'}}><span style={{fontSize: '25px', fontWeight: 'bold', color: '#f04b4be7'}}>1</span> / 28</div>
+                        <img src={leaf_brown} alt="sampleImg" style={{width: '80px', marginRight: '30px'}} />
+                        <div style={{fontSize: '15px', marginTop: '20px'}}><span style={{fontSize: '25px', fontWeight: 'bold', color: '#f04b4be7'}}>1</span> / 28</div>
                     </div>
                 </div>
                 </Grid>
