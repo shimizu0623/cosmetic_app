@@ -120,7 +120,7 @@ export const ItemDetail = () => {
         <>
         <div className='MainContainer'>
         <div  className={classes.back}>
-            <span onClick={() => navigate(-1)}>前のページへ戻る</span>
+            <span onClick={() => navigate(-1)}>&lt;&lt;前のページへ戻る</span>
         </div>
 
         {/* <button onClick={() => navigate(-1)}>検索結果へ戻る</button> */}
@@ -177,24 +177,26 @@ export const ItemDetail = () => {
             <div className={classes.ewgForm}>
                 <p style={{fontSize: '30px', color: 'green', textShadow: '2px 2px 1px white', margin: '20px auto'}}>EWG安全性</p>
                 <Grid container spacing={1}>
-                <Grid item xs={4}>
+                <Grid item xs={6}>
                 <div>
+                    <p style={{color: 'green', textShadow: '2px 2px 1px white'}}>配合成分合計： 28種類</p>
                     <div className={classes.styleParent}>
-                        <img src={sample_itemImg} alt="sampleImg" style={{width: '80px'}} />
-                        <p>20 / 28</p>
+                        <img src={sample_itemImg} alt="sampleImg" style={{width: '80px', marginRight: '30px'}} />
+                        <div style={{fontSize: '15px'}}><span style={{fontSize: '25px', fontWeight: 'bold', color: '#5ac9b4'}}>20</span> / 28</div>
                     </div>
                     <div className={classes.styleParent}>
-                        <img src={sample_itemImg} alt="sampleImg" style={{width: '80px'}} />
-                        <p>7 / 28</p>
+                        <img src={sample_itemImg} alt="sampleImg" style={{width: '80px', marginRight: '30px'}} />
+                        <div style={{fontSize: '15px'}}><span style={{fontSize: '25px', fontWeight: 'bold', color: '#f5c56b'}}>7</span> / 28</div>
                     </div>
                     <div className={classes.styleParent}>
-                        <img src={sample_itemImg} alt="sampleImg" style={{width: '80px'}} />
-                        <p>1 / 28</p>
+                        <img src={sample_itemImg} alt="sampleImg" style={{width: '80px', marginRight: '30px'}} />
+                        <div style={{fontSize: '15px'}}><span style={{fontSize: '25px', fontWeight: 'bold', color: '#f04b4be7'}}>1</span> / 28</div>
                     </div>
                 </div>
                 </Grid>
-                <Grid item xs={8}>
+                <Grid item xs={6}>
                 <div style={{display: 'inline-block'}}>
+                    <p style={{color: 'green', textShadow: '2px 2px 1px white'}}>EWG等級別成分割合(％)</p>
                     <PieChart width={300} height={300}>
                     <Pie data={data} dataKey="value" outerRadius={100} label>
                     {data.map((entry, index) => (
@@ -209,7 +211,7 @@ export const ItemDetail = () => {
 
             <div style={{margin: '50px 0 20px 0'}}>
                 <table style={{margin: '0 auto'}}>
-                <caption style={{fontSize: '25px', marginBottom: '10px'}}>配合成分一覧</caption>
+                <caption style={{fontSize: '25px', marginBottom: '10px'}}>配合成分詳細</caption>
                 <tr>
                     <th className={classes.tableHeader}>成分名</th>
                     <th className={classes.tableHeader}>配合目的</th>
