@@ -26,6 +26,30 @@ class Item extends Model
         return $query->whereIn('items.skin_trouble_id', $skinTroubleIds);
     }
 
+    public function scopeWithCategories($query, $categoryIds)
+    {
+        if(empty($categoryIds)){
+            return $query;
+        }
+        return $query->where('items.category_id', $categoryIds);
+    }
+    
+    // public function scopeWithCategories($query, $categoryIds)
+    // {
+    //     if(empty($categoryIds)){
+    //         return $query;
+    //     }
+    //     return $query->where('items.category_id', $categoryIds);
+    // }
+
+    public function scopeWithBrands($query, $brandIds)
+    {
+        if(empty($brandIds)){
+            return $query;
+        }
+        return $query->where('items.brand_id', $brandIds);
+    }
+
     
 
 }

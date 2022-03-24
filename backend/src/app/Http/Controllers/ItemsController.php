@@ -16,8 +16,15 @@ class ItemsController extends Controller
     public function index(Request $request)
     {
         $skinTroubleIds = $request->query('skin_trouble_id');
+        $categoryIds = $request->query('category_id');
+        // $categoryIds = $request->query('category_id');
+        $brandIds = $request->query('brand_id');
+
         // Log::debug(print_r($skinTroubleIds, true));
         $items = Item::withSkinTroubles($skinTroubleIds)
+        ->withCategories($categoryIds)
+        // ->withCategories($categoryIds)
+        ->withBrands($brandIds)
         ->get();
 
         return response()->json(
