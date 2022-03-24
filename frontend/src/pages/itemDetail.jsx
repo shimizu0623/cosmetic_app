@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+
 import { makeStyles } from "@material-ui/core/styles";
 import Rating from '@material-ui/lab/Rating';
 import Typography from '@material-ui/core/Typography';
@@ -151,14 +152,14 @@ export const ItemDetail = () => {
                     </div>
 
                     <div className={classes.btnForm}>
-                        <button  className={classes.btn} onClick={onClickAddFavorite}>お気に入りへ追加</button>
+                        <button className={classes.btn} onClick={onClickAddFavorite}>お気に入りへ追加</button>
                     </div>
                     <div className={classes.btnForm}>
-                        <button  className={classes.btn} onClick={onClickAddComparison}>コスメ比較へ追加</button>
+                        <button className={classes.btn} onClick={onClickAddComparison}>コスメ比較へ追加</button>
                     </div>
                         <p>→<Link component={RouterLink} to="/myPage">コスメ比較ページ</Link>を見る</p>
                     <div className={classes.btnForm}>
-                        <button  className={classes.btn} onClick={onClickAddUnmatchedItems}>肌に合わなかったアイテムへ追加</button>
+                        <button className={classes.btn} onClick={onClickAddUnmatchedItems}>肌に合わなかったアイテムへ追加</button>
                     </div>
 
                     
