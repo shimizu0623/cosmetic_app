@@ -34,7 +34,7 @@ const useStyles = makeStyles({
     },
     SearchBox: {
         display: 'flex',
-        margin: '0 auto',
+        margin: '20px auto 0',
     },
 
 
@@ -74,8 +74,10 @@ export const ItemSearch = () => {
             <div className='conditionForm'>
                 <img src={header_img} alt="header" style={{width: '100%'}}/>
                 <p>ここでは条件検索することができます</p>
-                <div>
-                    <h3>改善したい肌の悩みはございますか？</h3>
+                <p>当てはまる項目をチェックしてください</p>
+                <div style={{background: '#c8eee8af', borderRadius: '20px', padding: '20px 0', margin: '30px auto'}}>
+                {/* <div> */}
+                    <h2 style={{marginTop: '0'}}>改善したい肌の悩みはございますか？</h2>
                     <Checkbox
                     checked={checked}
                     onChange={handleChange}
@@ -94,10 +96,10 @@ export const ItemSearch = () => {
                     color="primary"
                     inputProps={{ 'aria-label': 'primary checkbox' }}
                     />
-                </div>
+                {/* </div>
 
-                <div>
-                    <h3>お探しのカテゴリーはどちらですか？</h3>
+                <div> */}
+                    <h2>お探しのカテゴリーはどちらですか？</h2>
                     <Checkbox
                     checked={checked}
                     onChange={handleChange}
@@ -116,10 +118,10 @@ export const ItemSearch = () => {
                     color="primary"
                     inputProps={{ 'aria-label': 'primary checkbox' }}
                     />
-                </div>
+                {/* </div>
 
-                <div>
-                    <h3>他に条件はありますか？</h3>
+                <div> */}
+                    <h2>他に条件はありますか？</h2>
                     <Checkbox
                     checked={checked}
                     onChange={handleChange}
@@ -138,12 +140,12 @@ export const ItemSearch = () => {
                     color="primary"
                     inputProps={{ 'aria-label': 'primary checkbox' }}
                     />肌に合わない成分が入っていないアイテムで探す
-                </div>
+                {/* </div>
 
-                <div>
+                <div> */}
                 {/* <div className={classes.SearchBox}> */}
-                    <h3>ブランド名を入力すると、ブランドの中から条件に当てはまるアイテムを探すことができます。</h3>
-                    <Stack spacing={2} sx={{ width: 300 }} className={classes.SearchBox}>
+                    <h2 style={{marginBottom: '0'}}>ブランド名を選択すると、ブランドの中から条件に当てはまるアイテムを探すことができます。</h2>
+                    {/* <Stack spacing={2} sx={{ width: 300 }} className={classes.SearchBox}>
                     <Autocomplete
                         freeSolo
                         id="free-solo-2-demo"
@@ -160,7 +162,27 @@ export const ItemSearch = () => {
                             />
                             )}
                             />
+                    </Stack> */}
+                    <Stack spacing={2} sx={{ width: 300 }} className={classes.SearchBox}>
+                    <Autocomplete
+                        freeSolo
+                        id="free-solo-2-demo"
+                        style={{marginRight: '10px'}}
+                        disableClearable
+                        options={brands.map((option) => option.brand)}
+                        renderInput={(params) => (
+                            <TextField
+                            {...params}
+                            label="ブランドを選択する"
+                            InputProps={{
+                                ...params.InputProps,
+                                type: 'search',
+                            }}
+                            />
+                        )}
+                    />
                     </Stack>
+
                 </div>
 
                 <Btn message="この条件で検索する" />
@@ -233,6 +255,12 @@ export const ItemSearch = () => {
         </>
     )
 }
+
+const brands = [
+    { brand: 'Dior'},
+    { brand: '資生堂'},
+    { brand: 'FANCL'},
+];
 
 const itemData = [
     {
