@@ -193,11 +193,11 @@ export const HomePage = () => {
                         id="free-solo-2-demo"
                         style={{marginRight: '10px'}}
                         disableClearable
-                        options={top100Films.map((option) => option.brand)}
+                        options={brands.map((option) => option.brand)}
                         renderInput={(params) => (
                             <TextField
                             {...params}
-                            label="ブランドや商品から探す"
+                            label="ブランドから探す"
                             InputProps={{
                                 ...params.InputProps,
                                 type: 'search',
@@ -363,7 +363,7 @@ export const HomePage = () => {
     )
 }
 
-const top100Films = [
+const brands = [
     { brand: 'Dior'},
     { brand: '資生堂'},
     { brand: 'FANCL'},
