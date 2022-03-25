@@ -17,21 +17,23 @@ class ItemsController extends Controller
     {
         $skinTroubleIds = $request->query('skin_trouble_id');
         $categoryIds = $request->query('category_id');
-        // $categoryIds = $request->query('category_id');
         $brandIds = $request->query('brand_id');
+        // $score = $request->query('score');
+        // $user = $request->user();
 
         // Log::debug(print_r($skinTroubleIds, true));
+
         $items = Item::withSkinTroubles($skinTroubleIds)
         ->withCategories($categoryIds)
-        // ->withCategories($categoryIds)
-        ->withBrands($brandIds)
+        ->withBrand($brandIds)
+        // ->excludeUnmatched($user->id)
+        // ->withEwgScore(1)
         ->get();
+        
 
         return response()->json(
-            $items
+            $items //画面に表示されるアイテム
         );
-
-
 
     }
 
