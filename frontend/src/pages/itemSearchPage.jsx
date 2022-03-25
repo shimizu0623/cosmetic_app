@@ -145,12 +145,6 @@ export const ItemSearch = () => {
                     onChange={handleChange}
                     color="primary"
                     inputProps={{ 'aria-label': 'primary checkbox' }}
-                    />EWGランクが３以下のアイテムで探す
-                    <Checkbox
-                    checked={checked}
-                    onChange={handleChange}
-                    color="primary"
-                    inputProps={{ 'aria-label': 'primary checkbox' }}
                     />肌に合わない成分が入っていないアイテムで探す
                 {/* </div>
 
