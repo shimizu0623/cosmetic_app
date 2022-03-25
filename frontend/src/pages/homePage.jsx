@@ -13,6 +13,11 @@ import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 import rank_1 from '../img/rank_1.jpg';
 import rank_2 from '../img/rank_2.jpg';
@@ -112,6 +117,13 @@ export const HomePage = () => {
     const classes = useStyles();
     const [user, setUser] = useState(null);
     const [item, setItem] = useState(null);
+    const [brands, setBrands] = React.useState('');
+
+    const onClickBrand = (event) => {
+        setBrands(event.target.value);
+    };
+
+
     useEffect(async () => {
         const response = await axios.get('/me')
         const u = response.data
@@ -187,7 +199,7 @@ export const HomePage = () => {
                 商品ページからひとつひとつの成分を確認することができます。</p>
                 <div className={classes.SearchForm}>
 
-                <Stack spacing={2} sx={{ width: 300 }}>
+                {/* <Stack spacing={2} sx={{ width: 300 }}>
                     <Autocomplete
                         freeSolo
                         id="free-solo-2-demo"
@@ -205,7 +217,25 @@ export const HomePage = () => {
                             />
                         )}
                     />
-                </Stack>
+                </Stack> */}
+
+                <Box sx={{ width: 300 }}>
+                <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">ブランドを選択する</InputLabel>
+                    <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={brands}
+                    label="Brands"
+                    onChange={onClickBrand}
+                    style={{marginRight: '10px', }}
+                    >
+                    <MenuItem value={10} style={{width: '100%'}}>Dior</MenuItem>
+                    <MenuItem value={20} style={{width: '100%'}}>資生堂</MenuItem>
+                    <MenuItem value={30} style={{width: '100%'}}>FANCL</MenuItem>
+                    </Select>
+                </FormControl>
+                </Box>
 
                 <Btn message='検索' />
                 {/* component={RouterLink}
@@ -363,11 +393,12 @@ export const HomePage = () => {
     )
 }
 
-const brands = [
-    { brand: 'Dior'},
-    { brand: '資生堂'},
-    { brand: 'FANCL'},
-];
+// const brands = [
+//     { brand: 'Dior'},
+//     { brand: '資生堂'},
+//     { brand: 'FANCL'},
+// ];
+
 
 const itemData = [
     {

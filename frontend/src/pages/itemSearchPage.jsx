@@ -14,6 +14,12 @@ import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 // import ListSubheader from '@mui/material/ListSubheader';
 import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+
 
 const onClickRight = () => {
     console.log('onClickRight')
@@ -45,7 +51,11 @@ export const ItemSearch = () => {
     const classes = useStyles();
     const [item, setItem] = useState(null);
     const [checked, setChecked] = React.useState(false);
-    
+    const [brands, setBrands] = React.useState('');
+
+    const onClickBrand = (event) => {
+        setBrands(event.target.value);
+    };
     const handleChange = (event) => {
         setChecked(event.target.checked);
     };
@@ -145,44 +155,23 @@ export const ItemSearch = () => {
                 <div> */}
                 {/* <div className={classes.SearchBox}> */}
                     <h2 style={{marginBottom: '0'}}>ブランド名を選択すると、ブランドの中から条件に当てはまるアイテムを探すことができます。</h2>
-                    {/* <Stack spacing={2} sx={{ width: 300 }} className={classes.SearchBox}>
-                    <Autocomplete
-                        freeSolo
-                        id="free-solo-2-demo"
-                        style={{margin: '20px 0'}}
-                        disableClearable
-                        renderInput={(params) => (
-                            <TextField
-                            {...params}
-                            label="ブランド名を入力する"
-                            InputProps={{
-                                ...params.InputProps,
-                                type: 'search',
-                            }}
-                            />
-                            )}
-                            />
-                    </Stack> */}
-                    <Stack spacing={2} sx={{ width: 300 }} className={classes.SearchBox}>
-                    <Autocomplete
-                        freeSolo
-                        id="free-solo-2-demo"
-                        style={{marginRight: '10px'}}
-                        disableClearable
-                        options={brands.map((option) => option.brand)}
-                        renderInput={(params) => (
-                            <TextField
-                            {...params}
-                            label="ブランドを選択する"
-                            InputProps={{
-                                ...params.InputProps,
-                                type: 'search',
-                            }}
-                            />
-                        )}
-                    />
-                    </Stack>
-
+                    <Box sx={{ width: 300 }} className={classes.SearchBox}>
+                    <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">ブランドを選択する</InputLabel>
+                        <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={brands}
+                        label="Brands"
+                        onChange={onClickBrand}
+                        style={{marginRight: '10px', }}
+                        >
+                        <MenuItem value={10} style={{width: '100%'}}>Dior</MenuItem>
+                        <MenuItem value={20} style={{width: '100%'}}>資生堂</MenuItem>
+                        <MenuItem value={30} style={{width: '100%'}}>FANCL</MenuItem>
+                        </Select>
+                    </FormControl>
+                    </Box>
                 </div>
 
                 <Btn message="この条件で検索する" />
@@ -255,12 +244,6 @@ export const ItemSearch = () => {
         </>
     )
 }
-
-const brands = [
-    { brand: 'Dior'},
-    { brand: '資生堂'},
-    { brand: 'FANCL'},
-];
 
 const itemData = [
     {
