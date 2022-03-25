@@ -12,13 +12,15 @@ import Autocomplete from '@mui/material/Autocomplete';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
-// import ListSubheader from '@mui/material/ListSubheader';
+import ListSubheader from '@mui/material/ListSubheader';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import Link from '@mui/material/Link';
+import { Link as RouterLink } from "react-router-dom";
 
 
 const onClickRight = () => {
@@ -181,13 +183,9 @@ export const ItemSearch = () => {
 {/* search_results */}
 
             <div className='search_results' style={{marginTop: '50px'}}>
-                {/* <img src={leaf_favorite_img} alt="leaf_favorite_img" className={classes.img}/> */}
-                
-                <p style={{fontSize: '20px', color: 'green'}}>条件に当てはまるアイテムが〇点見つかりました！</p>
-
                 <ImageList>
                 <ImageListItem key="Subheader" cols={8}>
-                    {/* <ListSubheader component="div">条件に当てはまるアイテムが見つかりました</ListSubheader> */}
+                    <ListSubheader component="div">条件に当てはまるアイテムが見つかりました！</ListSubheader>
                 </ImageListItem>
 
                 <img src={leftArrow_img} className={classes.arrow} onClick={onClickLeft} />
@@ -207,7 +205,13 @@ export const ItemSearch = () => {
                 ))}
                 <img src={rightArrow_img} className={classes.arrow} onClick={onClickRight} />
                 </ImageList>
+            </div>
 
+{/* notFound_message */}
+            <div style={{fontSize: '20px', color: 'green'}}>
+                <p>申し訳ございません。条件に当てはまるアイテムが見つかりませんでした。</p>
+                <p><Link component={RouterLink} to="/requestPage">リクエストページ</Link>にて、ご要望も承っております。</p>
+                <p>○○様の貴重なご意見をお待ちしております。</p>
             </div>
 
 {/* recommend */}
