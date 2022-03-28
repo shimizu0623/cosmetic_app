@@ -19,17 +19,21 @@ class ItemsController extends Controller
         $categoryIds = $request->query('category_id');
         $brandIds = $request->query('brand_id');
         // $score = $request->query('score');
-        // $user = $request->user();
+        $user = $request->user();
 
         // Log::debug(print_r($skinTroubleIds, true));
 
         $items = Item::withSkinTroubles($skinTroubleIds)
         ->withCategories($categoryIds)
-        ->withBrand($brandIds)
+        ->withBrand($brandIds);
         // ->excludeUnmatched($user->id)
         // ->withEwgScore(1)
-        ->get();
+        // ->get();
         
+        if (true) {
+            $items = $items->safeOnly();
+        }
+        $items = $items->get();
 
         return response()->json(
             $items //画面に表示されるアイテム

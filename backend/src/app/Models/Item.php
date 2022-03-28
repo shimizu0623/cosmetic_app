@@ -26,30 +26,39 @@ class Item extends Model
         return $query->whereIn('items.skin_trouble_id', $skinTroubleIds);
     }
 
-    public function scopeWithEwgScore($query, $score)
+    // public function scopeWithEwgScore($query, $score)
+    // {
+    //     if(empty($score)){
+    //         return $query;
+    //     }
+    //     return $query
+    //         ->join('item_ingredients', 'items.id', '=', 'item_ingredients.item_id')
+    //         ->join('ingredients', 'item_ingredients.ingredient_id', '=', 'ingredients.id')
+    //         ->where('ingredients.score', 1);
+
+    // }
+    public function scopeSafeOnly($query)
     {
-        if(empty($score)){
-            return $query;
-        }
+        $subquery = <<<SQL
+        select distinct item_ingredients.item_id from `item_ingredients`
+        inner join `ingredients` on `item_ingredients`.`ingredient_id` = `ingredients`.`id`
+        where `ingredients`.`score` > 1
+        SQL;
         return $query
-            ->join('item_ingredients', 'items.id', '=', 'item_ingredients.item_id')
-            ->join('ingredients', 'item_ingredients.ingredient_id', '=', 'ingredients.id')
-            ->where('ingredients.score', 1);
+            ->leftJoinSub($subquery, 'danger_list', 'items.id', 'danger_list.item_id')
+            ->where('danger_list.item_id', '=', NULL);
     }
 
     public function scopeExcludeUnmatched($query, $userId)
     {
-        // if(empty($score)){
-        //     return $query;
-        // }
         return $query
             // ->leftJoin('user_unmatched_items', 'items.id', '=', 'user_unmatched_items.item_id')
-            ->leftJoin('user_unmatched_items', function($join)
+            ->leftJoin('user_unmatched_items', function($join) use ($userId)
             {
                 $join->on('items.id', '=', 'user_unmatched_items.item_id');
-                // $join->on($userId, '=', 'user_unmatched_items.user_id');
+                $join->where('user_unmatched_items.user_id', '=', $userId);
             })
-            ->where('user_unmatched_items.user_id', $userId)
+            // ->where('user_unmatched_items.user_id', $userId)
             ->where('user_unmatched_items.item_id', '=', NULL);
     }
 
