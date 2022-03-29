@@ -20,6 +20,7 @@ class ItemsController extends Controller
         $brandIds = $request->query('brand_id');
         // $score = $request->query('score');
         $user = $request->user();
+        $isSafeOnly = $request->query('is_safe_only');
 
         // Log::debug(print_r($skinTroubleIds, true));
 
@@ -30,15 +31,17 @@ class ItemsController extends Controller
         // ->withEwgScore(1)
         // ->get();
         
-        if (true) {
+        // if (true) {
+        if ($isSafeOnly) {
+            Log::debug('if'. $isSafeOnly);
             $items = $items->safeOnly();
         }
+
         $items = $items->get();
 
         return response()->json(
             $items //画面に表示されるアイテム
         );
-
     }
 
     public function item()
