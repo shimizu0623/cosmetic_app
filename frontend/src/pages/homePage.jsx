@@ -145,6 +145,20 @@ export const HomePage = () => {
                 <p>{user.name}</p>
         )
     }
+    const homeMessage = () => {
+        if(user === null){
+            return <CircularProgress color="success" size="40px" />
+        }
+        return(
+                <p>{user.name}さん、こんにちは！<br/>
+                最近のお肌の調子はいかがですか？<br/>
+                おすすめは、{user.name}さんのスキンタイプに合うアイテムの中から、<br/>
+                過去にお肌に合わなかった商品の<br/>
+                共通成分が含まれていないものを選んでおります。<br/>
+                {user.name}さんのお肌に合ったアイテムが見つかりますように．．</p>
+
+        )
+    }
 
     const itemName = () => {
         if(item === null){
@@ -178,13 +192,7 @@ export const HomePage = () => {
                 <div className={classes.message}>
                     <img src={top_img} className={classes.TopImg}/>
                     <div className={classes.TopMessage}>
-                        {/* <p>{`${userName()}さん、こんにちは！`}<br/> */}
-                        <p>{userName()}さん、こんにちは！<br/>
-                        最近のお肌の調子はいかがですか？<br/>
-                        おすすめは、{userName()}さんのスキンタイプに合うアイテムの中から、<br/>
-                        過去にお肌に合わなかった商品の<br/>
-                        共通成分が含まれていないものを選んでおります。<br/>
-                        {userName()}さんのお肌に合ったアイテムが見つかりますように．．</p>
+                        {homeMessage()}
                     </div>
                 </div>
                 <div className={classes.guideMessage}>
