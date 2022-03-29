@@ -42,7 +42,7 @@ const useStyles = makeStyles({
         maxWidth: '90px',
         display: 'inline-block',
         verticalAlign: 'middle',
-        margin: '40px auto',
+        margin: '0 auto 40px',
 
     },
     Title: {
@@ -90,7 +90,7 @@ const useStyles = makeStyles({
         color: 'gray',
     },
     StyleSearch: {
-        margin: '0 auto',
+        margin: '30px auto',
         height: '200px',
         background: '-webkit-gradient(linear,left top,left bottom,from(#cce9cc),to(#e1e9b8))',
         borderRadius: '10px',
@@ -142,7 +142,7 @@ export const HomePage = () => {
             return <CircularProgress color="success" size="15px" />
         }
         return(
-                <p>{user.name}</p>
+                <p>{user.name}さんに</p>
         )
     }
     const homeMessage = () => {
@@ -236,7 +236,7 @@ export const HomePage = () => {
                     value={brands}
                     label="Brands"
                     onChange={onClickBrand}
-                    style={{marginRight: '10px', }}
+                    style={{marginRight: '10px'}}
                     >
                     <MenuItem value={10} style={{width: '100%'}}>Dior</MenuItem>
                     <MenuItem value={20} style={{width: '100%'}}>資生堂</MenuItem>
@@ -304,8 +304,8 @@ export const HomePage = () => {
             {/* recommend */}
                 <div className='recommend'>
                     <div className='TitleForm'>
-                        <img src={green_leaf} alt="" className={classes.TitleImg} />
-                        <p className={classes.Title}>{userName()}さんにおすすめの化粧水</p>
+                        <img src={green_leaf} alt="green_leaf" className={classes.TitleImg} />
+                        <p className={classes.Title}>{userName()}おすすめの化粧水</p>
                     </div>
                     <div className='Form'>
                     <ImageList>
@@ -336,8 +336,8 @@ export const HomePage = () => {
             {/* recommend */}
                 <div className='recommend'>
                     <div className='TitleForm'>
-                        <img src={green_leaf} alt="" className={classes.TitleImg} />
-                        <p className={classes.Title}>{userName()}さんにおすすめの乳液</p>
+                        <img src={green_leaf} alt="green_leaf" className={classes.TitleImg} />
+                        <p className={classes.Title}>{userName()}おすすめの乳液</p>
                     </div>
                     <div className='Form'>
                     <ImageList>
@@ -368,8 +368,8 @@ export const HomePage = () => {
             {/* recommend */}
                 <div className='recommend'>
                     <div className='TitleForm'>
-                        <img src={green_leaf} alt="" className={classes.TitleImg} />
-                        <p className={classes.Title}>{userName()}さんにおすすめの美容液</p>
+                        <img src={green_leaf} alt="green_leaf" className={classes.TitleImg} />
+                        <p className={classes.Title}>{userName()}おすすめの美容液</p>
                     </div>
                     <div className='Form'>
                     <ImageList>
