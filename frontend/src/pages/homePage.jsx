@@ -246,6 +246,7 @@ export const HomePage = () => {
                 </Box>
 
                 <Btn message='検索' />
+                {/* TODO: あとで↓できるように修正する */}
                 {/* component={RouterLink}
                 to="/itemSearch" */}
 
@@ -295,6 +296,7 @@ export const HomePage = () => {
                 <div className='SeeMoreBtn' style={{textAlign: 'right'}}>
 
                     <Btn message='ランキングをもっと見る' />
+                    {/* TODO: あとで↓できるように修正する */}
                     {/* <Btn message='ランキングをもっと見る' component={RouterLink} to="/ranking" /> */}
                 </div>
             </div>
