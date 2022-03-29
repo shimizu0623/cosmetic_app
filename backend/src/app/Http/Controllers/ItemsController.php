@@ -33,7 +33,7 @@ class ItemsController extends Controller
         
         // if (true) {
         if ($isSafeOnly) {
-            Log::debug('if'. $isSafeOnly);
+            // Log::debug('if'. $isSafeOnly);
             $items = $items->safeOnly();
         }
 
