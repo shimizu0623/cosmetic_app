@@ -278,7 +278,6 @@ export const SignUpPage = () => {
             <Btn
               onClick={onClickRegister}
               message='登録する'
-              // pageLink='/'
             />
             </Box>
           </Box>
