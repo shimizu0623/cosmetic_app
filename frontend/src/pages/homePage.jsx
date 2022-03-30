@@ -2,16 +2,16 @@ import React, {useState, useEffect} from 'react';
 import axios from '../axios';
 
 import { Btn } from '../components/btn';
-import TextField from '@mui/material/TextField';
-import Stack from '@mui/material/Stack';
-import Autocomplete from '@mui/material/Autocomplete';
+// import TextField from '@mui/material/TextField';
+// import Stack from '@mui/material/Stack';
+// import Autocomplete from '@mui/material/Autocomplete';
 import Link from '@mui/material/Link';
 import { Link as RouterLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
-import Button from '@mui/material/Button';
+// import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
@@ -226,9 +226,6 @@ export const HomePage = () => {
                 </Box>
 
                 <Btn message='検索' component={RouterLink} to="/itemSearch" />
-                {/* TODO: あとで↓できるように修正する */}
-                {/* component={RouterLink}
-                to="/itemSearch" */}
 
                 </div>
                 <p style={{fontSize: '20px'}}>肌悩みやEWG等級別など<Link component={RouterLink} to="/itemSearch">条件検索する</Link>こともできます</p>
@@ -274,9 +271,6 @@ export const HomePage = () => {
                     </ul>
                 </div>
                 <div className='SeeMoreBtn' style={{textAlign: 'right'}}>
-
-                    {/* <Btn message='ランキングをもっと見る' /> */}
-                    {/* TODO: あとで↓できるように修正する */}
                     <Btn message='ランキングをもっと見る' component={RouterLink} to="/ranking" />
                 </div>
             </div>
