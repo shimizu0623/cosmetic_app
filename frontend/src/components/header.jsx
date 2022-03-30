@@ -130,7 +130,7 @@ return(
           </ListItemIcon>
           EWGってなに？
         </MenuItem>
-        <MenuItem component={RouterLink} to="/help">
+        <MenuItem component={RouterLink} to="/helpPage">
           <ListItemIcon>
             <HelpOutlineIcon />
           </ListItemIcon>
