@@ -56,7 +56,7 @@ export const Ewg = (props) => {
               <p>{webName}では、EWG等級を表示し、消費者の皆様がより安心安全に製品を選ぶことができるようにサポート致します。</p>
 
               <h2>EWG等級が低いものを探すには？</h2>
-              <p>右上にあるMENUボタン → <Link component={RouterLink} to="/itemList">アイテムを探す</Link>より検索することができます。</p>
+              <p>右上にあるMENUボタン → <Link component={RouterLink} to="/itemSearch">アイテムを探す</Link>より検索することができます。</p>
               <p>①画面〇〇にある、EWGランクの低いアイテムという欄にチェックをします</p>
               {/* <img src="" alt="" /> */}
               <p>②ご希望に合わせて、カテゴリーや肌悩みを選択し、検索ボタンをクリックします。</p>
