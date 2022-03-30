@@ -169,8 +169,11 @@ export const SignUpPage = () => {
                     minWidth: '200px',
                   }}
                   >
+                  {/* TODO {genders.map((gender) => 
+                    (<MenuItem value={gender.id}>{gender.name}</MenuItem>))} にする*/}
                   <MenuItem value={1} style={{minWidth: '200px'}}>女性</MenuItem>
                   <MenuItem value={2} style={{minWidth: '200px'}}>男性</MenuItem>
+                  
                   </Select>
               </FormControl>
               <FormControl style={{marginTop: '20px'}}>
