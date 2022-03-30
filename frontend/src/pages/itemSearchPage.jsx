@@ -1,4 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import axios from '../axios';
+
 import {Btn} from '../components/btn';
 import header_img from '../img/headerSearch.jpg';
 import rightArrow_img from '../img/rightArrow_yellow.jpg';
@@ -52,15 +54,16 @@ const useStyles = makeStyles({
 export const ItemSearch = () => {
     const classes = useStyles();
     const [item, setItem] = useState(null);
+    const [brands, setBrands] = useState([]);
     const [checked, setChecked] = React.useState(false);
-    const [brands, setBrands] = React.useState('');
+    // const [brands, setBrands] = React.useState('');
 
-    const onClickBrand = (event) => {
-        setBrands(event.target.value);
-    };
-    const handleChange = (event) => {
-        setChecked(event.target.checked);
-    };
+    useEffect(async () => {
+        const responseBrands = await axios.get('/brands')
+        const b = responseBrands.data
+        setBrands(b)
+        console.log(brands)
+    }, [])
 
     const itemName = () => {
         if(item === null){
@@ -79,6 +82,15 @@ export const ItemSearch = () => {
                 <p>{item.brand}</p>                
         )
     }
+
+    const onClickBrand = (event) => {
+        console.log('selected brand')
+        // setBrands(event.target.value);
+    };
+
+    const handleChange = (event) => {
+        setChecked(event.target.checked);
+    };
 
     return(
         <>
@@ -150,7 +162,7 @@ export const ItemSearch = () => {
 
                 <div> */}
                 {/* <div className={classes.SearchBox}> */}
-                    <h2 style={{marginBottom: '0'}}>ブランド名を選択すると、ブランドの中から条件に当てはまるアイテムを探すことができます。</h2>
+                    <h2 style={{ marginBottom: 0 }}>ブランド名を選択すると、ブランドの中から条件に当てはまるアイテムを探すことができます。</h2>
                     <Box sx={{ width: 300 }} className={classes.SearchBox}>
                     <FormControl fullWidth>
                         <InputLabel id="demo-simple-select-label">ブランドを選択する</InputLabel>
@@ -159,12 +171,16 @@ export const ItemSearch = () => {
                         id="demo-simple-select"
                         value={brands}
                         label="Brands"
+                        // TODO: ↓ブランド検索できるように
                         onChange={onClickBrand}
-                        style={{marginRight: '10px', }}
+                        style={{ marginRight: '10px' }}
                         >
-                        <MenuItem value={10} style={{width: '100%'}}>Dior</MenuItem>
+                        {brands.map((brand) => (
+                        <MenuItem value={brand.id} style={{ width: '100%' }}>{brand.name}</MenuItem>
+                        ))}
+                        {/* <MenuItem value={10} style={{width: '100%'}}>Dior</MenuItem>
                         <MenuItem value={20} style={{width: '100%'}}>資生堂</MenuItem>
-                        <MenuItem value={30} style={{width: '100%'}}>FANCL</MenuItem>
+                        <MenuItem value={30} style={{width: '100%'}}>FANCL</MenuItem> */}
                         </Select>
                     </FormControl>
                     </Box>
