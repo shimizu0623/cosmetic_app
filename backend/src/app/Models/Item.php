@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Log;
 class Item extends Model
 {
     use HasFactory;
+    
 
     public function brand()
     {
@@ -78,6 +79,14 @@ class Item extends Model
         return $query->where('items.brand_id', $brandIds);
     }
 
-    
+    public function toArray() 
+    {
+        return [
+          'id' => $this->id,
+          'name' => $this->name,
+          'price' => $this->price,
+          'img' => $this->img,
+        ];
+    }
 
 }
