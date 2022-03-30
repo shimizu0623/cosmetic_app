@@ -117,7 +117,7 @@ export const HomePage = () => {
     const classes = useStyles();
     const [user, setUser] = useState(null);
     const [item, setItem] = useState(null);
-    const [brands, setBrands] = useState(null);
+    const [brands, setBrands] = useState([]);
     
     
     useEffect(async () => {
@@ -225,7 +225,7 @@ export const HomePage = () => {
                 </FormControl>
                 </Box>
 
-                <Btn message='検索' />
+                <Btn message='検索' component={RouterLink} to="/itemSearch" />
                 {/* TODO: あとで↓できるように修正する */}
                 {/* component={RouterLink}
                 to="/itemSearch" */}
@@ -275,9 +275,9 @@ export const HomePage = () => {
                 </div>
                 <div className='SeeMoreBtn' style={{textAlign: 'right'}}>
 
-                    <Btn message='ランキングをもっと見る' />
+                    {/* <Btn message='ランキングをもっと見る' /> */}
                     {/* TODO: あとで↓できるように修正する */}
-                    {/* <Btn message='ランキングをもっと見る' component={RouterLink} to="/ranking" /> */}
+                    <Btn message='ランキングをもっと見る' component={RouterLink} to="/ranking" />
                 </div>
             </div>
             
