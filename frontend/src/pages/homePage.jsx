@@ -117,25 +117,21 @@ export const HomePage = () => {
     const classes = useStyles();
     const [user, setUser] = useState(null);
     const [item, setItem] = useState(null);
-    const [brands, setBrands] = React.useState('');
-
-    const onClickBrand = (event) => {
-        setBrands(event.target.value);
-    };
-
-
+    const [brands, setBrands] = useState(null);
+    
+    
     useEffect(async () => {
         const response = await axios.get('/me')
+        const responseItem = await axios.get('/item')
+        const responseBrands = await axios.get('/brands')
         const u = response.data
+        const i = responseItem.data
+        const b = responseBrands.data
         setUser(u)
-    }, [])
-
-    useEffect(async () => {
-        const response = await axios.get('/item')
-        const i = response.data
         setItem(i)
+        setBrands(b)
     }, [])
-
+    
     const userName = () => {
         if(user === null){
             // return console.log(user)
@@ -156,7 +152,6 @@ export const HomePage = () => {
                 過去にお肌に合わなかった商品の<br/>
                 共通成分が含まれていないものを選んでおります。<br/>
                 {user.name}さんのお肌に合ったアイテムが見つかりますように．．</p>
-
         )
     }
 
@@ -184,7 +179,11 @@ export const HomePage = () => {
              <p>{item.img}</p>                
         )
     }
-    
+
+    const onClickBrand = (event) => {
+        console.log('selected brand')
+        // setBrands(event.target.value);
+    };
     
     return(
         <>
@@ -207,26 +206,6 @@ export const HomePage = () => {
                 商品ページからひとつひとつの成分を確認することができます。</p>
                 <div className={classes.SearchForm}>
 
-                {/* <Stack spacing={2} sx={{ width: 300 }}>
-                    <Autocomplete
-                        freeSolo
-                        id="free-solo-2-demo"
-                        style={{marginRight: '10px'}}
-                        disableClearable
-                        options={brands.map((option) => option.brand)}
-                        renderInput={(params) => (
-                            <TextField
-                            {...params}
-                            label="ブランドから探す"
-                            InputProps={{
-                                ...params.InputProps,
-                                type: 'search',
-                            }}
-                            />
-                        )}
-                    />
-                </Stack> */}
-
                 <Box sx={{ width: 300 }}>
                 <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">ブランドを選択する</InputLabel>
@@ -235,12 +214,13 @@ export const HomePage = () => {
                     id="demo-simple-select"
                     value={brands}
                     label="Brands"
+                    // TODO: ↓ブランド検索できるように
                     onChange={onClickBrand}
                     style={{marginRight: '10px'}}
                     >
-                    <MenuItem value={10} style={{width: '100%'}}>Dior</MenuItem>
-                    <MenuItem value={20} style={{width: '100%'}}>資生堂</MenuItem>
-                    <MenuItem value={30} style={{width: '100%'}}>FANCL</MenuItem>
+                    {brands.map((brand) => (
+                    <MenuItem value={brand.id} style={{width: '100%'}}>{brand.name}</MenuItem>
+                    ))}
                     </Select>
                 </FormControl>
                 </Box>
@@ -251,7 +231,7 @@ export const HomePage = () => {
                 to="/itemSearch" */}
 
                 </div>
-                <p style={{fontSize: '20px'}}>肌悩みやEWG等級別など<Link component={RouterLink} to="/itemSearch">条件をつける</Link>こともできます</p>
+                <p style={{fontSize: '20px'}}>肌悩みやEWG等級別など<Link component={RouterLink} to="/itemSearch">条件検索する</Link>こともできます</p>
             </div>
             </div>
 
@@ -403,11 +383,6 @@ export const HomePage = () => {
     )
 }
 
-// const brands = [
-//     { brand: 'Dior'},
-//     { brand: '資生堂'},
-//     { brand: 'FANCL'},
-// ];
 
 
 const itemData = [
