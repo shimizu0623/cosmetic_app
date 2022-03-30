@@ -1,8 +1,6 @@
 import React from 'react';
 import { Btn } from '../components/btn';
 import { Link as RouterLink } from "react-router-dom";
-import Button from '@mui/material/Button';
-
 
 export const DeleteInformation = () => {
     return(
@@ -12,9 +10,7 @@ export const DeleteInformation = () => {
             <p>ご利用いただき、ありがとうございました。</p>
             <p>またのご利用をお待ちしております。</p>
         </div>
-            <Btn message='TOPへ戻る' />
-                 {/* component={RouterLink}
-                 to="/"> */}
+            <Btn message='TOPへ戻る' component={RouterLink} to="/" />
         </>
     )
 }
