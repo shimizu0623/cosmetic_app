@@ -1,17 +1,13 @@
 import React from 'react';
 import Button from '@mui/material/Button';
-// import { Link as RouterLink } from "react-router-dom";
-
 
 export const Btn = (props) => {
-    const {onClick, message} = props;
+    const {message} = props;
 
     return(
         <>
         <Button
           variant="contained"
-          // component={RouterLink}
-          // to={pageLink}
           style={{
             color: 'white',
             // margin: '0 auto 4px 10px',
@@ -24,7 +20,7 @@ export const Btn = (props) => {
               //         background: 'rgba(141, 203, 193)', 
               //     }
             }}
-          onClick={onClick}
+            {...props}
           >{message}
         </Button>
         </>
