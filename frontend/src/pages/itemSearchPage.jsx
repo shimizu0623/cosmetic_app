@@ -56,7 +56,6 @@ export const ItemSearch = () => {
     const [item, setItem] = useState(null);
     const [brands, setBrands] = useState([]);
     const [checked, setChecked] = React.useState(false);
-    // const [brands, setBrands] = React.useState('');
 
     useEffect(async () => {
         const responseBrands = await axios.get('/brands')
@@ -178,9 +177,6 @@ export const ItemSearch = () => {
                         {brands.map((brand) => (
                         <MenuItem value={brand.id} style={{ width: '100%' }}>{brand.name}</MenuItem>
                         ))}
-                        {/* <MenuItem value={10} style={{width: '100%'}}>Dior</MenuItem>
-                        <MenuItem value={20} style={{width: '100%'}}>資生堂</MenuItem>
-                        <MenuItem value={30} style={{width: '100%'}}>FANCL</MenuItem> */}
                         </Select>
                     </FormControl>
                     </Box>
