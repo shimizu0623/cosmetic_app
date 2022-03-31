@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import axios from '../axios';
 
 import { makeStyles } from "@material-ui/core/styles";
 import Rating from '@material-ui/lab/Rating';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 import Link from '@mui/material/Link';
 import { Link as RouterLink } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
@@ -141,23 +143,29 @@ const onClickAddUnmatchedItems = () => {
 
 export const ItemDetail = () => {
     const classes = useStyles();
+    const [item, setItem] = useState(null);
+
     const [value, setValue] = React.useState(3); //☆
     const navigate = useNavigate();
 
-    return(
-        <>
-        <div className='MainContainer'>
-        <div  className={classes.back}>
-            <span onClick={() => navigate(-1)}>&lt;&lt;前のページへ戻る</span>
-        </div>
+    useEffect(async () => {
+        const responseItem = await axios.get('/item')
+        const i = responseItem.data
+        setItem(i)
+        console.log(item)
+    }, [])
 
-        {/* <button onClick={() => navigate(-1)}>検索結果へ戻る</button> */}
-
-            <div className={classes.styleParent}>
-                <img src={sample_itemImg} alt="sampleImg" style={{marginRight: '50px'}} />
+    const itemInformation = () => {
+        if(item === null){
+            return <CircularProgress color="success" size="15px" />
+        }
+        return(
+                <div className={classes.styleParent}>
+                {/* <img src={sample_itemImg} alt="sampleImg" style={{marginRight: '50px'}} /> */}
+                <img src={item.img} alt="itemImg" style={{maxWidth: '70px', height: '100%', margin: 'auto 80px'}} />
                 <div>
-                    <p style={{textAlign: 'left'}}>CLINIQUE（ブランド名）</p>
-                    <p style={{fontSize: '40px'}}>○○クリーム（商品名）</p>
+                    <p style={{textAlign: 'left'}}>{item.brand}</p>
+                    <p style={{fontSize: '40px'}}>{item.name}</p>
                     <div className={classes.styleP}>
                         <p className={classes.itemDetail}>評価レビュー</p>
                         <Box borderColor="transparent">
@@ -168,15 +176,15 @@ export const ItemDetail = () => {
                     </div>
                     <div className={classes.styleP}>
                         <p className={classes.itemDetail}>内容量：</p>
-                        <p>○○ml</p>
+                        <p>{item.volume}</p>
                     </div>
                     <div className={classes.styleP}>
                         <p className={classes.itemDetail}>価格：</p>
-                        <p>￥○○,000</p>
+                        <p>￥{item.price}</p>
                     </div>
                     <div className={classes.styleP}>
                         <p className={classes.itemDetail}>カテゴリー：</p>
-                        <p>例：化粧水</p>
+                        <p>{item.category}</p>
                     </div>
 
                     <div className={classes.btnForm}>
@@ -185,14 +193,27 @@ export const ItemDetail = () => {
                     <div className={classes.btnForm}>
                         <button className={classes.btn} onClick={onClickAddComparison}>コスメ比較へ追加</button>
                     </div>
-                        <p>→<Link component={RouterLink} to="/myPage">コスメ比較ページ</Link>を見る</p>
+                        <p>→<Link component={RouterLink} to="/itemComparison">コスメ比較ページ</Link>を見る</p>
                     <div className={classes.btnForm}>
                         <button className={classes.btn} onClick={onClickAddUnmatchedItems}>肌に合わなかったアイテムへ追加</button>
                     </div>
-
-                    
                 </div>
             </div>
+               
+        )
+    }
+
+
+    return(
+        <>
+        <div className='MainContainer'>
+        <div  className={classes.back}>
+            <span onClick={() => navigate(-1)}>&lt;&lt;前のページへ戻る</span>
+        </div>
+
+        {/* <button onClick={() => navigate(-1)}>検索結果へ戻る</button> */}
+
+        {itemInformation()}
 
             <div  className={classes.alertForm}>
                 <h4 style={{color: 'red', paddingTop: '10px'}}>注意！</h4>
