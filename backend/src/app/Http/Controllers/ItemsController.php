@@ -20,27 +20,33 @@ class ItemsController extends Controller
         $brandIds = $request->query('brand_id');
         // $score = $request->query('score');
         $user = $request->user();
-        $isSafeOnly = $request->query('is_safe_only');
+        $isSafeOnly = $request->query('is_safe_only') === '1';
 
         // Log::debug(print_r($skinTroubleIds, true));
 
         $items = Item::withSkinTroubles($skinTroubleIds)
         ->withCategories($categoryIds)
-        ->withBrand($brandIds);
-        // ->excludeUnmatched($user->id)
+        ->withBrand($brandIds)
+        ->excludeUnmatched($user->id);
         // ->withEwgScore(1)
         // ->get();
         
-        // if (true) {
         if ($isSafeOnly) {
             // Log::debug('if'. $isSafeOnly);
             $items = $items->safeOnly();
         }
 
-        $items = $items->get();
+        // Log::debug($items->toSql());
+        // Log::debug($user->id);
+
+        $items = $items->get(['items.*']);
 
         return response()->json(
-            $items //画面に表示されるアイテム
+            // $items //画面に表示されるアイテム
+
+            $items->map(function ($item) {
+                return $item->toArray();
+            })
         );
     }
 
