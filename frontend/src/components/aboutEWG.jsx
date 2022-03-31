@@ -1,11 +1,11 @@
 import React from 'react';
 
 import EwgLogo from "../img/Ewg-logo.jpeg"
-import Level from "../img/level.PNG"
+// import Level from "../img/level.PNG"
 // import Hazard from "../img/img_Hazard.PNG"
-import LowHazard from "../img/level_LowHazard.PNG"
-import ModerateHazard from "../img/level_ModerateHazard.PNG"
-import HighHazard from "../img/level_HighHazard.PNG"
+// import LowHazard from "../img/level_LowHazard.PNG"
+// import ModerateHazard from "../img/level_ModerateHazard.PNG"
+// import HighHazard from "../img/level_HighHazard.PNG"
 import Level_1 from "../img/level_1.png"
 import Level_2 from "../img/level_2.png"
 import Level_3 from "../img/level_3.png"
@@ -16,7 +16,6 @@ import Level_7 from "../img/level_7.png"
 import Level_8 from "../img/level_8.png"
 import Level_9 from "../img/level_9.png"
 import Level_10 from "../img/level_10.png"
-
 import leaf_green from '../img/leaf_green.png';
 import leaf_yellow from '../img/leaf_yellow.png';
 import leaf_brown from '../img/leaf_brown.png';
@@ -91,6 +90,7 @@ export const Ewg = (props) => {
               <h2>EWG等級が低いものを探すには？</h2>
               <p>右上にあるMENUボタン → <Link component={RouterLink} to="/itemSearch">アイテムを探す</Link>より検索することができます。</p>
               <p>①画面〇〇にある、EWGランクの低いアイテムという欄にチェックをします</p>
+              {/* TODO: 検索画面ページのimgをいれる */}
               {/* <img src="" alt="" /> */}
               <p>②ご希望に合わせて、カテゴリーや肌悩みを選択し、検索ボタンをクリックします。</p>
               {/* <img src="" alt="" /> */}
