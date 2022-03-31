@@ -13,6 +13,30 @@ import sample_itemImg from '../img/sample_itemImg.PNG';
 import leaf_green from '../img/leaf_green.png';
 import leaf_yellow from '../img/leaf_yellow.png';
 import leaf_brown from '../img/leaf_brown.png';
+import Level_1 from "../img/level_1.png"
+import Level_2 from "../img/level_2.png"
+import Level_3 from "../img/level_3.png"
+import Level_4 from "../img/level_4.png"
+import Level_5 from "../img/level_5.png"
+import Level_6 from "../img/level_6.png"
+import Level_7 from "../img/level_7.png"
+import Level_8 from "../img/level_8.png"
+import Level_9 from "../img/level_9.png"
+import Level_10 from "../img/level_10.png"
+
+
+{/* <img src={Level_1} alt="Level_1_img" />
+<img src={Level_2} alt="Level_2_img" />
+<img src={Level_3} alt="Level_3_img" />
+<img src={Level_4} alt="Level_4_img" />
+<img src={Level_5} alt="Level_5_img" />
+<img src={Level_6} alt="Level_6_img" />
+<img src={Level_7} alt="Level_7_img" />
+<img src={Level_8} alt="Level_8_img" />
+<img src={Level_9} alt="Level_9_img" />
+<img src={Level_10} alt="Level_10_img" /> */}
+
+
 
 
 const useStyles = makeStyles({
