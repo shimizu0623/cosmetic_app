@@ -144,15 +144,18 @@ const onClickAddUnmatchedItems = () => {
 export const ItemDetail = () => {
     const classes = useStyles();
     const [item, setItem] = useState(null);
+    const [ingredients, setIngredients] = useState(null);
 
     const [value, setValue] = React.useState(3); //☆
     const navigate = useNavigate();
 
     useEffect(async () => {
         const responseItem = await axios.get('/item')
+        const responseIngredients = await axios.get('/item_ingredients')
         const i = responseItem.data
+        const ingredient = responseIngredients.data
         setItem(i)
-        console.log(item)
+        setIngredients(ingredient)
     }, [])
 
     const itemInformation = () => {
@@ -160,7 +163,7 @@ export const ItemDetail = () => {
             return <CircularProgress color="success" size="15px" />
         }
         return(
-                <div className={classes.styleParent}>
+            <div className={classes.styleParent}>
                 {/* <img src={sample_itemImg} alt="sampleImg" style={{marginRight: '50px'}} /> */}
                 <img src={item.img} alt="itemImg" style={{maxWidth: '70px', height: '100%', margin: 'auto 80px'}} />
                 <div>
@@ -203,7 +206,30 @@ export const ItemDetail = () => {
         )
     }
 
+    const ingredientsInformation = () => {
+        if(item === null){
+            return <CircularProgress color="success" size="15px" />
+        }
+        return(
+            <>
+            {ingredients.map((ingredient) => (
+            <tr>
+                <th scope="row">{ingredient.name}</th>
+                <td>{ingredient.score}</td>
+                <td>{ingredient.safety}</td>
+                <td>{ingredient.purpose}</td>
+                <td>{ingredient.cancer}</td>
+                <td>{ingredient.developmental}</td>
+                <td>{ingredient.allergies}</td>
+                <td>{ingredient.explain}</td>
+            </tr>
+            ))}
+            </>
+        )
 
+    }
+    
+    
     return(
         <>
         <div className='MainContainer'>
@@ -263,26 +289,21 @@ export const ItemDetail = () => {
                 <caption style={{fontSize: '25px', marginBottom: '10px'}}>配合成分詳細</caption>
                 <tr>
                     <th className={classes.tableHeader}>成分名</th>
-                    <th className={classes.tableHeader}>配合目的</th>
                     <th className={classes.tableHeader}>EWG SCORE</th>
+                    <th className={classes.tableHeader}>安全度</th>
+                    <th className={classes.tableHeader}>配合目的</th>
                     <th className={classes.tableHeader}>発がん性</th>
                     <th className={classes.tableHeader}>発達/生殖毒性</th>
                     <th className={classes.tableHeader}>免疫毒性</th>
                     <th className={classes.tableHeader}>成分説明</th>
                 </tr>
-                <tr>
-                    <th scope="row">水</th>
-                    <td>ベース成分</td>
-                    <td>1</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>撥水性及び分散性向上の目的で使用されています</td>
-                </tr>
+                {/* TODO: ↓画面真っ白になるの直す */}
+                {/* {ingredientsInformation()} */}
                 <tr>
                     <th scope="row">ジメチコン</th>
-                    <td>美白剤</td>
                     <td>1</td>
+                    <td>高</td>
+                    <td>美白剤</td>
                     <td>-</td>
                     <td>-</td>
                     <td>-</td>
