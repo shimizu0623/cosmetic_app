@@ -60,6 +60,8 @@ class ItemsController extends Controller
                 'name' => $item->name,
                 'brand' => $item->brand->name,
                 'price' => $item->price,
+                'category' => $item->category->name,
+                'volume' => $item->volume,
                 'img' => $item->img,
             ]
         );
