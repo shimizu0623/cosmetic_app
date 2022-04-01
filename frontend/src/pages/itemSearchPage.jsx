@@ -74,17 +74,17 @@ export const ItemSearch = () => {
         const b = responseBrands.data
         const s = responseSkinTroubles.data
         const c = responseCategories.data
-        console.log(s)
-        console.log(c)
-        console.log(i)
+        // console.log(s)
+        // console.log(c)
+        // console.log(i)
         setItem(i)
         setUser(u)
         setBrands(b)
         setSkinTroubles(s)
         setCategories(c)
-        console.log(skinTroubles)
-        console.log(categories)
-        console.log(item)
+        // console.log(skinTroubles)
+        // console.log(categories)
+        // console.log(item)
     }, [])
 
     const itemName = () => {
@@ -197,13 +197,15 @@ export const ItemSearch = () => {
                         </>         
                     })}
 
-                    {/* <div>
+                    <div>
                     {categories.map((category) => {
-                        <p value={category.id}>{category.name}</p>
+                        <>
+                        <p>{category.name}</p>
+                        <p>aaa</p>
+                        </>
                     })}
-                    </div> */}
+                    </div>
 
-                    <p>aaa</p>
 
                 {/* </div>
 
@@ -262,8 +264,9 @@ export const ItemSearch = () => {
                     <Grid item xs={1}>
                         <img src={leftArrow_img} className={classes.arrow} onClick={onClickLeft} />
                     </Grid>
+                        {/* TODO: データ5つ以上の時は、矢印ボタンで見られるようにする */}
                         {item.map((item) => (
-                        <Grid item xs={3}>
+                        <Grid item xs={2}>
                             <ImageListItem key={item.img} className={classes.cardPaper}>
                             <img
                                 src={item.img}
@@ -271,7 +274,7 @@ export const ItemSearch = () => {
                                 // srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
                                 alt={item.name}
                                 loading="lazy"
-                                style={{maxWidth: '200px', height: '100%', margin: '0 auto'}}
+                                style={{maxWidth: '300px', height: '100%', margin: '0 auto'}}
                             />
                             <ImageListItemBar
                                 title={item.name}
@@ -306,8 +309,9 @@ export const ItemSearch = () => {
                     <Grid item xs={1}>
                         <img src={leftArrow_img} className={classes.arrow} onClick={onClickLeft} />
                     </Grid>
+                    {/* TODO: データ5つ以上の時は、矢印ボタンで見られるようにする */}
                         {item.map((item) => (
-                        <Grid item xs={3}>
+                        <Grid item xs={2}>
                             <ImageListItem key={item.img} className={classes.cardPaper}>
                             <img
                                 src={item.img}
@@ -334,36 +338,3 @@ export const ItemSearch = () => {
         </>
     )
 }
-
-// const itemData = [
-//     {
-//       img: 'https://source.unsplash.com/random',
-//       brand: 'Dior',
-//       name: 'emulsion',
-//     //   rows: 2,
-//     //   cols: 2,
-//     //   featured: true,
-//     },
-//     {
-//       img: 'https://source.unsplash.com/random',
-//       brand: 'Dior',
-//       name: 'cream',
-//     },
-//     {
-//       img: 'https://source.unsplash.com/random',
-//       brand: 'Dior',
-//       name: 'skinToner',
-//     },
-//     {
-//       img: 'https://source.unsplash.com/random',
-//       brand: 'Dior',
-//       name: 'skinToner',
-//     //   cols: 2,
-//     },
-//     {
-//       img: 'https://source.unsplash.com/random',
-//       brand: 'Dior',
-//       name: 'skinToner',
-//     //   cols: 2,
-//     },
-//   ];
