@@ -57,6 +57,7 @@ export const ItemSearch = () => {
     const [item, setItem] = useState([]);
     const [user, setUser] = useState(null);
     const [brands, setBrands] = useState([]);
+    const [select, setSelect] = useState([]);
     const [skinTroubles, setSkinTroubles] = useState([]);
     const [categories, setCategories] = useState([]);
     const [checkedSkinTrouble, setCheckedSkinTrouble] = React.useState(false);
@@ -119,7 +120,7 @@ export const ItemSearch = () => {
 
     const onClickBrand = (event) => {
         console.log('selected brand')
-        // setBrands(event.target.value);
+        setSelect(event.target.value);
     };
 
     const handleChangeSkinTrouble = (event) => {
@@ -129,12 +130,29 @@ export const ItemSearch = () => {
     };
     const handleChangeCategory = (event) => {
         setCheckedCategory(event.target.checked);
-        console.log(checkedCategory)
-        console.log(categories)
+        // console.log(checkedCategory)
+        // console.log(categories)
+        // {categories.map((category) => {
+        //     console.log(category.name)
+        // })}
     };
     const handleChange = (event) => {
         setChecked(event.target.checked);
     };
+
+    const categoryName = () => {
+        {categories.map((category) => {
+            <Checkbox
+            value={category.id}
+            checked={checkedCategory}
+            onChange={handleChangeCategory}
+            color="primary"
+            inputProps={{ 'aria-label': 'primary checkbox' }}
+            >
+            {category.name}
+            </Checkbox>
+        })}
+    }
 
     return(
         <>
@@ -153,26 +171,14 @@ export const ItemSearch = () => {
                     color="primary"
                     inputProps={{ 'aria-label': 'primary checkbox' }}
                     />乾燥
-                    <Checkbox
-                    checked={checkedSkinTrouble}
-                    onChange={handleChangeSkinTrouble}
-                    color="primary"
-                    inputProps={{ 'aria-label': 'primary checkbox' }}
-                    />
-                    {skinTroubles.map((skinTrouble) => {
-                        <Checkbox
-                        value={skinTrouble.id}
-                        checked={checkedSkinTrouble}
-                        onChange={handleChangeSkinTrouble}
-                        color="primary"
-                        inputProps={{ 'aria-label': 'primary checkbox' }}
-                        >{skinTrouble.name}</Checkbox>
-                    })}
+
+                    {categoryName()}
+
                 {/* </div>
 
                 <div> */}
                     <h2>お探しのカテゴリーはどちらですか？</h2>
-                    {/* <Checkbox
+                    <Checkbox
                     checked={checkedCategory}
                     onChange={handleChangeCategory}
                     color="primary"
@@ -183,28 +189,26 @@ export const ItemSearch = () => {
                     onChange={handleChangeCategory}
                     color="primary"
                     inputProps={{ 'aria-label': 'primary checkbox' }}
-                    /> */}
-                    {categories.map((category) => {
+                    />
                         <>
                             <Checkbox
-                            value={category.id}
                             checked={checkedCategory}
                             onChange={handleChangeCategory}
                             color="primary"
                             inputProps={{ 'aria-label': 'primary checkbox' }}
                             />
-                            {category.name}
+                            {categories.map((category) => {
+                            <p>{category.name}</p>
+                            })}
                         </>         
-                    })}
-
-                    <div>
+                    {/* <div>
                     {categories.map((category) => {
                         <>
                         <p>{category.name}</p>
                         <p>aaa</p>
                         </>
                     })}
-                    </div>
+                    </div> */}
 
 
                 {/* </div>
@@ -234,7 +238,7 @@ export const ItemSearch = () => {
                         <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
-                        value={brands}
+                        value={select}
                         label="Brands"
                         // TODO: ↓ブランド検索できるように
                         onChange={onClickBrand}
