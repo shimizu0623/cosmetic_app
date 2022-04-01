@@ -190,6 +190,7 @@ export const SignUpPage = () => {
                     minWidth: '200px',
                   }}
                   >
+                    {/* TODO: ↓ */}
                     <MenuItem value={1}>Dry Skin</MenuItem>
                     <MenuItem value={2}>Oily Skin</MenuItem>
                     <MenuItem value={3}>Combination Skin</MenuItem>
