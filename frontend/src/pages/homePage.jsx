@@ -118,6 +118,7 @@ export const HomePage = () => {
     const [user, setUser] = useState(null);
     const [item, setItem] = useState(null);
     const [brands, setBrands] = useState([]);
+    const [select, setSelect] = useState([]);
     
     
     useEffect(async () => {
@@ -182,7 +183,7 @@ export const HomePage = () => {
 
     const onClickBrand = (event) => {
         console.log('selected brand')
-        // setBrands(event.target.value);
+        setSelect(event.target.value);
     };
     
     return(
@@ -212,7 +213,7 @@ export const HomePage = () => {
                     <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={brands}
+                    value={select}
                     label="Brands"
                     // TODO: ↓ブランド検索できるように
                     onChange={onClickBrand}
