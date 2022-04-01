@@ -23,6 +23,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Link from '@mui/material/Link';
 import { Link as RouterLink } from "react-router-dom";
+import Grid from '@mui/material/Grid';
 
 
 const onClickRight = () => {
@@ -36,7 +37,7 @@ const onClickLeft = () => {
 const useStyles = makeStyles({
     arrow: {
         maxWidth: '50px',
-        margin: 'auto 0',
+        margin: '10px 0',
         '&:hover':{
             cursor: 'pointer',
             opacity: '0.6',
@@ -53,15 +54,37 @@ const useStyles = makeStyles({
 
 export const ItemSearch = () => {
     const classes = useStyles();
-    const [item, setItem] = useState(null);
+    const [item, setItem] = useState([]);
+    const [user, setUser] = useState(null);
     const [brands, setBrands] = useState([]);
+    const [skinTroubles, setSkinTroubles] = useState([]);
+    const [categories, setCategories] = useState([]);
+    const [checkedSkinTrouble, setCheckedSkinTrouble] = React.useState(false);
+    const [checkedCategory, setCheckedCategory] = React.useState(false);
     const [checked, setChecked] = React.useState(false);
 
     useEffect(async () => {
+        const responseItem = await axios.get('/items')
+        const responseUser = await axios.get('/me')
         const responseBrands = await axios.get('/brands')
+        const responseSkinTroubles = await axios.get('/skin_troubles')
+        const responseCategories = await axios.get('/categories')
+        const i = responseItem.data
+        const u = responseUser.data
         const b = responseBrands.data
+        const s = responseSkinTroubles.data
+        const c = responseCategories.data
+        console.log(s)
+        console.log(c)
+        console.log(i)
+        setItem(i)
+        setUser(u)
         setBrands(b)
-        console.log(brands)
+        setSkinTroubles(s)
+        setCategories(c)
+        console.log(skinTroubles)
+        console.log(categories)
+        console.log(item)
     }, [])
 
     const itemName = () => {
@@ -82,11 +105,33 @@ export const ItemSearch = () => {
         )
     }
 
+    const message = () => {
+        if(user === null){
+            return <CircularProgress color="success" size="15px" />
+        }
+        return(
+          <>
+            <p>{user.name}様の貴重なご意見をお待ちしております。</p>
+          </>
+        )
+      }
+    
+
     const onClickBrand = (event) => {
         console.log('selected brand')
         // setBrands(event.target.value);
     };
 
+    const handleChangeSkinTrouble = (event) => {
+        setCheckedSkinTrouble(event.target.checked);
+        console.log(checkedSkinTrouble)
+        console.log(skinTroubles)
+    };
+    const handleChangeCategory = (event) => {
+        setCheckedCategory(event.target.checked);
+        console.log(checkedCategory)
+        console.log(categories)
+    };
     const handleChange = (event) => {
         setChecked(event.target.checked);
     };
@@ -101,46 +146,65 @@ export const ItemSearch = () => {
                 <div style={{background: '#c8eee8af', borderRadius: '20px', padding: '20px 0', margin: '30px auto'}}>
                 {/* <div> */}
                     <h2 style={{marginTop: '0'}}>改善したい肌の悩みはございますか？</h2>
+
                     <Checkbox
-                    checked={checked}
-                    onChange={handleChange}
+                    checked={checkedSkinTrouble}
+                    onChange={handleChangeSkinTrouble}
                     color="primary"
                     inputProps={{ 'aria-label': 'primary checkbox' }}
                     />乾燥
                     <Checkbox
-                    checked={checked}
-                    onChange={handleChange}
+                    checked={checkedSkinTrouble}
+                    onChange={handleChangeSkinTrouble}
                     color="primary"
                     inputProps={{ 'aria-label': 'primary checkbox' }}
                     />
-                    <Checkbox
-                    checked={checked}
-                    onChange={handleChange}
-                    color="primary"
-                    inputProps={{ 'aria-label': 'primary checkbox' }}
-                    />
+                    {skinTroubles.map((skinTrouble) => {
+                        <Checkbox
+                        value={skinTrouble.id}
+                        checked={checkedSkinTrouble}
+                        onChange={handleChangeSkinTrouble}
+                        color="primary"
+                        inputProps={{ 'aria-label': 'primary checkbox' }}
+                        >{skinTrouble.name}</Checkbox>
+                    })}
                 {/* </div>
 
                 <div> */}
                     <h2>お探しのカテゴリーはどちらですか？</h2>
-                    <Checkbox
-                    checked={checked}
-                    onChange={handleChange}
+                    {/* <Checkbox
+                    checked={checkedCategory}
+                    onChange={handleChangeCategory}
                     color="primary"
                     inputProps={{ 'aria-label': 'primary checkbox' }}
                     />化粧水
                     <Checkbox
-                    checked={checked}
-                    onChange={handleChange}
+                    checked={checkedCategory}
+                    onChange={handleChangeCategory}
                     color="primary"
                     inputProps={{ 'aria-label': 'primary checkbox' }}
-                    />
-                    <Checkbox
-                    checked={checked}
-                    onChange={handleChange}
-                    color="primary"
-                    inputProps={{ 'aria-label': 'primary checkbox' }}
-                    />
+                    /> */}
+                    {categories.map((category) => {
+                        <>
+                            <Checkbox
+                            value={category.id}
+                            checked={checkedCategory}
+                            onChange={handleChangeCategory}
+                            color="primary"
+                            inputProps={{ 'aria-label': 'primary checkbox' }}
+                            />
+                            {category.name}
+                        </>         
+                    })}
+
+                    {/* <div>
+                    {categories.map((category) => {
+                        <p value={category.id}>{category.name}</p>
+                    })}
+                    </div> */}
+
+                    <p>aaa</p>
+
                 {/* </div>
 
                 <div> */}
@@ -188,28 +252,38 @@ export const ItemSearch = () => {
 
 {/* search_results */}
 
-            <div className='search_results' style={{marginTop: '50px'}}>
-                <ImageList>
-                <ImageListItem key="Subheader" cols={8}>
+            <div className='search_results' style={{margin: '50px'}}>
+                <ImageList style={{width: '100%', gridTemplateColumns: 'repeat(1, 1fr)'}}>
+                <ImageListItem key="Subheader" cols={2}>
                     <ListSubheader component="div">条件に当てはまるアイテムが見つかりました！</ListSubheader>
                 </ImageListItem>
 
-                <img src={leftArrow_img} className={classes.arrow} onClick={onClickLeft} />
-                {itemData.map((item) => (
-                    <ImageListItem key={item.img} className={classes.cardPaper}>
-                    <img
-                        src={`${item.img}?w=248&fit=crop&auto=format`}
-                        srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                        alt={itemName()}
-                        loading="lazy"
-                    />
-                    <ImageListItemBar
-                        title={itemBrand()}
-                        subtitle={itemName()}
-                    />
-                    </ImageListItem>
-                ))}
-                <img src={rightArrow_img} className={classes.arrow} onClick={onClickRight} />
+                <Grid container spacing={1} direction="row" justifyContent="center" alignItems="center" style={{gridTemplateColumns: '1, 1fr', gap: '1',}}>
+                    <Grid item xs={1}>
+                        <img src={leftArrow_img} className={classes.arrow} onClick={onClickLeft} />
+                    </Grid>
+                        {item.map((item) => (
+                        <Grid item xs={3}>
+                            <ImageListItem key={item.img} className={classes.cardPaper}>
+                            <img
+                                src={item.img}
+                                // src={`${item.img}?w=248&fit=crop&auto=format`}
+                                // srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                                alt={item.name}
+                                loading="lazy"
+                                style={{maxWidth: '200px', height: '100%', margin: '0 auto'}}
+                            />
+                            <ImageListItemBar
+                                title={item.name}
+                                subtitle={`￥${item.price}`}
+                            />
+                            </ImageListItem>
+                        </Grid>
+                        ))}
+                    <Grid item xs={1}>
+                        <img src={rightArrow_img} className={classes.arrow} onClick={onClickRight} />
+                    </Grid>
+                </Grid>
                 </ImageList>
             </div>
 
@@ -217,7 +291,7 @@ export const ItemSearch = () => {
             <div style={{fontSize: '20px', color: 'green'}}>
                 <p>申し訳ございません。条件に当てはまるアイテムが見つかりませんでした。</p>
                 <p><Link component={RouterLink} to="/requestPage">リクエストページ</Link>にて、ご要望も承っております。</p>
-                <p>○○様の貴重なご意見をお待ちしております。</p>
+                {message()}
             </div>
 
 {/* recommend */}
@@ -225,29 +299,35 @@ export const ItemSearch = () => {
         <div>
             <h2>選択した肌悩みにおすすめのアイテム</h2>
 
-            <ImageList>
-                <ImageListItem key="Subheader" cols={8}>
-                    {/* <ListSubheader component="div">条件に当てはまるアイテムが見つかりました</ListSubheader> */}
-                </ImageListItem>
+            <div className='recommend_results' style={{margin: '50px'}}>
+                <ImageList style={{width: '100%', gridTemplateColumns: 'repeat(1, 1fr)'}}>
 
-                <img src={leftArrow_img} className={classes.arrow} onClick={onClickLeft} />
-                {itemData.map((item) => (
-                    <ImageListItem key={item.img} className={classes.cardPaper}>
-                    <img
-                        src={`${item.img}?w=248&fit=crop&auto=format`}
-                        srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                        alt={itemName()}
-                        loading="lazy"
-                    />
-                    <ImageListItemBar
-                        title={itemBrand()}
-                        subtitle={itemName()}
-                    />
-                    </ImageListItem>
-                ))}
-                <img src={rightArrow_img} className={classes.arrow} onClick={onClickRight} />
+                <Grid container spacing={1} direction="row" justifyContent="center" alignItems="center" style={{gridTemplateColumns: '1, 1fr', gap: '1',}}>
+                    <Grid item xs={1}>
+                        <img src={leftArrow_img} className={classes.arrow} onClick={onClickLeft} />
+                    </Grid>
+                        {item.map((item) => (
+                        <Grid item xs={3}>
+                            <ImageListItem key={item.img} className={classes.cardPaper}>
+                            <img
+                                src={item.img}
+                                alt={item.name}
+                                loading="lazy"
+                                style={{maxWidth: '200px', height: '100%', margin: '0 auto'}}
+                            />
+                            <ImageListItemBar
+                                title={item.name}
+                                subtitle={`￥${item.price}`}
+                            />
+                            </ImageListItem>
+                        </Grid>
+                        ))}
+                    <Grid item xs={1}>
+                        <img src={rightArrow_img} className={classes.arrow} onClick={onClickRight} />
+                    </Grid>
+                </Grid>
                 </ImageList>
-
+            </div>
         </div>
 
         </div>
@@ -255,35 +335,35 @@ export const ItemSearch = () => {
     )
 }
 
-const itemData = [
-    {
-      img: 'https://source.unsplash.com/random',
-      brand: 'Dior',
-      name: 'emulsion',
-    //   rows: 2,
-    //   cols: 2,
-    //   featured: true,
-    },
-    {
-      img: 'https://source.unsplash.com/random',
-      brand: 'Dior',
-      name: 'cream',
-    },
-    {
-      img: 'https://source.unsplash.com/random',
-      brand: 'Dior',
-      name: 'skinToner',
-    },
-    {
-      img: 'https://source.unsplash.com/random',
-      brand: 'Dior',
-      name: 'skinToner',
-    //   cols: 2,
-    },
-    {
-      img: 'https://source.unsplash.com/random',
-      brand: 'Dior',
-      name: 'skinToner',
-    //   cols: 2,
-    },
-  ];
+// const itemData = [
+//     {
+//       img: 'https://source.unsplash.com/random',
+//       brand: 'Dior',
+//       name: 'emulsion',
+//     //   rows: 2,
+//     //   cols: 2,
+//     //   featured: true,
+//     },
+//     {
+//       img: 'https://source.unsplash.com/random',
+//       brand: 'Dior',
+//       name: 'cream',
+//     },
+//     {
+//       img: 'https://source.unsplash.com/random',
+//       brand: 'Dior',
+//       name: 'skinToner',
+//     },
+//     {
+//       img: 'https://source.unsplash.com/random',
+//       brand: 'Dior',
+//       name: 'skinToner',
+//     //   cols: 2,
+//     },
+//     {
+//       img: 'https://source.unsplash.com/random',
+//       brand: 'Dior',
+//       name: 'skinToner',
+//     //   cols: 2,
+//     },
+//   ];
