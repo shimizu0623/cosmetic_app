@@ -165,7 +165,7 @@ export const ItemDetail = () => {
         return(
             <div className={classes.styleParent}>
                 {/* <img src={sample_itemImg} alt="sampleImg" style={{marginRight: '50px'}} /> */}
-                <img src={item.img} alt="itemImg" style={{maxWidth: '70px', height: '100%', margin: 'auto 80px'}} />
+                <img src={item.img} alt="itemImg" style={{maxWidth: '370px', height: '100%', margin: 'auto 30px'}} />
                 <div>
                     <p style={{textAlign: 'left'}}>{item.brand}</p>
                     <p style={{fontSize: '40px'}}>{item.name}</p>
