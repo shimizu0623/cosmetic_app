@@ -23,16 +23,12 @@ class UsersController extends Controller
         );
     }
 
-    public function me()
+    public function me(Request $request)
     {
-        $user = User::find(1);
+        // $user = User::find(1);
+        $user = $request->user();
 
         return response()->json(
-            // User::find(1)
-            // [
-            //     'id' => 1,
-            //     'name' => 'Shimizu',             
-            // ]
             [
                 'id' => $user->id,
                 'name' => $user->name,
