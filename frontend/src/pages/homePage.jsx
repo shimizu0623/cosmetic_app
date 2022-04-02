@@ -2,16 +2,12 @@ import React, {useState, useEffect} from 'react';
 import axios from '../axios';
 
 import { Btn } from '../components/btn';
-// import TextField from '@mui/material/TextField';
-// import Stack from '@mui/material/Stack';
-// import Autocomplete from '@mui/material/Autocomplete';
 import Link from '@mui/material/Link';
 import { Link as RouterLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
-// import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
@@ -25,7 +21,6 @@ import rank_2 from '../img/rank_2.jpg';
 import rank_3 from '../img/rank_3.jpg';
 import green_leaf from '../img/green_leaf_img.jpg';
 import top_img from '../img/Whiteday2020-09.JPG';
-// import { borderRadius } from '@mui/system';
 
 const useStyles = makeStyles({
     TopImg: {
@@ -118,6 +113,7 @@ export const HomePage = () => {
     const classes = useStyles();
     const [user, setUser] = useState(null);
     const [item, setItem] = useState([]);
+    const [id, setId] = useState([]);
     const [brands, setBrands] = useState([]);
     const [select, setSelect] = useState([]);
     
@@ -125,12 +121,15 @@ export const HomePage = () => {
     useEffect(async () => {
         const response = await axios.get('/me')
         const responseItem = await axios.get('/items')
+        const responseId = await axios.get('/item')
         const responseBrands = await axios.get('/brands')
         const u = response.data
         const i = responseItem.data
+        const id = responseId.data
         const b = responseBrands.data
         setUser(u)
         setItem(i)
+        setId(id)
         setBrands(b)
     }, [])
     
@@ -157,31 +156,6 @@ export const HomePage = () => {
         )
     }
 
-    const itemName = () => {
-        if(item === null){
-            return <CircularProgress color="success" size="15px" />
-        }
-        return(
-                <p>{item.name}</p>                
-        )
-    }
-    const itemBrand = () => {
-        if(item === null){
-            return <CircularProgress color="success" size="15px" />
-        }
-        return(
-                <p>{item.brand}</p>                
-        )
-    }
-    const itemImg = () => {
-        if(item === null){
-            return <CircularProgress color="success" size="15px" />
-        }
-        return(
-             <p>{item.img}</p>                
-        )
-    }
-
     const recommend = () => {
         if(item === null){
             return <CircularProgress color="success" size="15px" />
@@ -199,13 +173,29 @@ export const HomePage = () => {
                     style={{maxWidth: '250px', height: '100%', margin: '0 auto'}}
                 />
                 <ImageListItemBar
-                    title={item.name}
-                    subtitle={item.brand}
+                    title={id.brand}
+                    subtitle={id.name}
                 />
                 </ImageListItem>
             ))}
             </Grid>
             </ImageList>
+        )
+    }
+
+    // TODO: ↓今itemId = 1のものをいれてる
+    const ranking = () => {
+        if(id === null){
+            return <CircularProgress color="success" size="15px" />
+        }
+        return(
+            <ImageListItem>
+            <li><img src={id.img} alt="item_img"  className={classes.itemImg}/></li>
+            <ImageListItemBar
+            title={id.brand}
+            subtitle={id.name}
+            />
+            </ImageListItem>
         )
     }
 
@@ -270,33 +260,22 @@ export const HomePage = () => {
                 <div className='RankingForm'>
                     <ul className={classes.rank} style={{padding: 0}}>
                         <li><img src={rank_1} alt="rank_1" className={classes.rankingImg}/></li>
-                        <ImageListItem>
-                            <li><img src={itemImg()} alt="item_img"  className={classes.itemImg}/></li>
-                            <ImageListItemBar
-                            title={itemName()}
-                            subtitle={itemBrand()}
-                            />
-                        </ImageListItem>
+
+                        {ranking()}
+
+
                     </ul>
                     <ul className={classes.rank}>
                         <li><img src={rank_2} alt="rank_2"  className={classes.rankingImg}/></li>
-                        <ImageListItem>
-                            <li><img src={itemImg()} alt="item_img"  className={classes.itemImg}/></li>
-                            <ImageListItemBar
-                            title={itemName()}
-                            subtitle={itemBrand()}
-                            />
-                        </ImageListItem>
+
+                        {ranking()}
+
                     </ul>
                     <ul className={classes.rank}>
                         <li><img src={rank_3} alt="rank_3" className={classes.rankingImg}/></li>
-                        <ImageListItem>
-                            <li><img src={itemImg()} alt="item_img"  className={classes.itemImg}/></li>
-                            <ImageListItemBar
-                            title={itemName()}
-                            subtitle={itemBrand()}
-                            />
-                        </ImageListItem>
+
+                        {ranking()}
+
                     </ul>
                 </div>
                 <div className='SeeMoreBtn' style={{textAlign: 'right'}}>
