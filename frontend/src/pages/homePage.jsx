@@ -18,6 +18,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import Grid from '@mui/material/Grid';
 
 import rank_1 from '../img/rank_1.jpg';
 import rank_2 from '../img/rank_2.jpg';
@@ -50,7 +51,7 @@ const useStyles = makeStyles({
         display: 'inline-block',
     },
     CardPaper: {
-
+        margin: '10px',
         '&:hover':{
             cursor: 'pointer', 
             opacity: '0.6',         
@@ -116,14 +117,14 @@ const useStyles = makeStyles({
 export const HomePage = () => {
     const classes = useStyles();
     const [user, setUser] = useState(null);
-    const [item, setItem] = useState(null);
+    const [item, setItem] = useState([]);
     const [brands, setBrands] = useState([]);
     const [select, setSelect] = useState([]);
     
     
     useEffect(async () => {
         const response = await axios.get('/me')
-        const responseItem = await axios.get('/item')
+        const responseItem = await axios.get('/items')
         const responseBrands = await axios.get('/brands')
         const u = response.data
         const i = responseItem.data
@@ -164,12 +165,12 @@ export const HomePage = () => {
                 <p>{item.name}</p>                
         )
     }
-    const itemPrice = () => {
+    const itemBrand = () => {
         if(item === null){
             return <CircularProgress color="success" size="15px" />
         }
         return(
-                <p>{item.price}</p>                
+                <p>{item.brand}</p>                
         )
     }
     const itemImg = () => {
@@ -178,6 +179,33 @@ export const HomePage = () => {
         }
         return(
              <p>{item.img}</p>                
+        )
+    }
+
+    const recommend = () => {
+        if(item === null){
+            return <CircularProgress color="success" size="15px" />
+        }
+        return(
+            <ImageList style={{gridTemplateColumns: '1, 1fr', gap: '1'}}>
+            <Grid container spacing={1} direction="row" justifyContent="center" alignItems="center">
+
+            {item.map((item) => (
+                <ImageListItem key={item.img} className={classes.CardPaper}>
+                <img
+                    src={item.img}
+                    alt={item.name}
+                    loading="lazy"
+                    style={{maxWidth: '250px', height: '100%', margin: '0 auto'}}
+                />
+                <ImageListItemBar
+                    title={item.name}
+                    subtitle={item.brand}
+                />
+                </ImageListItem>
+            ))}
+            </Grid>
+            </ImageList>
         )
     }
 
@@ -246,7 +274,7 @@ export const HomePage = () => {
                             <li><img src={itemImg()} alt="item_img"  className={classes.itemImg}/></li>
                             <ImageListItemBar
                             title={itemName()}
-                            subtitle={itemPrice()}
+                            subtitle={itemBrand()}
                             />
                         </ImageListItem>
                     </ul>
@@ -256,7 +284,7 @@ export const HomePage = () => {
                             <li><img src={itemImg()} alt="item_img"  className={classes.itemImg}/></li>
                             <ImageListItemBar
                             title={itemName()}
-                            subtitle={itemPrice()}
+                            subtitle={itemBrand()}
                             />
                         </ImageListItem>
                     </ul>
@@ -266,7 +294,7 @@ export const HomePage = () => {
                             <li><img src={itemImg()} alt="item_img"  className={classes.itemImg}/></li>
                             <ImageListItemBar
                             title={itemName()}
-                            subtitle={itemPrice()}
+                            subtitle={itemBrand()}
                             />
                         </ImageListItem>
                     </ul>
@@ -282,29 +310,10 @@ export const HomePage = () => {
                         <img src={green_leaf} alt="green_leaf" className={classes.TitleImg} />
                         <p className={classes.Title}>{userName()}おすすめの化粧水</p>
                     </div>
-                    <div className='Form'>
-                    <ImageList>
-                    <ImageListItem cols={6}>
-                    {/* <ListSubheader component="div">お気に入りに登録中のアイテム</ListSubheader> */}
-                    </ImageListItem>
 
-                    {itemData.map((item) => (
-                        <ImageListItem key={item.img} className={classes.CardPaper}>
-                        <img
-                            className={classes.img}
-                            src={`${item.img}?w=248&fit=crop&auto=format`}
-                            srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                            alt={item.name}
-                            loading="lazy"
-                        />
-                        <ImageListItemBar
-                            title={itemName()}
-                            subtitle={itemPrice()}
-                        />
-                        </ImageListItem>
-                    ))}
-                    </ImageList>
-                    </div>
+
+                    {recommend()}
+
                 </div>
                 
 
@@ -314,28 +323,9 @@ export const HomePage = () => {
                         <img src={green_leaf} alt="green_leaf" className={classes.TitleImg} />
                         <p className={classes.Title}>{userName()}おすすめの乳液</p>
                     </div>
-                    <div className='Form'>
-                    <ImageList>
-                    <ImageListItem cols={6}>
-                    </ImageListItem>
 
-                    {itemData.map((item) => (
-                        <ImageListItem key={item.img} className={classes.CardPaper}>
-                        <img
-                            className={classes.img}
-                            src={`${item.img}?w=248&fit=crop&auto=format`}
-                            srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                            alt={item.name}
-                            loading="lazy"
-                        />
-                        <ImageListItemBar
-                            title={itemName()}
-                            subtitle={itemPrice()}
-                        />
-                        </ImageListItem>
-                    ))}
-                    </ImageList>
-                    </div>
+                    {recommend()}
+
                 </div>
                 
 
@@ -346,88 +336,13 @@ export const HomePage = () => {
                         <img src={green_leaf} alt="green_leaf" className={classes.TitleImg} />
                         <p className={classes.Title}>{userName()}おすすめの美容液</p>
                     </div>
-                    <div className='Form'>
-                    <ImageList>
-                    <ImageListItem cols={6}>
-                    </ImageListItem>
 
-                    {itemData.map((item) => (
-                        <ImageListItem key={item.img} className={classes.CardPaper}>
-                        <img
-                            className={classes.img}
-                            src={`${item.img}?w=248&fit=crop&auto=format`}
-                            srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                            alt={item.name}
-                            loading="lazy"
-                        />
-                        <ImageListItemBar
-                            title={itemName()}
-                            subtitle={itemPrice()}
-                        />
-                        </ImageListItem>
-                    ))}
-                    </ImageList>
-                    </div>
+                    {recommend()}
+
                 </div>
                 
-
-
 
         </div>
         </>
     )
 }
-
-
-
-const itemData = [
-    {
-      img: 'https://source.unsplash.com/random',
-      brand: 'Dior',
-      name: 'emulsion',
-      price: '3,000'
-    //   rows: 2,
-    //   cols: 2,
-    //   featured: true,
-    },
-    {
-      img: 'https://source.unsplash.com/random',
-      brand: 'Dior',
-      name: 'cream',
-      price: '5,000'
-
-    },
-    {
-      img: 'https://source.unsplash.com/random',
-      brand: 'Dior',
-      name: 'skinToner',
-      price: '2,000'
-
-    },
-    {
-      img: 'https://source.unsplash.com/random',
-      brand: 'Dior',
-      name: 'skinToner',
-      price: '9,000'
-
-    //   cols: 2,
-    },
-    {
-      img: 'https://source.unsplash.com/random',
-      brand: 'Dior',
-      name: 'skinToner',
-      price: '8,000'
-
-    //   cols: 2,
-    },
-    {
-      img: 'https://source.unsplash.com/random',
-      brand: 'Dior',
-      name: 'emulsion',
-      price: '3,000'
-
-    //   rows: 2,
-    //   cols: 2,
-    //   featured: true,
-    },
-  ];
