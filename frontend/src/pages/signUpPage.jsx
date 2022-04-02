@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from '../axios';
 import header_img from '../img/headerSignUp.jpg';
 
@@ -22,6 +22,7 @@ import Link from '@material-ui/core/Link';
 import { Link as RouterLink } from "react-router-dom";
 import { Btn } from '../components/btn';
 
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import { makeStyles } from '@material-ui/core/styles';
@@ -44,11 +45,23 @@ const theme = createTheme();
 
 export const SignUpPage = () => {
   const classes = useStyles();
+  const [genders, setGenders] = useState([]);
+  const [skinTypes, setSkinTypes] = useState([]);
   const [userInformation, setUserInformation] = useState({})
   const navigate = useNavigate();
 
+  useEffect(async () => {
+    const responseGenders = await axios.get('/genders')
+    const responseSkinType = await axios.get('/skin_types')
+    const g = responseGenders.data
+    const s = responseSkinType.data
+    setGenders(g)
+    setSkinTypes(s)
+  }, [])
+
   const handleUserInformationChange = (event) => {
     setUserInformation({...userInformation, [event.target.name]: event.target.value})
+    // console.log(skinTypes)
   };
 
   const onClickRegister = async () => {
@@ -169,13 +182,15 @@ export const SignUpPage = () => {
                     minWidth: '200px',
                   }}
                   >
-                  {/* TODO {genders.map((gender) => 
-                    (<MenuItem value={gender.id}>{gender.name}</MenuItem>))} にする*/}
-                  <MenuItem value={1} style={{minWidth: '200px'}}>女性</MenuItem>
-                  <MenuItem value={2} style={{minWidth: '200px'}}>男性</MenuItem>
-                  
+
+                  {genders.map((gender) => (
+                    <MenuItem value={gender.id}>{gender.name}</MenuItem>
+                  ))}
+                                    
                   </Select>
               </FormControl>
+
+
               <FormControl style={{marginTop: '20px'}}>
                   <InputLabel id="demo-simple-select-helper-label">スキンタイプ</InputLabel>
                   <Select
@@ -190,17 +205,17 @@ export const SignUpPage = () => {
                     minWidth: '200px',
                   }}
                   >
-                    {/* TODO: ↓ */}
-                    <MenuItem value={1}>Dry Skin</MenuItem>
-                    <MenuItem value={2}>Oily Skin</MenuItem>
-                    <MenuItem value={3}>Combination Skin</MenuItem>
-                    <MenuItem value={4}>Sensitive Skin</MenuItem>
-                    {/* <MenuItem value={1}>Normal Skin（水分と皮脂のバランスが良い）</MenuItem>
-                    <MenuItem value={2}>InnerDry Skin（水分が少なく、皮脂が多い）</MenuItem>
-                    <MenuItem value={3}>Dry Skin（水分も皮脂も少ない）</MenuItem>
-                    <MenuItem value={4}>Oily Skin（水分・皮脂ともに多い）</MenuItem>
-                    <MenuItem value={5}>Combination Skin（部分的に皮脂が多く、乾燥しがち）</MenuItem>
-                    <MenuItem value={6}>Sensitive Skin（敏感な肌）</MenuItem> */}
+                    {/* TODO: ↓TooltipがあるとonChangeがきかない */}
+
+                      {skinTypes.map((skinType) => (
+                        <Tooltip title={skinType.detail} followCursor>
+                          <MenuItem
+                          value={skinType.id} 
+                          style={{margin: '5px'}}>
+                            {skinType.name}
+                          </MenuItem>
+                        </Tooltip>
+                      ))}
                   </Select>
               </FormControl>          
               
