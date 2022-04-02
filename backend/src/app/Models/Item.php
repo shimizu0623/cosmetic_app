@@ -88,7 +88,7 @@ class Item extends Model
         return [
           'id' => $this->id,
           'name' => $this->name,
-          'price' => $this->price,
+          'brand' => $this->brand->name,
           'img' => $this->img,
         ];
     }
