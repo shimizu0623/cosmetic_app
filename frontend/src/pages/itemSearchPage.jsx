@@ -7,7 +7,6 @@ import rightArrow_img from '../img/rightArrow_yellow.jpg';
 import leftArrow_img from '../img/leftArrow_yellow.jpg';
 
 import { makeStyles } from "@material-ui/core/styles";
-import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -24,7 +23,10 @@ import Select from '@mui/material/Select';
 import Link from '@mui/material/Link';
 import { Link as RouterLink } from "react-router-dom";
 import Grid from '@mui/material/Grid';
-
+import { CheckBox } from '@material-ui/icons';
+import Checkbox from '@mui/material/Checkbox';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 const onClickRight = () => {
     console.log('onClickRight')
@@ -57,7 +59,10 @@ export const ItemSearch = () => {
     const [item, setItem] = useState([]);
     const [user, setUser] = useState(null);
     const [brands, setBrands] = useState([]);
-    const [select, setSelect] = useState([]);
+    const [selectSkinTrouble, setSelectSkinTrouble] = useState([]);
+    const [selectCategory, setSelectCategory] = useState([]);
+    const [selectOthers, setSelectOthers] = useState([]);
+    const [selectBrand, setSelectBrand] = useState([]);
     const [skinTroubles, setSkinTroubles] = useState([]);
     const [categories, setCategories] = useState([]);
     const [checkedSkinTrouble, setCheckedSkinTrouble] = React.useState(false);
@@ -65,24 +70,24 @@ export const ItemSearch = () => {
     const [checked, setChecked] = React.useState(false);
 
     useEffect(async () => {
-        const responseItem = await axios.get('/items')
         const responseUser = await axios.get('/me')
-        const responseBrands = await axios.get('/brands')
+        const responseItem = await axios.get('/items')
         const responseSkinTroubles = await axios.get('/skin_troubles')
         const responseCategories = await axios.get('/categories')
-        const i = responseItem.data
+        const responseBrands = await axios.get('/brands')
         const u = responseUser.data
-        const b = responseBrands.data
+        const i = responseItem.data
         const s = responseSkinTroubles.data
         const c = responseCategories.data
+        const b = responseBrands.data
         // console.log(s)
         // console.log(c)
         // console.log(i)
-        setItem(i)
         setUser(u)
-        setBrands(b)
+        setItem(i)
         setSkinTroubles(s)
         setCategories(c)
+        setBrands(b)
         // console.log(skinTroubles)
         // console.log(categories)
         // console.log(item)
@@ -120,113 +125,74 @@ export const ItemSearch = () => {
 
     const onClickBrand = (event) => {
         console.log('selected brand')
-        setSelect(event.target.value);
+        setSelectBrand(event.target.value);
     };
 
     const handleChangeSkinTrouble = (event) => {
         setCheckedSkinTrouble(event.target.checked);
         console.log(checkedSkinTrouble)
+        console.log('skinTroubles')
         console.log(skinTroubles)
+        console.log('brands')
+        console.log(brands)
     };
     const handleChangeCategory = (event) => {
         setCheckedCategory(event.target.checked);
-        // console.log(checkedCategory)
-        // console.log(categories)
-        // {categories.map((category) => {
-        //     console.log(category.name)
-        // })}
+        setSelectCategory({...selectCategory, name: event.target.value})
+        console.log(checkedCategory)
+        console.log(selectCategory)
     };
     const handleChange = (event) => {
         setChecked(event.target.checked);
     };
 
-    const categoryName = () => {
-        {categories.map((category) => {
-            <Checkbox
-            value={category.id}
-            checked={checkedCategory}
-            onChange={handleChangeCategory}
-            color="primary"
-            inputProps={{ 'aria-label': 'primary checkbox' }}
-            >
-            {category.name}
-            </Checkbox>
-        })}
-    }
-
     return(
         <>
         <div className='MainContainer'>
             <div className='conditionForm'>
-                <img src={header_img} alt="header" style={{width: '100%'}}/>
+                <img src={header_img} alt="header" style={{ width: '100%' }}/>
                 <p>ここでは条件検索することができます</p>
                 <p>当てはまる項目をチェックしてください</p>
-                <div style={{background: '#c8eee8af', borderRadius: '20px', padding: '20px 0', margin: '30px auto'}}>
+                <div style={{ background: '#c8eee8af', borderRadius: '20px', padding: '20px 0', margin: '30px auto' }}>
                 {/* <div> */}
-                    <h2 style={{marginTop: '0'}}>改善したい肌の悩みはございますか？</h2>
+                    <h2 style={{ marginTop: '0' }}>改善したい肌の悩みはございますか？</h2>
 
-                    <Checkbox
-                    checked={checkedSkinTrouble}
-                    onChange={handleChangeSkinTrouble}
-                    color="primary"
-                    inputProps={{ 'aria-label': 'primary checkbox' }}
-                    />乾燥
-
-                    {categoryName()}
+                    <FormGroup sx={{ justifyContent: 'center',display: 'grid', gap: 1, gridTemplateColumns: 'repeat(5, 1fr)' }}>
+                    {skinTroubles.map((skinTrouble) => (
+                    <FormControlLabel sx={{ mx: 'auto' }} control={<Checkbox />} label={skinTrouble.name} />
+                    ))}
+                    </FormGroup>
 
                 {/* </div>
 
                 <div> */}
                     <h2>お探しのカテゴリーはどちらですか？</h2>
-                    <Checkbox
-                    checked={checkedCategory}
-                    onChange={handleChangeCategory}
-                    color="primary"
-                    inputProps={{ 'aria-label': 'primary checkbox' }}
-                    />化粧水
-                    <Checkbox
-                    checked={checkedCategory}
-                    onChange={handleChangeCategory}
-                    color="primary"
-                    inputProps={{ 'aria-label': 'primary checkbox' }}
-                    />
-                        <>
-                            <Checkbox
-                            checked={checkedCategory}
-                            onChange={handleChangeCategory}
-                            color="primary"
-                            inputProps={{ 'aria-label': 'primary checkbox' }}
-                            />
-                            {categories.map((category) => {
-                            <p>{category.name}</p>
-                            })}
-                        </>         
-                    {/* <div>
-                    {categories.map((category) => {
-                        <>
-                        <p>{category.name}</p>
-                        <p>aaa</p>
-                        </>
-                    })}
-                    </div> */}
+
+                    <FormGroup sx={{ justifyContent: 'center',display: 'grid', gap: 1, gridTemplateColumns: 'repeat(5, 1fr)' }}>
+                    {categories.map((category) => (
+                    <FormControlLabel sx={{ mx: 'auto' }} control={<Checkbox />} label={category.name} />
+                    ))}
+                    </FormGroup>
 
 
                 {/* </div>
 
                 <div> */}
+
+
                     <h2>他に条件はありますか？</h2>
-                    <Checkbox
+                    <FormGroup sx={{ justifyContent: 'center',display: 'grid', gap: 1, gridTemplateColumns: 'repeat(2, 1fr)' }}>
+                    <FormControlLabel sx={{ mx: 'auto' }} control={<Checkbox />} label='EWGランクが１のアイテムだけを表示' />
+                    <FormControlLabel sx={{ mx: 'auto' }} control={<Checkbox />} label='肌に合わない成分が入っていないアイテムで探す' />
+                    </FormGroup>
+
+
+                    {/* <Checkbox
                     checked={checked}
                     onChange={handleChange}
                     color="primary"
                     inputProps={{ 'aria-label': 'primary checkbox' }}
-                    />EWGランクが１のアイテムだけを表示
-                    <Checkbox
-                    checked={checked}
-                    onChange={handleChange}
-                    color="primary"
-                    inputProps={{ 'aria-label': 'primary checkbox' }}
-                    />肌に合わない成分が入っていないアイテムで探す
+                    />肌に合わない成分が入っていないアイテムで探す */}
                 {/* </div>
 
                 <div> */}
@@ -238,7 +204,7 @@ export const ItemSearch = () => {
                         <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
-                        value={select}
+                        value={selectBrand}
                         label="Brands"
                         // TODO: ↓ブランド検索できるように
                         onChange={onClickBrand}
@@ -258,13 +224,15 @@ export const ItemSearch = () => {
 
 {/* search_results */}
 
-            <div className='search_results' style={{margin: '50px'}}>
-                <ImageList style={{width: '100%', gridTemplateColumns: 'repeat(1, 1fr)'}}>
+            <div className='search_results' style={{ margin: '50px' }}>
+                <ImageList style={{ width: '100%', gridTemplateColumns: 'repeat(1, 1fr)' }}>
                 <ImageListItem key="Subheader" cols={2}>
                     <ListSubheader component="div">条件に当てはまるアイテムが見つかりました！</ListSubheader>
                 </ImageListItem>
 
-                <Grid container spacing={1} direction="row" justifyContent="center" alignItems="center" style={{gridTemplateColumns: '1, 1fr', gap: '1',}}>
+
+
+                <Grid container spacing={1} direction="row" justifyContent="center" alignItems="center" style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
                     <Grid item xs={1}>
                         <img src={leftArrow_img} className={classes.arrow} onClick={onClickLeft} />
                     </Grid>
