@@ -279,7 +279,7 @@ export const HomePage = () => {
                     </ul>
                 </div>
                 <div className='SeeMoreBtn' style={{textAlign: 'right'}}>
-                    <Btn message='ランキングをもっと見る' component={RouterLink} to="/ranking" />
+                    <Btn message='ランキングをもっと見る' component={RouterLink} to="/ranking" sx={{ margin: '30px auto' }} />
                 </div>
             </div>
             
