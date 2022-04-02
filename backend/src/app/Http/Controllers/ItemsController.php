@@ -20,14 +20,15 @@ class ItemsController extends Controller
         $brandIds = $request->query('brand_id');
         // $score = $request->query('score');
         $user = $request->user();
+        $matchingOnly = $request->query('matching_only') === '1';
         $isSafeOnly = $request->query('is_safe_only') === '1';
 
         // Log::debug(print_r($skinTroubleIds, true));
 
         $items = Item::withSkinTroubles($skinTroubleIds)
         ->withCategories($categoryIds)
-        ->withBrand($brandIds)
-        ->excludeUnmatched($user->id);
+        ->withBrand($brandIds);
+        // ->excludeUnmatched($user->id);
         // ->withEwgScore(1)
         // ->get();
         
@@ -35,7 +36,12 @@ class ItemsController extends Controller
             // Log::debug('if'. $isSafeOnly);
             $items = $items->safeOnly();
         }
-
+        
+        if ($matchingOnly) {
+            // Log::debug('if'. $);
+            $items = $items->excludeUnmatched($user->id);
+        }
+        
         // Log::debug($items->toSql());
         // Log::debug($user->id);
 
