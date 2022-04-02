@@ -15,6 +15,7 @@ import { ItemSearch } from "./pages/itemSearchPage";
 import { ItemDetail } from "./pages/itemDetail";
 import { ItemComparison } from "./pages/itemComparison";
 import { RequestPage } from "./pages/requestPage";
+import { Thanks } from "./pages/thanksPage";
 import { HelpPage } from "./pages/helpPage";
 import { Ranking } from "./pages/ranking";
 import { Btn } from "./components/btn";
@@ -87,6 +88,10 @@ ReactDom.render(
           <Route
               path='/requestPage'
               element={<RequestPage />}
+            />  
+          <Route
+              path='/thanks'
+              element={<Thanks />}
             />  
           <Route
               path='/helpPage'
