@@ -190,7 +190,7 @@ return(
           </ListItemIcon>
           コスメ比較
         </MenuItem>
-        <MenuItem component={RouterLink} to="/rashItemList">
+        <MenuItem component={RouterLink} to="/unmatchedItem">
           <ListItemIcon>
             <NotInterestedIcon />
           </ListItemIcon>
