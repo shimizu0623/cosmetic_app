@@ -10,6 +10,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { makeStyles } from "@material-ui/core/styles";
 import Link from '@mui/material/Link';
 import { Link as RouterLink } from "react-router-dom";
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 
 
 const useStyles = makeStyles({
@@ -71,6 +72,10 @@ export const ItemComparison = () => {
         console.log('onClickDelete')
     }
 
+    const explain_green = 'EWG 1~2等級（有害性が低い成分）'
+    const explain_yellow = 'EWG 3~6等級（有害性が普通の成分）'
+    const explain_red = 'EWG 7~10等級（有害性が高い成分）'
+
 
     return(
         <>
@@ -93,9 +98,15 @@ export const ItemComparison = () => {
                     <th className={classes.tableHeader}>商品名</th>
                     <th className={classes.tableHeader}>容量</th>
                     <th className={classes.tableHeader}>価格</th>
+                    <Tooltip title={explain_green} followCursor>
                     <th className={classes.tableHeader}><img src={leaf_green} alt="ewg_green" style={{ width: '30px' }} />成分数</th>
+                    </Tooltip>
+                    <Tooltip title={explain_yellow} followCursor>
                     <th className={classes.tableHeader}><img src={leaf_yellow} alt="ewg_yellow" style={{ width: '30px' }} />成分数</th>
+                    </Tooltip>
+                    <Tooltip title={explain_red} followCursor>
                     <th className={classes.tableHeader}><img src={leaf_brown} alt="ewg_red" style={{ width: '30px' }} />成分数</th>
+                    </Tooltip>
                     <th className={classes.tableHeader}>発がん性</th>
                     <th className={classes.tableHeader}>発達/生殖毒性</th>
                     <th className={classes.tableHeader}>免疫毒性</th>
