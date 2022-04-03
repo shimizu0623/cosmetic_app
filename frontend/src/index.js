@@ -16,6 +16,7 @@ import { ItemDetail } from "./pages/itemDetail";
 import { ItemComparison } from "./pages/itemComparison";
 import { RequestPage } from "./pages/requestPage";
 import { Thanks } from "./pages/thanksPage";
+import { MyFolder } from "./pages/myFolderPage.jsx";
 import { HelpPage } from "./pages/helpPage";
 import { Ranking } from "./pages/ranking";
 import { Btn } from "./components/btn";
@@ -92,6 +93,10 @@ ReactDom.render(
           <Route
               path='/thanks'
               element={<Thanks />}
+            />  
+          <Route
+              path='/myFolder'
+              element={<MyFolder />}
             />  
           <Route
               path='/helpPage'
