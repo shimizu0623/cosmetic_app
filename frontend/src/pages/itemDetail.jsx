@@ -16,8 +16,8 @@ import leaf_green from '../img/leaf_green.png';
 import leaf_yellow from '../img/leaf_yellow.png';
 import leaf_brown from '../img/leaf_brown.png';
 import Level_1 from "../img/level_1.png"
-import Level_2 from "../img/level_2.png"
 import Level_3 from "../img/level_3.png"
+import Level_2 from "../img/level_2.png"
 import Level_4 from "../img/level_4.png"
 import Level_5 from "../img/level_5.png"
 import Level_6 from "../img/level_6.png"
@@ -184,6 +184,9 @@ export const ItemDetail = () => {
                     <div className={classes.styleP}>
                         <p className={classes.itemDetail}>価格：</p>
                         <p>￥{item.price}</p>
+                    </div>
+                    <div>
+                        <p style={{color: 'gray', fontSize: '13px'}}>※実際の価格と異なる場合がございますので、ご購入時はサイトをご確認ください。</p>
                     </div>
                     <div className={classes.styleP}>
                         <p className={classes.itemDetail}>カテゴリー：</p>
