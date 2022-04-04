@@ -16,7 +16,7 @@ const useStyles = makeStyles({
     },
 })
 
-export const goBackBtn = () => {
+export const GoBackBtn = () => {
     const classes = useStyles();
     const navigate = useNavigate();
     
@@ -25,6 +25,9 @@ export const goBackBtn = () => {
         <div  className={classes.back}>
             <span onClick={() => navigate(-1)}>&lt;&lt;前のページへ戻る</span>
         </div>
+
+        {/* <button onClick={() => navigate(-1)}>検索結果へ戻る</button> */}
+
         </>
     )
 }
