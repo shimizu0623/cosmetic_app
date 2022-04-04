@@ -4,6 +4,8 @@ import axios from '../axios';
 import leaf_menu_img from '../img/leaf_menu_img.jpg';
 import leaf_favorite_img from '../img/leaf_favorite_img.jpg';
 import leaf_history_img from '../img/leaf_history_img.jpg';
+import normal_skin_img from '../img/normal_skin_img.jpg';
+import innerDry_skin_img from '../img/innerDry_skin_img.jpg';
 import dry_skin_img from '../img/dry_skin_img.jpg';
 import oily_skin_img from '../img/oily_skin_img.jpg';
 import combination_skin_img from '../img/combination_skin_img.jpg';
@@ -103,6 +105,14 @@ const useStyles = makeStyles({
 
 })
 
+const onClickNormalSkin = () => {
+    console.log('DrySkin')
+    alert("スキンタイプをNormalSkinに変更しました")
+}
+const onClickInnerDrySkin = () => {
+    console.log('DrySkin')
+    alert("スキンタイプをInnerDrySkinに変更しました")
+}
 const onClickDrySkin = () => {
     console.log('DrySkin')
     alert("スキンタイプをDrySkinに変更しました")
@@ -217,6 +227,26 @@ export const MyPage = () => {
                         },
                     }}
                     >
+                        <Paper 
+                            className={classes.skinPaper}
+                            onClick={onClickNormalSkin} 
+                            style={{
+                                borderRadius: '50%', 
+                                backgroundImage: `url(${normal_skin_img})`
+                            }}
+                        >
+                            <p className={classes.p}>Normal</p>
+                        </Paper>
+                        <Paper 
+                            className={classes.skinPaper}
+                            onClick={onClickInnerDrySkin} 
+                            style={{
+                                borderRadius: '50%', 
+                                backgroundImage: `url(${innerDry_skin_img})`
+                            }}
+                        >
+                            <p className={classes.p}>InnerDry</p>
+                        </Paper>
                         <Paper 
                             className={classes.skinPaper}
                             onClick={onClickDrySkin} 
