@@ -227,6 +227,7 @@ export const MyPage = () => {
                         },
                     }}
                     >
+                        {/* TODO: skinTypeのImgを追加して、↓の処理ひとつにまとめる */}
                         <Paper 
                             className={classes.skinPaper}
                             onClick={onClickNormalSkin} 
