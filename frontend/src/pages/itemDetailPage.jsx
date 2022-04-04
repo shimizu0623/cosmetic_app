@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from '../axios';
+import { GoBackBtn } from '../components/goBackBtn';
 
 import { makeStyles } from "@material-ui/core/styles";
 import Rating from '@material-ui/lab/Rating';
@@ -86,15 +87,6 @@ const useStyles = makeStyles({
     btnForm: {
         display: 'flex',
         padding: '5px 0 0 0',
-    },
-    back: {
-        textAlign: 'left',
-        color: 'gray',
-        '&:hover':{
-            cursor: 'pointer',
-            color: 'black',
-            textDecoration: 'underline',
-        }
     },
     ewgForm: {
         margin: '40px auto 0',
@@ -236,11 +228,8 @@ export const ItemDetail = () => {
     return(
         <>
         <div className='MainContainer'>
-        <div  className={classes.back}>
-            <span onClick={() => navigate(-1)}>&lt;&lt;前のページへ戻る</span>
-        </div>
-
-        {/* <button onClick={() => navigate(-1)}>検索結果へ戻る</button> */}
+            
+        <GoBackBtn />
 
         {itemInformation()}
 
