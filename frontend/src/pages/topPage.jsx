@@ -21,9 +21,10 @@ const useStyles = makeStyles({
     aboutEwgImage: {
         width: '100%',
         height: '100%',
-        margin: '30px auto 0',
+        margin: '30px auto',
         objectFit: 'cover',
         filter: 'blur(3px)',
+        display: 'block',
         // background: linear-gradient(
         //     120deg,
         //     rgba(105, 194, 199, 0.2),
