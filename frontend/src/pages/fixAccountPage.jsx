@@ -164,7 +164,7 @@ export const FixAccount = () => {
       <p style={{textAlign: 'left', marginTop: '30px'}}>パスワード</p>
       <OutlinedInput
       margin="normal"
-      style={{margin: '16px 0 20px 0s'}}
+      style={{margin: '16px 0 30px 0'}}
       required
       fullWidth
       name="password"
