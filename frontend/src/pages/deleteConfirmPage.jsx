@@ -3,7 +3,6 @@ import { GoBackBtn } from '../components/goBackBtn';
 import { Btn } from '../components/btn';
 import { Link as RouterLink } from "react-router-dom";
 import TextareaAutosize from '@mui/material/TextareaAutosize';
-
 import green_leaf from '../img/green_leaf_img.jpg';
 
 export const DeleteConfirm = () => {
