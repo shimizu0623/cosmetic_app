@@ -30,7 +30,6 @@ export const Ewg = (props) => {
 
     return(
         <>
-        <div className='MainContainer'>
               {HeaderEwg}
           <div className="explain">
               <img src={EwgLogo} id="Ewg-logo_img" alt="Ewg-logo_img" />
@@ -97,7 +96,6 @@ export const Ewg = (props) => {
               <p>過去にお肌に合わなかった商品の共通成分がある時は、<br />
                 肌に合わない成分という欄にもチェックを入れておくと、〇〇さんに合ったアイテムを見つけやすくなります。</p>
           </div>
-        </div>
         </>
     )
 }
