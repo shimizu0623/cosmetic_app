@@ -13,7 +13,7 @@ import sensitive_skin_img from '../img/sensitive_skin_img.jpg';
 import rightArrow_img from '../img/rightArrow_yellow.jpg';
 import leftArrow_img from '../img/leftArrow_yellow.jpg';
 import header_img from '../img/headerMyPage.jpg';
-
+import { GoBackBtn } from '../components/goBackBtn';
 import CircularProgress from '@mui/material/CircularProgress';
 import Link from '@material-ui/core/Link';
 import { Link as RouterLink } from "react-router-dom";
@@ -206,6 +206,7 @@ export const MyPage = () => {
     return(
         <>
         <div className='MainContainer'>
+            <GoBackBtn />
             <img src={header_img} alt="header" className={classes.header}/>
             
             
