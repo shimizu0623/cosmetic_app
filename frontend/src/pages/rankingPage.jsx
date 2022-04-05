@@ -1,6 +1,6 @@
 import React from 'react';
 import header_img from '../img/headerRanking.jpg';
-
+import { GoBackBtn } from '../components/goBackBtn';
 import { Link as RouterLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import ImageListItem from '@mui/material/ImageListItem';
@@ -46,8 +46,8 @@ export const Ranking = () => {
     const classes = useStyles();
     return(
         <>
-
         <div className='MainContainer'>
+        <GoBackBtn />
         <img src={header_img} alt="header" style={{ width: '100%' }}/>
 
             <div className='TitleForm'>
