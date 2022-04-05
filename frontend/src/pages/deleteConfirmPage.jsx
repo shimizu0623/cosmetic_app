@@ -1,4 +1,5 @@
 import React from 'react';
+import { GoBackBtn } from '../components/goBackBtn';
 import { Btn } from '../components/btn';
 import { Link as RouterLink } from "react-router-dom";
 import TextareaAutosize from '@mui/material/TextareaAutosize';
@@ -9,6 +10,7 @@ export const DeleteConfirm = () => {
     return(
         <>
         <div className='MainContainer'>
+        <GoBackBtn />
             <img src={green_leaf} alt="" style={{ maxWidth: '90px', display: 'inline-block', verticalAlign: 'middle', margin: '0 auto 40px' }} />
             <h1 style={{ fontSize: '40px', display: 'inline-block' }}>退会フォーム</h1>
             <div>
@@ -31,3 +33,4 @@ export const DeleteConfirm = () => {
         </>
     )
 }
+
