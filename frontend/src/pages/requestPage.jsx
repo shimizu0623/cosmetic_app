@@ -1,14 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from '../axios';
 import header_img from '../img/headerRequest.jpg';
-
+import { GoBackBtn } from '../components/goBackBtn';
 import { Btn } from '../components/btn';
+import { useNavigate } from "react-router-dom";
 import { Link as RouterLink } from "react-router-dom";
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 
 export const RequestPage = () => {
+    const [requestForm, setRequestForm] = useState({detail:''})
+    const navigate = useNavigate();
+
+    const handleRequestFormChange = (event) => {
+        console.log(requestForm)
+        setRequestForm({...requestForm, detail: event.target.value})
+      };
+    
+
+    const onClickSend = async () => {
+        // TODO: ↓スペースだけ入力しても進んじゃう
+        // if(requestForm.request === '' || requestForm.request === '\n'){
+        if(requestForm.detail === ''){
+            window.alert('枠内にメッセージのご入力をお願いします。')
+            return;
+        }
+        console.log(requestForm.detail)
+        
+        try {
+          console.log('onClickSend');
+          console.log(requestForm);
+          const response = await axios.post('/requests', requestForm);
+          console.log(response);
+        //   navigate("/thanks");
+        } catch (e) {
+          window.alert('送信に失敗しました');
+          console.error(e)
+          return;
+        }
+        
+      }
+    
     return(
         <>
         <div className='MainContainer'>
+        <GoBackBtn />
         <img src={header_img} alt="header" style={{ width: '100%' }}/>
             <div>
                 <div style={{ margin: '40px auto' }}>
@@ -19,15 +54,20 @@ export const RequestPage = () => {
                 </div>
                 <div style={{margin: '40px auto'}}>
                     <TextareaAutosize
+                    value={requestForm.detail}
                     aria-label="minimum height"
                     minRows={20}
                     style={{ width: 400 }}
+                    onChange={handleRequestFormChange}
                     />
                 </div>
             </div>
 
             {/* TODO: リクエストデータベースに登録する */}
-            <Btn message='リクエストを送信する' component={RouterLink} to="/thanks"/>
+            <Btn 
+              onClick={onClickSend} 
+              message='リクエストを送信する' 
+            />
 
 
 
