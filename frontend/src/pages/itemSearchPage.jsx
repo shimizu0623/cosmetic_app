@@ -93,24 +93,6 @@ export const ItemSearch = () => {
         // console.log(item)
     }, [])
 
-    const itemName = () => {
-        if(item === null){
-            return <CircularProgress color="success" size="15px" />
-        }
-        return(
-                <p>{item.name}</p>                
-        )
-    }
-    
-    const itemBrand = () => {
-        if(item === null){
-            return <CircularProgress color="success" size="15px" />
-        }
-        return(
-                <p>{item.brand}</p>                
-        )
-    }
-
     const message = () => {
         if(user === null){
             return <CircularProgress color="success" size="15px" />
@@ -251,8 +233,8 @@ export const ItemSearch = () => {
                                 style={{maxWidth: '300px', height: '100%', margin: '0 auto'}}
                             />
                             <ImageListItemBar
-                                title={item.name}
-                                subtitle={`￥${item.price}`}
+                                title={item.brand}
+                                subtitle={item.name}
                             />
                             </ImageListItem>
                         </Grid>
@@ -294,8 +276,8 @@ export const ItemSearch = () => {
                                 style={{maxWidth: '200px', height: '100%', margin: '0 auto'}}
                             />
                             <ImageListItemBar
-                                title={item.name}
-                                subtitle={`￥${item.price}`}
+                                title={item.brand}
+                                subtitle={item.name}
                             />
                             </ImageListItem>
                         </Grid>
