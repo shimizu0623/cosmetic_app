@@ -269,6 +269,7 @@ export const SignUpPage = () => {
                 required
                 fullWidth
                 name="password"
+                // TODO: ↓labelがきかない
                 label="パスワード"
                 type={values.showPassword ? 'text' : 'password'}
                 onChange={handleUserInformationChange}
