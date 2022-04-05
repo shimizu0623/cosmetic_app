@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from '../axios';
-
+import { GoBackBtn } from '../components/goBackBtn';
 import {Btn} from '../components/btn';
 import header_img from '../img/headerSearch.jpg';
 import rightArrow_img from '../img/rightArrow_yellow.jpg';
@@ -131,6 +131,7 @@ export const ItemSearch = () => {
     return(
         <>
         <div className='MainContainer'>
+            <GoBackBtn />
             <div className='conditionForm'>
                 <img src={header_img} alt="header" style={{ width: '100%' }}/>
                 <div style={{ margin: '30px auto' }}>
@@ -166,8 +167,8 @@ export const ItemSearch = () => {
 
                     <h2>他に条件はありますか？</h2>
                     <FormGroup sx={{ justifyContent: 'center',display: 'grid', gap: 1, gridTemplateColumns: 'repeat(2, 1fr)' }}>
-                    <FormControlLabel sx={{ mx: 'auto' }} control={<Checkbox />} label='EWGランクが１のアイテムだけを表示' />
-                    <FormControlLabel sx={{ mx: 'auto' }} control={<Checkbox />} label='肌に合わない成分が入っていないアイテムで探す' />
+                        <FormControlLabel sx={{ mx: 'auto' }} control={<Checkbox />} label='EWGランクが１のアイテムだけを表示' />
+                        <FormControlLabel sx={{ mx: 'auto' }} control={<Checkbox />} label='肌に合わない成分が入っていないアイテムで探す' />
                     </FormGroup>
 
 
