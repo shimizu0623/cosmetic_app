@@ -41,9 +41,9 @@ export const ItemComparison = () => {
         return(
                 // TODO: ↓item_ingredientsのデータ？
                 <tr>
-                    <th scope="row"><img src={item.img} alt="itemImg" style={{ maxWidth: '90px', height: '100%', margin: 'auto 30px' }} /></th>
+                    <td scope="row"><img src={item.img} alt="itemImg" style={{ maxWidth: '90px', height: '100%', margin: 'auto 30px' }} /></td>
                     <td>{item.brand}</td>
-                    <th>{item.name}</th>
+                    <td>{item.name}</td>
                     <td>{item.volume}</td>
                     <td>￥{item.price}</td>
                     <td>-</td>
@@ -69,8 +69,15 @@ export const ItemComparison = () => {
     }
 
     const onClickDelete = () => {
-        console.log('onClickDelete')
+        const confirmMessage = '削除してよろしいですか？'
+        let result = window.confirm(confirmMessage);
+        if(result){
+            console.log('onClickDelete')       
+        }else{
+            return;
+        }    
     }
+
 
     const explain_green = 'EWG 1~2等級（有害性が低い成分）'
     const explain_yellow = 'EWG 3~6等級（有害性が普通の成分）'
