@@ -233,12 +233,14 @@ export const ItemDetail = () => {
 
         {itemInformation()}
 
-            <div  className={classes.alertForm}>
+            <div className={classes.alertForm}>
                 <h4 style={{color: 'red', paddingTop: '10px'}}>注意！</h4>
                 <p>肌に合わなかった共通成分があります</p>
-                <div style={{padding: '10px'}}>
-                    <p>○○酸</p>
-                </div>
+                <div style={{paddingBottom: '10px'}}>
+                <ul style={{ listStyle: 'none', padding: 0 }}>
+                    <li>○○酸</li>
+                </ul>
+            </div>
             </div>
 
             <div className={classes.ewgForm}>
