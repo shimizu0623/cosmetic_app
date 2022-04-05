@@ -4,7 +4,7 @@ import header_img from '../img/headerComparison.jpg';
 import leaf_green from '../img/leaf_green.png';
 import leaf_yellow from '../img/leaf_yellow.png';
 import leaf_brown from '../img/leaf_brown.png';
-
+import { GoBackBtn } from '../components/goBackBtn';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import { makeStyles } from "@material-ui/core/styles";
@@ -80,6 +80,7 @@ export const ItemComparison = () => {
     return(
         <>
         <div className='MainContainer'>
+        <GoBackBtn />
         <img src={header_img} alt="header" style={{ width: '100%' }}/>
         <div>
             <div style={{marginTop: '50px'}}>
