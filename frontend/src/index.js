@@ -80,7 +80,7 @@ ReactDom.render(
               element={<ItemSearch />}
             />  
           <Route
-              path='/itemDetail'
+              path='/item/:id'
               element={<ItemDetail />}
             />  
           <Route
