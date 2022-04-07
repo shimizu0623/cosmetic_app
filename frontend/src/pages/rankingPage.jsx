@@ -13,22 +13,6 @@ import rank_2 from '../img/rank_2.jpg';
 import rank_3 from '../img/rank_3.jpg';
 
 const useStyles = makeStyles({
-    TitleForm: {
-        textAlign : 'left',
-    },
-    TitleImg: {
-        maxWidth: '90px',
-        display: 'inline-block',
-        verticalAlign: 'middle',
-    },
-    Title: {
-        fontSize: '40px',
-        display: 'inline-block',
-    },
-    rankingTitle: {
-        fontSize: '25px',
-        margin: '20px auto',
-    },
     rankingImg: {
         maxWidth: '120px',
     },
@@ -44,19 +28,25 @@ const useStyles = makeStyles({
 
 export const Ranking = () => {
     const classes = useStyles();
+
+    const rankingForm = (category) => {
+        return(
+            <div>
+            <img src={green_leaf} alt="" style={{ maxWidth: '90px', display: 'inline-block', verticalAlign: 'middle', margin: '10px auto 40px' }} />
+            <h1 style={{ fontSize: '35px', display: 'inline-block' }}>{category}</h1>
+            </div>
+        )
+}
+
     return(
         <>
         <div className='MainContainer'>
         <GoBackBtn />
         <img src={header_img} alt="header" style={{ width: '100%' }}/>
 
-            <div className='TitleForm'>
-                        <img src={green_leaf} alt="" className={classes.TitleImg} />
-                        <span className={classes.Title}>人気ランキング</span>
-                    </div>
 
                     <div className={classes.rankingForm}>
-                        <p className={classes.rankingTitle}>～総合～</p>
+                        {rankingForm('総合')}
                         <ul className={classes.rank}>
                             <li><img src={rank_1} alt="rank_1" className={classes.rankingImg}/></li>
                             <ImageListItem>
@@ -92,7 +82,7 @@ export const Ranking = () => {
 
 
                     <div className={classes.rankingForm}>
-                        <p className={classes.rankingTitle}>～口コミ数～</p>
+                        {rankingForm('口コミ数')}
                         <ul className={classes.rank}>
                             <li><img src={rank_1} alt="rank_1" className={classes.rankingImg}/></li>
                             <ImageListItem>
@@ -128,7 +118,7 @@ export const Ranking = () => {
 
 
                     <div className={classes.rankingForm}>
-                        <p className={classes.rankingTitle}>～乾燥肌タイプ～</p>
+                        {rankingForm('乾燥肌タイプ')}
                         <ul className={classes.rank}>
                             <li><img src={rank_1} alt="rank_1" className={classes.rankingImg}/></li>
                             <ImageListItem>
