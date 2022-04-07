@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Reason;
+use App\Models\LeaveReason;
 
-class ReasonsController extends Controller
+class LeaveReasonsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class ReasonsController extends Controller
     public function index()
     {
         return response()->json(
-            Reason::all()
+            LeaveReason::all()
         );
     }
 

@@ -5,19 +5,30 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Request as RequestText;
 
-class RequestTextsController extends Controller
+class RequestsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    // public function index()
+    // {
+    //     return response()->json(
+    //         RequestText::all()
+    //     );
+    // }
+    public function index(Request $request)
     {
+        $detail = RequestText::create([
+            'detail' => $request->detail,
+        ]);
+
         return response()->json(
-            RequestText::all()
+            $detail, Response::HTTP_OK
         );
     }
+
 
     /**
      * Store a newly created resource in storage.
