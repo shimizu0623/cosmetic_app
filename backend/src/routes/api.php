@@ -17,7 +17,7 @@ use App\Http\Controllers\SkinTroublesController;
 use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\UserContactsController;
 use App\Http\Controllers\UserItemsController;
-use App\Http\Controllers\RequestTextsController;
+use App\Http\Controllers\RequestsController;
 use App\Http\Controllers\ReasonsController;
 
 /*
@@ -51,8 +51,9 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('/me', [UsersController::class, 'updateMe']);    
     Route::get('/me', [UsersController::class, 'me']);    
     Route::get('/items', [ItemsController::class, 'index']);
+    Route::get('/items/{id}', [ItemsController::class, 'show']);
     Route::get('/item', [ItemsController::class, 'item']);    
-    Route::get('/requests', [RequestTextsController::class, 'index']);    
+    Route::get('/requests', [RequestsController::class, 'index']);    
     Route::get('/reasons', [ReasonsController::class, 'index']);    
     
 });
