@@ -91,7 +91,7 @@ const useStyles = makeStyles({
         background: '-webkit-gradient(linear,left top,left bottom,from(#cce9cc),to(#e1e9b8))',
         borderRadius: '10px',
         position: 'relative',
-        maxWidth: '1100px',
+        maxWidth: '80%',
 
     },
     SearchMessage: {
