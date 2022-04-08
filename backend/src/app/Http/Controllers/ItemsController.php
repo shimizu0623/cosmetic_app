@@ -20,7 +20,7 @@ class ItemsController extends Controller
         $brandIds = $request->query('brand_id');
         // $score = $request->query('score');
         $user = $request->user();
-        $matchingOnly = $request->query('matching_only') === '1';
+        $isMatchingOnly = $request->query('is_matching_only') === '1';
         $isSafeOnly = $request->query('is_safe_only') === '1';
 
         // Log::debug(print_r($skinTroubleIds, true));
@@ -37,9 +37,9 @@ class ItemsController extends Controller
             $items = $items->safeOnly();
         }
         
-        if ($matchingOnly) {
+        if ($isMatchingOnly) {
             // Log::debug('if'. $);
-            $items = $items->excludeUnmatched($user->id);
+            $items = $items->matchingOnly($user->id);
         }
         
         // Log::debug($items->toSql());
@@ -92,7 +92,21 @@ class ItemsController extends Controller
      */
     public function show($id)
     {
-        //
+        $item = Item::find($id);
+
+        
+        return response()->json(
+            [
+                'id' => $item->id,
+                'name' => $item->name,
+                'brand' => $item->brand->name,
+                'price' => $item->price,
+                'category' => $item->category->name,
+                'volume' => $item->volume,
+                'img' => $item->img,
+                'ingredients' => $item->ingredients->map(function($ingredient) { return $ingredient->toArray(); }),
+            ]
+        );
     }
 
     /**

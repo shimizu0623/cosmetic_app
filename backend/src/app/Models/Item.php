@@ -15,9 +15,15 @@ class Item extends Model
     {
         return $this->belongsTo(Brand::class);
     }
+
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function ingredients()
+    {
+        return $this->belongsToMany(Ingredient::class, ItemIngredient::class);
     }
 
     public function scopeWithSkinTroubles($query, $skinTroubleIds)
@@ -31,6 +37,7 @@ class Item extends Model
         return $query->whereIn('items.skin_trouble_id', $skinTroubleIds);
     }
 
+
     // public function scopeWithEwgScore($query, $score)
     // {
     //     if(empty($score)){
@@ -41,7 +48,7 @@ class Item extends Model
     //         ->join('ingredients', 'item_ingredients.ingredient_id', '=', 'ingredients.id')
     //         ->where('ingredients.score', 1);
 
-    // }
+    // }↓↓↓
     public function scopeSafeOnly($query)
     {
         $subquery = <<<SQL
@@ -54,7 +61,8 @@ class Item extends Model
             ->where('danger_list.item_id', '=', NULL);
     }
 
-    public function scopeExcludeUnmatched($query, $userId)
+
+    public function scopeMatchingOnly($query, $userId)
     {
         return $query
             // ->leftJoin('user_unmatched_items', 'items.id', '=', 'user_unmatched_items.item_id')
