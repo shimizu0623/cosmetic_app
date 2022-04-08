@@ -40,4 +40,20 @@ class User extends Authenticatable
             return $age . '0代';
         }
     }
+
+    public function toArray() 
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'email' => $this->email,
+            'birthday_string' => $this->birthday_string(),
+            'birth_date' => $this->birth_date,
+            'gender_name' => $this->gender->name,
+            // 'gender_name' => $this->gender()->name,
+            'skin_type_name' => $this->skin_type->name,
+            // 'skin_type_name' => $this->skin_type()->name,
+        ];
+    }
+    
 }

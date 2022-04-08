@@ -25,23 +25,9 @@ class UsersController extends Controller
 
     public function me(Request $request)
     {
-        // $user = User::find(1);
         $user = $request->user();
 
-        return response()->json(
-            [
-                'id' => $user->id,
-                'name' => $user->name,
-                'email' => $user->email,
-                'password' => $user->password,
-                'birthday_string' => $user->birthday_string(),
-                'birth_date' => $user->birth_date,
-                'gender_name' => $user->gender->name,
-                // 'gender_name' => $user->gender()->name,
-                'skin_type_name' => $user->skin_type->name,
-                // 'skin_type_name' => $user->skin_type()->name,
-            ]
-        );
+        return response()->json($user->toArray());
     }
 
     public function updateMe(Request $request)
@@ -63,7 +49,7 @@ class UsersController extends Controller
         //バリエーションで問題がなかったらユーザを作成する。
         $user = $request->user();
 
-        Log::debug('before ' . $user->password);
+        // Log::debug('before ' . $user->password);
 
         $user->name = $request->name;
         $user->birth_date = $request->birth_date;
@@ -76,7 +62,7 @@ class UsersController extends Controller
 
         $user->save();
 
-        Log::debug('after ' . $user->password);
+        // Log::debug('after ' . $user->password);
 
         //ユーザの作成が完了するとjsonを返す
         return response()->json($user, Response::HTTP_OK);
