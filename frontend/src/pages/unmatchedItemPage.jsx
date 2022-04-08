@@ -6,7 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import green_leaf from '../img/green_leaf_img.jpg';
-// import header_img from '../img/.jpg';
+import header_img from '../img/headerUnmatchedes.jpg';
 
 const useStyles = makeStyles({
     tableHeader: {
@@ -78,7 +78,7 @@ export const UnmatchedItem = () => {
         <>
         <div className='MainContainer'>
         <GoBackBtn />
-        {/* <img src={header_img} alt="header" style={{ width: '100%' }}/> */}
+        <img src={header_img} alt="header" style={{ width: '100%' }}/>
 
         <div>
             <p>ここでは、肌に合わなかったアイテムを確認することができます。</p>
