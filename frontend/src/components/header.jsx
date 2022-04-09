@@ -4,7 +4,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { Link as RouterLink } from "react-router-dom";
 import ListItemIcon from '@mui/material/ListItemIcon';
-
+// import icon from '../img/.png';
+import menuIcon from '../img/menuIcon.png';
 import HomeIcon from '@material-ui/icons/Home';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
@@ -16,7 +17,6 @@ import PortraitIcon from '@material-ui/icons/Portrait';
 import SearchIcon from '@material-ui/icons/Search';
 import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
-import Avatar from '@mui/material/Avatar';
 import Logout from '@mui/icons-material/Logout';
 
 
@@ -47,8 +47,8 @@ export const Header = () => {
 return(
     <>
     <header>
-      {/* <img src="" alt="logo" style={{}}/> */}
       <div>
+      {/* <img src={icon} alt="logo" style={{ width: '70px' }}/> */}
       <Button
         id="basic-button"
         aria-controls={openSearch ? 'search-menu' : undefined}
@@ -152,7 +152,7 @@ return(
             height: '60px',
           }} 
       >
-        <Avatar />
+        <img src={menuIcon} alt="logo" style={{ width: '70px' }}/>
       </Button>
       <Menu
         id="basic-menu"
@@ -166,6 +166,7 @@ return(
             marginTop: '45px',      
           }} 
       >
+        {/* TODO: ホームへ戻るはサイトロゴが出来たら移動する */}
         <MenuItem component={RouterLink} to="/homePage">
           <ListItemIcon>
           <HomeIcon />
