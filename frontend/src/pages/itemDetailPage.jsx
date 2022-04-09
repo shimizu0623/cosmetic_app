@@ -246,6 +246,7 @@ export const ItemDetail = () => {
 
         {itemInformation()}
 
+            {/* TODO: 表示切替 */}
             <div className={classes.alertForm}>
                 <h4 style={{color: 'red', paddingTop: '10px'}}>注意！</h4>
                 <p>肌に合わなかった共通成分があります</p>
