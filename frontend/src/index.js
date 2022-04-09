@@ -19,6 +19,7 @@ import { Thanks } from "./pages/thanksPage";
 import { MyFolder } from "./pages/myFolderPage.jsx";
 import { UnmatchedItem } from "./pages/unmatchedItemPage.jsx";
 import { HelpPage } from "./pages/helpPage";
+import { ReviewPage } from "./pages/reviewPage";
 import { Ranking } from "./pages/rankingPage";
 import { Btn } from "./components/btn";
 import { LoginBtn } from "./components/loginBtn";
@@ -106,6 +107,10 @@ ReactDom.render(
           <Route
               path='/helpPage'
               element={<HelpPage />}
+            />  
+          <Route
+              path='/reviewPage'
+              element={<ReviewPage />}
             />  
           <Route
               path='/ranking'
