@@ -11,7 +11,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Link from '@mui/material/Link';
 import { Link as RouterLink } from "react-router-dom";
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
-
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles({
     tableHeader: {
@@ -23,6 +23,8 @@ const useStyles = makeStyles({
 export const ItemComparison = () => {
     const classes = useStyles();
     const [item, setItem] = useState(null);
+    const navigate = useNavigate();
+
     // const [ingredients, setIngredients] = useState(null);
     
     useEffect(async () => {
@@ -34,6 +36,9 @@ export const ItemComparison = () => {
         // setIngredients(ingredient)
     }, [])
 
+
+    const onClickDetail = () => navigate(`/item/${item.id}`);
+
     const itemInformation = () => {
         if(item === null){
             return <CircularProgress color="success" size="15px" />
@@ -41,13 +46,11 @@ export const ItemComparison = () => {
         return(
                 // TODO: ↓item_ingredientsのデータ？
                 <tr>
-                    <td scope="row"><img src={item.img} alt="itemImg" style={{ maxWidth: '90px', height: '100%', margin: 'auto 30px' }} /></td>
+                    <td scope="row"><img src={item.img} alt="itemImg" style={{ maxWidth: '90px', height: '100%', margin: 'auto 30px' }} onClick={onClickDetail} /></td>
                     <td>{item.brand}</td>
                     <td>{item.name}</td>
                     <td>{item.volume}</td>
                     <td>￥{item.price}</td>
-                    <td>-</td>
-                    <td>-</td>
                     <td>-</td>
                     <td>-</td>
                     <td>-</td>
@@ -115,9 +118,7 @@ export const ItemComparison = () => {
                     <Tooltip title={explain_red} followCursor>
                     <th className={classes.tableHeader}><img src={leaf_brown} alt="ewg_red" style={{ width: '30px' }} />成分数</th>
                     </Tooltip>
-                    <th className={classes.tableHeader}>発がん性</th>
-                    <th className={classes.tableHeader}>発達/生殖毒性</th>
-                    <th className={classes.tableHeader}>免疫毒性</th>
+                    <th className={classes.tableHeader}>評価レビュー</th>
                 </tr>
 
                 {itemInformation()}
