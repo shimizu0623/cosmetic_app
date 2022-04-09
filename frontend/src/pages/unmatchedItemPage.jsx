@@ -1,8 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import axios from '../axios';
-import TextareaAutosize from '@mui/material/TextareaAutosize';
 import { GoBackBtn } from '../components/goBackBtn';
 import { makeStyles } from "@material-ui/core/styles";
+import Checkbox from '@mui/material/Checkbox';
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import green_leaf from '../img/green_leaf_img.jpg';
@@ -20,6 +24,24 @@ const useStyles = makeStyles({
     },
 
 })
+
+const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
+const checkedIcon = <CheckBoxIcon fontSize="small" />;
+const condition = [
+    { title: 'かゆみがでた' },
+    { title: '肌が赤くなった' },
+    { title: '肌が熱くなった' },
+    { title: 'ひりひりした' },
+    { title: '発疹が出た' },
+    { title: '皮がむけた' },
+    { title: '腫れた' },
+    { title: 'かぶれた' },
+    { title: '肌がかさついた' },
+    { title: '肌がごわついた' },
+    { title: '肌が固くなった' },
+    { title: '吹き出物ができた' },
+    { title: '毛穴が開いた' },
+]
 
 export const UnmatchedItem = () => {
     const classes = useStyles();
@@ -45,7 +67,31 @@ export const UnmatchedItem = () => {
                     <td scope="row"><img src={item.img} alt="itemImg" style={{ maxWidth: '90px', height: '100%', margin: 'auto 30px' }} /></td>
                     <td>{item.brand}</td>
                     <td>{item.name}</td>
-                    <td><TextareaAutosize aria-label="minimum height" minRows={10} placeholder='例：使用後、肌がかゆくなった' style={{ width: 250 }} /></td>
+                    <td>
+                    <Autocomplete
+                        multiple
+                        id="checkboxes-tags-demo"
+                        options={condition}
+                        sx={{ margin: '8px' }}
+                        disableCloseOnSelect
+                        getOptionLabel={(option) => option.title}
+                        renderOption={(props, option, { selected }) => (
+                            <li {...props}>
+                            <Checkbox
+                                icon={icon}
+                                checkedIcon={checkedIcon}
+                                style={{ marginRight: 8 }}
+                                checked={selected}
+                            />
+                            {option.title}
+                            </li>
+                        )}
+                        style={{ minWidth: 300 }}
+                        renderInput={(params) => (
+                            <TextField {...params} label="使用後の肌状態" />
+                        )}
+                    />
+                    </td>
                     <td><Button 
                             variant="contained" 
                             style={{
