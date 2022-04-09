@@ -10,7 +10,8 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Link from '@mui/material/Link';
 import { Link as RouterLink } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
-import { PieChart, Pie, Cell } from 'recharts'
+import { PieChart, Pie, Cell } from 'recharts';
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import Grid from '@mui/material/Grid';
 import sample_itemImg from '../img/sample_itemImg.PNG';
 import leaf_green from '../img/leaf_green.png';
@@ -125,6 +126,9 @@ const onClickReview = () => {
 const onClickAddFavorite = () => {
     console.log('onClickAddFavorite')
 }
+const onClickAddFolder = () => {
+    console.log('onClickAddFavorite')
+}
 const onClickAddComparison = () => {
     console.log('ClickAddComparison')
 }
@@ -161,7 +165,7 @@ export const ItemDetail = () => {
                 {/* <img src={sample_itemImg} alt="sampleImg" style={{marginRight: '50px'}} /> */}
                 <img src={item.img} alt="itemImg" style={{maxWidth: '370px', height: '100%', margin: 'auto 30px'}} />
                 <div>
-                    <p style={{textAlign: 'left'}}>{item.brand}</p>
+                    <p style={{textAlign: 'left', fontSize: '25px'}}>{item.brand}</p>
                     <p style={{fontSize: '40px'}}>{item.name}</p>
                     <div className={classes.styleP}>
                         <p className={classes.itemDetail}>評価レビュー</p>
@@ -191,12 +195,15 @@ export const ItemDetail = () => {
                         <button className={classes.btn} onClick={onClickAddFavorite}>お気に入りへ追加</button>
                     </div>
                     <div className={classes.btnForm}>
-                        <button className={classes.btn} onClick={onClickAddComparison}>コスメ比較へ追加</button>
+                        <button className={classes.btn} onClick={onClickAddFolder}>マイフォルダへ追加</button>
                     </div>
-                        <p>→<Link component={RouterLink} to="/itemComparison">コスメ比較ページ</Link>を見る</p>
                     <div className={classes.btnForm}>
                         <button className={classes.btn} onClick={onClickAddUnmatchedItems}>肌に合わなかったアイテムへ追加</button>
                     </div>
+                    <div className={classes.btnForm}>
+                        <button className={classes.btn} onClick={onClickAddComparison}>コスメ比較へ追加</button>
+                    </div>
+                        <p>→<Link component={RouterLink} to="/itemComparison">コスメ比較ページ</Link>を見る</p>
                 </div>
             </div>
                
@@ -225,7 +232,11 @@ export const ItemDetail = () => {
         )
 
     }
-    
+
+    const explain_green = 'EWG 1~2等級（有害性が低い成分）'
+    const explain_yellow = 'EWG 3~6等級（有害性が普通の成分）'
+    const explain_red = 'EWG 7~10等級（有害性が高い成分）'
+
     
     return(
         <>
@@ -251,18 +262,24 @@ export const ItemDetail = () => {
                 <Grid item xs={6}>
                 <div>
                     <p style={{color: 'green', textShadow: '2px 2px 1px white'}}>配合成分合計： 28種類</p>
+                    <Tooltip title={explain_green} followCursor>
                     <div className={classes.styleParent}>
                         <img src={leaf_green} alt="sampleImg" style={{width: '80px', marginRight: '30px'}} />
                         <div style={{fontSize: '15px', marginTop: '20px'}}><span style={{fontSize: '25px', fontWeight: 'bold', color: '#5ac9b4'}}>20</span> / 28</div>
                     </div>
+                    </Tooltip>
+                    <Tooltip title={explain_yellow} followCursor>
                     <div className={classes.styleParent}>
                         <img src={leaf_yellow} alt="sampleImg" style={{width: '80px', marginRight: '30px'}} />
                         <div style={{fontSize: '15px', marginTop: '20px'}}><span style={{fontSize: '25px', fontWeight: 'bold', color: '#f5c56b'}}>7</span> / 28</div>
                     </div>
+                    </Tooltip>
+                    <Tooltip title={explain_red} followCursor>
                     <div className={classes.styleParent}>
                         <img src={leaf_brown} alt="sampleImg" style={{width: '80px', marginRight: '30px'}} />
                         <div style={{fontSize: '15px', marginTop: '20px'}}><span style={{fontSize: '25px', fontWeight: 'bold', color: '#f04b4be7'}}>1</span> / 28</div>
                     </div>
+                    </Tooltip>
                 </div>
                 </Grid>
                 <Grid item xs={6}>
