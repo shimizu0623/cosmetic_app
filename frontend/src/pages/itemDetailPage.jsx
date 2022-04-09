@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from '../axios';
 import { GoBackBtn } from '../components/goBackBtn';
-
+import { useParams } from 'react-router-dom';
 import { makeStyles } from "@material-ui/core/styles";
 import Rating from '@material-ui/lab/Rating';
 import Typography from '@material-ui/core/Typography';
@@ -135,19 +135,21 @@ const onClickAddUnmatchedItems = () => {
 
 export const ItemDetail = () => {
     const classes = useStyles();
+    const { id } = useParams();
     const [item, setItem] = useState(null);
-    const [ingredients, setIngredients] = useState(null);
+    // const [ingredients, setIngredients] = useState(null);
 
     const [value, setValue] = React.useState(3); //☆
     const navigate = useNavigate();
 
     useEffect(async () => {
-        const responseItem = await axios.get('/item')
-        const responseIngredients = await axios.get('/item_ingredients')
+        console.log(id)
+        const responseItem = await axios.get(`/items/${id}`)
+        // const responseIngredients = await axios.get('/item_ingredients')
         const i = responseItem.data
-        const ingredient = responseIngredients.data
+        // const ingredient = responseIngredients.data
         setItem(i)
-        setIngredients(ingredient)
+        // setIngredients(ingredient)
     }, [])
 
     const itemInformation = () => {
@@ -207,7 +209,7 @@ export const ItemDetail = () => {
         }
         return(
             <>
-            {ingredients.map((ingredient) => (
+            {item.ingredients.map((ingredient) => (
             <tr>
                 <th scope="row">{ingredient.name}</th>
                 <td>{ingredient.score}</td>
@@ -291,18 +293,7 @@ export const ItemDetail = () => {
                     <th className={classes.tableHeader}>免疫毒性</th>
                     <th className={classes.tableHeader}>成分説明</th>
                 </tr>
-                {/* TODO: ↓画面真っ白になるの直す */}
-                {/* {ingredientsInformation()} */}
-                <tr>
-                    <th scope="row">ジメチコン</th>
-                    <td>1</td>
-                    <td>高</td>
-                    <td>美白剤</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>皮膚コンディショニング</td>
-                </tr>
+                {ingredientsInformation()}
                 </table>
             </div>
 
@@ -318,20 +309,28 @@ const data = [
       value: 70,
     },
     {
-      index: 2,
+      index: 1,
       name: 'Moderate Hazard',
       value: 20,
     },
     {
-      index: 1,
+      index: 2,
       name: 'High Hazard',
       value: 10,
     },
+    //データないor不明時↓
+    {
+      index: 3,
+      name: 'High Hazard',
+      value: 0,
+    },
+      
   ];
 const ChartColors = [
     '#5ac9b4',
     '#f5c56b',
     '#f04b4be7',
+    '#cae1df7d',
   ];
   
 //   const COLORS = [
