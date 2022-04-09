@@ -13,7 +13,6 @@ import { useNavigate } from 'react-router-dom';
 import { PieChart, Pie, Cell } from 'recharts';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import Grid from '@mui/material/Grid';
-import sample_itemImg from '../img/sample_itemImg.PNG';
 import leaf_green from '../img/leaf_green.png';
 import leaf_yellow from '../img/leaf_yellow.png';
 import leaf_brown from '../img/leaf_brown.png';
@@ -105,9 +104,6 @@ const useStyles = makeStyles({
 
 })
 
-const onClickReview = () => {
-    console.log('onClickReview')
-}
 const onClickAddFavorite = () => {
     console.log('onClickAddFavorite')
 }
@@ -126,6 +122,7 @@ export const ItemDetail = () => {
     const classes = useStyles();
     const { id } = useParams();
     const [item, setItem] = useState(null);
+    const [count, setCount] = useState(0);
     // const [ingredients, setIngredients] = useState(null);
 
     const [value, setValue] = React.useState(3); //☆
@@ -141,13 +138,14 @@ export const ItemDetail = () => {
         // setIngredients(ingredient)
     }, [])
 
+    const onClickReview = () => navigate("/reviewPage");
+
     const itemInformation = () => {
         if(item === null){
             return <CircularProgress color="success" size="15px" />
         }
         return(
             <div className={classes.styleParent}>
-                {/* <img src={sample_itemImg} alt="sampleImg" style={{marginRight: '50px'}} /> */}
                 <img src={item.img} alt="itemImg" style={{maxWidth: '370px', height: '100%', margin: 'auto 30px'}} />
                 <div>
                     <p style={{textAlign: 'left', fontSize: '25px'}}>{item.brand}</p>
@@ -195,6 +193,25 @@ export const ItemDetail = () => {
         )
     }
 
+    // let count = 0;
+    // const totalIngredient = () => {
+    //     return(
+    //         count = count + 1
+    //     )
+    // }
+    // const totalIngredient = () => {
+    //         console.log(count)
+            
+    //         setCount(count + 1)
+    //         console.log(count)
+    //     //     // const calc = item.ingredients.length
+    //     //     // console.log(item.ingredients.length)
+    //     //     // console.log(item.ingredients.length)
+    //     //     // setCount(item.ingredients.length)
+    //         // console.log('count')
+    //     }
+    
+
     const ingredientsInformation = () => {
         if(item === null){
             return <CircularProgress color="success" size="15px" />
@@ -202,42 +219,50 @@ export const ItemDetail = () => {
         return(
             <>
             {item.ingredients.map((ingredient) => (
-            <tr>
-                <th scope="row">{ingredient.name}</th>
-                <td>
-                    {(()=>{
-                        if(ingredient.score === 1){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_1} alt="Level_1_img" style={{ width: '30px' }} /></td>)}
-                        else if(ingredient.score === 2){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_2} alt="Level_2_img" style={{ width: '30px' }} /></td>)}
-                        else if(ingredient.score === 3){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_3} alt="Level_3_img" style={{ width: '30px' }} /></td>)}
-                        else if(ingredient.score === 4){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_4} alt="Level_4_img" style={{ width: '30px' }} /></td>)}
-                        else if(ingredient.score === 5){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_5} alt="Level_5_img" style={{ width: '30px' }} /></td>)}
-                        else if(ingredient.score === 6){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_6} alt="Level_6_img" style={{ width: '30px' }} /></td>)}
-                        else if(ingredient.score === 7){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_7} alt="Level_7_img" style={{ width: '30px' }} /></td>)}
-                        else if(ingredient.score === 8){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_8} alt="Level_8_img" style={{ width: '30px' }} /></td>)}
-                        else if(ingredient.score === 9){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_9} alt="Level_9_img" style={{ width: '30px' }} /></td>)}
-                        else if(ingredient.score === 10){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_10} alt="Level_10_img" style={{ width: '30px' }} /></td>)}
-                        else {return (<td><p>no information</p></td>)}
+                <tr>
+                    <td scope="row">{ingredient.name}</td>
+                    {() => setCount(count + 1)}
+                    {/* {setCount(count + 1)} */}
+                    {/* {totalIngredient()} */}
+                    {console.log(count)}
+                    {/* {setCount(count + 1)}
+                    {console.log(count)} */}
+                    <td>
+                        {(()=>{
+                            if(ingredient.score === 1){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_1} alt="Level_1_img" style={{ width: '30px' }} /></td>)}
+                            else if(ingredient.score === 2){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_2} alt="Level_2_img" style={{ width: '30px' }} /></td>)}
+                            else if(ingredient.score === 3){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_3} alt="Level_3_img" style={{ width: '30px' }} /></td>)}
+                            else if(ingredient.score === 4){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_4} alt="Level_4_img" style={{ width: '30px' }} /></td>)}
+                            else if(ingredient.score === 5){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_5} alt="Level_5_img" style={{ width: '30px' }} /></td>)}
+                            else if(ingredient.score === 6){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_6} alt="Level_6_img" style={{ width: '30px' }} /></td>)}
+                            else if(ingredient.score === 7){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_7} alt="Level_7_img" style={{ width: '30px' }} /></td>)}
+                            else if(ingredient.score === 8){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_8} alt="Level_8_img" style={{ width: '30px' }} /></td>)}
+                            else if(ingredient.score === 9){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_9} alt="Level_9_img" style={{ width: '30px' }} /></td>)}
+                            else if(ingredient.score === 10){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_10} alt="Level_10_img" style={{ width: '30px' }} /></td>)}
+                            else {return (<td><p>no information</p></td>)}
                         })()}
 
 
-                    {/* {ingredient.score === 1 ? (<td><img src={Level_1} alt="Level_1_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)}
-                    {ingredient.score === 2 ? (<td><img src={Level_2} alt="Level_2_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)}
-                    {ingredient.score === 3 ? (<td><img src={Level_3} alt="Level_3_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)}
-                    {ingredient.score === 4 ? (<td><img src={Level_4} alt="Level_4_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)}
-                    {ingredient.score === 5 ? (<td><img src={Level_5} alt="Level_5_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)} */}
-                </td>
-                <td>{ingredient.safety}</td>
-                <td>{ingredient.purpose}</td>
-                <td>{ingredient.cancer}</td>
-                <td>{ingredient.developmental}</td>
-                <td>{ingredient.allergies}</td>
-                <td>{ingredient.explain}</td>
-            </tr>
+                        {/* {ingredient.score === 1 ? (<td><img src={Level_1} alt="Level_1_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)}
+                        {ingredient.score === 2 ? (<td><img src={Level_2} alt="Level_2_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)}
+                        {ingredient.score === 3 ? (<td><img src={Level_3} alt="Level_3_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)}
+                        {ingredient.score === 4 ? (<td><img src={Level_4} alt="Level_4_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)}
+                        {ingredient.score === 5 ? (<td><img src={Level_5} alt="Level_5_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)} */}
+                    </td>
+                    <td>{ingredient.safety}</td>
+                    <td>{ingredient.purpose}</td>
+                    <td>{ingredient.cancer}</td>
+                    <td>{ingredient.developmental}</td>
+                    <td>{ingredient.allergies}</td>
+                    <td>{ingredient.explain}</td>
+                </tr>
             ))}
             </>
         )
 
     }
+
+
 
     const explain_green = 'EWG 1~2等級（有害性が低い成分）'
     const explain_yellow = 'EWG 3~6等級（有害性が普通の成分）'
@@ -272,7 +297,7 @@ export const ItemDetail = () => {
                     <Tooltip title={explain_green} followCursor>
                     <div className={classes.styleParent}>
                         <img src={leaf_green} alt="sampleImg" style={{width: '80px', marginRight: '30px'}} />
-                        <div style={{fontSize: '15px', marginTop: '20px'}}><span style={{fontSize: '25px', fontWeight: 'bold', color: '#5ac9b4'}}>20</span> / 28</div>
+                    <div style={{fontSize: '15px', marginTop: '20px'}}><span style={{fontSize: '25px', fontWeight: 'bold', color: '#5ac9b4'}}>20</span> / 28</div>
                     </div>
                     </Tooltip>
                     <Tooltip title={explain_yellow} followCursor>
