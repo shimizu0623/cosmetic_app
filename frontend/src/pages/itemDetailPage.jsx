@@ -135,7 +135,16 @@ export const ItemDetail = () => {
         const i = responseItem.data
         // const ingredient = responseIngredients.data
         setItem(i)
+        // console.log(i)
+        // console.log(item)
+        // console.log(item.ingredients)
+        // console.log(item.ingredients.length)
+        console.log(responseItem.data.ingredients.length)
+        const c = responseItem.data.ingredients.length
+        setCount(c)
+        // console.log('count=' + count)
         // setIngredients(ingredient)
+      
     }, [])
 
     const onClickReview = () => navigate("/reviewPage");
@@ -221,10 +230,10 @@ export const ItemDetail = () => {
             {item.ingredients.map((ingredient) => (
                 <tr>
                     <td scope="row">{ingredient.name}</td>
-                    {() => setCount(count + 1)}
+                    {/* {() => setCount(count + 1)} */}
                     {/* {setCount(count + 1)} */}
                     {/* {totalIngredient()} */}
-                    {console.log(count)}
+                    {/* {console.log(count)} */}
                     {/* {setCount(count + 1)}
                     {console.log(count)} */}
                     <td>
@@ -293,23 +302,23 @@ export const ItemDetail = () => {
                 <Grid container spacing={1}>
                 <Grid item xs={6}>
                 <div>
-                    <p style={{color: 'green', textShadow: '2px 2px 1px white'}}>配合成分合計： 28種類</p>
+                    <p style={{color: 'green', textShadow: '2px 2px 1px white'}}>配合成分合計： {count}種類</p>
                     <Tooltip title={explain_green} followCursor>
                     <div className={classes.styleParent}>
                         <img src={leaf_green} alt="sampleImg" style={{width: '80px', marginRight: '30px'}} />
-                    <div style={{fontSize: '15px', marginTop: '20px'}}><span style={{fontSize: '25px', fontWeight: 'bold', color: '#5ac9b4'}}>20</span> / 28</div>
+                    <div style={{fontSize: '15px', marginTop: '20px'}}><span style={{fontSize: '25px', fontWeight: 'bold', color: '#5ac9b4'}}>20</span> / {count}</div>
                     </div>
                     </Tooltip>
                     <Tooltip title={explain_yellow} followCursor>
                     <div className={classes.styleParent}>
                         <img src={leaf_yellow} alt="sampleImg" style={{width: '80px', marginRight: '30px'}} />
-                        <div style={{fontSize: '15px', marginTop: '20px'}}><span style={{fontSize: '25px', fontWeight: 'bold', color: '#f5c56b'}}>7</span> / 28</div>
+                        <div style={{fontSize: '15px', marginTop: '20px'}}><span style={{fontSize: '25px', fontWeight: 'bold', color: '#f5c56b'}}>7</span> / {count}</div>
                     </div>
                     </Tooltip>
                     <Tooltip title={explain_red} followCursor>
                     <div className={classes.styleParent}>
                         <img src={leaf_brown} alt="sampleImg" style={{width: '80px', marginRight: '30px'}} />
-                        <div style={{fontSize: '15px', marginTop: '20px'}}><span style={{fontSize: '25px', fontWeight: 'bold', color: '#f04b4be7'}}>1</span> / 28</div>
+                        <div style={{fontSize: '15px', marginTop: '20px'}}><span style={{fontSize: '25px', fontWeight: 'bold', color: '#f04b4be7'}}>1</span> / {count}</div>
                     </div>
                     </Tooltip>
                 </div>
