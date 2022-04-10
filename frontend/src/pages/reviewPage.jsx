@@ -13,6 +13,10 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import TextField from '@mui/material/TextField';
 import green_leaf from '../img/green_leaf_img_clear.png';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 const useStyles = makeStyles({
     styleParent: {
@@ -45,7 +49,8 @@ export const ReviewPage = () => {
     const [user, setUser] = useState(null);
     const [item, setItem] = useState(null);
     const [value, setValue] = React.useState(0); //☆
-    
+    const [skinType, setSkinType] = React.useState('');
+
     useEffect(async () => {
         const responseUser = await axios.get('/me')
         const responseItem = await axios.get('/item')
@@ -60,7 +65,10 @@ export const ReviewPage = () => {
             return <CircularProgress color="success" size="15px" />
         }
         return(
-            <p style={{ fontSize: '20px', textAlign: 'left' }}>{user.name}</p>
+            <>
+            <p style={{ fontSize: '25px', textAlign: 'left' }}>{user.name}</p>
+            <p style={{ fontSize: '15px', textAlign: 'left' }}>{user.skin_type_name}</p>
+            </>
         )
     }
 
@@ -92,8 +100,10 @@ export const ReviewPage = () => {
     const onClickEdit = () => {
         console.log('onClickEdit')
     }
-
-
+    const handleChange = (event) => {
+        setSkinType(event.target.value);
+    };
+  
 
     return(
         <>
@@ -101,6 +111,12 @@ export const ReviewPage = () => {
             <img src={header_img} alt="header" style={{ width: '100%' }}/>
 
             {itemInformation()}
+
+            <div style={{ marginTop: '30px' }}>
+                <p>こちらのアイテムを使用したことはありますか？</p>
+                <p>使ってみた感想をぜひ教えてください。</p>
+                <p>まだ使ったことがない方は、同じ肌タイプの方だけのレビューを見ることもできますよ。</p>
+            </div>
 
             <div className={classes.TitleForm}>
                 {/* <img src={green_leaf} alt="" className={classes.TitleImg} />
@@ -153,10 +169,24 @@ export const ReviewPage = () => {
             <div style={{ margin: '40px auto' }}>
                 <img src={green_leaf} alt="" className={classes.TitleImg} />
                 <p className={classes.Title}>レビュー一覧</p>
+                <FormControl sx={{ minWidth: 120, marginLeft: '50px', verticalAlign: 'middle' }} size="small">
+                    <InputLabel id="demo-simple-select-label">SkinType</InputLabel>
+                    <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={skinType}
+                    label="skinType"
+                    onChange={handleChange}
+                    >
+                    {/* TODO: スキンタイプ */}
+                    <MenuItem value={10}>DrySkin</MenuItem>
+                    </Select>
+                </FormControl>
             </div>
 
             <div style={{ width: '500px', margin: '0 auto' }}>
-                <p style={{ fontSize: '20px', textAlign: 'left' }}>〇〇ユーザー名</p>
+                <p style={{ fontSize: '25px', textAlign: 'left' }}>〇〇ユーザー名</p>
+                <p style={{ fontSize: '15px', textAlign: 'left' }}>〇〇スキンタイプ</p>
                 <Box style={{ padding: '0', textAlign: 'right' }} component="fieldset" borderColor="transparent">
                 {/* <Typography component="legend">Controlled</Typography> */}
                     <Rating
@@ -188,7 +218,8 @@ export const ReviewPage = () => {
 
 
             <div style={{ width: '500px', margin: '0 auto' }}>
-                <p style={{ fontSize: '20px', textAlign: 'left' }}>〇〇ユーザー名</p>
+                <p style={{ fontSize: '25px', textAlign: 'left' }}>〇〇ユーザー名</p>
+                <p style={{ fontSize: '15px', textAlign: 'left' }}>〇〇スキンタイプ</p>
                 <Box style={{ padding: '0', textAlign: 'right' }} component="fieldset" borderColor="transparent">
                 {/* <Typography component="legend">Controlled</Typography> */}
                     <Rating
