@@ -42,14 +42,27 @@ const useStyles = makeStyles({
 
 export const ReviewPage = () => {
     const classes = useStyles();
+    const [user, setUser] = useState(null);
     const [item, setItem] = useState(null);
     const [value, setValue] = React.useState(0); //☆
     
     useEffect(async () => {
+        const responseUser = await axios.get('/me')
         const responseItem = await axios.get('/item')
+        const u = responseUser.data
         const i = responseItem.data
+        setUser(u)
         setItem(i)
     }, [])
+
+    const userName = () =>{
+        if(user === null){
+            return <CircularProgress color="success" size="15px" />
+        }
+        return(
+            <p style={{ fontSize: '20px', textAlign: 'left' }}>{user.name}</p>
+        )
+    }
 
 
     const itemInformation = () => {
@@ -93,7 +106,7 @@ export const ReviewPage = () => {
                 {/* <img src={green_leaf} alt="" className={classes.TitleImg} />
                 <p className={classes.Title}>マイレビュー</p> */}
                 <div style={{ width: '500px', margin: '0 auto' }}>
-                <p style={{ fontSize: '20px', textAlign: 'left' }}>〇〇ユーザー名</p>
+                {userName()}
                 <Box style={{ padding: '0', textAlign: 'right' }} component="fieldset" borderColor="transparent">
                 {/* <Typography component="legend">Controlled</Typography> */}
                     <Rating
