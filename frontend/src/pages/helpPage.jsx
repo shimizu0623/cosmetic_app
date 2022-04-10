@@ -1,6 +1,6 @@
 import React from 'react';
 import header_img from '../img/headerHelp.jpg';
-import green_leaf from '../img/green_leaf_img.jpg';
+import green_leaf from '../img/green_leaf_img_clear.png';
 import { GoBackBtn } from '../components/goBackBtn';
 import Link from '@mui/material/Link';
 import { Link as RouterLink } from "react-router-dom";
