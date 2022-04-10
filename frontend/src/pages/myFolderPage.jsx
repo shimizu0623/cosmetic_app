@@ -126,7 +126,7 @@ export const MyFolder = () => {
             </div>
         </div>
 
-        <div style={{background: '#cae1df63', padding: '10px', borderRadius: '20px'}}>
+        <div style={{ background: '#cae1df63', padding: '10px', borderRadius: '20px' }}>
         <div className='FolderName'>
             <img src={green_leaf} alt="" className={classes.TitleImg} />
             <p className={classes.Title}>フォルダ名</p>
@@ -158,28 +158,28 @@ export const MyFolder = () => {
             </Box>
         </div>
         <div className={classes.ewgForm}>
-                <p style={{fontSize: '30px', color: 'green', textShadow: '2px 2px 1px white', margin: '20px auto'}}>EWG安全性</p>
+                <p style={{ fontSize: '30px', color: 'green', textShadow: '2px 2px 1px white', margin: '20px auto' }}>EWG安全性</p>
                 <Grid container spacing={1}>
                 <Grid item xs={6}>
                 <div>
-                    <p style={{color: 'green', textShadow: '2px 2px 1px white'}}>配合成分合計： 28種類</p>
+                    <p style={{ color: 'green', textShadow: '2px 2px 1px white' }}>配合成分合計： 28種類</p>
                     <div className={classes.styleParent}>
-                        <img src={leaf_green} alt="sampleImg" style={{width: '80px', marginRight: '30px'}} />
-                        <div style={{fontSize: '15px', marginTop: '20px'}}><span style={{fontSize: '25px', fontWeight: 'bold', color: '#5ac9b4'}}>20</span> / 28</div>
+                        <img src={leaf_green} alt="sampleImg" style={{ width: '80px', marginRight: '30px' }} />
+                        <div style={{ fontSize: '15px', marginTop: '20px' }}><span style={{ fontSize: '25px', fontWeight: 'bold', color: '#5ac9b4' }}>20</span> / 28</div>
                     </div>
                     <div className={classes.styleParent}>
-                        <img src={leaf_yellow} alt="sampleImg" style={{width: '80px', marginRight: '30px'}} />
-                        <div style={{fontSize: '15px', marginTop: '20px'}}><span style={{fontSize: '25px', fontWeight: 'bold', color: '#f5c56b'}}>7</span> / 28</div>
+                        <img src={leaf_yellow} alt="sampleImg" style={{ width: '80px', marginRight: '30px' }} />
+                        <div style={{ fontSize: '15px', marginTop: '20px' }}><span style={{ fontSize: '25px', fontWeight: 'bold', color: '#f5c56b' }}>7</span> / 28</div>
                     </div>
                     <div className={classes.styleParent}>
-                        <img src={leaf_brown} alt="sampleImg" style={{width: '80px', marginRight: '30px'}} />
-                        <div style={{fontSize: '15px', marginTop: '20px'}}><span style={{fontSize: '25px', fontWeight: 'bold', color: '#f04b4be7'}}>1</span> / 28</div>
+                        <img src={leaf_brown} alt="sampleImg" style={{ width: '80px', marginRight: '30px' }} />
+                        <div style={{ fontSize: '15px', marginTop: '20px' }}><span style={{ fontSize: '25px', fontWeight: 'bold', color: '#f04b4be7' }}>1</span> / 28</div>
                     </div>
                 </div>
                 </Grid>
                 <Grid item xs={6}>
-                <div style={{display: 'inline-block'}}>
-                    <p style={{color: 'green', textShadow: '2px 2px 1px white'}}>EWG等級別成分割合(％)</p>
+                <div style={{ display: 'inline-block' }}>
+                    <p style={{ color: 'green', textShadow: '2px 2px 1px white' }}>EWG等級別成分割合(％)</p>
                     <PieChart width={300} height={300}>
                     <Pie data={data} dataKey="value" outerRadius={100} label>
                     {data.map((entry, index) => (
