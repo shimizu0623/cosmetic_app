@@ -6,8 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 
-
-import green_leaf from '../img/green_leaf_img.jpg';
+import green_leaf from '../img/green_leaf_img_clear.png';
 import rank_1 from '../img/rank_1.jpg';
 import rank_2 from '../img/rank_2.jpg';
 import rank_3 from '../img/rank_3.jpg';
