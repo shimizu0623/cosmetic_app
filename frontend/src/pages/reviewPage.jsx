@@ -48,16 +48,20 @@ export const ReviewPage = () => {
     const classes = useStyles();
     const [user, setUser] = useState(null);
     const [item, setItem] = useState(null);
+    const [skinTypes, setSkinTypes] = useState([]);
     const [value, setValue] = React.useState(0); //☆
-    const [skinType, setSkinType] = React.useState('');
+    const [select, setSelect] = React.useState([]);
 
     useEffect(async () => {
         const responseUser = await axios.get('/me')
         const responseItem = await axios.get('/item')
+        const responseSkinTypes = await axios.get('/skin_types')
         const u = responseUser.data
         const i = responseItem.data
+        const s = responseSkinTypes.data
         setUser(u)
         setItem(i)
+        setSkinTypes(s)
     }, [])
 
     const userName = () =>{
@@ -101,7 +105,7 @@ export const ReviewPage = () => {
         console.log('onClickEdit')
     }
     const handleChange = (event) => {
-        setSkinType(event.target.value);
+        setSelect(event.target.value);
     };
   
 
@@ -174,12 +178,13 @@ export const ReviewPage = () => {
                     <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={skinType}
-                    label="skinType"
+                    value={Select}
+                    label="Select"
                     onChange={handleChange}
                     >
-                    {/* TODO: スキンタイプ */}
-                    <MenuItem value={10}>DrySkin</MenuItem>
+                    {skinTypes.map((skinType) => (
+                        <MenuItem value={skinType.id}>{skinType.name}</MenuItem>
+                    ))}
                     </Select>
                 </FormControl>
             </div>
