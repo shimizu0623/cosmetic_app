@@ -9,7 +9,7 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
-import green_leaf from '../img/green_leaf_img.jpg';
+import green_leaf from '../img/green_leaf_img_clear.png';
 import header_img from '../img/headerUnmatchedes.jpg';
 
 const useStyles = makeStyles({
