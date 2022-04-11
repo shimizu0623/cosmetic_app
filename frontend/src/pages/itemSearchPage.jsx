@@ -3,8 +3,6 @@ import axios from '../axios';
 import { GoBackBtn } from '../components/goBackBtn';
 import {Btn} from '../components/btn';
 import header_img from '../img/headerSearch.jpg';
-import rightArrow_img from '../img/rightArrow_yellow.jpg';
-import leftArrow_img from '../img/leftArrow_yellow.jpg';
 
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from '@mui/material/TextField';
@@ -37,14 +35,6 @@ const onClickLeft = () => {
 
 
 const useStyles = makeStyles({
-    arrow: {
-        maxWidth: '50px',
-        margin: '10px 0',
-        '&:hover':{
-            cursor: 'pointer',
-            opacity: '0.6',
-        }
-    },
     SearchBox: {
         display: 'flex',
         margin: '20px auto 0',
@@ -264,10 +254,6 @@ export const ItemSearch = () => {
 
 
                 <Grid container spacing={1} direction="row" justifyContent="center" alignItems="center" style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
-                    <Grid item xs={1}>
-                        <img src={leftArrow_img} className={classes.arrow} onClick={onClickLeft} />
-                    </Grid>
-                        {/* TODO: データ5つ以上の時は、矢印ボタンで見られるようにする */}
                         {item.map((item) => (
                         <Grid item xs={2}>
                             <ImageListItem key={item.img} className={classes.cardPaper}>
@@ -286,9 +272,6 @@ export const ItemSearch = () => {
                             </ImageListItem>
                         </Grid>
                         ))}
-                    <Grid item xs={1}>
-                        <img src={rightArrow_img} className={classes.arrow} onClick={onClickRight} />
-                    </Grid>
                 </Grid>
                 </ImageList>
             </div>
@@ -309,10 +292,6 @@ export const ItemSearch = () => {
                 <ImageList style={{width: '100%', gridTemplateColumns: 'repeat(1, 1fr)'}}>
 
                 <Grid container spacing={1} direction="row" justifyContent="center" alignItems="center" style={{gridTemplateColumns: '1, 1fr', gap: '1',}}>
-                    <Grid item xs={1}>
-                        <img src={leftArrow_img} className={classes.arrow} onClick={onClickLeft} />
-                    </Grid>
-                    {/* TODO: データ5つ以上の時は、矢印ボタンで見られるようにする */}
                         {item.map((item) => (
                         <Grid item xs={2}>
                             <ImageListItem key={item.img} className={classes.cardPaper}>
@@ -329,9 +308,6 @@ export const ItemSearch = () => {
                             </ImageListItem>
                         </Grid>
                         ))}
-                    <Grid item xs={1}>
-                        <img src={rightArrow_img} className={classes.arrow} onClick={onClickRight} />
-                    </Grid>
                 </Grid>
                 </ImageList>
             </div>
