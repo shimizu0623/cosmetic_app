@@ -107,6 +107,15 @@ export const ReviewPage = () => {
     const handleChange = (event) => {
         setSelect(event.target.value);
     };
+    const onClickDelete = () => {
+        const confirmMessage = '投稿中のレビューを削除してよろしいですか？'
+        let result = window.confirm(confirmMessage);
+        if(result){
+            console.log('onClickDelete')       
+        }else{
+            return;
+        }    
+    }
   
 
     return(
@@ -164,7 +173,7 @@ export const ReviewPage = () => {
                 {/* <Btn message='編集する' onClick={onClickEdit} /> */}
                 <Tooltip title="Delete" style={{ marginLeft: '20px' }}>
                     <IconButton>
-                        <DeleteIcon />
+                        <DeleteIcon onClick={onClickDelete} />
                     </IconButton>
                 </Tooltip>
 
@@ -178,10 +187,12 @@ export const ReviewPage = () => {
                     <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={Select}
+                    value={select}
                     label="Select"
                     onChange={handleChange}
                     >
+                    {/* TODO: ↓idが0はOK？ */}
+                    <MenuItem value={0}>All</MenuItem>
                     {skinTypes.map((skinType) => (
                         <MenuItem value={skinType.id}>{skinType.name}</MenuItem>
                     ))}
