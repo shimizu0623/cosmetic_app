@@ -59,7 +59,7 @@ export const ItemSearch = () => {
     const [item, setItem] = useState([]);
     const [user, setUser] = useState(null);
     const [brands, setBrands] = useState([]);
-    const [selectSkinTrouble, setSelectSkinTrouble] = useState([]);
+    const [selectedSkinTrouble, setSelectedSkinTrouble] = useState([]);
     const [selectCategory, setSelectCategory] = useState([]);
     const [selectOthers, setSelectOthers] = useState([]);
     const [selectBrand, setSelectBrand] = useState([]);
@@ -128,6 +128,26 @@ export const ItemSearch = () => {
         setChecked(event.target.checked);
     };
 
+    const handleSkinTroubleChecked = (event, id) => {
+        console.log(event.target.checked)
+        if (event.target.checked) {
+            setSelectedSkinTrouble([...selectedSkinTrouble, id])
+        } else {
+            setSelectedSkinTrouble(selectedSkinTrouble.filter(selectedSkinTroubleId => selectedSkinTroubleId !== id))
+        }
+    }
+
+    const handleSearch = async () => {
+        const responseItem = await axios.get('/items', {
+            params: {
+                skin_trouble_id: selectedSkinTrouble
+              }
+        });
+        const i = responseItem.data;
+        setItem(i);
+    }
+
+
     return(
         <>
         <div className='MainContainer'>
@@ -144,7 +164,13 @@ export const ItemSearch = () => {
 
                     <FormGroup sx={{ justifyContent: 'center',display: 'grid', gap: 1, gridTemplateColumns: 'repeat(5, 1fr)' }}>
                     {skinTroubles.map((skinTrouble) => (
-                    <FormControlLabel sx={{ mx: 'auto' }} control={<Checkbox />} label={skinTrouble.name} />
+                    <FormControlLabel 
+                      sx={{ mx: 'auto' }} 
+                      control={<Checkbox 
+                        checked={selectedSkinTrouble.includes(skinTrouble.id)}
+                        onChange={(e) => { handleSkinTroubleChecked(e, skinTrouble.id) }} 
+                      />} 
+                      label={skinTrouble.name} />
                     ))}
                     </FormGroup>
 
@@ -203,7 +229,7 @@ export const ItemSearch = () => {
                     </Box>
                 </div>
 
-                <Btn message="この条件で検索する" />
+                <Btn message="この条件で検索する" onClick={handleSearch} />
             </div>
 
 
