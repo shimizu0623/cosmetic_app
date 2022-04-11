@@ -4,38 +4,29 @@ import { GoBackBtn } from '../components/goBackBtn';
 import { useParams } from 'react-router-dom';
 import { makeStyles } from "@material-ui/core/styles";
 import Rating from '@material-ui/lab/Rating';
-import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import Link from '@mui/material/Link';
 import { Link as RouterLink } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import { PieChart, Pie, Cell } from 'recharts';
-import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
+import Tooltip from '@mui/material/Tooltip';
 import Grid from '@mui/material/Grid';
 import leaf_green from '../img/leaf_green.png';
 import leaf_yellow from '../img/leaf_yellow.png';
 import leaf_brown from '../img/leaf_brown.png';
-import Level_1 from "../img/level_1.png"
-import Level_3 from "../img/level_3.png"
-import Level_2 from "../img/level_2.png"
-import Level_4 from "../img/level_4.png"
-import Level_5 from "../img/level_5.png"
-import Level_6 from "../img/level_6.png"
-import Level_7 from "../img/level_7.png"
-import Level_8 from "../img/level_8.png"
-import Level_9 from "../img/level_9.png"
-import Level_10 from "../img/level_10.png"
+import Level_1 from "../img/level_1.png";
+import Level_3 from "../img/level_3.png";
+import Level_2 from "../img/level_2.png";
+import Level_4 from "../img/level_4.png";
+import Level_5 from "../img/level_5.png";
+import Level_6 from "../img/level_6.png";
+import Level_7 from "../img/level_7.png";
+import Level_8 from "../img/level_8.png";
+import Level_9 from "../img/level_9.png";
+import Level_10 from "../img/level_10.png";
 
 const useStyles = makeStyles({
-    // arrow: {
-    //     maxWidth: '50px',
-    //     margin: 'auto 0',
-    //     '&:hover':{
-    //         cursor: 'pointer',
-    //         opacity: '0.6',
-    //     }
-    // },
     styleParent: {
         display: 'flex',
         justifyContent: 'center',
@@ -102,19 +93,19 @@ const useStyles = makeStyles({
         margin: '0 auto',
     },
 
-})
+});
 
-const onClickAddFavorite = () => {
-    console.log('onClickAddFavorite')
+const handleAddFavorite = () => {
+    console.log('handleAddFavorite');
 }
-const onClickAddFolder = () => {
-    console.log('onClickAddFavorite')
+const handleAddFolder = () => {
+    console.log('handleAddFavorite');
 }
-const onClickAddComparison = () => {
-    console.log('ClickAddComparison')
+const handleAddComparison = () => {
+    console.log('handleAddComparison');
 }
-const onClickAddUnmatchedItems = () => {
-    console.log('onClickAddUnmatchedItems')
+const handleAddUnmatchedItems = () => {
+    console.log('handleAddUnmatchedItems');
 }
 
 
@@ -123,40 +114,39 @@ export const ItemDetail = () => {
     const { id } = useParams();
     const [item, setItem] = useState(null);
     const [count, setCount] = useState(0);
-    const [value, setValue] = React.useState(3); //☆
+    const [value, setValue] = useState(3); //☆
     const navigate = useNavigate();
 
     useEffect(async () => {
-        const responseItem = await axios.get(`/items/${id}`)
-        const i = responseItem.data
-        const c = responseItem.data.ingredients.length
-        setItem(i)
-        setCount(c)
+        const responseItem = await axios.get(`/items/${id}`);
+        const i = responseItem.data;
+        const c = responseItem.data.ingredients.length;
+        setItem(i);
+        setCount(c);
 
-        console.log(responseItem.data.ingredients.length)
+        console.log(responseItem.data.ingredients.length);
         // console.log('count=' + count)
         // setIngredients(ingredient)
-    }, [])
+    }, []);
 
-    const onClickReview = () => navigate("/reviewPage");
+    const handleReview = () => navigate("/reviewPage");
 
     const itemInformation = () => {
-        if(item === null){
+        if (item === null){
             return <CircularProgress color="success" size="15px" />
         }
         return(
             <div className={classes.styleParent}>
-                <img src={item.img} alt="itemImg" style={{maxWidth: '370px', height: '100%', margin: 'auto 30px'}} />
+                <img src={item.img} alt="itemImg" style={{ maxWidth: '370px', height: '100%', margin: 'auto 30px' }} />
                 <div>
-                    <p style={{textAlign: 'left', fontSize: '25px'}}>{item.brand}</p>
-                    <p style={{fontSize: '40px'}}>{item.name}</p>
+                    <p style={{ textAlign: 'left', fontSize: '25px' }}>{item.brand}</p>
+                    <p style={{ fontSize: '40px' }}>{item.name}</p>
                     <div className={classes.styleP}>
                         <p className={classes.itemDetail}>評価レビュー</p>
                         <Box borderColor="transparent">
-                            {/* <Typography component="legend">Read only</Typography> */}
                             <Rating name="read-only" value={value} readOnly />
                         </Box>
-                        <button onClick={onClickReview} className={classes.reviewBtn}>この商品のレビューを見る</button>
+                        <button onClick={handleReview} className={classes.reviewBtn}>この商品のレビューを見る</button>
                     </div>
                     <div className={classes.styleP}>
                         <p className={classes.itemDetail}>内容量：</p>
@@ -167,34 +157,32 @@ export const ItemDetail = () => {
                         <p>￥{item.price}</p>
                     </div>
                     <div>
-                        <p style={{color: 'gray', fontSize: '13px'}}>※実際の価格と異なる場合がございますので、ご購入時はサイトをご確認ください。</p>
+                        <p style={{ color: 'gray', fontSize: '13px' }}>※実際の価格と異なる場合がございますので、ご購入時はサイトをご確認ください。</p>
                     </div>
                     <div className={classes.styleP}>
                         <p className={classes.itemDetail}>カテゴリー：</p>
                         <p>{item.category}</p>
                     </div>
-
                     <div className={classes.btnForm}>
-                        <button className={classes.btn} onClick={onClickAddFavorite}>お気に入りへ追加</button>
+                        <button className={classes.btn} onClick={handleAddFavorite}>お気に入りへ追加</button>
                     </div>
                     <div className={classes.btnForm}>
-                        <button className={classes.btn} onClick={onClickAddFolder}>マイフォルダへ追加</button>
+                        <button className={classes.btn} onClick={handleAddFolder}>マイフォルダへ追加</button>
                     </div>
                     <div className={classes.btnForm}>
-                        <button className={classes.btn} onClick={onClickAddUnmatchedItems}>肌に合わなかったアイテムへ追加</button>
+                        <button className={classes.btn} onClick={handleAddUnmatchedItems}>肌に合わなかったアイテムへ追加</button>
                     </div>
                     <div className={classes.btnForm}>
-                        <button className={classes.btn} onClick={onClickAddComparison}>コスメ比較へ追加</button>
+                        <button className={classes.btn} onClick={handleAddComparison}>コスメ比較へ追加</button>
                     </div>
                         <p>→<Link component={RouterLink} to="/itemComparison">コスメ比較ページ</Link>を見る</p>
                 </div>
-            </div>
-               
-        )
+            </div>     
+        );
     }    
 
     const ingredientsInformation = () => {
-        if(item === null){
+        if (item === null){
             return <CircularProgress color="success" size="15px" />
         }
         return(
@@ -203,16 +191,16 @@ export const ItemDetail = () => {
                 <tr>
                     <td scope="row">{ingredient.name}</td>
                     {(()=>{
-                        if(ingredient.score === 1){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_1} alt="Level_1_img" style={{ width: '30px' }} /></td>)}
-                        else if(ingredient.score === 2){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_2} alt="Level_2_img" style={{ width: '30px' }} /></td>)}
-                        else if(ingredient.score === 3){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_3} alt="Level_3_img" style={{ width: '30px' }} /></td>)}
-                        else if(ingredient.score === 4){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_4} alt="Level_4_img" style={{ width: '30px' }} /></td>)}
-                        else if(ingredient.score === 5){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_5} alt="Level_5_img" style={{ width: '30px' }} /></td>)}
-                        else if(ingredient.score === 6){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_6} alt="Level_6_img" style={{ width: '30px' }} /></td>)}
-                        else if(ingredient.score === 7){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_7} alt="Level_7_img" style={{ width: '30px' }} /></td>)}
-                        else if(ingredient.score === 8){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_8} alt="Level_8_img" style={{ width: '30px' }} /></td>)}
-                        else if(ingredient.score === 9){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_9} alt="Level_9_img" style={{ width: '30px' }} /></td>)}
-                        else if(ingredient.score === 10){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_10} alt="Level_10_img" style={{ width: '30px' }} /></td>)}
+                        if (ingredient.score === 1){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_1} alt="Level_1_img" style={{ width: '30px' }} /></td>)}
+                        else if (ingredient.score === 2){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_2} alt="Level_2_img" style={{ width: '30px' }} /></td>)}
+                        else if (ingredient.score === 3){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_3} alt="Level_3_img" style={{ width: '30px' }} /></td>)}
+                        else if (ingredient.score === 4){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_4} alt="Level_4_img" style={{ width: '30px' }} /></td>)}
+                        else if (ingredient.score === 5){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_5} alt="Level_5_img" style={{ width: '30px' }} /></td>)}
+                        else if (ingredient.score === 6){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_6} alt="Level_6_img" style={{ width: '30px' }} /></td>)}
+                        else if (ingredient.score === 7){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_7} alt="Level_7_img" style={{ width: '30px' }} /></td>)}
+                        else if (ingredient.score === 8){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_8} alt="Level_8_img" style={{ width: '30px' }} /></td>)}
+                        else if (ingredient.score === 9){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_9} alt="Level_9_img" style={{ width: '30px' }} /></td>)}
+                        else if (ingredient.score === 10){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_10} alt="Level_10_img" style={{ width: '30px' }} /></td>)}
                         else {return (<td><p>no information</p></td>)}
                     })()}
 
@@ -230,7 +218,7 @@ export const ItemDetail = () => {
                 </tr>
             ))}
             </>
-        )
+        );
 
     }
 
@@ -252,91 +240,89 @@ export const ItemDetail = () => {
     
     let green = 0;
     const scoreGreen = () => {
-        if(item === null){
+        if (item === null){
             return <CircularProgress color="success" size="15px" />
         }
         const count = item.ingredients.map((ingredient) => {
             (()=>{
-                if(ingredient.score === 1 || ingredient.score === 2){green++}
+                if (ingredient.score === 1 || ingredient.score === 2){green++}
             })()
-        })
-
+        });
         return(
-            <span style={{fontSize: '25px', fontWeight: 'bold', color: '#5ac9b4'}}>{green}</span>
-            )
+            <span style={{ fontSize: '25px', fontWeight: 'bold', color: '#5ac9b4' }}>{green}</span>
+            );
         }
 
     const rateGreen = () => {
-        const calc = Math.round(green / 3 * 100)
+        const calc = Math.round(green / 3 * 100);
         //TODO: ↓valueを数字からcalcに変えたら、ブラウザに表示されなくなった
-        const add = { index: 0, name: 'Low Hazard', value: calc }
-        console.log(calc)
-        data.push(add)
-        console.log(data)
+        const add = { index: 0, name: 'Low Hazard', value: calc };
+        console.log(calc);
+        data.push(add);
+        console.log(data);
     }
 
     let yellow = 0;
     const scoreYellow = () => {
-        if(item === null){
+        if (item === null){
             return <CircularProgress color="success" size="15px" />
         }
         const count = item.ingredients.map((ingredient) => {
             (()=>{
-                if(ingredient.score === 3){yellow++}
-                else if(ingredient.score === 4){yellow++}
-                else if(ingredient.score === 5){yellow++}
-                else if(ingredient.score === 6){yellow++}
+                if (ingredient.score === 3){yellow++}
+                else if (ingredient.score === 4){yellow++}
+                else if (ingredient.score === 5){yellow++}
+                else if (ingredient.score === 6){yellow++}
             })()
-        })
-
+        });
         return(
-            <span style={{fontSize: '25px', fontWeight: 'bold', color: '#f5c56b'}}>{yellow}</span>
-            )
+            <span style={{ fontSize: '25px', fontWeight: 'bold', color: '#f5c56b' }}>{yellow}</span>
+            );
         }
 
     const rateYellow = () => {
-        const calc = Math.round(yellow / 3 * 100)
-        const add = { index: 1, name: 'Moderate Hazard', value: calc }
-        console.log(calc)
-        data.push(add)
-        console.log(data)
+        const calc = Math.round(yellow / 3 * 100);
+        const add = { index: 1, name: 'Moderate Hazard', value: calc };
+        console.log(calc);
+        data.push(add);
+        console.log(data);
 
     }
     
         
     let red = 0;
     const scoreRed = () => {
-        if(item === null){
+        if (item === null){
             return <CircularProgress color="success" size="15px" />
         }
         const count = item.ingredients.map((ingredient) => {
             (()=>{
-                if(ingredient.score === 7){red++}
-                else if(ingredient.score === 8){red++}
-                else if(ingredient.score === 9){red++}
-                else if(ingredient.score === 10){red++}
+                if (ingredient.score === 7){red++}
+                else if (ingredient.score === 8){red++}
+                else if (ingredient.score === 9){red++}
+                else if (ingredient.score === 10){red++}
             })()
-        })
+        });
         return(
-            <span style={{fontSize: '25px', fontWeight: 'bold', color: '#f04b4be7'}}>{red}</span>
-            )
+            <span style={{ fontSize: '25px', fontWeight: 'bold', color: '#f04b4be7' }}>{red}</span>
+            );
     }
 
     const rateRed = () => {
-        const calc = Math.round(red / 3 * 100)
-        const add = { index: 2, name: 'High Hazard', value: calc }
-        console.log(calc)
-        data.push(add)
-        console.log(data)
+        const calc = Math.round(red / 3 * 100);
+        const add = { index: 2, name: 'High Hazard', value: calc };
+        console.log(calc);
+        data.push(add);
+        console.log(data);
 
     }
 
 
     
         
-    const explain_green = 'EWG 1~2等級（有害性が低い成分）'
-    const explain_yellow = 'EWG 3~6等級（有害性が普通の成分）'
-    const explain_red = 'EWG 7~10等級（有害性が高い成分）'
+    const explain_green = 'EWG 1~2等級（有害性が低い成分）';
+    const explain_yellow = 'EWG 3~6等級（有害性が普通の成分）';
+    const explain_red = 'EWG 7~10等級（有害性が高い成分）';
 
     
     return(
@@ -349,9 +335,9 @@ export const ItemDetail = () => {
 
             {/* TODO: 表示切替 */}
             <div className={classes.alertForm}>
-                <h4 style={{color: 'red', paddingTop: '10px'}}>注意！</h4>
+                <h4 style={{ color: 'red', paddingTop: '10px' }}>注意！</h4>
                 <p>肌に合わなかった共通成分があります</p>
-                <div style={{paddingBottom: '10px'}}>
+                <div style={{ paddingBottom: '10px' }}>
                 <ul style={{ listStyle: 'none', padding: 0 }}>
                     <li>○○酸</li>
                 </ul>
@@ -359,27 +345,27 @@ export const ItemDetail = () => {
             </div>
 
             <div className={classes.ewgForm}>
-                <p style={{fontSize: '30px', color: 'green', textShadow: '2px 2px 1px white', margin: '20px auto'}}>EWG安全性</p>
+                <p style={{ fontSize: '30px', color: 'green', textShadow: '2px 2px 1px white', margin: '20px auto' }}>EWG安全性</p>
                 <Grid container spacing={1}>
                 <Grid item xs={6}>
                 <div>
-                    <p style={{color: 'green', textShadow: '2px 2px 1px white'}}>配合成分合計： {count}種類</p>
+                    <p style={{ color: 'green', textShadow: '2px 2px 1px white' }}>配合成分合計： {count}種類</p>
                     <Tooltip title={explain_green} followCursor>
                     <div className={classes.styleParent}>
-                        <img src={leaf_green} alt="sampleImg" style={{width: '80px', marginRight: '30px'}} />
-                    <div style={{fontSize: '15px', marginTop: '20px'}}>{scoreGreen()} / {count}</div>
+                        <img src={leaf_green} alt="sampleImg" style={{ width: '80px', marginRight: '30px' }} />
+                    <div style={{ fontSize: '15px', marginTop: '20px' }}>{scoreGreen()} / {count}</div>
                     </div>
                     </Tooltip>
                     <Tooltip title={explain_yellow} followCursor>
                     <div className={classes.styleParent}>
-                        <img src={leaf_yellow} alt="sampleImg" style={{width: '80px', marginRight: '30px'}} />
-                        <div style={{fontSize: '15px', marginTop: '20px'}}>{scoreYellow()} / {count}</div>
+                        <img src={leaf_yellow} alt="sampleImg" style={{ width: '80px', marginRight: '30px' }} />
+                        <div style={{ fontSize: '15px', marginTop: '20px' }}>{scoreYellow()} / {count}</div>
                     </div>
                     </Tooltip>
                     <Tooltip title={explain_red} followCursor>
                     <div className={classes.styleParent}>
-                        <img src={leaf_brown} alt="sampleImg" style={{width: '80px', marginRight: '30px'}} />
-                        <div style={{fontSize: '15px', marginTop: '20px'}}>{scoreRed()} / {count}</div>
+                        <img src={leaf_brown} alt="sampleImg" style={{ width: '80px', marginRight: '30px' }} />
+                        <div style={{ fontSize: '15px', marginTop: '20px' }}>{scoreRed()} / {count}</div>
                     </div>
                     </Tooltip>
                 </div>
@@ -388,8 +374,8 @@ export const ItemDetail = () => {
                 {rateYellow()}
                 {rateRed()}
                 <Grid item xs={6}>
-                <div style={{display: 'inline-block'}}>
-                    <p style={{color: 'green', textShadow: '2px 2px 1px white'}}>EWG等級別成分割合(％)</p>
+                <div style={{ display: 'inline-block'}} >
+                    <p style={{ color: 'green', textShadow: '2px 2px 1px white' }} >EWG等級別成分割合(％)</p>
                     <PieChart width={300} height={300}>
                     <Pie data={data} dataKey="value" outerRadius={100} label>
                     {data.map((entry, index) => (
@@ -402,9 +388,9 @@ export const ItemDetail = () => {
             </Grid>
             </div>
 
-            <div style={{margin: '50px 0 20px 0'}}>
-                <table style={{margin: '0 auto'}}>
-                <caption style={{fontSize: '25px', marginBottom: '10px'}}>配合成分詳細</caption>
+            <div style={{ margin: '50px 0 20px 0' }}>
+                <table style={{ margin: '0 auto' }}>
+                <caption style={{ fontSize: '25px', marginBottom: '10px' }}>配合成分詳細</caption>
                 <tr>
                     <th className={classes.tableHeader}>成分名</th>
                     <th className={classes.tableHeader}>EWG SCORE</th>
@@ -421,6 +407,6 @@ export const ItemDetail = () => {
 
         </div>
         </>
-    )
+    );
 }
 
