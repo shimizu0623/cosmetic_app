@@ -138,7 +138,7 @@ export const ItemDetail = () => {
         // console.log(i)
         // console.log(item)
         // console.log(item.ingredients)
-        // console.log(item.ingredients.length)
+        console.log(item.ingredients.score)
         console.log(responseItem.data.ingredients.length)
         const c = responseItem.data.ingredients.length
         setCount(c)
@@ -272,7 +272,59 @@ export const ItemDetail = () => {
     }
 
 
+    const scoreGreen = () => {
+        if(item === null){
+            return <CircularProgress color="success" size="15px" />
+        }
+        let green = 0;
+        const count = item.ingredients.map((ingredient) => {
+            (()=>{
+                if(ingredient.score === 1 || ingredient.score === 2){green++}
+            })()
+        })
 
+        return(
+            <span style={{fontSize: '25px', fontWeight: 'bold', color: '#5ac9b4'}}>{green}</span>
+            )
+        }
+
+    const scoreYellow = () => {
+        if(item === null){
+            return <CircularProgress color="success" size="15px" />
+        }
+        let yellow = 0;
+        const count = item.ingredients.map((ingredient) => {
+            (()=>{
+                if(ingredient.score === 3){yellow++}
+                else if(ingredient.score === 4){yellow++}
+                else if(ingredient.score === 5){yellow++}
+                else if(ingredient.score === 6){yellow++}
+            })()
+        })
+
+        return(
+            <span style={{fontSize: '25px', fontWeight: 'bold', color: '#f5c56b'}}>{yellow}</span>
+            )
+        }
+        
+    const scoreRed = () => {
+        if(item === null){
+            return <CircularProgress color="success" size="15px" />
+        }
+        let red = 0;
+        const count = item.ingredients.map((ingredient) => {
+            (()=>{
+                if(ingredient.score === 7){red++}
+                else if(ingredient.score === 8){red++}
+                else if(ingredient.score === 9){red++}
+                else if(ingredient.score === 10){red++}
+            })()
+        })
+        return(
+            <span style={{fontSize: '25px', fontWeight: 'bold', color: '#f04b4be7'}}>{red}</span>
+            )
+        }
+        
     const explain_green = 'EWG 1~2等級（有害性が低い成分）'
     const explain_yellow = 'EWG 3~6等級（有害性が普通の成分）'
     const explain_red = 'EWG 7~10等級（有害性が高い成分）'
@@ -306,19 +358,19 @@ export const ItemDetail = () => {
                     <Tooltip title={explain_green} followCursor>
                     <div className={classes.styleParent}>
                         <img src={leaf_green} alt="sampleImg" style={{width: '80px', marginRight: '30px'}} />
-                    <div style={{fontSize: '15px', marginTop: '20px'}}><span style={{fontSize: '25px', fontWeight: 'bold', color: '#5ac9b4'}}>20</span> / {count}</div>
+                    <div style={{fontSize: '15px', marginTop: '20px'}}>{scoreGreen()} / {count}</div>
                     </div>
                     </Tooltip>
                     <Tooltip title={explain_yellow} followCursor>
                     <div className={classes.styleParent}>
                         <img src={leaf_yellow} alt="sampleImg" style={{width: '80px', marginRight: '30px'}} />
-                        <div style={{fontSize: '15px', marginTop: '20px'}}><span style={{fontSize: '25px', fontWeight: 'bold', color: '#f5c56b'}}>7</span> / {count}</div>
+                        <div style={{fontSize: '15px', marginTop: '20px'}}>{scoreYellow()} / {count}</div>
                     </div>
                     </Tooltip>
                     <Tooltip title={explain_red} followCursor>
                     <div className={classes.styleParent}>
                         <img src={leaf_brown} alt="sampleImg" style={{width: '80px', marginRight: '30px'}} />
-                        <div style={{fontSize: '15px', marginTop: '20px'}}><span style={{fontSize: '25px', fontWeight: 'bold', color: '#f04b4be7'}}>1</span> / {count}</div>
+                        <div style={{fontSize: '15px', marginTop: '20px'}}>{scoreRed()} / {count}</div>
                     </div>
                     </Tooltip>
                 </div>
