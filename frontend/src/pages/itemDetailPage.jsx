@@ -101,7 +101,7 @@ const handleAddFavorite = () => {
     console.log('handleAddFavorite');
 }
 const handleAddFolder = () => {
-    console.log('handleAddFavorite');
+    console.log('handleAddFolder');
 }
 const handleAddComparison = () => {
     console.log('handleAddComparison');
