@@ -202,27 +202,25 @@ export const ItemDetail = () => {
             {item.ingredients.map((ingredient) => (
                 <tr>
                     <td scope="row">{ingredient.name}</td>
-                    <td>
-                        {(()=>{
-                            if(ingredient.score === 1){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_1} alt="Level_1_img" style={{ width: '30px' }} /></td>)}
-                            else if(ingredient.score === 2){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_2} alt="Level_2_img" style={{ width: '30px' }} /></td>)}
-                            else if(ingredient.score === 3){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_3} alt="Level_3_img" style={{ width: '30px' }} /></td>)}
-                            else if(ingredient.score === 4){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_4} alt="Level_4_img" style={{ width: '30px' }} /></td>)}
-                            else if(ingredient.score === 5){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_5} alt="Level_5_img" style={{ width: '30px' }} /></td>)}
-                            else if(ingredient.score === 6){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_6} alt="Level_6_img" style={{ width: '30px' }} /></td>)}
-                            else if(ingredient.score === 7){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_7} alt="Level_7_img" style={{ width: '30px' }} /></td>)}
-                            else if(ingredient.score === 8){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_8} alt="Level_8_img" style={{ width: '30px' }} /></td>)}
-                            else if(ingredient.score === 9){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_9} alt="Level_9_img" style={{ width: '30px' }} /></td>)}
-                            else if(ingredient.score === 10){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_10} alt="Level_10_img" style={{ width: '30px' }} /></td>)}
-                            else {return (<td><p>no information</p></td>)}
-                        })()}
+                    {(()=>{
+                        if(ingredient.score === 1){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_1} alt="Level_1_img" style={{ width: '30px' }} /></td>)}
+                        else if(ingredient.score === 2){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_2} alt="Level_2_img" style={{ width: '30px' }} /></td>)}
+                        else if(ingredient.score === 3){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_3} alt="Level_3_img" style={{ width: '30px' }} /></td>)}
+                        else if(ingredient.score === 4){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_4} alt="Level_4_img" style={{ width: '30px' }} /></td>)}
+                        else if(ingredient.score === 5){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_5} alt="Level_5_img" style={{ width: '30px' }} /></td>)}
+                        else if(ingredient.score === 6){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_6} alt="Level_6_img" style={{ width: '30px' }} /></td>)}
+                        else if(ingredient.score === 7){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_7} alt="Level_7_img" style={{ width: '30px' }} /></td>)}
+                        else if(ingredient.score === 8){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_8} alt="Level_8_img" style={{ width: '30px' }} /></td>)}
+                        else if(ingredient.score === 9){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_9} alt="Level_9_img" style={{ width: '30px' }} /></td>)}
+                        else if(ingredient.score === 10){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_10} alt="Level_10_img" style={{ width: '30px' }} /></td>)}
+                        else {return (<td><p>no information</p></td>)}
+                    })()}
 
                         {/* {ingredient.score === 1 ? (<td><img src={Level_1} alt="Level_1_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)}
                         {ingredient.score === 2 ? (<td><img src={Level_2} alt="Level_2_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)}
                         {ingredient.score === 3 ? (<td><img src={Level_3} alt="Level_3_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)}
                         {ingredient.score === 4 ? (<td><img src={Level_4} alt="Level_4_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)}
                         {ingredient.score === 5 ? (<td><img src={Level_5} alt="Level_5_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)} */}
-                    </td>
                     <td>{ingredient.safety}</td>
                     <td>{ingredient.purpose}</td>
                     <td>{ingredient.cancer}</td>
@@ -236,12 +234,27 @@ export const ItemDetail = () => {
 
     }
 
-
+    let data = [
+        //データないor不明時↓
+        {
+          index: 3,
+          name: 'High Hazard',
+          value: 0,
+        },
+          
+      ];
+    const ChartColors = [
+        '#cae1df7d',
+        '#5ac9b4',
+        '#f5c56b',
+        '#f04b4be7',
+      ];
+    
+    let green = 0;
     const scoreGreen = () => {
         if(item === null){
             return <CircularProgress color="success" size="15px" />
         }
-        let green = 0;
         const count = item.ingredients.map((ingredient) => {
             (()=>{
                 if(ingredient.score === 1 || ingredient.score === 2){green++}
@@ -253,11 +266,19 @@ export const ItemDetail = () => {
             )
         }
 
+    const rateGreen = () => {
+        const calc = Math.round(green / 3 * 100)
+        const add = { index: 0, name: 'Low Hazard', value: calc }
+        console.log(calc)
+        data.push(add)
+        console.log(data)
+    }
+
+    let yellow = 0;
     const scoreYellow = () => {
         if(item === null){
             return <CircularProgress color="success" size="15px" />
         }
-        let yellow = 0;
         const count = item.ingredients.map((ingredient) => {
             (()=>{
                 if(ingredient.score === 3){yellow++}
@@ -271,12 +292,22 @@ export const ItemDetail = () => {
             <span style={{fontSize: '25px', fontWeight: 'bold', color: '#f5c56b'}}>{yellow}</span>
             )
         }
+
+    const rateYellow = () => {
+        const calc = Math.round(yellow / 3 * 100)
+        const add = { index: 1, name: 'Moderate Hazard', value: calc }
+        console.log(calc)
+        data.push(add)
+        console.log(data)
+
+    }
+    
         
+    let red = 0;
     const scoreRed = () => {
         if(item === null){
             return <CircularProgress color="success" size="15px" />
         }
-        let red = 0;
         const count = item.ingredients.map((ingredient) => {
             (()=>{
                 if(ingredient.score === 7){red++}
@@ -288,7 +319,19 @@ export const ItemDetail = () => {
         return(
             <span style={{fontSize: '25px', fontWeight: 'bold', color: '#f04b4be7'}}>{red}</span>
             )
-        }
+    }
+
+    const rateRed = () => {
+        const calc = Math.round(red / 3 * 100)
+        const add = { index: 2, name: 'High Hazard', value: calc }
+        console.log(calc)
+        data.push(add)
+        console.log(data)
+
+    }
+
+
+    
         
     const explain_green = 'EWG 1~2等級（有害性が低い成分）'
     const explain_yellow = 'EWG 3~6等級（有害性が普通の成分）'
@@ -340,6 +383,9 @@ export const ItemDetail = () => {
                     </Tooltip>
                 </div>
                 </Grid>
+                {rateGreen()}
+                {rateYellow()}
+                {rateRed()}
                 <Grid item xs={6}>
                 <div style={{display: 'inline-block'}}>
                     <p style={{color: 'green', textShadow: '2px 2px 1px white'}}>EWG等級別成分割合(％)</p>
@@ -377,38 +423,3 @@ export const ItemDetail = () => {
     )
 }
 
-const data = [
-    {
-      index: 0,
-      name: 'Low Hazard',
-      value: 70,
-    },
-    {
-      index: 1,
-      name: 'Moderate Hazard',
-      value: 20,
-    },
-    {
-      index: 2,
-      name: 'High Hazard',
-      value: 10,
-    },
-    //データないor不明時↓
-    {
-      index: 3,
-      name: 'High Hazard',
-      value: 0,
-    },
-      
-  ];
-const ChartColors = [
-    '#5ac9b4',
-    '#f5c56b',
-    '#f04b4be7',
-    '#cae1df7d',
-  ];
-  
-//   const COLORS = [
-//     '#2250A2',
-//     '#da50a2',
-//   ];
