@@ -14,6 +14,17 @@
 
 
 
+
+// MEMO: なんのスタイル調整済か↓
+// ・if (){} else if (){} のスペース
+// ・文末セミコロン
+// ・React.削除
+// ・onClick→handle
+// ・style={{ aaa }}のスペース
+
+
+
+
 import React from 'react';
 
 export const aa = () => {
