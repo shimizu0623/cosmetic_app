@@ -253,7 +253,7 @@ export const ItemSearch = () => {
 
 
 
-                <Grid container spacing={1} direction="row" justifyContent="center" alignItems="center" style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
+                <Grid container spacing={1} direction="row" alignItems="center" style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
                         {item.map((item) => (
                         <Grid item xs={2}>
                             <ImageListItem key={item.img} className={classes.cardPaper}>
@@ -291,7 +291,7 @@ export const ItemSearch = () => {
             <div className='recommend_results' style={{margin: '50px'}}>
                 <ImageList style={{width: '100%', gridTemplateColumns: 'repeat(1, 1fr)'}}>
 
-                <Grid container spacing={1} direction="row" justifyContent="center" alignItems="center" style={{gridTemplateColumns: '1, 1fr', gap: '1',}}>
+                <Grid container spacing={1} direction="row" alignItems="center" style={{gridTemplateColumns: '1, 1fr', gap: '1',}}>
                         {item.map((item) => (
                         <Grid item xs={2}>
                             <ImageListItem key={item.img} className={classes.cardPaper}>
