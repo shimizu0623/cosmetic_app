@@ -60,7 +60,7 @@ export const ItemSearch = () => {
     const [user, setUser] = useState(null);
     const [brands, setBrands] = useState([]);
     const [selectedSkinTrouble, setSelectedSkinTrouble] = useState([]);
-    const [selectCategory, setSelectCategory] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState([]);
     const [selectOthers, setSelectOthers] = useState([]);
     const [selectBrand, setSelectBrand] = useState([]);
     const [skinTroubles, setSkinTroubles] = useState([]);
@@ -110,23 +110,23 @@ export const ItemSearch = () => {
         setSelectBrand(event.target.value);
     };
 
-    const handleChangeSkinTrouble = (event) => {
-        setCheckedSkinTrouble(event.target.checked);
-        console.log(checkedSkinTrouble)
-        console.log('skinTroubles')
-        console.log(skinTroubles)
-        console.log('brands')
-        console.log(brands)
-    };
-    const handleChangeCategory = (event) => {
-        setCheckedCategory(event.target.checked);
-        setSelectCategory({...selectCategory, name: event.target.value})
-        console.log(checkedCategory)
-        console.log(selectCategory)
-    };
-    const handleChange = (event) => {
-        setChecked(event.target.checked);
-    };
+    // const handleChangeSkinTrouble = (event) => {
+    //     setCheckedSkinTrouble(event.target.checked);
+    //     console.log(checkedSkinTrouble)
+    //     console.log('skinTroubles')
+    //     console.log(skinTroubles)
+    //     console.log('brands')
+    //     console.log(brands)
+    // };
+    // const handleChangeCategory = (event) => {
+    //     setCheckedCategory(event.target.checked);
+    //     setSelectCategory({...selectCategory, name: event.target.value})
+    //     console.log(checkedCategory)
+    //     console.log(selectCategory)
+    // };
+    // const handleChange = (event) => {
+    //     setChecked(event.target.checked);
+    // };
 
     const handleSkinTroubleChecked = (event, id) => {
         console.log(event.target.checked)
@@ -137,10 +137,24 @@ export const ItemSearch = () => {
         }
     }
 
+    const handleCategoryChecked = (event, id) => {
+        console.log(event.target.checked)
+        if (event.target.checked) {
+            setSelectedCategory([...selectedCategory, id])
+        } else {
+            setSelectedCategory(selectedCategory.filter(selectedCategoryId => selectedCategoryId !== id))
+        }
+    }
+
     const handleSearch = async () => {
         const responseItem = await axios.get('/items', {
             params: {
-                skin_trouble_id: selectedSkinTrouble
+                skin_trouble_id: selectedSkinTrouble,
+                category_id: selectedCategory
+                // brand_id: ,
+                // is_matching_only: ,
+                // is_safe_only: ,
+
               }
         });
         const i = responseItem.data;
@@ -169,7 +183,7 @@ export const ItemSearch = () => {
                       control={<Checkbox 
                         checked={selectedSkinTrouble.includes(skinTrouble.id)}
                         onChange={(e) => { handleSkinTroubleChecked(e, skinTrouble.id) }} 
-                      />} 
+                        />} 
                       label={skinTrouble.name} />
                     ))}
                     </FormGroup>
@@ -181,7 +195,13 @@ export const ItemSearch = () => {
 
                     <FormGroup sx={{ justifyContent: 'center',display: 'grid', gap: 1, gridTemplateColumns: 'repeat(5, 1fr)' }}>
                     {categories.map((category) => (
-                    <FormControlLabel sx={{ mx: 'auto' }} control={<Checkbox />} label={category.name} />
+                    <FormControlLabel
+                    sx={{ mx: 'auto' }} 
+                    control={<Checkbox 
+                        checked={selectedCategory.includes(category.id)}
+                        onChange={(e) => { handleCategoryChecked(e, category.id) }} 
+                      />} 
+                      label={category.name} />
                     ))}
                     </FormGroup>
 
