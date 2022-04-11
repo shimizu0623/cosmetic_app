@@ -268,6 +268,7 @@ export const ItemDetail = () => {
 
     const rateGreen = () => {
         const calc = Math.round(green / 3 * 100)
+        //TODO: ↓valueを数字からcalcに変えたら、ブラウザに表示されなくなった
         const add = { index: 0, name: 'Low Hazard', value: calc }
         console.log(calc)
         data.push(add)
