@@ -1,3 +1,5 @@
+// MEMO: スタイル調整済
+
 import React, {useState, useEffect} from 'react';
 import axios from '../axios';
 import { GoBackBtn } from '../components/goBackBtn';
