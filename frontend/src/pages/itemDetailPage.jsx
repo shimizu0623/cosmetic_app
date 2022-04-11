@@ -123,28 +123,19 @@ export const ItemDetail = () => {
     const { id } = useParams();
     const [item, setItem] = useState(null);
     const [count, setCount] = useState(0);
-    // const [ingredients, setIngredients] = useState(null);
-
     const [value, setValue] = React.useState(3); //☆
     const navigate = useNavigate();
 
     useEffect(async () => {
-        console.log(id)
         const responseItem = await axios.get(`/items/${id}`)
-        // const responseIngredients = await axios.get('/item_ingredients')
         const i = responseItem.data
-        // const ingredient = responseIngredients.data
-        setItem(i)
-        // console.log(i)
-        // console.log(item)
-        // console.log(item.ingredients)
-        console.log(item.ingredients.score)
-        console.log(responseItem.data.ingredients.length)
         const c = responseItem.data.ingredients.length
+        setItem(i)
         setCount(c)
+
+        console.log(responseItem.data.ingredients.length)
         // console.log('count=' + count)
         // setIngredients(ingredient)
-      
     }, [])
 
     const onClickReview = () => navigate("/reviewPage");
@@ -200,26 +191,7 @@ export const ItemDetail = () => {
             </div>
                
         )
-    }
-
-    // let count = 0;
-    // const totalIngredient = () => {
-    //     return(
-    //         count = count + 1
-    //     )
-    // }
-    // const totalIngredient = () => {
-    //         console.log(count)
-            
-    //         setCount(count + 1)
-    //         console.log(count)
-    //     //     // const calc = item.ingredients.length
-    //     //     // console.log(item.ingredients.length)
-    //     //     // console.log(item.ingredients.length)
-    //     //     // setCount(item.ingredients.length)
-    //         // console.log('count')
-    //     }
-    
+    }    
 
     const ingredientsInformation = () => {
         if(item === null){
@@ -230,12 +202,6 @@ export const ItemDetail = () => {
             {item.ingredients.map((ingredient) => (
                 <tr>
                     <td scope="row">{ingredient.name}</td>
-                    {/* {() => setCount(count + 1)} */}
-                    {/* {setCount(count + 1)} */}
-                    {/* {totalIngredient()} */}
-                    {/* {console.log(count)} */}
-                    {/* {setCount(count + 1)}
-                    {console.log(count)} */}
                     <td>
                         {(()=>{
                             if(ingredient.score === 1){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_1} alt="Level_1_img" style={{ width: '30px' }} /></td>)}
@@ -250,7 +216,6 @@ export const ItemDetail = () => {
                             else if(ingredient.score === 10){return (<td style={{display:'flex', justifyContent: 'center'}}><img src={Level_10} alt="Level_10_img" style={{ width: '30px' }} /></td>)}
                             else {return (<td><p>no information</p></td>)}
                         })()}
-
 
                         {/* {ingredient.score === 1 ? (<td><img src={Level_1} alt="Level_1_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)}
                         {ingredient.score === 2 ? (<td><img src={Level_2} alt="Level_2_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)}
