@@ -26,38 +26,25 @@ import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
-const onClickRight = () => {
-    console.log('onClickRight')
-}
-const onClickLeft = () => {
-    console.log('onClickLeft')
-}
-
-
 const useStyles = makeStyles({
     SearchBox: {
         display: 'flex',
         margin: '20px auto 0',
     },
-
-
 })
-
 
 export const ItemSearch = () => {
     const classes = useStyles();
-    const [item, setItem] = useState([]);
     const [user, setUser] = useState(null);
+    const [item, setItem] = useState([]);
+    const [skinTroubles, setSkinTroubles] = useState([]);
+    const [categories, setCategories] = useState([]);
     const [brands, setBrands] = useState([]);
     const [selectedSkinTrouble, setSelectedSkinTrouble] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState([]);
-    const [selectOthers, setSelectOthers] = useState([]);
-    const [selectBrand, setSelectBrand] = useState([]);
-    const [skinTroubles, setSkinTroubles] = useState([]);
-    const [categories, setCategories] = useState([]);
-    const [checkedSkinTrouble, setCheckedSkinTrouble] = React.useState(false);
-    const [checkedCategory, setCheckedCategory] = React.useState(false);
-    const [checked, setChecked] = React.useState(false);
+    const [selectedSafeOnly, setSelectedSafeOnly] = useState(0);
+    const [selectedMatchingOnly, setSelectedMatchingOnly] = useState(0);
+    const [selectedBrand, setSelectedBrand] = useState();
 
     useEffect(async () => {
         const responseUser = await axios.get('/me')
@@ -97,7 +84,7 @@ export const ItemSearch = () => {
 
     const onClickBrand = (event) => {
         console.log('selected brand')
-        setSelectBrand(event.target.value);
+        setSelectedBrand(event.target.value);
     };
 
     // const handleChangeSkinTrouble = (event) => {
@@ -121,29 +108,48 @@ export const ItemSearch = () => {
     const handleSkinTroubleChecked = (event, id) => {
         console.log(event.target.checked)
         if (event.target.checked) {
-            setSelectedSkinTrouble([...selectedSkinTrouble, id])
+            setSelectedSkinTrouble([...selectedSkinTrouble, id]);
         } else {
-            setSelectedSkinTrouble(selectedSkinTrouble.filter(selectedSkinTroubleId => selectedSkinTroubleId !== id))
+            setSelectedSkinTrouble(selectedSkinTrouble.filter(selectedSkinTroubleId => selectedSkinTroubleId !== id));
         }
     }
 
     const handleCategoryChecked = (event, id) => {
         console.log(event.target.checked)
         if (event.target.checked) {
-            setSelectedCategory([...selectedCategory, id])
+            setSelectedCategory([...selectedCategory, id]);
         } else {
-            setSelectedCategory(selectedCategory.filter(selectedCategoryId => selectedCategoryId !== id))
+            setSelectedCategory(selectedCategory.filter(selectedCategoryId => selectedCategoryId !== id));
         }
     }
+
+    const handleSafeOnlyChecked = (event) => {
+        // console.log(event.target.checked)
+        if (event.target.checked) {
+            setSelectedSafeOnly(1);
+        } else {
+            setSelectedSafeOnly(0);
+        }
+    }
+
+    const handleMatchingOnlyChecked = (event) => {
+        // console.log(event.target.checked)
+        if (event.target.checked) {
+            setSelectedMatchingOnly(1);
+        } else {
+            setSelectedMatchingOnly(0);
+        }
+    }
+    
 
     const handleSearch = async () => {
         const responseItem = await axios.get('/items', {
             params: {
                 skin_trouble_id: selectedSkinTrouble,
-                category_id: selectedCategory
+                category_id: selectedCategory,
+                is_safe_only: selectedSafeOnly,
+                is_matching_only: selectedMatchingOnly
                 // brand_id: ,
-                // is_matching_only: ,
-                // is_safe_only: ,
 
               }
         });
@@ -202,9 +208,21 @@ export const ItemSearch = () => {
 
 
                     <h2>他に条件はありますか？</h2>
-                    <FormGroup sx={{ justifyContent: 'center',display: 'grid', gap: 1, gridTemplateColumns: 'repeat(2, 1fr)' }}>
-                        <FormControlLabel sx={{ mx: 'auto' }} control={<Checkbox />} label='EWGランクが１のアイテムだけを表示' />
-                        <FormControlLabel sx={{ mx: 'auto' }} control={<Checkbox />} label='肌に合わない成分が入っていないアイテムで探す' />
+                    <FormGroup sx={{ justifyContent: 'center', display: 'grid', gap: 1, gridTemplateColumns: 'repeat(2, 1fr)' }}>
+                        <FormControlLabel 
+                          sx={{ mx: 'auto' }} 
+                          control={<Checkbox
+                            checked={selectedSafeOnly}
+                            onChange={handleSafeOnlyChecked}                          
+                          />} 
+                          label='EWGランクが１のアイテムだけを表示' />
+                        <FormControlLabel 
+                          sx={{ mx: 'auto' }} 
+                          control={<Checkbox
+                            checked={selectedMatchingOnly}
+                            onChange={handleMatchingOnlyChecked}                          
+                          />} 
+                          label='肌に合わない成分が入っていないアイテムで探す' />
                     </FormGroup>
 
 
@@ -225,7 +243,7 @@ export const ItemSearch = () => {
                         <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
-                        value={selectBrand}
+                        value={selectedBrand}
                         label="Brands"
                         // TODO: ↓ブランド検索できるように
                         onChange={onClickBrand}
@@ -312,7 +330,6 @@ export const ItemSearch = () => {
                 </ImageList>
             </div>
         </div>
-
         </div>
         </>
     )
