@@ -44,7 +44,7 @@ export const ItemSearch = () => {
     const [selectedCategory, setSelectedCategory] = useState([]);
     const [selectedSafeOnly, setSelectedSafeOnly] = useState(0);
     const [selectedMatchingOnly, setSelectedMatchingOnly] = useState(0);
-    const [selectedBrand, setSelectedBrand] = useState();
+    const [selectedBrand, setSelectedBrand] = useState(null);
 
     useEffect(async () => {
         const responseUser = await axios.get('/me')
@@ -57,17 +57,11 @@ export const ItemSearch = () => {
         const s = responseSkinTroubles.data
         const c = responseCategories.data
         const b = responseBrands.data
-        // console.log(s)
-        // console.log(c)
-        // console.log(i)
         setUser(u)
         setItem(i)
         setSkinTroubles(s)
         setCategories(c)
         setBrands(b)
-        // console.log(skinTroubles)
-        // console.log(categories)
-        // console.log(item)
     }, [])
 
     const message = () => {
@@ -80,33 +74,8 @@ export const ItemSearch = () => {
           </>
         )
       }
-    
-
-    const onClickBrand = (event) => {
-        console.log('selected brand')
-        setSelectedBrand(event.target.value);
-    };
-
-    // const handleChangeSkinTrouble = (event) => {
-    //     setCheckedSkinTrouble(event.target.checked);
-    //     console.log(checkedSkinTrouble)
-    //     console.log('skinTroubles')
-    //     console.log(skinTroubles)
-    //     console.log('brands')
-    //     console.log(brands)
-    // };
-    // const handleChangeCategory = (event) => {
-    //     setCheckedCategory(event.target.checked);
-    //     setSelectCategory({...selectCategory, name: event.target.value})
-    //     console.log(checkedCategory)
-    //     console.log(selectCategory)
-    // };
-    // const handleChange = (event) => {
-    //     setChecked(event.target.checked);
-    // };
 
     const handleSkinTroubleChecked = (event, id) => {
-        console.log(event.target.checked)
         if (event.target.checked) {
             setSelectedSkinTrouble([...selectedSkinTrouble, id]);
         } else {
@@ -115,7 +84,6 @@ export const ItemSearch = () => {
     }
 
     const handleCategoryChecked = (event, id) => {
-        console.log(event.target.checked)
         if (event.target.checked) {
             setSelectedCategory([...selectedCategory, id]);
         } else {
@@ -124,7 +92,6 @@ export const ItemSearch = () => {
     }
 
     const handleSafeOnlyChecked = (event) => {
-        // console.log(event.target.checked)
         if (event.target.checked) {
             setSelectedSafeOnly(1);
         } else {
@@ -133,14 +100,16 @@ export const ItemSearch = () => {
     }
 
     const handleMatchingOnlyChecked = (event) => {
-        // console.log(event.target.checked)
         if (event.target.checked) {
             setSelectedMatchingOnly(1);
         } else {
             setSelectedMatchingOnly(0);
         }
     }
-    
+
+    const handleBrandChecked = (event) => {
+        setSelectedBrand(event.target.value);
+    }
 
     const handleSearch = async () => {
         const responseItem = await axios.get('/items', {
@@ -148,9 +117,8 @@ export const ItemSearch = () => {
                 skin_trouble_id: selectedSkinTrouble,
                 category_id: selectedCategory,
                 is_safe_only: selectedSafeOnly,
-                is_matching_only: selectedMatchingOnly
-                // brand_id: ,
-
+                is_matching_only: selectedMatchingOnly,
+                brand_id: selectedBrand,
               }
         });
         const i = responseItem.data;
@@ -169,7 +137,6 @@ export const ItemSearch = () => {
                     <p>当てはまる項目をチェックして、検索するボタンをクリックして下さい。</p>
                 </div>
                 <div style={{ background: '#c8eee8af', borderRadius: '20px', padding: '20px 0', margin: '30px auto' }}>
-                {/* <div> */}
                     <h2 style={{ marginTop: '0' }}>改善したい肌の悩みはございますか？</h2>
 
                     <FormGroup sx={{ justifyContent: 'center',display: 'grid', gap: 1, gridTemplateColumns: 'repeat(5, 1fr)' }}>
@@ -184,9 +151,7 @@ export const ItemSearch = () => {
                     ))}
                     </FormGroup>
 
-                {/* </div>
-
-                <div> */}
+                
                     <h2>お探しのカテゴリーはどちらですか？</h2>
 
                     <FormGroup sx={{ justifyContent: 'center',display: 'grid', gap: 1, gridTemplateColumns: 'repeat(5, 1fr)' }}>
@@ -200,11 +165,6 @@ export const ItemSearch = () => {
                       label={category.name} />
                     ))}
                     </FormGroup>
-
-
-                {/* </div>
-
-                <div> */}
 
 
                     <h2>他に条件はありますか？</h2>
@@ -226,16 +186,7 @@ export const ItemSearch = () => {
                     </FormGroup>
 
 
-                    {/* <Checkbox
-                    checked={checked}
-                    onChange={handleChange}
-                    color="primary"
-                    inputProps={{ 'aria-label': 'primary checkbox' }}
-                    />肌に合わない成分が入っていないアイテムで探す */}
-                {/* </div>
 
-                <div> */}
-                {/* <div className={classes.SearchBox}> */}
                     <h2 style={{ marginBottom: 0 }}>ブランド名を選択すると、ブランドの中から条件に当てはまるアイテムを探すことができます。</h2>
                     <Box sx={{ width: 300 }} className={classes.SearchBox}>
                     <FormControl fullWidth>
@@ -243,12 +194,12 @@ export const ItemSearch = () => {
                         <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
-                        value={selectedBrand}
                         label="Brands"
-                        // TODO: ↓ブランド検索できるように
-                        onChange={onClickBrand}
+                        value={selectedBrand}
+                        onChange={handleBrandChecked}
                         style={{ marginRight: '10px' }}
                         >
+                        <MenuItem value={null} style={{ width: '100%' }}>選択しない</MenuItem>
                         {brands.map((brand) => (
                         <MenuItem value={brand.id} style={{ width: '100%' }}>{brand.name}</MenuItem>
                         ))}
@@ -269,16 +220,12 @@ export const ItemSearch = () => {
                     <ListSubheader component="div">条件に当てはまるアイテムが見つかりました！</ListSubheader>
                 </ImageListItem>
 
-
-
                 <Grid container spacing={1} direction="row" alignItems="center" style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
                         {item.map((item) => (
                         <Grid item xs={2}>
                             <ImageListItem key={item.img} className={classes.cardPaper}>
                             <img
                                 src={item.img}
-                                // src={`${item.img}?w=248&fit=crop&auto=format`}
-                                // srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
                                 alt={item.name}
                                 loading="lazy"
                                 style={{maxWidth: '300px', height: '100%', margin: '0 auto'}}
