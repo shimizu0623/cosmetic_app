@@ -17,11 +17,10 @@ import top_img from '../img/Whiteday2020-09.JPG';
 const useStyles = makeStyles({
     TopImg: {
         margin: '0px auto',
-        height: '400px',
+        height: '300px',
         width: '100%',
         objectFit: 'cover',
         filter: 'blur(4px)',
-      
     },
     TitleImg: {
         maxWidth: '90px',
@@ -31,7 +30,7 @@ const useStyles = makeStyles({
 
     },
     Title: {
-        fontSize: '40px',
+        fontSize: '35px',
         display: 'inline-block',
     },
     CardPaper: {
@@ -54,11 +53,6 @@ const useStyles = makeStyles({
         top: '50%',
         left: '40%',
         transform: 'translate(-30%, -50%)',
-    },
-    guideMessage: {
-        fontSize: '20px',
-        paddingBottom: '20px',
-        color: 'gray',
     },
     StyleSearch: {
         margin: '30px auto',
@@ -96,12 +90,12 @@ export const HomePage = () => {
         setId(id)
     }, [])
     
-    const userName = () => {
+    const userSkinType = () => {
         if(user === null){
             return <CircularProgress color="success" size="15px" />
         }
         return(
-                <p>{user.name}さんに</p>
+                <p>{user.skin_type_name}タイプの方に</p>
         )
     }
     const homeMessage = () => {
@@ -111,10 +105,7 @@ export const HomePage = () => {
         return(
                 <p>{user.name}さん、こんにちは！<br/>
                 最近のお肌の調子はいかがですか？<br/>
-                おすすめは、{user.name}さんのスキンタイプに合うアイテムの中から、<br/>
-                過去にお肌に合わなかった商品の<br/>
-                共通成分が含まれていないものを選んでおります。<br/>
-                {user.name}さんのお肌に合ったアイテムが見つかりますように．．</p>
+                {user.name}さんのお肌に合ったスキンケアが見つかりますように．．</p>
         )
     }
 
@@ -154,9 +145,6 @@ export const HomePage = () => {
                         {homeMessage()}
                     </div>
                 </div>
-                <div className={classes.guideMessage}>
-                    <p>スキンタイプは<Link component={RouterLink} to="/myPage">マイページ</Link>よりいつでも変更できます。</p>
-                </div>
 
             {/* search */}
             <div className={classes.StyleSearch}>
@@ -170,7 +158,7 @@ export const HomePage = () => {
                 <div className='recommend'>
                     <div className='TitleForm'>
                         <img src={green_leaf} alt="green_leaf" className={classes.TitleImg} />
-                        <p className={classes.Title}>{userName()}おすすめの化粧水</p>
+                        <p className={classes.Title}>{userSkinType()}おすすめの化粧水</p>
                     </div>
 
 
@@ -183,7 +171,7 @@ export const HomePage = () => {
                 <div className='recommend'>
                     <div className='TitleForm'>
                         <img src={green_leaf} alt="green_leaf" className={classes.TitleImg} />
-                        <p className={classes.Title}>{userName()}おすすめの乳液</p>
+                        <p className={classes.Title}>{userSkinType()}おすすめの乳液</p>
                     </div>
 
                     {recommend()}
@@ -196,7 +184,7 @@ export const HomePage = () => {
                 <div className='recommend'>
                     <div className='TitleForm'>
                         <img src={green_leaf} alt="green_leaf" className={classes.TitleImg} />
-                        <p className={classes.Title}>{userName()}おすすめの美容液</p>
+                        <p className={classes.Title}>{userSkinType()}おすすめの美容液</p>
                     </div>
 
                     {recommend()}
