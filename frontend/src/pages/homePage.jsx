@@ -74,20 +74,44 @@ const useStyles = makeStyles({
 export const HomePage = () => {
     const classes = useStyles();
     const [user, setUser] = useState(null);
-    const [item, setItem] = useState([]);
-    const [id, setId] = useState([]);
-    
+    // const [item, setItem] = useState([]);
+    const [toner, setToner] = useState([]);
+    const [emulsion, setEmulsion] = useState([]);
+    const [serum, setSerum] = useState([]);
     
     useEffect(async () => {
-        const response = await axios.get('/me')
-        const responseItem = await axios.get('/items')
-        const responseId = await axios.get('/item')
-        const u = response.data
-        const i = responseItem.data
-        const id = responseId.data
-        setUser(u)
-        setItem(i)
-        setId(id)
+        const response = await axios.get('/me');
+        const u = response.data;
+        setUser(u);
+
+        const responseToner = await axios.get('/items', {
+            params: {
+                skin_type_id: response.data.skin_type_id,
+                category_id: 3,
+            }
+        });
+        const t = responseToner.data;
+        setToner(t);
+        
+        const responseEmulsion = await axios.get('/items', {
+            params: {
+                skin_type_id: response.data.skin_type_id,
+                category_id: 5,
+            }
+        });
+        const e = responseEmulsion.data;
+        setEmulsion(e);
+
+        const responseSerum = await axios.get('/items', {
+            params: {
+                skin_type_id: response.data.skin_type_id,
+                category_id: 4,
+            }
+        });
+        const s = responseSerum.data;
+        setSerum(s);
+        console.log(serum)
+
     }, [])
     
     const userSkinType = () => {
@@ -96,7 +120,7 @@ export const HomePage = () => {
         }
         return(
                 <p>{user.skin_type_name}タイプの方に</p>
-        )
+        );
     }
     const homeMessage = () => {
         if(user === null){
@@ -109,25 +133,36 @@ export const HomePage = () => {
         )
     }
 
-    const recommend = () => {
-        if(item === null){
+    const recommendToner = () => {
+        // ↓エラーになったところUncaught Error:
+        //  Objects are not valid as a React child (found: [object Promise]). If you meant to render a collection of children, use an array instead.
+
+        // const responseItem = await axios.get('/items', {
+        //     params: {
+        //         skin_type_id: skinType,
+        //         // category_id: category,
+        //     }
+        // });
+        // const i = responseItem.data;
+        // setItem(i);
+        // console.log(item)
+        if(toner === null){
             return <CircularProgress color="success" size="15px" />
         }
         return(
             <ImageList style={{gridTemplateColumns: '1, 1fr', gap: '1'}}>
             <Grid container spacing={1} direction="row" justifyContent="center" alignItems="center">
-
-            {item.map((item) => (
-                <ImageListItem key={item.img} className={classes.CardPaper}>
+            {toner.map((toner) => (
+                <ImageListItem key={toner.img} className={classes.CardPaper}>
                 <img
-                    src={item.img}
-                    alt={item.name}
+                    src={toner.img}
+                    alt={toner.name}
                     loading="lazy"
                     style={{maxWidth: '250px', height: '100%', margin: '0 auto'}}
                 />
                 <ImageListItemBar
-                    title={id.brand}
-                    subtitle={id.name}
+                    title={toner.brand}
+                    subtitle={toner.name}
                 />
                 </ImageListItem>
             ))}
@@ -135,6 +170,71 @@ export const HomePage = () => {
             </ImageList>
         )
     }
+
+    const recommendEmulsion = () => {
+        if(emulsion === null){
+            return <CircularProgress color="success" size="15px" />
+        }
+        return(
+            <ImageList style={{gridTemplateColumns: '1, 1fr', gap: '1'}}>
+            <Grid container spacing={1} direction="row" justifyContent="center" alignItems="center">
+            {emulsion.map((emulsion) => (
+                <ImageListItem key={emulsion.img} className={classes.CardPaper}>
+                <img
+                    src={emulsion.img}
+                    alt={emulsion.name}
+                    loading="lazy"
+                    style={{maxWidth: '250px', height: '100%', margin: '0 auto'}}
+                />
+                <ImageListItemBar
+                    title={emulsion.brand}
+                    subtitle={emulsion.name}
+                />
+                </ImageListItem>
+            ))}
+            </Grid>
+            </ImageList>
+        )
+    }
+
+    const recommendSerum = () => {
+        if(serum === null){
+            return <CircularProgress color="success" size="15px" />
+        }
+        // TODO: データがなかった時はメッセージを表示させたい
+        // if(serum === []){
+        //     return(
+        //         <ImageList style={{gridTemplateColumns: '1, 1fr', gap: '1'}}>
+        //         <Grid container spacing={1} direction="row" justifyContent="center" alignItems="center">
+        //         <p>アイテムが見つかりませんでした。</p>
+        //         </Grid>
+        //         </ImageList>
+        //     )
+        // }else{
+            return(
+                <ImageList style={{gridTemplateColumns: '1, 1fr', gap: '1'}}>
+                <Grid container spacing={1} direction="row" justifyContent="center" alignItems="center">
+                {serum.map((serum) => (
+                    <ImageListItem key={serum.img} className={classes.CardPaper}>
+                    <img
+                        src={serum.img}
+                        alt={serum.name}
+                        loading="lazy"
+                        style={{maxWidth: '250px', height: '100%', margin: '0 auto'}}
+                    />
+                    <ImageListItemBar
+                        title={serum.brand}
+                        subtitle={serum.name}
+                    />
+                    </ImageListItem>
+                ))}
+                </Grid>
+                </ImageList>
+            )
+        // }   
+    }
+
+
 
     return(
         <>
@@ -160,9 +260,8 @@ export const HomePage = () => {
                         <img src={green_leaf} alt="green_leaf" className={classes.TitleImg} />
                         <p className={classes.Title}>{userSkinType()}おすすめの化粧水</p>
                     </div>
-
-
-                    {recommend()}
+                    
+                    {recommendToner()}
 
                 </div>
                 
@@ -174,7 +273,7 @@ export const HomePage = () => {
                         <p className={classes.Title}>{userSkinType()}おすすめの乳液</p>
                     </div>
 
-                    {recommend()}
+                    {recommendEmulsion()}
 
                 </div>
                 
@@ -187,7 +286,7 @@ export const HomePage = () => {
                         <p className={classes.Title}>{userSkinType()}おすすめの美容液</p>
                     </div>
 
-                    {recommend()}
+                    {recommendSerum()}
 
                 </div>
                 
