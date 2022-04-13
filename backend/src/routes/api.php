@@ -56,7 +56,7 @@ Route::middleware('auth:sanctum')->group(function(){
     // Route::get('/items/{id}', [ItemsController::class, 'show']);
     Route::get('/recommendItem', [ItemsController::class, 'recommendItem']);    
     Route::get('/item', [ItemsController::class, 'item']);    
-    Route::get('/requests', [RequestsController::class, 'index']);    
+    Route::post('/requests', [RequestsController::class, 'store']);    
     Route::get('/reasons', [ReasonsController::class, 'index']);    
     
 });
