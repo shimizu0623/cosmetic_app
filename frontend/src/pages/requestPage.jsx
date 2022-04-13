@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from '../axios';
 import header_img from '../img/headerRequest.jpg';
 import { GoBackBtn } from '../components/goBackBtn';
@@ -11,8 +11,13 @@ export const RequestPage = () => {
     const [requestForm, setRequestForm] = useState({detail:''})
     const navigate = useNavigate();
 
+    useEffect(async () => {
+      const response = await axios.get('/me')
+      setRequestForm({...requestForm, user_id: response.data.id})
+      console.log(requestForm)
+    }, [])
+    
     const handleRequestFormChange = (event) => {
-        console.log(requestForm)
         setRequestForm({...requestForm, detail: event.target.value})
       };
     
@@ -24,20 +29,15 @@ export const RequestPage = () => {
             window.alert('枠内にメッセージのご入力をお願いします。')
             return;
         }
-        console.log(requestForm.detail)
         
         try {
-          console.log('onClickSend');
-          console.log(requestForm);
           const response = await axios.post('/requests', requestForm);
-          console.log(response);
-        //   navigate("/thanks");
+          navigate("/thanks");
         } catch (e) {
           window.alert('送信に失敗しました');
           console.error(e)
           return;
         }
-        
       }
     
     return(
