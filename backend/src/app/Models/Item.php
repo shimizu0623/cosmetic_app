@@ -80,6 +80,7 @@ class Item extends Model
         if(empty($categoryIds)){
             return $query;
         }
+        // TODO: ↓複数受け取るからwhereIn?
         return $query->where('items.category_id', $categoryIds);
     }
     
@@ -90,6 +91,16 @@ class Item extends Model
         }
         return $query->where('items.brand_id', $brandIds);
     }
+
+    public function scopeWithSkinTypes($query, $skinTypeIds)
+    {
+        if(empty($skinTypeIds)){
+            return $query;
+        }
+        // TODO: ↓複数受け取るからwhereIn?
+        return $query->where('items.skin_type_id', $skinTypeIds);
+    }
+
 
     public function toArray() 
     {
