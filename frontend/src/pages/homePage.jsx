@@ -216,6 +216,7 @@ export const HomePage = () => {
                 <Grid container spacing={1} direction="row" justifyContent="center" alignItems="center">
                 {serum.map((serum) => (
                     <ImageListItem key={serum.img} className={classes.CardPaper}>
+                        {/* TODO: onClickで商品ページへ移動できるように */}
                     <img
                         src={serum.img}
                         alt={serum.name}
