@@ -50,8 +50,11 @@ Route::middleware('auth:sanctum')->group(function(){
     // Route::get('/users', [UsersController::class, 'index']);
     Route::post('/me', [UsersController::class, 'updateMe']);    
     Route::get('/me', [UsersController::class, 'me']);    
-    Route::get('/items', [ItemsController::class, 'index']);
-    Route::get('/items/{id}', [ItemsController::class, 'show']);
+    Route::get('/me/{id}', [UsersController::class, 'show']);
+    Route::resource('items', ItemsController::class, ['only' => ['index', 'show']]);  
+    // Route::get('/items', [ItemsController::class, 'index']);
+    // Route::get('/items/{id}', [ItemsController::class, 'show']);
+    Route::get('/recommendItem', [ItemsController::class, 'recommendItem']);    
     Route::get('/item', [ItemsController::class, 'item']);    
     Route::get('/requests', [RequestsController::class, 'index']);    
     Route::get('/reasons', [ReasonsController::class, 'index']);    
