@@ -2,34 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Models\Request as RequestText;
+use Illuminate\Support\Facades\Validator;
+use \Symfony\Component\HttpFoundation\Response;
 
 class RequestsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    // public function index()
-    // {
-    //     return response()->json(
-    //         RequestText::all()
-    //     );
-    // }
-    public function index(Request $request)
-    {
-        $detail = RequestText::create([
-            'detail' => $request->detail,
-        ]);
-
-        return response()->json(
-            $detail, Response::HTTP_OK
-        );
-    }
-
-
     /**
      * Store a newly created resource in storage.
      *
@@ -38,40 +18,26 @@ class RequestsController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $validator = Validator::make($request->all(),[
+            'detail' => 'required',
+            'user_id' => 'required',
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        Log::debug('before');
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        Log::debug('after');
+
+        $create = RequestText::create([
+            'detail' => $request->detail,
+            'user_id' => $request->user_id,
+        ]);
+
+        //ユーザの作成が完了するとjsonを返す
+        return response()->json($create, Response::HTTP_OK);
     }
 }
