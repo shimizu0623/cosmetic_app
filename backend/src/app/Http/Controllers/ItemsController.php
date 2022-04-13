@@ -18,6 +18,8 @@ class ItemsController extends Controller
         $skinTroubleIds = $request->query('skin_trouble_id');
         $categoryIds = $request->query('category_id');
         $brandIds = $request->query('brand_id');
+        $skinTypeIds = $request->query('skin_type_id');
+
         // $score = $request->query('score');
         $user = $request->user();
         $isMatchingOnly = $request->query('is_matching_only') === '1';
@@ -27,7 +29,9 @@ class ItemsController extends Controller
 
         $items = Item::withSkinTroubles($skinTroubleIds)
         ->withCategories($categoryIds)
-        ->withBrand($brandIds);
+        ->withBrand($brandIds)
+        ->withSkinTypes($skinTypeIds);
+
         // ->excludeUnmatched($user->id);
         // ->withEwgScore(1)
         // ->get();
@@ -48,8 +52,6 @@ class ItemsController extends Controller
         $items = $items->get(['items.*']);
 
         return response()->json(
-            // $items //画面に表示されるアイテム
-
             $items->map(function ($item) {
                 return $item->toArray();
             })
@@ -71,17 +73,6 @@ class ItemsController extends Controller
                 'img' => $item->img,
             ]
         );
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -109,26 +100,4 @@ class ItemsController extends Controller
         );
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }
