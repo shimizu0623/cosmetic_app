@@ -135,6 +135,8 @@ export const ItemSearch = () => {
                 <div style={{ margin: '30px auto' }}>
                     <p>ここでは条件検索をすることができます。</p>
                     <p>当てはまる項目をチェックして、検索するボタンをクリックして下さい。</p>
+                    {/* TODO: <p>肌に合わなかったアイテムは各商品ページより登録できます。</p> */}
+
                 </div>
                 <div style={{ background: '#c8eee8af', borderRadius: '20px', padding: '20px 0', margin: '30px auto' }}>
                     <h2 style={{ marginTop: '0' }}>改善したい肌の悩みはございますか？</h2>
