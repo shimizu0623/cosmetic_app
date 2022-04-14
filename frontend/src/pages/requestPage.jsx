@@ -63,7 +63,6 @@ export const RequestPage = () => {
                 </div>
             </div>
 
-            {/* TODO: リクエストデータベースに登録する */}
             <Btn 
               onClick={onClickSend} 
               message='リクエストを送信する' 
