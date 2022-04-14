@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\UserFavoriteItem;
+use App\Models\Item;
+use Illuminate\Support\Facades\Validator;
+use \Symfony\Component\HttpFoundation\Response;
 
 class UserFavoriteItemsController extends Controller
 {
@@ -11,10 +15,17 @@ class UserFavoriteItemsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $user = $request->user();
+
+        $favorites = Item::userFavoriteOnly($user->id)
+        ->get();
+
         return response()->json(
-            UserFavoriteItem::all()
+            $favorites->map(function ($favorite) {
+                return $favorite->toArrayFavorite();
+            })
         );
     }
 
@@ -26,7 +37,27 @@ class UserFavoriteItemsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'user_id' => 'required',
+            'item_id' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        // $favorite = UserFavoriteItem::create([
+        //     'user_id' => $request->user_id,
+        //     'item_id' => $request->item_id,
+        // ]);
+
+        $create = UserFavoriteItem::create([
+            'user_id' => $request->user_id,
+            'item_id' => $request->item_id,
+        ]);
+
+        return response()->json($create, Response::HTTP_OK);
+
     }
 
     /**
