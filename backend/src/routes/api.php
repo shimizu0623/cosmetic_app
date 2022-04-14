@@ -16,6 +16,7 @@ use App\Http\Controllers\GendersController;
 use App\Http\Controllers\SkinTroublesController;
 use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\UserContactsController;
+use App\Http\Controllers\UserFavoriteItemsController;
 use App\Http\Controllers\UserItemsController;
 use App\Http\Controllers\RequestsController;
 use App\Http\Controllers\ReasonsController;
@@ -46,6 +47,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/skin_troubles', [SkinTroublesController::class, 'index']);
     Route::get('/contacts', [ContactsController::class, 'index']);
     Route::get('/user_contacts', [UserContactsController::class, 'index']);
+    Route::get('/user_favorites', [UserFavoriteItemsController::class, 'index']);
     Route::get('/user_items', [UserItemsController::class, 'index']);
     // Route::get('/users', [UsersController::class, 'index']);
     Route::post('/me', [UsersController::class, 'updateMe']);    
