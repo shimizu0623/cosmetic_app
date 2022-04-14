@@ -34,24 +34,24 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-
+// TODO: ↓？
 const theme = createTheme();
 
 export const FixAccount = () => {
   const classes = useStyles();
-  const [genders, setGenders] = useState(null);
+  // const [genders, setGenders] = useState(null);
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
 
   useEffect(async () => {
-    const responseGenders = await axios.get('/genders')
+    // const responseGenders = await axios.get('/genders')
     const response = await axios.get('/me')
-    const g = responseGenders.data
+    // const g = responseGenders.data
     const u = response.data
-    setGenders(g)
+    // setGenders(g)
     setUser(u)
-    console.log(genders)
+    // console.log(genders)
     console.log(user)
   }, [])
 
