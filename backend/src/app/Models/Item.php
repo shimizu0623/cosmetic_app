@@ -80,7 +80,7 @@ class Item extends Model
         if(empty($categoryIds)){
             return $query;
         }
-        // TODO: ↓複数受け取るからwhereIn?
+        // TODO: ↓複数[]で受け取るからwhereIn?
         return $query->where('items.category_id', $categoryIds);
     }
     
@@ -97,7 +97,7 @@ class Item extends Model
         if(empty($skinTypeIds)){
             return $query;
         }
-        // TODO: ↓複数受け取るからwhereIn?
+        // TODO: ↓複数[]で受け取るからwhereIn?
         return $query->where('items.skin_type_id', $skinTypeIds);
     }
 
@@ -111,5 +111,44 @@ class Item extends Model
           'img' => $this->img,
         ];
     }
+
+
+
+
+
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function scopeUserFavoriteOnly($query, $userId)
+    {
+        return $query
+        ->leftJoin('user_favorite_items', function($join) use ($userId)
+        {
+            $join->on('items.id', '=', 'user_favorite_items.item_id');
+            $join->where('user_favorite_items.user_id', '=', $userId);
+        })
+        ->where('user_favorite_items.item_id', '!=', NULL);
+        // TODO: ↑複数[]で受け取るからwhereIn?
+    }
+
+    public function toArrayFavorite()
+    {
+        return[
+            'id' => $this->id,
+            'user' => $this->user->name,
+            'name' => $this->name,
+            'img' => $this->img,
+            'brand' => $this->brand,
+        ];
+    }
+
+
+
+
+
+
 
 }
