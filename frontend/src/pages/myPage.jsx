@@ -105,36 +105,16 @@ const useStyles = makeStyles({
 
 })
 
-const onClickNormalSkin = () => {
-    console.log('DrySkin')
-    alert("スキンタイプをNormalSkinに変更しました")
+const handleRight = () => {
+    console.log('handleRight');
 }
-const onClickInnerDrySkin = () => {
-    console.log('DrySkin')
-    alert("スキンタイプをInnerDrySkinに変更しました")
+const handleLeft = () => {
+    console.log('handleLeft');
 }
-const onClickDrySkin = () => {
-    console.log('DrySkin')
-    alert("スキンタイプをDrySkinに変更しました")
-}
-const onClickOilySkin = () => {
-    console.log('OilySkin')
-    alert("スキンタイプをOilySkinに変更しました")
-}
-const onClickCombinationSkin = () => {
-    console.log('CombinationSkin')
-    alert("スキンタイプをCombinationSkinに変更しました")
-}
-const onClickSensitiveSkin = () => {
-    console.log('SensitiveSkin')
-    alert("スキンタイプをSensitiveSkinに変更しました")
-}
-const onClickRight = () => {
-    console.log('onClickRight')
-}
-const onClickLeft = () => {
-    console.log('onClickLeft')
-}
+
+// const handleSkinTypeChange = () => {
+    
+// }
 
 
 export const MyPage = () => {
@@ -143,34 +123,141 @@ export const MyPage = () => {
     const [item, setItem] = useState(null);
 
     useEffect(async () => {
-        const response = await axios.get('/me')
-        const u = response.data
-        setUser(u)
+        const response = await axios.get('/me');
+        const responseItem = await axios.get('/item');
+        const u = response.data;
+        const i = responseItem.data;
+        setUser(u);
+        setItem(i);
     }, [])
+
+    // TODO: skinType変更ゆっくり2回くらい押さないと変更されない
+    const handleNormalSkin = async () => {
+        console.log('normal')
+        setUser({...user, skin_type_id: 1});
+        console.log(user)
+        try {
+            console.log(user);
+            const response = await axios.post('/me', user);
+            console.log(response);
+            window.alert('スキンタイプをNormalSkinに変更しました');
+            const responseNewUser = await axios.get('/me');
+            const u = responseNewUser.data;
+            setUser(u);
+          } catch (e) {
+            window.alert('変更できませんでした');
+            console.error(e)
+            return;
+          }
+    }
+    const handleInnerDrySkin = async () => {
+        console.log('InnerDry')
+        setUser({...user, skin_type_id: 2});
+        console.log(user);
+            try {
+                console.log(user);
+                const response = await axios.post('/me', user);
+                console.log(response);
+                window.alert('スキンタイプをInnerDrySkinに変更しました');
+                const responseNewUser = await axios.get('/me');
+                const u = responseNewUser.data;
+                setUser(u);
+              } catch (e) {
+                window.alert('変更できませんでした');
+                console.error(e)
+                return;
+              }
+    }
+    const handleDrySkin = async () => {
+        console.log('DrySkin');
+        setUser({...user, skin_type_id: 3});
+        console.log(user);
+            try {
+                console.log(user);
+                const response = await axios.post('/me', user);
+                console.log(response);
+                window.alert('スキンタイプをDrySkinに変更しました');
+                const responseNewUser = await axios.get('/me');
+                const u = responseNewUser.data;
+                setUser(u);
+              } catch (e) {
+                window.alert('変更できませんでした');
+                console.error(e)
+                return;
+              }
+    }
+    const handleOilySkin = async () => {
+        console.log('OilySkin')
+        setUser({...user, skin_type_id: 4});
+        console.log(user);
+            try {
+                console.log(user);
+                const response = await axios.post('/me', user);
+                console.log(response);
+                window.alert('スキンタイプをOilySkinに変更しました');
+                const responseNewUser = await axios.get('/me');
+                const u = responseNewUser.data;
+                setUser(u);
+              } catch (e) {
+                window.alert('変更できませんでした');
+                console.error(e)
+                return;
+              }
+    }
+    const handleCombinationSkin = async () => {
+        console.log('CombinationSkin');
+        setUser({...user, skin_type_id: 5});
+        console.log(user);
+            try {
+                console.log(user);
+                const response = await axios.post('/me', user);
+                console.log(response);
+                window.alert('スキンタイプをCombinationSkinに変更しました');
+                const responseNewUser = await axios.get('/me');
+                const u = responseNewUser.data;
+                setUser(u);
+              } catch (e) {
+                window.alert('変更できませんでした');
+                console.error(e)
+                return;
+              }
+    }
+    const handleSensitiveSkin = async () => {
+        console.log('SensitiveSkin');
+        setUser({...user, skin_type_id: 6});
+        console.log(user);
+            try {
+                console.log(user);
+                const response = await axios.post('/me', user);
+                console.log(response);
+                window.alert('スキンタイプをSensitiveSkinに変更しました');
+                const responseNewUser = await axios.get('/me');
+                const u = responseNewUser.data;
+                setUser(u);
+              } catch (e) {
+                window.alert('変更できませんでした');
+                console.error(e)
+                return;
+              }
+    }
     
-    
-    useEffect(async () => {
-        const response = await axios.get('/item')
-        const i = response.data
-        setItem(i)
-    }, [])
 
 
     const userInformation = () => {
-            if(user === null){
-                return <CircularProgress color="success" size="35px" />
-            }
-            return(
-                <div style={{margin: 'auto 0', width: '400px'}}>
-                    <p style={{ fontSize: '30px', marginBottom: '15px' }}>{user.name}</p>
-                    <p>{user.birthday_string}/{user.gender_name}</p>
-                    <p>{user.skin_type_name}</p>
-                </div>
-            )
+        if (user === null){
+            return <CircularProgress color="success" size="35px" />
+        }
+        return(
+            <div style={{margin: 'auto 0', width: '400px'}}>
+                <p style={{ fontSize: '30px', marginBottom: '15px' }}>{user.name}</p>
+                <p>{user.birthday_string}/{user.gender_name}</p>
+                <p>{user.skin_type_name}</p>
+            </div>
+        )
     }
     
     const itemName = () => {
-        if(item === null){
+        if (item === null){
             return <CircularProgress color="success" size="15px" />
         }
         return(
@@ -178,7 +265,7 @@ export const MyPage = () => {
         )
     }
     const itemBrand = () => {
-        if(item === null){
+        if (item === null){
             return <CircularProgress color="success" size="15px" />
         }
         return(
@@ -186,7 +273,7 @@ export const MyPage = () => {
         )
     }
     // const itemPrice = () => {
-    //     if(item === null){
+    //     if (item === null){
     //         return <CircularProgress color="success" size="15px" />
     //     }
     //     return(
@@ -194,7 +281,7 @@ export const MyPage = () => {
     //     )
     // }
     const itemImg = () => {
-        if(item === null){
+        if (item === null){
             return <CircularProgress color="success" size="15px" />
         }
         return(
@@ -228,10 +315,10 @@ export const MyPage = () => {
                         },
                     }}
                     >
-                        {/* TODO: skinTypeのImgを追加して、↓の処理ひとつにまとめる */}
+                        {/* TODO: ↓の処理ひとつにまとめる */}
                         <Paper 
                             className={classes.skinPaper}
-                            onClick={onClickNormalSkin} 
+                            onClick={handleNormalSkin} 
                             style={{
                                 borderRadius: '50%', 
                                 backgroundImage: `url(${normal_skin_img})`
@@ -241,7 +328,7 @@ export const MyPage = () => {
                         </Paper>
                         <Paper 
                             className={classes.skinPaper}
-                            onClick={onClickInnerDrySkin} 
+                            onClick={handleInnerDrySkin} 
                             style={{
                                 borderRadius: '50%', 
                                 backgroundImage: `url(${innerDry_skin_img})`
@@ -251,7 +338,7 @@ export const MyPage = () => {
                         </Paper>
                         <Paper 
                             className={classes.skinPaper}
-                            onClick={onClickDrySkin} 
+                            onClick={handleDrySkin} 
                             style={{
                                 borderRadius: '50%', 
                                 backgroundImage: `url(${dry_skin_img})`
@@ -261,17 +348,17 @@ export const MyPage = () => {
                         </Paper>
                         <Paper 
                             className={classes.skinPaper}
-                            onClick={onClickOilySkin} 
+                            onClick={handleOilySkin} 
                             style={{
                                 borderRadius: '50%', 
                                 backgroundImage: `url(${oily_skin_img})`
-                                }}                
+                                }}
                         >
                             <p className={classes.p}>Oily</p>
                         </Paper>
                         <Paper 
                             className={classes.skinPaper}
-                            onClick={onClickCombinationSkin}  
+                            onClick={handleCombinationSkin}  
                             style={{
                                 borderRadius: '50%', 
                                 backgroundImage: `url(${combination_skin_img})`
@@ -281,7 +368,7 @@ export const MyPage = () => {
                         </Paper>
                         <Paper 
                             className={classes.skinPaper} 
-                            onClick={onClickSensitiveSkin}
+                            onClick={handleSensitiveSkin}
                             style={{
                                 borderRadius: '50%', 
                                 backgroundImage: `url(${sensitive_skin_img})`
@@ -303,7 +390,7 @@ export const MyPage = () => {
                     <ListSubheader component="div">お気に入りに登録中のアイテム</ListSubheader>
                 </ImageListItem>
 
-                <img src={leftArrow_img} className={classes.arrow} onClick={onClickLeft} />
+                <img src={leftArrow_img} className={classes.arrow} onClick={handleLeft} />
                 {itemData.map((item) => (
                     <ImageListItem key={item.img} className={classes.cardPaper}>
                     <img
@@ -318,7 +405,7 @@ export const MyPage = () => {
                     />
                     </ImageListItem>
                 ))}
-                <img src={rightArrow_img} className={classes.arrow} onClick={onClickRight} />
+                <img src={rightArrow_img} className={classes.arrow} onClick={handleRight} />
                 </ImageList>
 
             </div>
@@ -334,7 +421,7 @@ export const MyPage = () => {
                     <ListSubheader component="div">最近チェックしたアイテム</ListSubheader>
                 </ImageListItem>
 
-                <img src={leftArrow_img} className={classes.arrow} onClick={onClickLeft} />
+                <img src={leftArrow_img} className={classes.arrow} onClick={handleLeft} />
                 {itemData.map((item) => (
                     <ImageListItem key={item.img} className={classes.cardPaper}>
                     <img
@@ -349,7 +436,7 @@ export const MyPage = () => {
                     />
                     </ImageListItem>
                 ))}
-                <img src={rightArrow_img} className={classes.arrow} onClick={onClickRight} />
+                <img src={rightArrow_img} className={classes.arrow} onClick={handleRight} />
                 </ImageList>
             </div>
             
@@ -432,37 +519,4 @@ const itemData = [
     //   cols: 2,
     //   featured: true,
     },
-    // {
-    //   img: 'https://source.unsplash.com/random',
-    //   brand: 'Dior',
-    //   name: 'skinToner',
-    // },
-    // {
-    //   img: 'https://source.unsplash.com/random',
-    //   brand: 'Dior',
-    //   name: 'washCream',
-    // },
-    // {
-    //   img: 'https://source.unsplash.com/random',
-    //   brand: 'Dior',
-    //   name: 'serum',
-    //   rows: 2,
-    //   cols: 2,
-    // },
-    // {
-    //   img: 'https://source.unsplash.com/random',
-    //   brand: 'Dior',
-    //   name: 'cream',
-    // },
-    // {
-    //   img: 'https://source.unsplash.com/random',
-    //   brand: 'Dior',
-    //   name: 'skinToner',
-    // },
-    // {
-    //   img: 'https://source.unsplash.com/random',
-    //   brand: 'Dior',
-    //   name: 'serum',
-    // //   cols: 2,
-    // },
   ];
