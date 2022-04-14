@@ -38,27 +38,27 @@ Route::post('/logout', [LoginController::class, 'logout']);
 
 Route::middleware('auth:sanctum')->group(function(){
     
-    Route::get('/skin_types', [SkinTypeController::class, 'index']);
-    Route::get('/brands', [BrandsController::class, 'index']);
-    Route::get('/categories', [CategoriesController::class, 'index']);
-    Route::get('/ingredients', [IngredientsController::class, 'index']);
-    Route::get('/item_ingredients', [ItemIngredientsController::class, 'index']);
-    Route::get('/genders', [GendersController::class, 'index']);
-    Route::get('/skin_troubles', [SkinTroublesController::class, 'index']);
-    Route::get('/contacts', [ContactsController::class, 'index']);
-    Route::get('/user_contacts', [UserContactsController::class, 'index']);
-    Route::get('/user_favorites', [UserFavoriteItemsController::class, 'index']);
-    Route::get('/user_items', [UserItemsController::class, 'index']);
     // Route::get('/users', [UsersController::class, 'index']);
     Route::post('/me', [UsersController::class, 'updateMe']);    
     Route::get('/me', [UsersController::class, 'me']);    
     Route::get('/me/{id}', [UsersController::class, 'show']);
+    Route::resource('skin_types', SkinTypeController::class, ['only' => ['index']]);
+    Route::resource('brands', BrandsController::class, ['only' => ['index']]);
+    Route::resource('categories', CategoriesController::class, ['only' => ['index']]);
+    Route::resource('ingredients', IngredientsController::class, ['only' => ['index']]);
+    Route::resource('item_ingredients', ItemIngredientsController::class, ['only' => ['index']]);
+    Route::resource('genders', GendersController::class, ['only' => ['index']]);
+    Route::resource('skin_troubles', SkinTroublesController::class, ['only' => ['index']]);
+    Route::resource('contacts', ContactsController::class, ['only' => ['index']]);
+    Route::resource('user_contacts', UserContactsController::class, ['only' => ['index']]);
+    Route::resource('user_favorites', UserFavoriteItemsController::class, ['only' => ['index']]);
+    Route::resource('user_items', UserItemsController::class, ['only' => ['index']]);
     Route::resource('items', ItemsController::class, ['only' => ['index', 'show']]);  
     // Route::get('/items', [ItemsController::class, 'index']);
     // Route::get('/items/{id}', [ItemsController::class, 'show']);
-    Route::get('/recommendItem', [ItemsController::class, 'recommendItem']);    
-    Route::get('/item', [ItemsController::class, 'item']);    
-    Route::post('/requests', [RequestsController::class, 'store']);    
-    Route::get('/reasons', [ReasonsController::class, 'index']);    
+    Route::resource('recommendItem', ItemsController::class, ['only' => ['recommendItem']]);    
+    Route::resource('item', ItemsController::class, ['only' => ['item']]);    
+    Route::resource('requests', RequestsController::class, ['only' => ['store']]);    
+    Route::resource('reasons', ReasonsController::class, ['only' => ['index']]);    
     
 });
