@@ -134,17 +134,31 @@ class Item extends Model
         // TODO: ↑複数[]で受け取るからwhereIn?
     }
 
-    public function toArrayFavorite()
-    {
-        return[
-            'id' => $this->id,
-            'user' => $this->user->name,
-            'name' => $this->name,
-            'img' => $this->img,
-            'brand' => $this->brand,
-        ];
-    }
+    // public function toArrayFavorite()
+    // {
+    //     return[
+    //         'id' => $this->id,
+    //         'user' => $this->user->name,
+    //         'name' => $this->name,
+    //         'brand' => $this->brand,
+    //         'img' => $this->img,
+    //     ];
+    // }
 
+
+
+
+    public function scopeUserHistory($query, $userId)
+    {
+        return $query
+        ->leftJoin('user_histories', function($join) use ($userId)
+        {
+            $join->on('items.id', '=', 'user_histories.item_id');
+            $join->where('user_histories.user_id', '=', $userId);
+        })
+        ->where('user_histories.item_id', '!=', NULL);
+        // TODO: ↑複数[]で受け取るからwhereIn?
+    }
 
 
 
