@@ -24,7 +24,7 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import ListSubheader from '@mui/material/ListSubheader';
-
+import Grid from '@mui/material/Grid';
 
 const useStyles = makeStyles({
     menu: {
@@ -49,9 +49,17 @@ const useStyles = makeStyles({
     header: {
         width: '100%',
     },
-    arrow: {
+    rightArrow: {
         maxWidth: '50px',
-        margin: 'auto 0',
+        margin: 'auto 0 auto auto',
+        '&:hover':{
+            cursor: 'pointer',
+            opacity: '0.6',
+        }
+    },
+    leftArrow: {
+        maxWidth: '50px',
+        margin: 'auto  auto auto 0',
         '&:hover':{
             cursor: 'pointer',
             opacity: '0.6',
@@ -410,66 +418,85 @@ export const MyPage = () => {
             <div className='favorite'>
                 <img src={leaf_favorite_img} alt="leaf_favorite_img" className={classes.img}/>
                 
-                <ImageList>
-                <ImageListItem key="Subheader" cols={8}>
+                <ImageList style={{ width: '100%', gridTemplateColumns: 'repeat(1, 1fr)' }}>
+                <ImageListItem key="Subheader" cols={2}>
                     <ListSubheader component="div">お気に入りに登録中のアイテム</ListSubheader>
                 </ImageListItem>
 
-                <img src={leftArrow_img} className={classes.arrow} onClick={handleLeft} />
+                <Grid container spacing={1} direction="row" alignItems="center" style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
+                <img src={leftArrow_img} className={classes.leftArrow} onClick={handleLeft} />
+                        {favorites.map((favorite) => (
+                        <Grid m={1}>
+                            <ImageListItem key={favorite.img} className={classes.cardPaper}>
+                            <img
+                                src={favorite.img}
+                                alt={favorite.name}
+                                loading="lazy"
+                                style={{maxWidth: '300px', height: '100%', margin: '0 auto'}}
+                            />
+                            <ImageListItemBar
+                                title={favorite.brand}
+                                subtitle={favorite.name}
+                            />
+                            </ImageListItem>
+                        </Grid>
+                        ))}
+                        <img src={rightArrow_img} className={classes.rightArrow} onClick={handleRight} />
+                </Grid>
 
-                {/* {favoriteItems()} */}
-                {favorites.map((favorite) => (
-                <ImageListItem key={favorite.img} className={classes.cardPaper}>
-                <img
-                    src={favorite.img}
-                    // srcSet={`${favorite.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                    alt={favorite.name}
-                    loading="lazy"
-                />
-                <ImageListItemBar
-                    title={favorite.brand}
-                    subtitle={favorite.name}
-                />
-                </ImageListItem>
-                ))}
-
-
-                <img src={rightArrow_img} className={classes.arrow} onClick={handleRight} />
                 </ImageList>
 
             </div>
             
 {/* history */}
-
-
             <div className='history'>
                 <img src={leaf_history_img} alt="leaf_history_img" className={classes.img}/>
                 
-                <ImageList>
-                <ImageListItem key="Subheader" cols={8}>
+                <ImageList style={{ width: '100%', gridTemplateColumns: 'repeat(1, 1fr)' }}>
+                <ImageListItem key="Subheader" cols={2}>
                     <ListSubheader component="div">最近チェックしたアイテム</ListSubheader>
                 </ImageListItem>
 
-                <img src={leftArrow_img} className={classes.arrow} onClick={handleLeft} />
 
 
-                {histories.map((history) => (
+                {/* {histories.map((history) => (
                     <ImageListItem key={history.img} className={classes.cardPaper}>
                     <img
-                        src={history.img}
-                        // srcSet={`${history.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                        alt={history.name}
-                        loading="lazy"
+                    src={history.img}
+                    // srcSet={`${history.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                    alt={history.name}
+                    loading="lazy"
                     />
                     <ImageListItemBar
-                        title={history.brand}
-                        subtitle={history.name}
+                    title={history.brand}
+                    subtitle={history.name}
                     />
                     </ImageListItem>
-                ))}
+                    ))}
+                */}
 
+                
+                <Grid container spacing={1} direction="row" alignItems="center" style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
+                <img src={leftArrow_img} className={classes.leftArrow} onClick={handleLeft} />
+                        {histories.map((history) => (
+                        <Grid m={1}>
+                            <ImageListItem key={history.img} className={classes.cardPaper}>
+                            <img
+                                src={history.img}
+                                alt={history.name}
+                                loading="lazy"
+                                style={{maxWidth: '300px', height: '100%', margin: '0 auto'}}
+                            />
+                            <ImageListItemBar
+                                title={history.brand}
+                                subtitle={history.name}
+                            />
+                            </ImageListItem>
+                        </Grid>
+                        ))}
+                        <img src={rightArrow_img} className={classes.rightArrow} onClick={handleRight} />
+                </Grid>
 
-                <img src={rightArrow_img} className={classes.arrow} onClick={handleRight} />
                 </ImageList>
             </div>
             
@@ -512,44 +539,3 @@ export const MyPage = () => {
         </>
     )
 }
-
-// const itemData = [
-//     {
-//       img: 'https://source.unsplash.com/random',
-//       brand: 'Dior',
-//       name: 'emulsion',
-//     //   rows: 2,
-//     //   cols: 2,
-//     //   featured: true,
-//     },
-//     {
-//       img: 'https://source.unsplash.com/random',
-//       brand: 'Dior',
-//       name: 'cream',
-//     },
-//     {
-//       img: 'https://source.unsplash.com/random',
-//       brand: 'Dior',
-//       name: 'skinToner',
-//     },
-//     {
-//       img: 'https://source.unsplash.com/random',
-//       brand: 'Dior',
-//       name: 'skinToner',
-//     //   cols: 2,
-//     },
-//     {
-//       img: 'https://source.unsplash.com/random',
-//       brand: 'Dior',
-//       name: 'skinToner',
-//     //   cols: 2,
-//     },
-//     {
-//       img: 'https://source.unsplash.com/random',
-//       brand: 'Dior',
-//       name: 'emulsion',
-//     //   rows: 2,
-//     //   cols: 2,
-//     //   featured: true,
-//     },
-//   ];
