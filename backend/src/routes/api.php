@@ -17,6 +17,7 @@ use App\Http\Controllers\SkinTroublesController;
 use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\UserContactsController;
 use App\Http\Controllers\UserFavoriteItemsController;
+use App\Http\Controllers\UserHistoriesController;
 use App\Http\Controllers\UserItemsController;
 use App\Http\Controllers\RequestsController;
 use App\Http\Controllers\ReasonsController;
@@ -51,14 +52,15 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::resource('skin_troubles', SkinTroublesController::class, ['only' => ['index']]);
     Route::resource('contacts', ContactsController::class, ['only' => ['index']]);
     Route::resource('user_contacts', UserContactsController::class, ['only' => ['index']]);
-    Route::resource('user_favorites', UserFavoriteItemsController::class, ['only' => ['index']]);
+    Route::resource('user_favorites', UserFavoriteItemsController::class, ['only' => ['index', 'store', 'destroy']]);
+    Route::resource('user_histories', UserHistoriesController::class, ['only' => ['index']]);
     Route::resource('user_items', UserItemsController::class, ['only' => ['index']]);
     Route::resource('items', ItemsController::class, ['only' => ['index', 'show']]);  
     // Route::get('/items', [ItemsController::class, 'index']);
     // Route::get('/items/{id}', [ItemsController::class, 'show']);
-    Route::resource('recommendItem', ItemsController::class, ['only' => ['recommendItem']]);    
-    Route::resource('item', ItemsController::class, ['only' => ['item']]);    
-    Route::resource('requests', RequestsController::class, ['only' => ['store']]);    
-    Route::resource('reasons', ReasonsController::class, ['only' => ['index']]);    
+    Route::get('recommendItem', [ItemsController::class, 'recommendItem']);
+    Route::get('item', [ItemsController::class, 'item']);
+    Route::resource('requests', RequestsController::class, ['only' => ['store']]);
+    Route::resource('reasons', ReasonsController::class, ['only' => ['index']]);
     
 });
