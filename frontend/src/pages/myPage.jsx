@@ -1,3 +1,4 @@
+// MEMO: スタイル調整済
 import React, {useState, useEffect} from 'react';
 import axios from '../axios';
 
@@ -18,13 +19,13 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Link from '@material-ui/core/Link';
 import { Link as RouterLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
+import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { Paper } from '@mui/material';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import ListSubheader from '@mui/material/ListSubheader';
-import Grid from '@mui/material/Grid';
 
 const useStyles = makeStyles({
     menu: {
@@ -68,9 +69,6 @@ const useStyles = makeStyles({
     skinTypeForm: {
         margin: '0 auto',
     },
-    // skinType: {
-    //     // maxWidth: '500px',
-    // },
     skinPaper: {
         backgroundSize: "90px auto",
         margin: '0 20px 10px',
@@ -88,11 +86,6 @@ const useStyles = makeStyles({
         lineHeight:'90px',
         textShadow: '0 -1px 0 #cdeef1',
     },
-    // cardBox: {
-    //     maxWidth: '800px',
-    //     margin: '0 auto',
-
-    // },
     cardPaper: {
 
         '&:hover':{
@@ -105,13 +98,7 @@ const useStyles = makeStyles({
         justifyContent: 'center',
         padding: '30px 0 0 0',
     },
-    // styleChild: {
-    //     // flexGrow: '1',
-    //     maxWidth: '200px',
-    //     margin: 'auto 30px',
-    // }
-
-})
+});
 
 const handleRight = () => {
     console.log('handleRight');
@@ -145,7 +132,7 @@ export const MyPage = () => {
         // const f = responseFavorite.data;
         // setItem(i);
         // setFavorites(f);
-        // console.log(favorites)
+        // console.log(favorites);
         // const responseFavorite = await axios.get('/user_favorites', {
             //     params: {
                 //         user_id: userId,  
@@ -165,25 +152,25 @@ export const MyPage = () => {
 
     // TODO: skinType変更ゆっくり2回くらい押さないと変更されない
     const handleNormalSkin = async () => {
-        console.log('normal')
+        console.log('normal');
         setUser({...user, skin_type_id: 1});
-        console.log(user)
-        try {
-            console.log(user);
-            const response = await axios.post('/me', user);
-            console.log(response);
-            window.alert('スキンタイプをNormalSkinに変更しました');
-            const responseNewUser = await axios.get('/me');
-            const u = responseNewUser.data;
-            setUser(u);
-          } catch (e) {
-            window.alert('変更できませんでした');
-            console.error(e)
-            return;
-          }
+        console.log(user);
+            try {
+                console.log(user);
+                const response = await axios.post('/me', user);
+                console.log(response);
+                window.alert('スキンタイプをNormalSkinに変更しました');
+                const responseNewUser = await axios.get('/me');
+                const u = responseNewUser.data;
+                setUser(u);
+              } catch (e) {
+                window.alert('変更できませんでした');
+                console.error(e);
+                return;
+              }
     }
     const handleInnerDrySkin = async () => {
-        console.log('InnerDry')
+        console.log('InnerDry');
         setUser({...user, skin_type_id: 2});
         console.log(user);
             try {
@@ -196,7 +183,7 @@ export const MyPage = () => {
                 setUser(u);
               } catch (e) {
                 window.alert('変更できませんでした');
-                console.error(e)
+                console.error(e);
                 return;
               }
     }
@@ -214,12 +201,12 @@ export const MyPage = () => {
                 setUser(u);
               } catch (e) {
                 window.alert('変更できませんでした');
-                console.error(e)
+                console.error(e);
                 return;
               }
     }
     const handleOilySkin = async () => {
-        console.log('OilySkin')
+        console.log('OilySkin');
         setUser({...user, skin_type_id: 4});
         console.log(user);
             try {
@@ -232,7 +219,7 @@ export const MyPage = () => {
                 setUser(u);
               } catch (e) {
                 window.alert('変更できませんでした');
-                console.error(e)
+                console.error(e);
                 return;
               }
     }
@@ -250,7 +237,7 @@ export const MyPage = () => {
                 setUser(u);
               } catch (e) {
                 window.alert('変更できませんでした');
-                console.error(e)
+                console.error(e);
                 return;
               }
     }
@@ -268,7 +255,7 @@ export const MyPage = () => {
                 setUser(u);
               } catch (e) {
                 window.alert('変更できませんでした');
-                console.error(e)
+                console.error(e);
                 return;
               }
     }
@@ -280,7 +267,7 @@ export const MyPage = () => {
             return <CircularProgress color="success" size="35px" />
         }
         return(
-            <div style={{margin: 'auto 0', width: '400px'}}>
+            <div style={{ margin: 'auto 0', width: '400px' }}>
                 <p style={{ fontSize: '30px', marginBottom: '15px' }}>{user.name}</p>
                 <p>{user.birthday_string}/{user.gender_name}</p>
                 <p>{user.skin_type_name}</p>
@@ -329,15 +316,13 @@ export const MyPage = () => {
             <GoBackBtn />
             <img src={header_img} alt="header" className={classes.header}/>
             
-            
             <div className={classes.styleParent}>
 
                 {userInformation()}
                 
                 <div className={classes.skinTypeForm}>
-                    <p style={{marginBottom: '20px'}}>＜自分のスキンタイプを変更する＞</p>
+                    <p style={{ marginBottom: '20px' }}>＜自分のスキンタイプを変更する＞</p>
                     <Box
-                    // className={classes.skinType}
                     sx={{
                         display: 'flex',
                         flexWrap: 'wrap',
@@ -385,7 +370,7 @@ export const MyPage = () => {
                             style={{
                                 borderRadius: '50%', 
                                 backgroundImage: `url(${oily_skin_img})`
-                                }}
+                            }}
                         >
                             <p className={classes.p}>Oily</p>
                         </Paper>
@@ -395,7 +380,7 @@ export const MyPage = () => {
                             style={{
                                 borderRadius: '50%', 
                                 backgroundImage: `url(${combination_skin_img})`
-                                }}
+                            }}
                         >
                             <p className={classes.p}>Combination</p>
                         </Paper>
@@ -405,7 +390,7 @@ export const MyPage = () => {
                             style={{
                                 borderRadius: '50%', 
                                 backgroundImage: `url(${sensitive_skin_img})`
-                                }}
+                            }}
                         >
                             <p className={classes.p}>Sensitive</p>
                         </Paper>
@@ -414,95 +399,72 @@ export const MyPage = () => {
             </div>
 
 {/* favorite */}
-
             <div className='favorite'>
-                <img src={leaf_favorite_img} alt="leaf_favorite_img" className={classes.img}/>
-                
+                <img src={leaf_favorite_img} alt="leaf_favorite_img" className={classes.img}/>                
                 <ImageList style={{ width: '100%', gridTemplateColumns: 'repeat(1, 1fr)' }}>
                 <ImageListItem key="Subheader" cols={2}>
                     <ListSubheader component="div">お気に入りに登録中のアイテム</ListSubheader>
                 </ImageListItem>
 
+                {/* {favoriteItems()} */}
+
                 <Grid container spacing={1} direction="row" alignItems="center" style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
-                <img src={leftArrow_img} className={classes.leftArrow} onClick={handleLeft} />
-                        {favorites.map((favorite) => (
-                        <Grid m={1}>
-                            <ImageListItem key={favorite.img} className={classes.cardPaper}>
-                            <img
-                                src={favorite.img}
-                                alt={favorite.name}
-                                loading="lazy"
-                                style={{maxWidth: '300px', height: '100%', margin: '0 auto'}}
-                            />
-                            <ImageListItemBar
-                                title={favorite.brand}
-                                subtitle={favorite.name}
-                            />
-                            </ImageListItem>
-                        </Grid>
-                        ))}
-                        <img src={rightArrow_img} className={classes.rightArrow} onClick={handleRight} />
+                    <img src={leftArrow_img} className={classes.leftArrow} onClick={handleLeft} />
+                    {favorites.map((favorite) => (
+                    <Grid m={1}>
+                        <ImageListItem key={favorite.img} className={classes.cardPaper}>
+                        <img
+                            src={favorite.img}
+                            alt={favorite.name}
+                            loading="lazy"
+                            style={{ maxWidth: '300px', height: '100%', margin: '0 auto' }}
+                        />
+                        <ImageListItemBar
+                            title={favorite.brand}
+                            subtitle={favorite.name}
+                        />
+                        </ImageListItem>
+                    </Grid>
+                    ))}
+                    <img src={rightArrow_img} className={classes.rightArrow} onClick={handleRight} />
                 </Grid>
 
                 </ImageList>
-
             </div>
             
 {/* history */}
             <div className='history'>
-                <img src={leaf_history_img} alt="leaf_history_img" className={classes.img}/>
-                
+                <img src={leaf_history_img} alt="leaf_history_img" className={classes.img}/>             
                 <ImageList style={{ width: '100%', gridTemplateColumns: 'repeat(1, 1fr)' }}>
                 <ImageListItem key="Subheader" cols={2}>
                     <ListSubheader component="div">最近チェックしたアイテム</ListSubheader>
                 </ImageListItem>
-
-
-
-                {/* {histories.map((history) => (
-                    <ImageListItem key={history.img} className={classes.cardPaper}>
-                    <img
-                    src={history.img}
-                    // srcSet={`${history.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                    alt={history.name}
-                    loading="lazy"
-                    />
-                    <ImageListItemBar
-                    title={history.brand}
-                    subtitle={history.name}
-                    />
-                    </ImageListItem>
-                    ))}
-                */}
-
                 
                 <Grid container spacing={1} direction="row" alignItems="center" style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
-                <img src={leftArrow_img} className={classes.leftArrow} onClick={handleLeft} />
-                        {histories.map((history) => (
-                        <Grid m={1}>
-                            <ImageListItem key={history.img} className={classes.cardPaper}>
-                            <img
-                                src={history.img}
-                                alt={history.name}
-                                loading="lazy"
-                                style={{maxWidth: '300px', height: '100%', margin: '0 auto'}}
-                            />
-                            <ImageListItemBar
-                                title={history.brand}
-                                subtitle={history.name}
-                            />
-                            </ImageListItem>
-                        </Grid>
-                        ))}
-                        <img src={rightArrow_img} className={classes.rightArrow} onClick={handleRight} />
+                    <img src={leftArrow_img} className={classes.leftArrow} onClick={handleLeft} />
+                    {histories.map((history) => (
+                    <Grid m={1}>
+                        <ImageListItem key={history.img} className={classes.cardPaper}>
+                        <img
+                            src={history.img}
+                            alt={history.name}
+                            loading="lazy"
+                            style={{ maxWidth: '300px', height: '100%', margin: '0 auto' }}
+                        />
+                        <ImageListItemBar
+                            title={history.brand}
+                            subtitle={history.name}
+                        />
+                        </ImageListItem>
+                    </Grid>
+                    ))}
+                    <img src={rightArrow_img} className={classes.rightArrow} onClick={handleRight} />
                 </Grid>
 
                 </ImageList>
             </div>
             
 {/* menu */}
-
-
             <div className='menu'>
                 <img src={leaf_menu_img} alt="leaf_menu_img" className={classes.img}/>
                 <div>
@@ -531,10 +493,7 @@ export const MyPage = () => {
                         退会
                     </Link>
                 </div>
-
             </div>
-
-
         </div>
         </>
     )
