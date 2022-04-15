@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Item;
 
 class UserHistoriesController extends Controller
 {
@@ -11,10 +12,21 @@ class UserHistoriesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        // return response()->json(
+        //     UserHistory::all()
+        // );
+
+        $user = $request->user();
+
+        $histories = Item::userHistory($user->id)
+        ->get();
+
         return response()->json(
-            UserHistory::all()
+            $histories->map(function ($history) {
+                return $history->toArray();
+            })
         );
     }
 
