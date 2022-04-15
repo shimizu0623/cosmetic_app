@@ -117,18 +117,42 @@ const handleLeft = () => {
 // }
 
 
+
 export const MyPage = () => {
     const classes = useStyles();
     const [user, setUser] = useState(null);
-    const [item, setItem] = useState(null);
+    const [userId, setUserId] = useState(null);
+    // const [item, setItem] = useState(null);
+    const [favorites, setFavorites] = useState([]);
+    const [histories, setHistories] = useState([]);
 
     useEffect(async () => {
         const response = await axios.get('/me');
-        const responseItem = await axios.get('/item');
         const u = response.data;
-        const i = responseItem.data;
         setUser(u);
-        setItem(i);
+
+        // const responseItem = await axios.get('/item');
+        // const responseFavorite = await axios.get('/user_favorites');
+        // const i = responseItem.data;
+        // const f = responseFavorite.data;
+        // setItem(i);
+        // setFavorites(f);
+        // console.log(favorites)
+        // const responseFavorite = await axios.get('/user_favorites', {
+            //     params: {
+                //         user_id: userId,  
+                //     }
+                // });
+        const responseFavorites = await axios.get('/user_favorites');
+        const f = responseFavorites.data;
+        setFavorites(f);
+        console.log(favorites);
+
+        const responseHistories = await axios.get('/user_histories');
+        const h = responseHistories.data;
+        setHistories(h);
+        console.log(histories);
+
     }, [])
 
     // TODO: skinType変更ゆっくり2回くらい押さないと変更されない
@@ -255,37 +279,38 @@ export const MyPage = () => {
             </div>
         )
     }
-    
-    const itemName = () => {
-        if (item === null){
+
+
+    const favoriteItems = async () => {
+        // const response = await axios.get('/me');
+        // setUserId(response.data.id);
+        // const responseFavorite = await axios.get('/user_favorites', {
+        //     params: {
+        //         user_id: userId,  
+        //     }
+        // });
+        // setFavorites(responseFavorite.data);
+        // console.log(favorites)
+        if (favorites === null){
             return <CircularProgress color="success" size="15px" />
         }
         return(
-                <p>{item.name}</p>                
-        )
-    }
-    const itemBrand = () => {
-        if (item === null){
-            return <CircularProgress color="success" size="15px" />
-        }
-        return(
-                <p>{item.brand}</p>                
-        )
-    }
-    // const itemPrice = () => {
-    //     if (item === null){
-    //         return <CircularProgress color="success" size="15px" />
-    //     }
-    //     return(
-    //             <p>{item.price}</p>                
-    //     )
-    // }
-    const itemImg = () => {
-        if (item === null){
-            return <CircularProgress color="success" size="15px" />
-        }
-        return(
-             <p>{item.img}</p>                
+            <>
+            {favorites.map((favorite) => (
+                <ImageListItem key={favorite.img} className={classes.cardPaper}>
+                <img
+                    src={favorite.img}
+                    // srcSet={`${favorite.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                    alt={favorite.name}
+                    loading="lazy"
+                />
+                <ImageListItemBar
+                    title={favorite.brand}
+                    subtitle={favorite.name}
+                />
+                </ImageListItem>
+            ))}
+            </>
         )
     }
 
@@ -391,20 +416,24 @@ export const MyPage = () => {
                 </ImageListItem>
 
                 <img src={leftArrow_img} className={classes.arrow} onClick={handleLeft} />
-                {itemData.map((item) => (
-                    <ImageListItem key={item.img} className={classes.cardPaper}>
-                    <img
-                        src={`${item.img}?w=248&fit=crop&auto=format`}
-                        srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                        alt={itemName()}
-                        loading="lazy"
-                    />
-                    <ImageListItemBar
-                        title={itemBrand()}
-                        subtitle={itemName()}
-                    />
-                    </ImageListItem>
+
+                {/* {favoriteItems()} */}
+                {favorites.map((favorite) => (
+                <ImageListItem key={favorite.img} className={classes.cardPaper}>
+                <img
+                    src={favorite.img}
+                    // srcSet={`${favorite.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                    alt={favorite.name}
+                    loading="lazy"
+                />
+                <ImageListItemBar
+                    title={favorite.brand}
+                    subtitle={favorite.name}
+                />
+                </ImageListItem>
                 ))}
+
+
                 <img src={rightArrow_img} className={classes.arrow} onClick={handleRight} />
                 </ImageList>
 
@@ -422,20 +451,24 @@ export const MyPage = () => {
                 </ImageListItem>
 
                 <img src={leftArrow_img} className={classes.arrow} onClick={handleLeft} />
-                {itemData.map((item) => (
-                    <ImageListItem key={item.img} className={classes.cardPaper}>
+
+
+                {histories.map((history) => (
+                    <ImageListItem key={history.img} className={classes.cardPaper}>
                     <img
-                        src={`${item.img}?w=248&fit=crop&auto=format`}
-                        srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                        alt={itemName()}
+                        src={history.img}
+                        // srcSet={`${history.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                        alt={history.name}
                         loading="lazy"
                     />
                     <ImageListItemBar
-                        title={itemBrand()}
-                        subtitle={itemName()}
+                        title={history.brand}
+                        subtitle={history.name}
                     />
                     </ImageListItem>
                 ))}
+
+
                 <img src={rightArrow_img} className={classes.arrow} onClick={handleRight} />
                 </ImageList>
             </div>
@@ -480,43 +513,43 @@ export const MyPage = () => {
     )
 }
 
-const itemData = [
-    {
-      img: 'https://source.unsplash.com/random',
-      brand: 'Dior',
-      name: 'emulsion',
-    //   rows: 2,
-    //   cols: 2,
-    //   featured: true,
-    },
-    {
-      img: 'https://source.unsplash.com/random',
-      brand: 'Dior',
-      name: 'cream',
-    },
-    {
-      img: 'https://source.unsplash.com/random',
-      brand: 'Dior',
-      name: 'skinToner',
-    },
-    {
-      img: 'https://source.unsplash.com/random',
-      brand: 'Dior',
-      name: 'skinToner',
-    //   cols: 2,
-    },
-    {
-      img: 'https://source.unsplash.com/random',
-      brand: 'Dior',
-      name: 'skinToner',
-    //   cols: 2,
-    },
-    {
-      img: 'https://source.unsplash.com/random',
-      brand: 'Dior',
-      name: 'emulsion',
-    //   rows: 2,
-    //   cols: 2,
-    //   featured: true,
-    },
-  ];
+// const itemData = [
+//     {
+//       img: 'https://source.unsplash.com/random',
+//       brand: 'Dior',
+//       name: 'emulsion',
+//     //   rows: 2,
+//     //   cols: 2,
+//     //   featured: true,
+//     },
+//     {
+//       img: 'https://source.unsplash.com/random',
+//       brand: 'Dior',
+//       name: 'cream',
+//     },
+//     {
+//       img: 'https://source.unsplash.com/random',
+//       brand: 'Dior',
+//       name: 'skinToner',
+//     },
+//     {
+//       img: 'https://source.unsplash.com/random',
+//       brand: 'Dior',
+//       name: 'skinToner',
+//     //   cols: 2,
+//     },
+//     {
+//       img: 'https://source.unsplash.com/random',
+//       brand: 'Dior',
+//       name: 'skinToner',
+//     //   cols: 2,
+//     },
+//     {
+//       img: 'https://source.unsplash.com/random',
+//       brand: 'Dior',
+//       name: 'emulsion',
+//     //   rows: 2,
+//     //   cols: 2,
+//     //   featured: true,
+//     },
+//   ];
