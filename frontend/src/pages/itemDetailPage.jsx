@@ -158,8 +158,22 @@ export const ItemDetail = () => {
         console.log('handleAddComparison');
     }
 
-    const handleAddUnmatchedItems = () => {
+    // TODO: ↓既に登録していたらはじくorアイテムから外すBtnに切り替える
+    const handleAddUnmatchedItems = async () => {
         console.log('handleAddUnmatchedItems');
+        try {
+            const response = await axios.post('/user_unmatchedItems', {
+                item_id: id,
+            });
+            window.alert('肌に合わなかったアイテムへ追加しました');
+            // console.log(response);
+            // console.log('ok')
+        } catch (e) {
+            window.alert('登録に失敗しました');
+            console.error(e)
+            return;
+        }
+
     }    
 
     const handleReview = () => navigate("/reviewPage");
