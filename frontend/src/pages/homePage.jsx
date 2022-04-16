@@ -119,7 +119,7 @@ export const HomePage = () => {
             return <CircularProgress color="success" size="15px" />
         }
         return(
-                <p>{user.skin_type_name}タイプの方に</p>
+            <p>{user.skin_type_name}タイプの方に</p>
         );
     }
     const homeMessage = () => {
@@ -127,9 +127,9 @@ export const HomePage = () => {
             return <CircularProgress color="success" size="40px" />
         }
         return(
-                <p>{user.name}さん、こんにちは！<br/>
-                最近のお肌の調子はいかがですか？<br/>
-                {user.name}さんのお肌に合ったスキンケアが見つかりますように．．</p>
+            <p>{user.name}さん、こんにちは！<br/>
+            最近のお肌の調子はいかがですか？<br/>
+            {user.name}さんのお肌に合ったスキンケアが見つかりますように．．</p>
         )
     }
 
@@ -150,7 +150,7 @@ export const HomePage = () => {
             return <CircularProgress color="success" size="15px" />
         }
         return(
-            <ImageList style={{gridTemplateColumns: '1, 1fr', gap: '1'}}>
+            <ImageList style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
             <Grid container spacing={1} direction="row" justifyContent="center" alignItems="center">
             {toner.map((toner) => (
                 <ImageListItem key={toner.img} className={classes.CardPaper}>
@@ -158,7 +158,7 @@ export const HomePage = () => {
                     src={toner.img}
                     alt={toner.name}
                     loading="lazy"
-                    style={{maxWidth: '250px', height: '100%', margin: '0 auto'}}
+                    style={{ maxWidth: '250px', height: '100%', margin: '0 auto' }}
                 />
                 <ImageListItemBar
                     title={toner.brand}
@@ -198,19 +198,18 @@ export const HomePage = () => {
     }
 
     const recommendSerum = () => {
-        if(serum === null){
+        if (serum === null){
             return <CircularProgress color="success" size="15px" />
         }
-        // TODO: データがなかった時はメッセージを表示させたい
-        // if(serum === []){
-        //     return(
-        //         <ImageList style={{gridTemplateColumns: '1, 1fr', gap: '1'}}>
-        //         <Grid container spacing={1} direction="row" justifyContent="center" alignItems="center">
-        //         <p>アイテムが見つかりませんでした。</p>
-        //         </Grid>
-        //         </ImageList>
-        //     )
-        // }else{
+        if (serum.length === 0){
+            return(
+                <ImageList style={{gridTemplateColumns: '1, 1fr', gap: '1'}}>
+                <Grid container spacing={1} direction="row" justifyContent="center" alignItems="center">
+                <p>アイテムが見つかりませんでした。</p>
+                </Grid>
+                </ImageList>
+            )
+        } else {
             return(
                 <ImageList style={{gridTemplateColumns: '1, 1fr', gap: '1'}}>
                 <Grid container spacing={1} direction="row" justifyContent="center" alignItems="center">
@@ -232,7 +231,7 @@ export const HomePage = () => {
                 </Grid>
                 </ImageList>
             )
-        // }   
+        }   
     }
 
 
