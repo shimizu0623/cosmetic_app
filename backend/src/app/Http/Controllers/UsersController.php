@@ -38,6 +38,7 @@ class UsersController extends Controller
             'name' => 'required',
             'birth_date' => 'required',
             'email' => 'required|email',
+            'skin_type_id' => 'required',
             // 'password' => 'alpha_num',
         ]);
 
@@ -54,6 +55,7 @@ class UsersController extends Controller
         $user->name = $request->name;
         $user->birth_date = $request->birth_date;
         $user->email = $request->email;
+        $user->skin_type_id = $request->skin_type_id;
         
         
         if(!empty($request->password) && $request->password !== 0){
@@ -65,7 +67,7 @@ class UsersController extends Controller
         // Log::debug('after ' . $user->password);
 
         //ユーザの作成が完了するとjsonを返す
-        return response()->json($user, Response::HTTP_OK);
+        return response()->json($user->toArray());
 
     }    
     /**
@@ -87,7 +89,20 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+
+        
+        return response()->json(
+            [
+                'id' => $user->id,
+                'name' => $user->name,
+                'gender' => $user->gender->name,
+                'gender' => $user->email,
+                'barth_date' => $user->barth_date,
+                'skin_type' => $user->skin_type->name,
+                'items' => $user->unmatchedItems->map(function($unmatchedItem) { return $unmatchedItem->toArray(); }),
+            ]
+        );
     }
 
     /**
