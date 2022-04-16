@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\UserUnmatchedItem;
 use App\Models\Item;
+use App\Models\UserFavoriteItem;
+use Illuminate\Support\Facades\Validator;
 use \Symfony\Component\HttpFoundation\Response;
 
 class UserUnmatchedItemsController extends Controller
@@ -36,7 +38,22 @@ class UserUnmatchedItemsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = $request->user();
+
+        $validator = Validator::make($request->all(),[
+            'item_id' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $create = UserUnmatchedItem::create([
+            'user_id' => $user->id,
+            'item_id' => $request->item_id,
+        ]);
+
+        return response()->json($create, Response::HTTP_OK);
     }
 
     /**
