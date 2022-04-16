@@ -97,19 +97,6 @@ const useStyles = makeStyles({
 
 });
 
-const handleAddFavorite = () => {
-    console.log('handleAddFavorite');
-}
-const handleAddFolder = () => {
-    console.log('handleAddFolder');
-}
-const handleAddComparison = () => {
-    console.log('handleAddComparison');
-}
-const handleAddUnmatchedItems = () => {
-    console.log('handleAddUnmatchedItems');
-}
-
 
 export const ItemDetail = () => {
     const classes = useStyles();
@@ -130,6 +117,35 @@ export const ItemDetail = () => {
         // console.log('count=' + count)
         // setIngredients(ingredient)
     }, []);
+
+    // TODO: ↓既に登録していたらはじくorお気に入りから外すBtnに切り替える
+    const handleAddFavorite = async() => {
+        console.log('handleAddFavorite');
+        console.log(item.id);
+        try {
+            const response = await axios.post('/user_favorites', {
+                item_id: id,
+            });
+            console.log(response);
+            console.log('ok')
+        } catch (e) {
+            window.alert('登録に失敗しました');
+            console.error(e)
+            return;
+        }
+    }
+
+    const handleAddFolder = () => {
+        console.log('handleAddFolder');
+    }
+
+    const handleAddComparison = () => {
+        console.log('handleAddComparison');
+    }
+
+    const handleAddUnmatchedItems = () => {
+        console.log('handleAddUnmatchedItems');
+    }    
 
     const handleReview = () => navigate("/reviewPage");
 
