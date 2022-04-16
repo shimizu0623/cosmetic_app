@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import axios from '../axios';
 import { GoBackBtn } from '../components/goBackBtn';
 import { makeStyles } from "@material-ui/core/styles";
+import { useParams } from 'react-router-dom';
 import Checkbox from '@mui/material/Checkbox';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -45,11 +46,12 @@ const condition = [
 
 export const UnmatchedItem = () => {
     const classes = useStyles();
-    const [item, setItem] = useState(null);
+    const { id } = useParams();
+    const [item, setItem] = useState([]);
     // const [ingredients, setIngredients] = useState(null);
     
     useEffect(async () => {
-        const responseItem = await axios.get('/item')
+        const responseItem = await axios.get('/user_unmatchedItems')
         // const responseIngredients = await axios.get('/item_ingredients')
         const i = responseItem.data
         // const ingredient = responseIngredients.data
@@ -63,7 +65,9 @@ export const UnmatchedItem = () => {
         }
         return(
                 // TODO: ↓item_ingredientsのデータ？
-                <tr>
+            <>
+                {item.map((item) => (
+                    <tr>
                     <td scope="row"><img src={item.img} alt="itemImg" style={{ maxWidth: '90px', height: '100%', margin: 'auto 30px' }} /></td>
                     <td>{item.brand}</td>
                     <td>{item.name}</td>
@@ -104,7 +108,9 @@ export const UnmatchedItem = () => {
                         削除
                         </Button>
                     </td>
-                </tr>   
+                    </tr>
+                ))}
+            </>
         )
     }
 
