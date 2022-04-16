@@ -153,21 +153,22 @@ export const MyPage = () => {
     // TODO: skinType変更ゆっくり2回くらい押さないと変更されない
     const handleNormalSkin = async () => {
         console.log('normal');
-        setUser({...user, skin_type_id: 1});
         console.log(user);
-            try {
-                console.log(user);
-                const response = await axios.post('/me', user);
-                console.log(response);
-                window.alert('スキンタイプをNormalSkinに変更しました');
-                const responseNewUser = await axios.get('/me');
-                const u = responseNewUser.data;
-                setUser(u);
-              } catch (e) {
-                window.alert('変更できませんでした');
-                console.error(e);
-                return;
-              }
+        try {
+            const response = await axios.post('/me', {...user, skin_type_id: 1});
+            console.log(response);
+            window.alert('スキンタイプを変更しました');
+            // setUser({...user, skin_type_id: 1});
+            console.log(user);
+
+                // const responseNewUser = await axios.get('/me');
+            const u = response.data;
+            setUser(u);
+            } catch (e) {
+            window.alert('変更できませんでした');
+            console.error(e);
+            return;
+            }
     }
     const handleInnerDrySkin = async () => {
         console.log('InnerDry');
