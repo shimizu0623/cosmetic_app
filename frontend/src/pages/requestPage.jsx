@@ -23,9 +23,7 @@ export const RequestPage = () => {
     
 
     const onClickSend = async () => {
-        // TODO: ↓スペースだけ入力しても進んじゃう
-        // if(requestForm.request === '' || requestForm.request === '\n'){
-        if(requestForm.detail === ''){
+        if(requestForm.detail.replace(/\n|\s/g, '') === ''){
             window.alert('枠内にメッセージのご入力をお願いします。')
             return;
         }
