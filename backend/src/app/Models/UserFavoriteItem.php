@@ -16,7 +16,6 @@ class UserFavoriteItem extends Model
     //     return $this->belongsTo(Item::class);
     // }
 
-    // TODO: ↓user_idは書いても大丈夫なのか、
     protected $fillable = ['user_id', 'item_id'];
 
 }
