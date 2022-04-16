@@ -56,7 +56,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::resource('user_favorites', UserFavoriteItemsController::class, ['only' => ['index', 'store', 'destroy']]);
     Route::resource('user_histories', UserHistoriesController::class, ['only' => ['index', 'store']]);
     Route::resource('user_items', UserItemsController::class, ['only' => ['index']]);
-    Route::get('/user_unmatchedItems', [UserUnmatchedItemsController::class, 'index']);
+    Route::resource('user_unmatchedItems', UserUnmatchedItemsController::class,['only' => ['index', 'store']]);
     // Route::get('/items', [ItemsController::class, 'index']);
     // Route::get('/items/{id}', [ItemsController::class, 'show']);
     Route::get('/recommendItem', [ItemsController::class, 'recommendItem']);
