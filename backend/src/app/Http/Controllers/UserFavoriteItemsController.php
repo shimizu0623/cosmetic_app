@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\UserFavoriteItem;
+// TODO: エラーが出てるので確認する
+// use App\Models\User;
 use App\Models\Item;
 use Illuminate\Support\Facades\Validator;
 use \Symfony\Component\HttpFoundation\Response;
