@@ -18,9 +18,12 @@ class RequestsController extends Controller
      */
     public function store(Request $request)
     {
+
+        $user = $request->user();
+
         $validator = Validator::make($request->all(),[
             'detail' => 'required',
-            'user_id' => 'required',
+            // 'user_id' => 'required',
         ]);
 
         Log::debug('before');
@@ -34,7 +37,7 @@ class RequestsController extends Controller
 
         $create = RequestText::create([
             'detail' => $request->detail,
-            'user_id' => $request->user_id,
+            'user_id' => $user->id,
         ]);
 
         //ユーザの作成が完了するとjsonを返す
