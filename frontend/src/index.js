@@ -9,7 +9,7 @@ import { Ewg } from "./components/aboutEwg";
 import { EwgPage } from "./pages/ewgPage";
 import { MyPage } from "./pages/myPage";
 import { DeleteConfirm } from "./pages/deleteConfirmPage";
-import { DeleteInformation } from "./pages/deletedInformationPage";
+import { DeleteInformation } from "./pages/deletedMessagePage";
 import { HomePage } from "./pages/homePage";
 import { ItemSearch } from "./pages/itemSearchPage";
 import { ItemDetail } from "./pages/itemDetailPage";
