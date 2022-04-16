@@ -116,7 +116,7 @@ class Item extends Model
 
 
 
-
+    // ↓TODO: これいらない？？
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -125,28 +125,14 @@ class Item extends Model
     public function scopeUserFavoriteOnly($query, $userId)
     {
         return $query
-        ->leftJoin('user_favorite_items', function($join) use ($userId)
+        ->innerJoin('user_favorite_items', function($join) use ($userId)
         {
             $join->on('items.id', '=', 'user_favorite_items.item_id');
             $join->where('user_favorite_items.user_id', '=', $userId);
-        })
-        ->where('user_favorite_items.item_id', '!=', NULL);
+        });
+        // ->where('user_favorite_items.item_id', '!=', NULL);
         // TODO: ↑複数[]で受け取るからwhereIn?
     }
-
-    // public function toArrayFavorite()
-    // {
-    //     return[
-    //         'id' => $this->id,
-    //         'user' => $this->user->name,
-    //         'name' => $this->name,
-    //         'brand' => $this->brand,
-    //         'img' => $this->img,
-    //     ];
-    // }
-
-
-
 
     public function scopeUserHistory($query, $userId)
     {
