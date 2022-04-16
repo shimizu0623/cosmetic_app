@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Item;
+use App\Models\UserHistory;
+use Illuminate\Support\Facades\Validator;
+use \Symfony\Component\HttpFoundation\Response;
 
 class UserHistoriesController extends Controller
 {
@@ -38,7 +41,23 @@ class UserHistoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = $request->user();
+
+        $validator = Validator::make($request->all(),[
+            'item_id' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $create = UserHistory::create([
+            'user_id' => $user->id,
+            'item_id' => $request->item_id,
+        ]);
+
+        return response()->json($create, Response::HTTP_OK);
+
     }
 
     /**
