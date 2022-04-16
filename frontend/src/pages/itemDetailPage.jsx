@@ -140,8 +140,9 @@ export const ItemDetail = () => {
             const response = await axios.post('/user_favorites', {
                 item_id: id,
             });
-            console.log(response);
-            console.log('ok')
+            window.alert('お気に入りへ追加しました');
+            // console.log(response);
+            // console.log('ok')
         } catch (e) {
             window.alert('登録に失敗しました');
             console.error(e)
