@@ -10,12 +10,6 @@ class UserFavoriteItem extends Model
 {
     use HasFactory;
 
-
-    // public function item()
-    // {
-    //     return $this->belongsTo(Item::class);
-    // }
-
     protected $fillable = ['user_id', 'item_id'];
 
 }
