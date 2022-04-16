@@ -112,11 +112,25 @@ export const ItemDetail = () => {
         const c = responseItem.data.ingredients.length;
         setItem(i);
         setCount(c);
+        
 
-        console.log(responseItem.data.ingredients.length);
+        // ↓履歴
+        try {
+            const response = await axios.post('/user_histories', {
+                item_id: id,
+            });
+            console.log(response);
+            console.log('ok')
+        } catch (e) {
+            window.alert('登録に失敗しました');
+            console.error(e)
+            return;
+        }
+
         // console.log('count=' + count)
         // setIngredients(ingredient)
     }, []);
+
 
     // TODO: ↓既に登録していたらはじくorお気に入りから外すBtnに切り替える
     const handleAddFavorite = async() => {
