@@ -125,13 +125,13 @@ class Item extends Model
     public function scopeUserFavoriteOnly($query, $userId)
     {
         return $query
-        ->innerJoin('user_favorite_items', function($join) use ($userId)
+        ->leftJoin('user_favorite_items', function($join) use ($userId)
+        // ->innerJoin('user_favorite_items', function($join) use ($userId)
         {
             $join->on('items.id', '=', 'user_favorite_items.item_id');
             $join->where('user_favorite_items.user_id', '=', $userId);
-        });
-        // ->where('user_favorite_items.item_id', '!=', NULL);
-        // TODO: ↑複数[]で受け取るからwhereIn?
+        })
+        ->where('user_favorite_items.item_id', '!=', NULL);
     }
 
     public function scopeUserHistory($query, $userId)
@@ -146,6 +146,17 @@ class Item extends Model
         // TODO: ↑複数[]で受け取るからwhereIn?
     }
 
+    public function scopeUserUnmatchedOnly($query, $userId)
+    {
+        return $query
+        ->leftJoin('user_unmatched_items', function($join) use ($userId)
+        // ->innerJoin('user_unmatched_items', function($join) use ($userId)
+        {
+            $join->on('items.id', '=', 'user_unmatched_items.item_id');
+            $join->where('user_unmatched_items.user_id', '=', $userId);
+        })
+        ->where('user_unmatched_items.item_id', '!=', NULL);
+    }
 
 
 
