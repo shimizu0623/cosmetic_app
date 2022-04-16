@@ -24,10 +24,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Gender::class);
     }
-    // public function contact()
-    // {
-    //     return $this->belongsTo(Contact::class);
-    // }
+    public function unmatchedItems()
+    {
+        return $this->belongsToMany(UnmatchedItem::class, UserUnmatchedItem::class);
+    }
 
     public function birthday_string() {
         $today = date('Ymd');
@@ -52,8 +52,14 @@ class User extends Authenticatable
             'gender_name' => $this->gender->name,
             // 'gender_name' => $this->gender()->name,
             'skin_type_name' => $this->skin_type->name,
+            'skin_type_id' => $this->skin_type->id,
             // 'skin_type_name' => $this->skin_type()->name,
         ];
+    }
+
+    public function getFavoriteItems() {
+        return Item::userFavoriteOnly($this->id)
+              ->get();
     }
     
 }
