@@ -19,15 +19,28 @@ class UserFavoriteItemsController extends Controller
      */
     public function index(Request $request)
     {
+
         $user = $request->user();
 
-        $favorites = $user->getFavoriteItems();
+        $favorites = Item::userFavoriteOnly($user->id)
+        ->get();
 
         return response()->json(
             $favorites->map(function ($favorite) {
                 return $favorite->toArray();
             })
         );
+
+        // $user = $request->user();
+
+        // // TODO: innerJoinエラー確認
+        // $favorites = $user->getFavoriteItems();
+
+        // return response()->json(
+        //     $favorites->map(function ($favorite) {
+        //         return $favorite->toArray();
+        //     })
+        // );
     }
 
     /**
@@ -92,23 +105,23 @@ class UserFavoriteItemsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $itemId)
-    {
+    // public function destroy(Request $request, $itemId)
+    // {
 
-        // TODO: ↓削除できずエラーが出てしまう
-        $user = $request->user();
+    //     // TODO: ↓削除できずエラーが出てしまう
+    //     $user = $request->user();
 
-        UserFavoriteItem::where('item_id', $itemId)->where('user_id', $user->id)->delete();
-        // return redirect('/')->with('success', '削除しました');
-        return redirect()->action([UserFavoriteItemsController::class, 'index']);
+    //     UserFavoriteItem::where('item_id', $itemId)->where('user_id', $user->id)->delete();
+    //     // return redirect('/')->with('success', '削除しました');
+    //     return redirect()->action([UserFavoriteItemsController::class, 'index']);
 
 
-        // $favoriteItem = UserFavoriteItem::find($id);
-        // if (auth()->user()->id != $favoriteItem->user_id) {
-        //     return redirect(route('favoriteItem.index'))->with('error', '許可されていない操作です');
-        // }
+    //     // $favoriteItem = UserFavoriteItem::find($id);
+    //     // if (auth()->user()->id != $favoriteItem->user_id) {
+    //     //     return redirect(route('favoriteItem.index'))->with('error', '許可されていない操作です');
+    //     // }
 
-        // $favoriteItem->delete();
-        // return redirect(route('favoriteItem.index'))->with('success', '削除しました');
-    }
+    //     // $favoriteItem->delete();
+    //     // return redirect(route('favoriteItem.index'))->with('success', '削除しました');
+    // }
 }
