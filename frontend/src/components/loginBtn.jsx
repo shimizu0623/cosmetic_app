@@ -18,8 +18,9 @@ const useStyles = makeStyles({
     background: 'linear-gradient(45deg, #00bcd4 30%, #1de9b6 90%)',
     '&:hover': {
       background: 'linear-gradient(45deg, #00bcd4 10%, #1de9b6 70%)',
-  },
-}});
+    },
+  }
+});
 
 export const LoginBtn = () => {
   const classes = useStyles();
@@ -34,5 +35,5 @@ export const LoginBtn = () => {
         無料ではじめる
         </Button>
     </>
-  )
+  );
 }
