@@ -6,6 +6,11 @@ import TextareaAutosize from '@mui/material/TextareaAutosize';
 import green_leaf from '../img/green_leaf_img_clear.png';
 
 export const DeleteConfirm = () => {
+
+    const handleSend = () => {
+        console.log('handleSend');
+    }
+
     return(
         <>
         <div className='MainContainer'>
@@ -27,7 +32,9 @@ export const DeleteConfirm = () => {
                 <p>退会すると、登録データは全て削除されます。</p>
             </div>
 
-            <Btn message='退会する' component={RouterLink} to="/delete"/>
+            <Btn message='退会する' onClick={handleSend}/>
+            {/* <Btn message='退会する' component={RouterLink} to="/delete" onClick={handleSend}/> */}
+
         </div>
         </>
     )
