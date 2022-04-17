@@ -1,3 +1,4 @@
+// MEMO: スタイル調整済
 import React from 'react';
 import { Ewg } from "../components/aboutEwg";
 import { GoBackBtn } from '../components/goBackBtn';
