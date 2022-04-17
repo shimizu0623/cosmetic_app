@@ -34,4 +34,4 @@ export const LoginBtn = () => {
     無料ではじめる
     </Button>
   );
-}
+};

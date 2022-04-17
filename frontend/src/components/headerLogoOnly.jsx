@@ -39,4 +39,4 @@ export const HeaderLogoOnly = () => {
             </Button>
         </header>
     );
-}
+};

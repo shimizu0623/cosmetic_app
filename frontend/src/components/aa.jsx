@@ -3,17 +3,17 @@
 // export const Test = () => {
 //     return(
 //         <>
-//         <div className='MainContainer'>
+//             <div className='MainContainer'>
 
-//          <p>test</p>
+//                 <p>test</p>
 
-//         </div>
+//             </div>
 //         </>
-//     )
-// }
+//     );
+// };
 
 
-
+// MEMO: スタイル調整済
 
 // MEMO: なんのスタイル調整済か↓
 // ・if (){} else if (){} のスペース
@@ -31,12 +31,10 @@ export const aa = () => {
     const classes = useStyles();
     
     return(
-        <>
         <div className='MainContainer'>
             <p>テスト用</p>
         </div>
-        </>
-        )
-    }
+    );
+};
 
 

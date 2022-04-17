@@ -24,5 +24,5 @@ export const GoBackBtn = () => {
             <span onClick={() => navigate(-1)}>&lt;&lt;前のページへ戻る</span>
         </div>
     );
-}
+};
 
