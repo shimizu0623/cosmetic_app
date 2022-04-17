@@ -135,7 +135,6 @@ export const SignUpPage = () => {
             <Breadcrumbs
             separator={<NavigateNextIcon fontSize="small" />}
             aria-label="breadcrumb"
-            className='StyleLink'
             >
             {breadcrumbs}
             </Breadcrumbs>

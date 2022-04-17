@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Button from '@mui/material/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
@@ -18,35 +18,47 @@ import SearchIcon from '@material-ui/icons/Search';
 import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 import Logout from '@mui/icons-material/Logout';
+import { makeStyles } from '@material-ui/core/styles';
 
-
+const useStyles = makeStyles({
+  header: {
+    position: 'fixed',
+    textAlign: 'right',
+    top: '0',
+    width: '100%',
+    height: '60px',
+    lineHeight: '60px',
+    background: 'rgba(243, 240, 240, 0.734)',
+    },
+});
 
 export const Header = () => {
-    const [anchorElSearch, setAnchorElSearch] = React.useState(null);
-    const [anchorElHelp, setAnchorElHelp] = React.useState(null);
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const openSearch = Boolean(anchorElSearch);
-    const openHelp = Boolean(anchorElHelp);
-    const open = Boolean(anchorEl);
-    const handleSearchClick = (event) => {
-        setAnchorElSearch(event.currentTarget);
-    };
-    const handleHelpClick = (event) => {
-        setAnchorElHelp(event.currentTarget);
-    };
-    const handleAccountClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-        setAnchorElSearch(null);
-        setAnchorElHelp(null);
-        setAnchorEl(null);
-    };
+  const classes = useStyles();
+  const [anchorElSearch, setAnchorElSearch] = useState(null);
+  const [anchorElHelp, setAnchorElHelp] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const openSearch = Boolean(anchorElSearch);
+  const openHelp = Boolean(anchorElHelp);
+  const open = Boolean(anchorEl);
+  const handleSearchClick = (event) => {
+      setAnchorElSearch(event.currentTarget);
+  };
+  const handleHelpClick = (event) => {
+      setAnchorElHelp(event.currentTarget);
+  };
+  const handleAccountClick = (event) => {
+      setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+      setAnchorElSearch(null);
+      setAnchorElHelp(null);
+      setAnchorEl(null);
+  };
 
 
 return(
     <>
-    <header>
+    <header className={classes.header}>
       <div>
       {/* <img src={icon} alt="logo" style={{ width: '70px' }}/> */}
       <Button

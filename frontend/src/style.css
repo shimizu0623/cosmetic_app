@@ -10,16 +10,6 @@
   }
 }
 
-header {
-  position: fixed;
-  text-align: right;
-  top: 0;
-  width: 100%;
-  height: 60px;
-  line-height: 60px;
-  background: rgba(243, 240, 240, 0.734);
-}
-
 body {
   user-select: none;
   margin: auto;
@@ -38,97 +28,31 @@ body::-webkit-scrollbar {
   margin: 60px auto 50px;
 }
 
-.LoginForm {
-  max-width: 300px;
-}
-
-.LoginMessage p {
-  margin: 10px auto;
-}
-
-.PageTop {
-  background-color: #cdeef1;
-  padding: 170px 0;
-  border-radius: 6px;
-}
-
-.PageTop h1 {
+h2 {
+  max-width: 1400px;
+  background: #4dc9b2c9;
   color: white;
-  font-size: 70px;
-  text-shadow: -1px 1px 0 rgb(81, 78, 78);
-  letter-spacing: 4px;
-  font-weight: bold;
-  margin: 0 auto;
+  padding: 10px 0;
+  margin: 30px auto;
 }
 
-.PageTop p {
+h3 {
+  font-size: 23px;
+  max-width: 500px;
+  background: #87e6d4c9;
+  text-shadow: 1px 0 5px rgb(170, 176, 120);
   color: white;
-  font-size: 20px;
+  padding: 20px 10px;
+  margin: 100px auto 0;
+  border-radius: 10px;
 }
 
-.StyleLink {
-  margin: 10px auto 0 10px;
-}
-
-/* .topImage {
-  width: 100%;
-  height: 420px;
-  margin: auto 0;
-  background: url("./img/cosmetic_background3.jpg");
-  filter: blur(4px);
-} */
-
-/* #trouble_face_img,
-#thinking_img,
-#use_pc_img,
-#smile_img {
-  height: 130px;
-  width: auto;
-  margin: 0 0 20px 0;
-} */
-
-#EwgLevel_img {
-  height: 90px;
-  width: auto;
-  margin: 10px 0;
-}
-
-#Ewg-logo_img {
-  height: 160px;
-  width: auto;
+p {
   margin: 0;
 }
 
-#Hazard_img {
-  height: 50px;
-  width: auto;
-  margin: 0;
-}
-
-#LowHazard_img,
-#ModerateHazard_img,
-#HighHazard_img {
-  display: inline-block;
-  height: 90px;
-  width: auto;
-  margin: 0px auto;
-  vertical-align: bottom;
-}
-
-.level_LowHazard p,
-.level_ModerateHazard p,
-.level_HighHazard p {
-  display: inline-block;
-  line-height: 70px;
-  padding-left: 20px;
-}
-.level_LowHazard,
-.level_ModerateHazard,
-.level_HighHazard {
-  margin: 20px 10px 0;
-}
-
-/* .balloonLeft {
+/* ここからtopPage */
+.balloonLeft {
   position: relative;
   margin: 10px auto 15px 250px;
   padding: 10px;
@@ -188,116 +112,4 @@ body::-webkit-scrollbar {
   bottom: 3px;
   background: #bee7bca5;
   border-radius: 50%;
-} */
-
-/* .topMain {
-  max-width: 1400px;
-  margin: 50px auto 0;
-} */
-
-/* .topMain p {
-  margin: 0;
-  padding: 0;
-} */
-
-/* .topIconLeft {
-  position: absolute;
-  left: -200px;
-  top: 20px;
-}
-
-.topIconRight {
-  position: absolute;
-  right: -200px;
-  top: 20px;
-} */
-
-/* .top {
-  height: 400px;
-  margin: 0 auto;
-  position: relative;
-  max-width: 1400px;
-} */
-
-/* .topTitle {
-  margin: 0 auto;
-  line-height: 100px;
-  max-width: 1000px; */
-/* width: 800px; */
-/* font-size: 50px;
-  font-weight: bold;
-  color: white;
-  text-shadow: 2px 0 5px rgb(74, 86, 58);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-} */
-
-.explain {
-  margin: 30px 60px;
-  font-size: 20px;
-}
-.SkinType ul,
-.menu ul {
-  padding: 0;
-  margin: 0 auto;
-}
-
-.SkinType li {
-  font-size: 20px;
-  color: white;
-  list-style: none;
-  width: 90px;
-  line-height: 90px;
-  border-radius: 50%;
-  background: #4dc9b2c9;
-  margin: 4px;
-  display: inline-block;
-}
-
-.SkinType li:hover {
-  cursor: pointer;
-  background: #4dc9b27d;
-}
-
-h2 {
-  max-width: 1400px;
-  background: #4dc9b2c9;
-  color: white;
-  padding: 10px 0;
-  margin: 30px auto;
-}
-
-h3 {
-  font-size: 23px;
-  max-width: 500px;
-  background: #87e6d4c9;
-  text-shadow: 1px 0 5px rgb(170, 176, 120);
-  color: white;
-  padding: 20px 10px;
-  margin: 100px auto 0;
-  border-radius: 10px;
-}
-
-.Triangle {
-  width: 0;
-  height: 0;
-  margin: 0 auto;
-  border: 20px solid transparent;
-  border-top: 20px solid #87e6d4c9;
-}
-
-p {
-  margin: 0;
-}
-
-footer {
-  padding: 30px 0;
-}
-
-/* TODO: ↓関係ないところもyellowになるから、該当ページだけ書くようにする */
-p span {
-  position: relative;
-  background: linear-gradient(transparent 40%, yellow 40%);
 }

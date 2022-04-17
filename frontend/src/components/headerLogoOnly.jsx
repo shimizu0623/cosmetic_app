@@ -5,6 +5,15 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Link as RouterLink } from "react-router-dom";
 
 const useStyles = makeStyles({
+    header: {
+        position: 'fixed',
+        textAlign: 'right',
+        top: '0',
+        width: '100%',
+        height: '60px',
+        lineHeight: '60px',
+        background: 'rgba(243, 240, 240, 0.734)',
+        },    
     root: {
         color:'green',
         background: 'rgba(205, 226, 168, 0.612)',
@@ -19,14 +28,14 @@ const useStyles = makeStyles({
         borderColor:'green',
         background: 'green',
         },
-    }
+    },
 });
   
 export const HeaderLogoOnly = () => {
     const classes = useStyles();
 
     return(
-        <header>
+        <header className={classes.header}>
             <div className="headerLogo">
                 <img src="" alt="Logo" />
             </div>
