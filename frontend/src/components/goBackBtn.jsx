@@ -1,8 +1,7 @@
+// MEMO: スタイル調整済
 import React from 'react';
-
 import { makeStyles } from "@material-ui/core/styles";
 import { useNavigate } from 'react-router-dom';
-
 
 const useStyles = makeStyles({
     back: {
@@ -14,21 +13,16 @@ const useStyles = makeStyles({
             textDecoration: 'underline',
         }
     },
-})
+});
 
 export const GoBackBtn = () => {
     const classes = useStyles();
     const navigate = useNavigate();
     
     return(
-        <>
-        <div  className={classes.back}>
+        <div className={classes.back}>
             <span onClick={() => navigate(-1)}>&lt;&lt;前のページへ戻る</span>
         </div>
-
-        {/* <button onClick={() => navigate(-1)}>検索結果へ戻る</button> */}
-
-        </>
-    )
+    );
 }
 
