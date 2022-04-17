@@ -26,14 +26,12 @@ export const LoginBtn = () => {
   const classes = useStyles();
 
   return(
-    <>
-        <Button
-          variant="contained"
-          className={classes.root}
-          component={RouterLink}
-          to="/login">
-        無料ではじめる
-        </Button>
-    </>
+    <Button
+      variant="contained"
+      className={classes.root}
+      component={RouterLink}
+      to="/login">
+    無料ではじめる
+    </Button>
   );
 }
