@@ -1,3 +1,4 @@
+// MEMO: スタイル調整済
 import React from 'react';
 import { LoginBtn } from '../components/loginBtn';
 import { Ewg } from "../components/aboutEwg";
@@ -109,8 +110,8 @@ export const TopPage = (props) => {
     const headerEwg = () => {
         return (
             <div className={classes.aboutEwg}>
-            <img src={aboutEwg_img} alt="aboutEwg_img" className={classes.aboutEwgImg} />
-            <h1 className={classes.aboutEwgTitle}>EWGってなに？</h1>
+                <img src={aboutEwg_img} alt="aboutEwg_img" className={classes.aboutEwgImg} />
+                <h1 className={classes.aboutEwgTitle}>EWGってなに？</h1>
             </div>
         );
     };
