@@ -104,6 +104,7 @@ export const ItemDetail = () => {
     const [item, setItem] = useState(null);
     const [count, setCount] = useState(0);
     const [value, setValue] = useState(3); //☆
+    const [isAnimation, setIsAnimation] = useState(false);
     const navigate = useNavigate();
 
     useEffect(async () => {
@@ -420,11 +421,19 @@ export const ItemDetail = () => {
                 {rateGreen()}
                 {rateYellow()}
                 {rateRed()}
+                {/* TODO: 不明のものも足す{rateNotInformation()} */}
                 <Grid item xs={6}>
                 <div style={{ display: 'inline-block'}} >
                     <p style={{ color: 'green', textShadow: '2px 2px 1px white' }} >EWG等級別成分割合(％)</p>
                     <PieChart width={300} height={300}>
-                    <Pie data={data} dataKey="value" outerRadius={100} label>
+                    <Pie 
+                        data={data} 
+                        dataKey="value" 
+                        outerRadius={100} 
+                        label 
+                        isAnimationActive={ isAnimation }
+                        // onAnimationEnd={() => setIsAnimation(false)}
+                    >
                     {data.map((entry, index) => (
                         <Cell key={entry.name} fill={ChartColors[index % ChartColors.length]} />
                     ))}
