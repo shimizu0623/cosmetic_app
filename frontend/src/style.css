@@ -19,9 +19,9 @@ body {
     "UD デジタル 教科書体 NK-R", "游ゴシック Medium", "Yu Gothic Medium",
     "游ゴシック", YuGothic, "メイリオ", Meiryo, "ヒラギノ角ゴ Pro W3";
 }
-body::-webkit-scrollbar {
+/* body::-webkit-scrollbar {
   display: none;
-}
+} */
 
 .MainContainer {
   max-width: 1400px;
