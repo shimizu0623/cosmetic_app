@@ -57,36 +57,23 @@ class UserUnmatchedItemsController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $itemId)
     {
-        //
+        $user = $request->user();
+
+        $unmatchedItem = UserUnmatchedItem::where('user_id', $user->id)->where('item_id', $itemId);
+
+        if ($unmatchedItem->count() === 0){
+            return response()->json(['message' => '肌に合わなかったアイテムに登録されていません'],
+            Response::HTTP_NOT_FOUND);
+        }
+
+        $unmatchedItem->delete();
+        return response()->noContent();
     }
 }
