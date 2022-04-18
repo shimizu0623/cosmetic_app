@@ -1,6 +1,8 @@
 // MEMO: スタイル調整済
 import React, {useState, useEffect} from 'react';
 import axios from '../axios';
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
 
 import leaf_menu_img from '../img/leaf_menu_img.jpg';
 import leaf_favorite_img from '../img/leaf_favorite_img.jpg';
@@ -11,8 +13,6 @@ import dry_skin_img from '../img/dry_skin_img.jpg';
 import oily_skin_img from '../img/oily_skin_img.jpg';
 import combination_skin_img from '../img/combination_skin_img.jpg';
 import sensitive_skin_img from '../img/sensitive_skin_img.jpg';
-import rightArrow_img from '../img/rightArrow_yellow.jpg';
-import leftArrow_img from '../img/leftArrow_yellow.jpg';
 import header_img from '../img/headerMyPage.jpg';
 import { GoBackBtn } from '../components/goBackBtn';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -26,6 +26,26 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import ListSubheader from '@mui/material/ListSubheader';
+
+const responsive = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 5
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 5
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 5
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1
+    }
+  };
 
 const useStyles = makeStyles({
     menu: {
@@ -100,23 +120,10 @@ const useStyles = makeStyles({
     },
 });
 
-const handleRight = () => {
-    console.log('handleRight');
-}
-const handleLeft = () => {
-    console.log('handleLeft');
-}
-
-// const handleSkinTypeChange = () => {
-    
-// }
-
-
 
 export const MyPage = () => {
     const classes = useStyles();
     const [user, setUser] = useState(null);
-    const [userId, setUserId] = useState(null);
     // const [item, setItem] = useState(null);
     const [favorites, setFavorites] = useState([]);
     const [histories, setHistories] = useState([]);
@@ -141,16 +148,17 @@ export const MyPage = () => {
         const responseFavorites = await axios.get('/user_favorites');
         const f = responseFavorites.data;
         setFavorites(f);
+        console.log(responseFavorites.data);
         console.log(favorites);
 
         const responseHistories = await axios.get('/user_histories');
         const h = responseHistories.data;
         setHistories(h);
+        console.log(responseHistories.data);
         console.log(histories);
 
     }, [])
 
-    // TODO: skinType変更ゆっくり2回くらい押さないと変更されない
     const handleNormalSkin = async () => {
         console.log('normal');
         console.log(user);
@@ -158,10 +166,7 @@ export const MyPage = () => {
             const response = await axios.post('/me', {...user, skin_type_id: 1});
             console.log(response);
             window.alert('スキンタイプを変更しました');
-            // setUser({...user, skin_type_id: 1});
             console.log(user);
-
-                // const responseNewUser = await axios.get('/me');
             const u = response.data;
             setUser(u);
             } catch (e) {
@@ -408,8 +413,46 @@ export const MyPage = () => {
                 </ImageListItem>
 
                 {/* {favoriteItems()} */}
+                {/* TODO: 表示されない */}
 
-                <Grid container spacing={1} direction="row" alignItems="center" style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
+                <div style={{ display: 'flex', 'align-items': 'center', 'justify-content': 'center'}}>
+                    <div style={{ maxWidth: '1000px' }}>
+                        <Carousel
+                            showDots={true}
+                            responsive={responsive}
+                            infinite={true}
+                            autoPlaySpeed={1000}
+                            autoPlay={false}
+                            keyBoardControl={true}
+                            transitionDuration={500}
+                            containerClass="carousel-container"
+                            removeArrowOnDeviceType={["tablet", "mobile"]}
+                            dotListClass="custom-dot-list-style"
+                            itemClass="carousel-item-padding-40-px"
+                            shouldResetAutoplay={false}
+                        >
+                            {favorites.map((favorite) => (
+                                <div style={{ maxWidth: '90%' }}>
+                                    <ImageListItem key={favorite.img} className={classes.cardPaper}>
+                                        <img
+                                            src={favorite.img}
+                                            alt={favorite.name}
+                                            loading="lazy"
+                                            style={{ maxWidth: '100%', height: '100%', margin: '0 auto' }}
+                                        />
+                                        <ImageListItemBar
+                                            title={favorite.brand}
+                                            subtitle={favorite.name}
+                                        />
+                                    </ImageListItem>
+                                </div>
+                            ))}
+                        </Carousel>
+                    </div>
+                </div>
+
+
+                {/* <Grid container spacing={1} direction="row" alignItems="center" style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
                     <img src={leftArrow_img} className={classes.leftArrow} onClick={handleLeft} />
                     {favorites.map((favorite) => (
                     <Grid m={1}>
@@ -428,7 +471,7 @@ export const MyPage = () => {
                     </Grid>
                     ))}
                     <img src={rightArrow_img} className={classes.rightArrow} onClick={handleRight} />
-                </Grid>
+                </Grid> */}
 
                 </ImageList>
             </div>
@@ -440,27 +483,65 @@ export const MyPage = () => {
                 <ImageListItem key="Subheader" cols={2}>
                     <ListSubheader component="div">最近チェックしたアイテム</ListSubheader>
                 </ImageListItem>
+
+                <div style={{ display: 'flex', 'align-items': 'center', 'justify-content': 'center'}}>
+                    <div style={{ maxWidth: '1000px' }}>
+                        <Carousel
+                            showDots={true}
+                            responsive={responsive}
+                            infinite={true}
+                            autoPlaySpeed={1000}
+                            autoPlay={false}
+                            keyBoardControl={true}
+                            transitionDuration={500}
+                            containerClass="carousel-container"
+                            removeArrowOnDeviceType={["tablet", "mobile"]}
+                            dotListClass="custom-dot-list-style"
+                            itemClass="carousel-item-padding-40-px"
+                            shouldResetAutoplay={false}
+                        >
+                            {histories.map((history) => (
+                                <div style={{ maxWidth: '90%' }}>
+                                    <ImageListItem key={history.img} className={classes.cardPaper}>
+                                        <img
+                                            src={history.img}
+                                            alt={history.name}
+                                            loading="lazy"
+                                            style={{ maxWidth: '100%', height: '100%', margin: '0 auto' }}
+                                        />
+                                        <ImageListItemBar
+                                            title={history.brand}
+                                            subtitle={history.name}
+                                        />
+                                    </ImageListItem>
+                                </div>
+                            ))}
+                        </Carousel>
+                    </div>
+                </div>
                 
-                <Grid container spacing={1} direction="row" alignItems="center" style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
-                    <img src={leftArrow_img} className={classes.leftArrow} onClick={handleLeft} />
-                    {histories.map((history) => (
-                    <Grid m={1}>
-                        <ImageListItem key={history.img} className={classes.cardPaper}>
-                        <img
-                            src={history.img}
-                            alt={history.name}
-                            loading="lazy"
-                            style={{ maxWidth: '300px', height: '100%', margin: '0 auto' }}
-                        />
-                        <ImageListItemBar
-                            title={history.brand}
-                            subtitle={history.name}
-                        />
-                        </ImageListItem>
-                    </Grid>
-                    ))}
-                    <img src={rightArrow_img} className={classes.rightArrow} onClick={handleRight} />
-                </Grid>
+                {/* <Grid container spacing={1} direction="row" alignItems="center" style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
+                    <img src={leftArrow_img} className={classes.leftArrow} onClick={handleLeft} /> */}
+                    {/* {histories.map((history) => (
+                    // <Grid m={1}>
+                        <div style={{ maxWidth: '100px' }}>
+                            <ImageListItem key={history.img} className={classes.cardPaper}>
+                            <img
+                                src={history.img}
+                                alt={history.name}
+                                loading="lazy"
+                                style={{ maxWidth: '100px', height: '100%', margin: '0 auto' }}
+                            />
+                            <ImageListItemBar
+                                title={history.brand}
+                                subtitle={history.name}
+                            />
+                            </ImageListItem>
+                        </div>
+                    // </Grid>
+                    ))} */}
+                    {/* <img src={rightArrow_img} className={classes.rightArrow} onClick={handleRight} />
+                </Grid> */}
 
                 </ImageList>
             </div>
