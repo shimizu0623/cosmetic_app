@@ -57,13 +57,16 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::resource('user_favorites', UserFavoriteItemsController::class, ['only' => ['index', 'store', 'destroy']]);
     Route::resource('user_histories', UserHistoriesController::class, ['only' => ['index', 'store']]);
     Route::resource('user_items', UserItemsController::class, ['only' => ['index']]);
-    Route::resource('user_unmatchedItems', UserUnmatchedItemsController::class,['only' => ['index', 'store']]);
+    Route::resource('user_unmatchedItems', UserUnmatchedItemsController::class,['only' => ['index', 'store', 'destroy']]);
     Route::resource('leave_reasons', LeaveReasonsController::class,['only' => ['index', 'store']]);
-    // Route::get('/items', [ItemsController::class, 'index']);
-    // Route::get('/items/{id}', [ItemsController::class, 'show']);
-    Route::get('/recommendItem', [ItemsController::class, 'recommendItem']);
-    Route::get('/items/{id}', [ItemsController::class, 'show']);
     Route::resource('requests', RequestsController::class, ['only' => ['store']]);
     Route::resource('reasons', ReasonsController::class, ['only' => ['index']]);
+    Route::get('/recommendItem', [ItemsController::class, 'recommendItem']);
+    Route::get('/items/{id}', [ItemsController::class, 'show']);
+    
+    // Route::get('/items', [ItemsController::class, 'index']);
+    // Route::get('/items/{id}', [ItemsController::class, 'show']);
+    // ↓TODO: 質問中
+    Route::resource('items', ItemsController::class, ['only' => ['index', 'show']]);
     
 });
