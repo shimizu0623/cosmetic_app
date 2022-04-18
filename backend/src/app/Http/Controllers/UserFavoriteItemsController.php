@@ -54,25 +54,30 @@ class UserFavoriteItemsController extends Controller
         $user = $request->user();
 
         $validator = Validator::make($request->all(),[
-            // 'user_id' => 'required',
             'item_id' => 'required',
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->messages(), Response::HTTP_UNPROCESSABLE_ENTITY);
+            return response()->json(['message' => $validator->messages()], 
+            Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        // $favorite = UserFavoriteItem::create([
-        //     'user_id' => $request->user_id,
-        //     'item_id' => $request->item_id,
-        // ]);
-
-        $create = UserFavoriteItem::create([
+        $favorite = UserFavoriteItem::where('user_id', $user->id)
+            ->where('item_id', $request->item_id)
+            ->get();
+        
+        if ($favorite->count() !== 0){
+            return response()->json(['message' => '既にお気に入り登録されています'],
+            Response::HTTP_BAD_REQUEST);
+        }
+        
+        UserFavoriteItem::create([
             'user_id' => $user->id,
             'item_id' => $request->item_id,
         ]);
 
-        return response()->json($create, Response::HTTP_OK);
+        // return response()->json($favorite, Response::HTTP_OK);
+        return response()->noContent();
 
     }
 
@@ -105,23 +110,34 @@ class UserFavoriteItemsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function destroy(Request $request, $itemId)
-    // {
+    public function destroy(Request $request, $itemId)
+    {
 
-    //     // TODO: ↓削除できずエラーが出てしまう
-    //     $user = $request->user();
+        // TODO: ↓削除できずエラーが出てしまう
+        $user = $request->user();
 
-    //     UserFavoriteItem::where('item_id', $itemId)->where('user_id', $user->id)->delete();
-    //     // return redirect('/')->with('success', '削除しました');
-    //     return redirect()->action([UserFavoriteItemsController::class, 'index']);
+        // TODO: ↓->delete()があとであるから->get()はいらない？
+        $favorite = UserFavoriteItem::where('item_id', $itemId)->where('user_id', $user->id);
+
+        if ($favorite->count() === 0){
+            return response()->json(['message' => 'お気に入り登録されていません'],
+            Response::HTTP_NOT_FOUND);
+        }
+
+        $favorite->delete();
+        return response()->noContent();
+
+        // TODO: redirect？？redirectだからできなかった？
+        // return redirect()->action([UserFavoriteItemsController::class, 'index']);
+        // return redirect('/')->with('success', '削除しました');
 
 
-    //     // $favoriteItem = UserFavoriteItem::find($id);
-    //     // if (auth()->user()->id != $favoriteItem->user_id) {
-    //     //     return redirect(route('favoriteItem.index'))->with('error', '許可されていない操作です');
-    //     // }
+        // $favoriteItem = UserFavoriteItem::find($id);
+        // if (auth()->user()->id != $favoriteItem->user_id) {
+        //     return redirect(route('favoriteItem.index'))->with('error', '許可されていない操作です');
+        // }
 
-    //     // $favoriteItem->delete();
-    //     // return redirect(route('favoriteItem.index'))->with('success', '削除しました');
-    // }
+        // $favoriteItem->delete();
+        // return redirect(route('favoriteItem.index'))->with('success', '削除しました');
+    }
 }
