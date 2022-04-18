@@ -112,11 +112,9 @@ class UserFavoriteItemsController extends Controller
      */
     public function destroy(Request $request, $itemId)
     {
-
-        // TODO: ↓削除できずエラーが出てしまう
         $user = $request->user();
 
-        // TODO: ↓->delete()があとであるから->get()はいらない？
+        // TODO: ↓->delete()がつくから->get()はいらない？
         $favorite = UserFavoriteItem::where('item_id', $itemId)->where('user_id', $user->id);
 
         if ($favorite->count() === 0){
