@@ -22,14 +22,14 @@ import Link from '@material-ui/core/Link';
 import { Link as RouterLink } from "react-router-dom";
 import { Btn } from '../components/btn';
 
-import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
+import Tooltip from '@mui/material/Tooltip';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import { makeStyles } from '@material-ui/core/styles';
-import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 
+const theme = createTheme();
 const useStyles = makeStyles((theme) => ({
     container: {
         display: 'flex',
@@ -41,13 +41,12 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const theme = createTheme();
-
 export const SignUpPage = () => {
   const classes = useStyles();
   const [genders, setGenders] = useState([]);
   const [skinTypes, setSkinTypes] = useState([]);
-  const [userInformation, setUserInformation] = useState({})
+  const [skinTypeTooltip, setSkinTypeTooltip] = useState('');
+  const [userInformation, setUserInformation] = useState({});
   const navigate = useNavigate();
 
   useEffect(async () => {
@@ -61,10 +60,9 @@ export const SignUpPage = () => {
 
   const handleUserInformationChange = (event) => {
     setUserInformation({...userInformation, [event.target.name]: event.target.value})
-    // console.log(skinTypes)
   };
 
-  const onClickRegister = async () => {
+  const handleRegister = async () => {
     try {
       console.log(userInformation);
       const response = await axios.post('/register', userInformation);
@@ -167,56 +165,6 @@ export const SignUpPage = () => {
 
 
             <Box component="form" noValidate onSubmit={handleSubmit}>
-              <FormControl style={{margin: '20px 20px 0 0'}}>
-                  <InputLabel id="demo-simple-select-helper-label">性別</InputLabel>
-                  <Select
-                  name="gender_id"
-                  labelId="demo-simple-select-helper-label"
-                  id="demo-simple-select-helper"
-                  value={userInformation.gender_id}
-                  label="gender_id"
-                  onChange={handleUserInformationChange}
-                  style={{
-                    margin: '0 auto',
-                    minWidth: '200px',
-                  }}
-                  >
-
-                  {genders.map((gender) => (
-                    <MenuItem value={gender.id}>{gender.name}</MenuItem>
-                  ))}
-                                    
-                  </Select>
-              </FormControl>
-
-
-              <FormControl style={{marginTop: '20px'}}>
-                  <InputLabel id="demo-simple-select-helper-label">スキンタイプ</InputLabel>
-                  <Select
-                  name="skin_type_id"
-                  labelId="demo-simple-select-helper-label"
-                  id="demo-simple-select-helper"
-                  value={userInformation.skin_type_id}
-                  label="skin_type_id"
-                  onChange={handleUserInformationChange}
-                  style={{
-                    margin: '0 auto',
-                    minWidth: '200px',
-                  }}
-                  >
-                    {/* TODO: ↓TooltipがあるとonChangeがきかない */}
-
-                      {skinTypes.map((skinType) => (
-                        <Tooltip title={skinType.detail} followCursor>
-                          <MenuItem
-                          value={skinType.id} 
-                          style={{margin: '5px'}}>
-                            {skinType.name}
-                          </MenuItem>
-                        </Tooltip>
-                      ))}
-                  </Select>
-              </FormControl>          
               
               <TextField
                 margin="normal"
@@ -234,7 +182,7 @@ export const SignUpPage = () => {
             <form className={classes.container} noValidate>
               <TextField
                 margin="normal"
-                style={{margin: '2px 0'}}
+                style={{ margin: '2px 0' }}
                 required
                 fullWidth
                 id="date"
@@ -287,12 +235,64 @@ export const SignUpPage = () => {
                     </InputAdornment>
                   }
               />
-              <div style={{margin: '10px'}}>
-                <p style={{color: 'gray'}}>登録情報はマイページからいつでも変更できます。</p>
+
+              <FormControl style={{margin: '20px 20px 0 0'}}>
+                <InputLabel id="demo-simple-select-helper-label">性別</InputLabel>
+                <Select
+                name="gender_id"
+                labelId="demo-simple-select-helper-label"
+                id="demo-simple-select-helper"
+                value={userInformation.gender_id}
+                label="gender_id"
+                onChange={handleUserInformationChange}
+                style={{
+                  margin: '0 auto',
+                  minWidth: '200px',
+                }}
+                >
+                  {genders.map((gender) => (
+                    <MenuItem value={gender.id}>{gender.name}</MenuItem>
+                  ))}                                  
+                </Select>
+              </FormControl>
+
+              <FormControl style={{marginTop: '20px'}}>
+                <InputLabel id="demo-simple-select-helper-label">スキンタイプ</InputLabel>
+                <Tooltip title={skinTypeTooltip} followCursor>
+                  <Select
+                    name="skin_type_id"
+                    labelId="demo-simple-select-helper-label"
+                    id="demo-simple-select-helper"
+                    value={userInformation.skin_type_id}
+                    label="skin_type_id"
+                    onChange={handleUserInformationChange}
+                    // TODO: ↓？
+                    onClose={() => { setSkinTypeTooltip(''); }}
+                    style={{
+                      margin: '0 auto',
+                      minWidth: '200px',
+                    }}
+                  >
+                    {skinTypes.map((skinType) => (
+                      <MenuItem
+                        value={skinType.id} 
+                        style={{ margin: '5px' }}
+                        // TODO: ↓？
+                        onMouseOver={() => { setSkinTypeTooltip(skinType.detail); }}
+                      >
+                      {skinType.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </Tooltip>
+              </FormControl>          
+
+              <div style={{ margin: '20px' }}>
+                <p style={{ color: 'gray' }}>登録情報はマイページからいつでも変更できます。</p>
               </div>
 
             <Btn
-              onClick={onClickRegister}
+              onClick={handleRegister}
               message='登録する'
             />
             </Box>
@@ -302,4 +302,4 @@ export const SignUpPage = () => {
     </ThemeProvider>
     </div>
   );
-}
+};
