@@ -35,7 +35,6 @@ export const DeleteConfirm = () => {
                 console.log('handleSend');
                 const response = await axios.post('/leave_reasons', {
                     reason: reason.reason,
-                    leave_date: '2022-01-01',
                 });
                 navigate("/delete");
             } catch (e) {
