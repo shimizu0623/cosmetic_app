@@ -29,7 +29,6 @@ import ListSubheader from '@mui/material/ListSubheader';
 
 const responsive = {
     superLargeDesktop: {
-      // the naming can be any, depends on you.
       breakpoint: { max: 4000, min: 3000 },
       items: 5
     },
@@ -70,22 +69,22 @@ const useStyles = makeStyles({
     header: {
         width: '100%',
     },
-    rightArrow: {
-        maxWidth: '50px',
-        margin: 'auto 0 auto auto',
-        '&:hover':{
-            cursor: 'pointer',
-            opacity: '0.6',
-        }
-    },
-    leftArrow: {
-        maxWidth: '50px',
-        margin: 'auto  auto auto 0',
-        '&:hover':{
-            cursor: 'pointer',
-            opacity: '0.6',
-        }
-    },
+    // rightArrow: {
+    //     maxWidth: '50px',
+    //     margin: 'auto 0 auto auto',
+    //     '&:hover':{
+    //         cursor: 'pointer',
+    //         opacity: '0.6',
+    //     }
+    // },
+    // leftArrow: {
+    //     maxWidth: '50px',
+    //     margin: 'auto  auto auto 0',
+    //     '&:hover':{
+    //         cursor: 'pointer',
+    //         opacity: '0.6',
+    //     }
+    // },
     skinTypeForm: {
         margin: '0 auto',
     },
@@ -101,13 +100,12 @@ const useStyles = makeStyles({
         color: '#0c5b64',
         fontSize: '18px',
         fontWeight: 'bold',
-        textAlign:'center',
-        height:'90px',
+        // textAlign:'center',
+        // height:'90px',
         lineHeight:'90px',
         textShadow: '0 -1px 0 #cdeef1',
     },
     cardPaper: {
-
         '&:hover':{
             cursor: 'pointer', 
             opacity: '0.6',         
@@ -124,149 +122,20 @@ const useStyles = makeStyles({
 export const MyPage = () => {
     const classes = useStyles();
     const [user, setUser] = useState(null);
-    // const [item, setItem] = useState(null);
     const [favorites, setFavorites] = useState([]);
     const [histories, setHistories] = useState([]);
 
     useEffect(async () => {
         const response = await axios.get('/me');
-        const u = response.data;
-        setUser(u);
-
-        // const responseItem = await axios.get('/item');
-        // const responseFavorite = await axios.get('/user_favorites');
-        // const i = responseItem.data;
-        // const f = responseFavorite.data;
-        // setItem(i);
-        // setFavorites(f);
-        // console.log(favorites);
-        // const responseFavorite = await axios.get('/user_favorites', {
-            //     params: {
-                //         user_id: userId,  
-                //     }
-                // });
         const responseFavorites = await axios.get('/user_favorites');
-        const f = responseFavorites.data;
-        setFavorites(f);
-        console.log(responseFavorites.data);
-        console.log(favorites);
-
         const responseHistories = await axios.get('/user_histories');
+        const u = response.data;
+        const f = responseFavorites.data;
         const h = responseHistories.data;
+        setUser(u);
+        setFavorites(f);
         setHistories(h);
-        console.log(responseHistories.data);
-        console.log(histories);
-
-    }, [])
-
-    const handleNormalSkin = async () => {
-        console.log('normal');
-        console.log(user);
-        try {
-            const response = await axios.post('/me', {...user, skin_type_id: 1});
-            console.log(response);
-            window.alert('スキンタイプを変更しました');
-            console.log(user);
-            const u = response.data;
-            setUser(u);
-            } catch (e) {
-            window.alert('変更できませんでした');
-            console.error(e);
-            return;
-            }
-    }
-    const handleInnerDrySkin = async () => {
-        console.log('InnerDry');
-        setUser({...user, skin_type_id: 2});
-        console.log(user);
-            try {
-                console.log(user);
-                const response = await axios.post('/me', user);
-                console.log(response);
-                window.alert('スキンタイプをInnerDrySkinに変更しました');
-                const responseNewUser = await axios.get('/me');
-                const u = responseNewUser.data;
-                setUser(u);
-              } catch (e) {
-                window.alert('変更できませんでした');
-                console.error(e);
-                return;
-              }
-    }
-    const handleDrySkin = async () => {
-        console.log('DrySkin');
-        setUser({...user, skin_type_id: 3});
-        console.log(user);
-            try {
-                console.log(user);
-                const response = await axios.post('/me', user);
-                console.log(response);
-                window.alert('スキンタイプをDrySkinに変更しました');
-                const responseNewUser = await axios.get('/me');
-                const u = responseNewUser.data;
-                setUser(u);
-              } catch (e) {
-                window.alert('変更できませんでした');
-                console.error(e);
-                return;
-              }
-    }
-    const handleOilySkin = async () => {
-        console.log('OilySkin');
-        setUser({...user, skin_type_id: 4});
-        console.log(user);
-            try {
-                console.log(user);
-                const response = await axios.post('/me', user);
-                console.log(response);
-                window.alert('スキンタイプをOilySkinに変更しました');
-                const responseNewUser = await axios.get('/me');
-                const u = responseNewUser.data;
-                setUser(u);
-              } catch (e) {
-                window.alert('変更できませんでした');
-                console.error(e);
-                return;
-              }
-    }
-    const handleCombinationSkin = async () => {
-        console.log('CombinationSkin');
-        setUser({...user, skin_type_id: 5});
-        console.log(user);
-            try {
-                console.log(user);
-                const response = await axios.post('/me', user);
-                console.log(response);
-                window.alert('スキンタイプをCombinationSkinに変更しました');
-                const responseNewUser = await axios.get('/me');
-                const u = responseNewUser.data;
-                setUser(u);
-              } catch (e) {
-                window.alert('変更できませんでした');
-                console.error(e);
-                return;
-              }
-    }
-    const handleSensitiveSkin = async () => {
-        console.log('SensitiveSkin');
-        setUser({...user, skin_type_id: 6});
-        console.log(user);
-            try {
-                console.log(user);
-                const response = await axios.post('/me', user);
-                console.log(response);
-                window.alert('スキンタイプをSensitiveSkinに変更しました');
-                const responseNewUser = await axios.get('/me');
-                const u = responseNewUser.data;
-                setUser(u);
-              } catch (e) {
-                window.alert('変更できませんでした');
-                console.error(e);
-                return;
-              }
-    }
-    
-
+    }, []);
 
     const userInformation = () => {
         if (user === null){
@@ -278,44 +147,48 @@ export const MyPage = () => {
                 <p>{user.birthday_string}/{user.gender_name}</p>
                 <p>{user.skin_type_name}</p>
             </div>
-        )
-    }
+        );
+    };
 
+    const updateSkinType = async (skinTypeId) => {
+        try {
+            const response = await axios.post('/me', {...user, skin_type_id: skinTypeId});
+            console.log(response);
+            window.alert('スキンタイプを変更しました');
+            console.log(user);
+            const u = response.data;
+            setUser(u);
+        } catch (e) {
+            window.alert('変更できませんでした');
+            console.error(e);
+            return;
+        };
+    };
 
-    const favoriteItems = async () => {
-        // const response = await axios.get('/me');
-        // setUserId(response.data.id);
-        // const responseFavorite = await axios.get('/user_favorites', {
-        //     params: {
-        //         user_id: userId,  
-        //     }
-        // });
-        // setFavorites(responseFavorite.data);
-        // console.log(favorites)
-        if (favorites === null){
-            return <CircularProgress color="success" size="15px" />
-        }
-        return(
-            <>
-            {favorites.map((favorite) => (
-                <ImageListItem key={favorite.img} className={classes.cardPaper}>
-                <img
-                    src={favorite.img}
-                    // srcSet={`${favorite.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                    alt={favorite.name}
-                    loading="lazy"
-                />
-                <ImageListItemBar
-                    title={favorite.brand}
-                    subtitle={favorite.name}
-                />
-                </ImageListItem>
-            ))}
-            </>
-        )
-    }
+    const handleNormalSkin = () => {
+        updateSkinType(1);
+    };
 
+    const handleInnerDrySkin = () => {
+        updateSkinType(2);
+    };
+
+    const handleDrySkin = () => {
+        updateSkinType(3);
+    };
     
+    const handleOilySkin = () => {
+        updateSkinType(4);
+    };
+
+    const handleCombinationSkin = () => {
+        updateSkinType(5);
+    };
+
+    const handleSensitiveSkin = () => {
+        updateSkinType(6);
+    };
+
     return(
         <>
         <div className='MainContainer'>
@@ -329,15 +202,15 @@ export const MyPage = () => {
                 <div className={classes.skinTypeForm}>
                     <p style={{ marginBottom: '20px' }}>＜自分のスキンタイプを変更する＞</p>
                     <Box
-                    sx={{
-                        display: 'flex',
-                        flexWrap: 'wrap',
-                        margin: '0 auto',
-                        '& > :not(style)': {
-                        width: 90,
-                        height: 90,
-                        },
-                    }}
+                        sx={{
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            margin: '0 auto',
+                            '& > :not(style)': {
+                            width: 90,
+                            height: 90,
+                            },
+                        }}
                     >
                         {/* TODO: ↓の処理ひとつにまとめる */}
                         <Paper 
@@ -408,70 +281,68 @@ export const MyPage = () => {
             <div className='favorite'>
                 <img src={leaf_favorite_img} alt="leaf_favorite_img" className={classes.img}/>                
                 <ImageList style={{ width: '100%', gridTemplateColumns: 'repeat(1, 1fr)' }}>
-                <ImageListItem key="Subheader" cols={2}>
-                    <ListSubheader component="div">お気に入りに登録中のアイテム</ListSubheader>
-                </ImageListItem>
+                    <ImageListItem key="Subheader" cols={2}>
+                        <ListSubheader component="div">お気に入りに登録中のアイテム</ListSubheader>
+                    </ImageListItem>
 
-                {/* {favoriteItems()} */}
-                {/* TODO: 表示されない */}
+                    {/* TODO: 表示されない */}
 
-                <div style={{ display: 'flex', 'align-items': 'center', 'justify-content': 'center'}}>
-                    <div style={{ maxWidth: '1000px' }}>
-                        <Carousel
-                            showDots={true}
-                            responsive={responsive}
-                            infinite={true}
-                            autoPlaySpeed={1000}
-                            autoPlay={false}
-                            keyBoardControl={true}
-                            transitionDuration={500}
-                            containerClass="carousel-container"
-                            removeArrowOnDeviceType={["tablet", "mobile"]}
-                            dotListClass="custom-dot-list-style"
-                            itemClass="carousel-item-padding-40-px"
-                            shouldResetAutoplay={false}
-                        >
-                            {favorites.map((favorite) => (
-                                <div style={{ maxWidth: '90%' }}>
-                                    <ImageListItem key={favorite.img} className={classes.cardPaper}>
-                                        <img
-                                            src={favorite.img}
-                                            alt={favorite.name}
-                                            loading="lazy"
-                                            style={{ maxWidth: '100%', height: '100%', margin: '0 auto' }}
-                                        />
-                                        <ImageListItemBar
-                                            title={favorite.brand}
-                                            subtitle={favorite.name}
-                                        />
-                                    </ImageListItem>
-                                </div>
-                            ))}
-                        </Carousel>
+                    <div style={{ display: 'flex', 'align-items': 'center', 'justify-content': 'center' }}>
+                        <div style={{ maxWidth: '1000px' }}>
+                            <Carousel
+                                showDots={true}
+                                responsive={responsive}
+                                infinite={true}
+                                autoPlaySpeed={1000}
+                                autoPlay={false}
+                                keyBoardControl={true}
+                                transitionDuration={500}
+                                containerClass="carousel-container"
+                                removeArrowOnDeviceType={["tablet", "mobile"]}
+                                dotListClass="custom-dot-list-style"
+                                itemClass="carousel-item-padding-40-px"
+                                shouldResetAutoplay={false}
+                            >
+                                {favorites.map((favorite) => (
+                                    <div style={{ maxWidth: '90%' }}>
+                                        <ImageListItem key={favorite.img} className={classes.cardPaper}>
+                                            <img
+                                                src={favorite.img}
+                                                alt={favorite.name}
+                                                loading="lazy"
+                                                style={{ maxWidth: '100%', height: '100%', margin: '0 auto' }}
+                                            />
+                                            <ImageListItemBar
+                                                title={favorite.brand}
+                                                subtitle={favorite.name}
+                                            />
+                                        </ImageListItem>
+                                    </div>
+                                ))}
+                            </Carousel>
+                        </div>
                     </div>
-                </div>
 
-
-                {/* <Grid container spacing={1} direction="row" alignItems="center" style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
-                    <img src={leftArrow_img} className={classes.leftArrow} onClick={handleLeft} />
-                    {favorites.map((favorite) => (
-                    <Grid m={1}>
-                        <ImageListItem key={favorite.img} className={classes.cardPaper}>
-                        <img
-                            src={favorite.img}
-                            alt={favorite.name}
-                            loading="lazy"
-                            style={{ maxWidth: '300px', height: '100%', margin: '0 auto' }}
-                        />
-                        <ImageListItemBar
-                            title={favorite.brand}
-                            subtitle={favorite.name}
-                        />
-                        </ImageListItem>
-                    </Grid>
-                    ))}
-                    <img src={rightArrow_img} className={classes.rightArrow} onClick={handleRight} />
-                </Grid> */}
+                    {/* <Grid container spacing={1} direction="row" alignItems="center" style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
+                        <img src={leftArrow_img} className={classes.leftArrow} onClick={handleLeft} />
+                        {favorites.map((favorite) => (
+                        <Grid m={1}>
+                            <ImageListItem key={favorite.img} className={classes.cardPaper}>
+                            <img
+                                src={favorite.img}
+                                alt={favorite.name}
+                                loading="lazy"
+                                style={{ maxWidth: '300px', height: '100%', margin: '0 auto' }}
+                            />
+                            <ImageListItemBar
+                                title={favorite.brand}
+                                subtitle={favorite.name}
+                            />
+                            </ImageListItem>
+                        </Grid>
+                        ))}
+                        <img src={rightArrow_img} className={classes.rightArrow} onClick={handleRight} />
+                    </Grid> */}
 
                 </ImageList>
             </div>
@@ -480,68 +351,68 @@ export const MyPage = () => {
             <div className='history'>
                 <img src={leaf_history_img} alt="leaf_history_img" className={classes.img}/>             
                 <ImageList style={{ width: '100%', gridTemplateColumns: 'repeat(1, 1fr)' }}>
-                <ImageListItem key="Subheader" cols={2}>
-                    <ListSubheader component="div">最近チェックしたアイテム</ListSubheader>
-                </ImageListItem>
+                    <ImageListItem key="Subheader" cols={2}>
+                        <ListSubheader component="div">最近チェックしたアイテム</ListSubheader>
+                    </ImageListItem>
 
-                <div style={{ display: 'flex', 'align-items': 'center', 'justify-content': 'center'}}>
-                    <div style={{ maxWidth: '1000px' }}>
-                        <Carousel
-                            showDots={true}
-                            responsive={responsive}
-                            infinite={true}
-                            autoPlaySpeed={1000}
-                            autoPlay={false}
-                            keyBoardControl={true}
-                            transitionDuration={500}
-                            containerClass="carousel-container"
-                            removeArrowOnDeviceType={["tablet", "mobile"]}
-                            dotListClass="custom-dot-list-style"
-                            itemClass="carousel-item-padding-40-px"
-                            shouldResetAutoplay={false}
-                        >
-                            {histories.map((history) => (
-                                <div style={{ maxWidth: '90%' }}>
-                                    <ImageListItem key={history.img} className={classes.cardPaper}>
-                                        <img
-                                            src={history.img}
-                                            alt={history.name}
-                                            loading="lazy"
-                                            style={{ maxWidth: '100%', height: '100%', margin: '0 auto' }}
-                                        />
-                                        <ImageListItemBar
-                                            title={history.brand}
-                                            subtitle={history.name}
-                                        />
-                                    </ImageListItem>
-                                </div>
-                            ))}
-                        </Carousel>
-                    </div>
-                </div>
-                
-                {/* <Grid container spacing={1} direction="row" alignItems="center" style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
-                    <img src={leftArrow_img} className={classes.leftArrow} onClick={handleLeft} /> */}
-                    {/* {histories.map((history) => (
-                    // <Grid m={1}>
-                        <div style={{ maxWidth: '100px' }}>
-                            <ImageListItem key={history.img} className={classes.cardPaper}>
-                            <img
-                                src={history.img}
-                                alt={history.name}
-                                loading="lazy"
-                                style={{ maxWidth: '100px', height: '100%', margin: '0 auto' }}
-                            />
-                            <ImageListItemBar
-                                title={history.brand}
-                                subtitle={history.name}
-                            />
-                            </ImageListItem>
+                    <div style={{ display: 'flex', 'align-items': 'center', 'justify-content': 'center' }}>
+                        <div style={{ maxWidth: '1000px' }}>
+                            <Carousel
+                                showDots={true}
+                                responsive={responsive}
+                                infinite={true}
+                                autoPlaySpeed={1000}
+                                autoPlay={false}
+                                keyBoardControl={true}
+                                transitionDuration={500}
+                                containerClass="carousel-container"
+                                removeArrowOnDeviceType={["tablet", "mobile"]}
+                                dotListClass="custom-dot-list-style"
+                                itemClass="carousel-item-padding-40-px"
+                                shouldResetAutoplay={false}
+                            >
+                                {histories.map((history) => (
+                                    <div style={{ maxWidth: '90%' }}>
+                                        <ImageListItem key={history.img} className={classes.cardPaper}>
+                                            <img
+                                                src={history.img}
+                                                alt={history.name}
+                                                loading="lazy"
+                                                style={{ maxWidth: '100%', height: '100%', margin: '0 auto' }}
+                                            />
+                                            <ImageListItemBar
+                                                title={history.brand}
+                                                subtitle={history.name}
+                                            />
+                                        </ImageListItem>
+                                    </div>
+                                ))}
+                            </Carousel>
                         </div>
-                    // </Grid>
-                    ))} */}
-                    {/* <img src={rightArrow_img} className={classes.rightArrow} onClick={handleRight} />
-                </Grid> */}
+                    </div>
+                    
+                    {/* <Grid container spacing={1} direction="row" alignItems="center" style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
+                        <img src={leftArrow_img} className={classes.leftArrow} onClick={handleLeft} /> */}
+                        {/* {histories.map((history) => (
+                        // <Grid m={1}>
+                            <div style={{ maxWidth: '100px' }}>
+                                <ImageListItem key={history.img} className={classes.cardPaper}>
+                                <img
+                                    src={history.img}
+                                    alt={history.name}
+                                    loading="lazy"
+                                    style={{ maxWidth: '100px', height: '100%', margin: '0 auto' }}
+                                />
+                                <ImageListItemBar
+                                    title={history.brand}
+                                    subtitle={history.name}
+                                />
+                                </ImageListItem>
+                            </div>
+                        // </Grid>
+                        ))} */}
+                        {/* <img src={rightArrow_img} className={classes.rightArrow} onClick={handleRight} />
+                    </Grid> */}
 
                 </ImageList>
             </div>
@@ -551,32 +422,32 @@ export const MyPage = () => {
                 <img src={leaf_menu_img} alt="leaf_menu_img" className={classes.img}/>
                 <div>
                     <Link 
-                      className={classes.menu}
-                      underline="none"
-                      component={RouterLink} 
-                      to='/fixAccount'                
-                      >
+                        className={classes.menu}
+                        underline="none"
+                        component={RouterLink} 
+                        to='/fixAccount'                
+                    >
                         お客様情報変更
                     </Link>
                     <Link 
-                      className={classes.menu}
-                      underline="none"
-                      component={RouterLink} 
-                      to='/requestPage'
-                      >
-                          リクエスト
+                        className={classes.menu}
+                        underline="none"
+                        component={RouterLink} 
+                        to='/requestPage'
+                    >
+                        リクエスト
                     </Link>
                     <Link 
-                      className={classes.menu}
-                      underline="none"
-                      component={RouterLink} 
-                      to='/confirm'
-                      >
+                        className={classes.menu}
+                        underline="none"
+                        component={RouterLink} 
+                        to='/confirm'
+                    >
                         退会
                     </Link>
                 </div>
             </div>
         </div>
         </>
-    )
-}
+    );
+};
