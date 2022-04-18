@@ -45,15 +45,25 @@ class UserUnmatchedItemsController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->messages(), Response::HTTP_UNPROCESSABLE_ENTITY);
+            return response()->json(['message' => $validator->messages()], 
+            Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $create = UserUnmatchedItem::create([
+        $unmatchedItem = UserUnmatchedItem::where('user_id', $user->id)
+            ->where('item_id', $request->item_id)
+            ->get();
+        
+        if ($unmatchedItem->count() !== 0){
+            return response()->json(['既に登録されています'],
+            Response::HTTP_BAD_REQUEST);
+        }
+
+        UserUnmatchedItem::create([
             'user_id' => $user->id,
             'item_id' => $request->item_id,
         ]);
 
-        return response()->json($create, Response::HTTP_OK);
+        return response()->noContent();
     }
 
     /**
