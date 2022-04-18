@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\LeaveReason;
 use Illuminate\Support\Facades\Validator;
 use \Symfony\Component\HttpFoundation\Response;
+use Carbon\Carbon;
 
 class LeaveReasonsController extends Controller
 {
@@ -29,13 +30,13 @@ class LeaveReasonsController extends Controller
      */
     public function store(Request $request)
     {
-        // $now = Carbon::now()->toDateString();
+        // TODO: ↓これなくてもエラー出なかったから要らない？
+        // $date = new Carbon();
+        $date = Carbon::now(); 
 
         $validator = Validator::make($request->all(),[
-            // ↓TODO: reason必須ではないので、入力なしでもokにするには？
+            // ↓TODO: 必須ではない、入力なしokにするにはfrontendに書いてるのでOK？
             'reason' => 'required',
-            // ↓TODO: 日付はここで取得する？$nowみたいなものを使う？
-            'leave_date' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -44,7 +45,7 @@ class LeaveReasonsController extends Controller
 
         $create = LeaveReason::create([
             'reason' => $request->reason,
-            'leave_date' => $request->leave_date,
+            'leave_date' => $date,
         ]);
 
         return response()->json($create, Response::HTTP_OK);
