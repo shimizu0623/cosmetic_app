@@ -45,6 +45,7 @@ class LeaveReasonsController extends Controller
 
         $create = LeaveReason::create([
             'reason' => $request->reason,
+            // ↓TODO: 'leave_date' => Carbon::now(),の方が良い？
             'leave_date' => $date,
         ]);
 
