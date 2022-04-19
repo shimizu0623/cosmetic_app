@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\LeaveReason;
+
+use App\Models\UserFavoriteItem;
+use App\Models\UserUnmatchedItem;
+use App\Models\UserHistory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use \Symfony\Component\HttpFoundation\Response;
@@ -123,8 +128,18 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function deleteMe(Request $request)
     {
-        //
+        $date = \Carbon\Carbon::now();
+        $user = $request->user();
+
+        $create = LeaveReason::create([
+            'reason' => $request->reason,
+            'leave_date' => $date,
+        ]);
+
+        $user->delete();
+
+        return response()->noContent();
     }
 }
