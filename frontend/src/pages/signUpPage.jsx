@@ -109,10 +109,6 @@ export const SignUpPage = () => {
     event.preventDefault();
   };
 
-  const styleMain = {
-    margin: '60px auto 0',
-  }
-
   const breadcrumbs = [
     <Link underline="hover" key="1" color="inherit" component={RouterLink} to='/'>
       TOP
@@ -123,11 +119,10 @@ export const SignUpPage = () => {
     <Typography key="3" color="text.primary">
       Sign up
     </Typography>,
-    
   ];
 
   return (
-    <div className='Main' style={styleMain}>
+    <div className='Main' style={{ margin: '60px auto 0' }}>
     <ThemeProvider theme={theme}>
     <Stack spacing={2} >
             <Breadcrumbs
@@ -164,7 +159,7 @@ export const SignUpPage = () => {
             <img src={header_img} alt="header" style={{width: '100%'}}/>
 
 
-            <Box component="form" noValidate onSubmit={handleSubmit}>
+            <Box component="form" noValidate onSubmit={handleSubmit} style={{ width: '80%' }}>
               
               <TextField
                 margin="normal"
@@ -254,6 +249,8 @@ export const SignUpPage = () => {
                     <MenuItem value={gender.id}>{gender.name}</MenuItem>
                   ))}                                  
                 </Select>
+                <p style={{ color: '#f34040ac', fontSize: '10px' }}>性別は登録すると変更できません。</p>
+
               </FormControl>
 
               <FormControl style={{marginTop: '20px'}}>
