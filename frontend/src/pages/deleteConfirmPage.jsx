@@ -11,38 +11,23 @@ export const DeleteConfirm = () => {
     const navigate = useNavigate();
 
     const handleAddReason = (event) => {
-        setReason({...reason, reason:event.target.value});
+        setReason(() => event.target.value);
         console.log(reason);
     };
 
-    // TODO: 入力日を指定する
     const handleSend = async () => {
-        // if (reason === null){
-        //     try {
-        //         console.log('handleSend');
-        //         const response = await axios.post('/leave_reasons', {
-        //             reason: '未記入',
-        //             leave_date: '2022-01-01',
-        //         });
-        //         navigate("/delete");
-        //     } catch (e) {
-        //         window.alert('送信に失敗しました');
-        //         console.error(e)
-        //         return;
-        //     }
-        // } else {
-            try {
-                console.log('handleSend');
-                const response = await axios.post('/delete_me', {
-                    reason: reason,
-                });
-                localStorage.removeItem('access-token');
-                navigate("/");
-            } catch (e) {
-                window.alert('送信に失敗しました');
-                console.error(e)
-                return;
-            }
+        try {
+            console.log('handleSend');
+            const response = await axios.post('/delete_me', {
+                reason: reason,
+            });
+            localStorage.removeItem('access-token');
+            navigate("/delete");
+        } catch (e) {
+            window.alert('送信に失敗しました');
+            console.error(e)
+            return;
+        }
     };
 
     return(
