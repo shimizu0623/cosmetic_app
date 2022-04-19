@@ -150,9 +150,9 @@ export const ItemDetail = () => {
         }
     };
 
-    const handleAddFolder = () => {
-        console.log('handleAddFolder');
-    };
+    // const handleAddFolder = () => {
+    //     console.log('handleAddFolder');
+    // };
 
     // TODO: ↓既に登録していたらはじくorアイテムから外すBtnに切り替える
     const handleAddUnmatchedItems = async () => {
@@ -176,13 +176,22 @@ export const ItemDetail = () => {
         console.log('handleAddComparison');
     };
 
-    const handleDeleteFavorite = () => {
+    const handleDeleteFavorite =  async () => {
         console.log('handleDeleteFavorite');
+        try {
+            const response = await axios.delete(`/user_favorites/${id}`);
+            window.alert('お気に入りから削除しました');
+            console.log('ok')
+        } catch (e) {
+            window.alert('削除に失敗しました');
+            console.error(e);
+            return;
+        }
     };
 
-    const handleDeleteFolder = () => {
-        console.log('handleDeleteFolder');
-    };
+    // const handleDeleteFolder = () => {
+    //     console.log('handleDeleteFolder');
+    // };
 
     const handleDeleteUnmatchedItems = async () => {
         console.log('handleDeleteUnmatchedItems');
@@ -202,8 +211,6 @@ export const ItemDetail = () => {
         console.log('handleDeleteComparison');
     };
 
-    const handleReview = () => navigate("/reviewPage");
-
     const itemInformation = () => {
         if (item === null){
             return <CircularProgress color="success" size="15px" />
@@ -219,7 +226,7 @@ export const ItemDetail = () => {
                         <Box borderColor="transparent">
                             <Rating name="read-only" value={value} readOnly />
                         </Box>
-                        <button onClick={handleReview} className={classes.reviewBtn}>この商品のレビューを見る</button>
+                        <button onClick={() => navigate("/reviewPage")} className={classes.reviewBtn}>この商品のレビューを見る</button>
                     </div>
                     <div className={classes.styleP}>
                         <p className={classes.itemDetail}>内容量：</p>
@@ -242,12 +249,12 @@ export const ItemDetail = () => {
                     <div className={classes.btnForm}>
                         <button className={classes.btn} onClick={handleDeleteFavorite}>お気に入りから削除</button>
                     </div>
-                    <div className={classes.btnForm}>
+                    {/* <div className={classes.btnForm}>
                         <button className={classes.btn} onClick={handleAddFolder}>マイフォルダへ追加</button>
                     </div>
                     <div className={classes.btnForm}>
                         <button className={classes.btn} onClick={handleDeleteFolder}>マイフォルダから削除</button>
-                    </div>
+                    </div> */}
                     <div className={classes.btnForm}>
                         <button className={classes.btn} onClick={handleAddUnmatchedItems}>肌に合わなかったアイテムへ追加</button>
                     </div>
