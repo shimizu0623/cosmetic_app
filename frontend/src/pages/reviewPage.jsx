@@ -42,30 +42,30 @@ const useStyles = makeStyles({
         borderRadius: '20px',
     },
 
-})
+});
 
 export const ReviewPage = () => {
     const classes = useStyles();
     const [user, setUser] = useState(null);
     const [item, setItem] = useState(null);
     const [skinTypes, setSkinTypes] = useState([]);
-    const [value, setValue] = React.useState(0); //☆
-    const [select, setSelect] = React.useState([]);
+    const [value, setValue] = useState(0); //☆
+    const [select, setSelect] = useState([]);
 
     useEffect(async () => {
-        const responseUser = await axios.get('/me')
-        const responseItem = await axios.get('/item')
-        const responseSkinTypes = await axios.get('/skin_types')
-        const u = responseUser.data
-        const i = responseItem.data
-        const s = responseSkinTypes.data
-        setUser(u)
-        setItem(i)
-        setSkinTypes(s)
+        const responseUser = await axios.get('/me');
+        const responseItem = await axios.get('/item');
+        const responseSkinTypes = await axios.get('/skin_types');
+        const u = responseUser.data;
+        const i = responseItem.data;
+        const s = responseSkinTypes.data;
+        setUser(u);
+        setItem(i);
+        setSkinTypes(s);
     }, [])
 
     const userName = () =>{
-        if(user === null){
+        if (user === null){
             return <CircularProgress color="success" size="15px" />
         }
         return(
@@ -73,49 +73,51 @@ export const ReviewPage = () => {
             <p style={{ fontSize: '25px', textAlign: 'left' }}>{user.name}</p>
             <p style={{ fontSize: '15px', textAlign: 'left' }}>{user.skin_type_name}</p>
             </>
-        )
-    }
+        );
+    };
 
 
     const itemInformation = () => {
-        if(item === null){
+        if (item === null){
             return <CircularProgress color="success" size="15px" />
         }
         return(
-            <>
-                <div className={classes.styleParent}>
-                    <img src={item.img} alt="itemImg" style={{ maxWidth: '180px', height: '100%', margin: 'auto 30px' }} />
-                    <div>
-                        <p style={{ textAlign: 'left', fontSize: '25px' }}>{item.brand}</p>
-                        <p style={{ textAlign: 'left', fontSize: '25px' }}>{item.name}</p>
-                        <Box borderColor="transparent" style={{ marginTop: '20px', textAlign: 'right' }}>
-                            <p style={{ fontSize: '20px' }}>レビュー評価（○○件）</p>
-                            <Rating name="read-only" value={value} readOnly />
-                        </Box>
-                    </div>
+            <div className={classes.styleParent}>
+                <img src={item.img} alt="itemImg" style={{ maxWidth: '180px', height: '100%', margin: 'auto 30px' }} />
+                <div>
+                    <p style={{ textAlign: 'left', fontSize: '25px' }}>{item.brand}</p>
+                    <p style={{ textAlign: 'left', fontSize: '25px' }}>{item.name}</p>
+                    <Box borderColor="transparent" style={{ marginTop: '20px', textAlign: 'right' }}>
+                        <p style={{ fontSize: '20px' }}>レビュー評価（○○件）</p>
+                        <Rating name="read-only" value={value} readOnly />
+                    </Box>
                 </div>
-            </>
-        )
-    }
+            </div>
+        );
+    };
 
-    const onClickSend = () => {
-        console.log('onClickSend')
-    }
-    const onClickEdit = () => {
-        console.log('onClickEdit')
-    }
+    const handleSend = () => {
+        console.log('handleSend');
+    };
+
+    const handleEdit = () => {
+        console.log('handleEdit');
+    };
+
     const handleChange = (event) => {
         setSelect(event.target.value);
     };
-    const onClickDelete = () => {
+
+    // TODO: ifの時の処理↓
+    const handleDelete = () => {
         const confirmMessage = '投稿中のレビューを削除してよろしいですか？'
         let result = window.confirm(confirmMessage);
-        if(result){
-            console.log('onClickDelete')       
-        }else{
+        if (result){
+            console.log('handleDelete')       
+        } else {
             return;
-        }    
-    }
+        }
+    };
   
 
     return(
@@ -135,52 +137,52 @@ export const ReviewPage = () => {
                 {/* <img src={green_leaf} alt="" className={classes.TitleImg} />
                 <p className={classes.Title}>マイレビュー</p> */}
                 <div style={{ width: '500px', margin: '0 auto' }}>
-                {userName()}
-                <Box style={{ padding: '0', textAlign: 'right' }} component="fieldset" borderColor="transparent">
-                {/* <Typography component="legend">Controlled</Typography> */}
-                    <Rating
-                    name="simple-controlled"
-                    value={value}
-                    onChange={(event, newValue) => {
-                        setValue(newValue);
-                    }}
-                    />
-                </Box>
+                    {userName()}
+                    <Box style={{ padding: '0', textAlign: 'right' }} component="fieldset" borderColor="transparent">
+                    {/* <Typography component="legend">Controlled</Typography> */}
+                        <Rating
+                        name="simple-controlled"
+                        value={value}
+                        onChange={(event, newValue) => {
+                            setValue(newValue);
+                        }}
+                        />
+                    </Box>
                 </div>
 
                 <div>
-                <Box
-                className={classes.Title}
-                component="form"
-                sx={{
-                    borderColor: 'green',
-                    margin: '20px auto',
-                    '& .MuiTextField-root': { m: 1, width: '500px' },
-                }}
-                noValidate
-                autoComplete="off"
-                >        
-                    <TextField
-                    id="outlined-multiline-static"
-                    multiline
-                    rows={4}
-                    // defaultValue="Default Value"
-                    />
-                </Box>
-            </div>
+                    <Box
+                    className={classes.Title}
+                    component="form"
+                    sx={{
+                        borderColor: 'green',
+                        margin: '20px auto',
+                        '& .MuiTextField-root': { m: 1, width: '500px' },
+                    }}
+                    noValidate
+                    autoComplete="off"
+                    >        
+                        <TextField
+                        id="outlined-multiline-static"
+                        multiline
+                        rows={4}
+                        // defaultValue="Default Value"
+                        />
+                    </Box>
+                </div>
 
-                <Btn message='投稿する' onClick={onClickSend} />
-                {/* <Btn message='編集する' onClick={onClickEdit} /> */}
+                <Btn message='投稿する' onClick={handleSend} />
+                {/* <Btn message='編集する' onClick={handleEdit} /> */}
                 <Tooltip title="Delete" style={{ marginLeft: '20px' }}>
                     <IconButton>
-                        <DeleteIcon onClick={onClickDelete} />
+                        <DeleteIcon onClick={handleDelete} />
                     </IconButton>
                 </Tooltip>
 
             </div>
 
             <div style={{ margin: '40px auto' }}>
-                <img src={green_leaf} alt="" className={classes.TitleImg} />
+                <img src={green_leaf} alt="green_leaf" className={classes.TitleImg} />
                 <p className={classes.Title}>レビュー一覧</p>
                 <FormControl sx={{ minWidth: 120, marginLeft: '50px', verticalAlign: 'middle' }} size="small">
                     <InputLabel id="demo-simple-select-label">SkinType</InputLabel>
@@ -191,11 +193,11 @@ export const ReviewPage = () => {
                     label="Select"
                     onChange={handleChange}
                     >
-                    {/* TODO: ↓idが0はOK？ */}
-                    <MenuItem value={0}>All</MenuItem>
-                    {skinTypes.map((skinType) => (
-                        <MenuItem value={skinType.id}>{skinType.name}</MenuItem>
-                    ))}
+                        {/* TODO: ↓idが0はOK？ */}
+                        <MenuItem value={0}>All</MenuItem>
+                        {skinTypes.map((skinType) => (
+                            <MenuItem value={skinType.id}>{skinType.name}</MenuItem>
+                        ))}
                     </Select>
                 </FormControl>
             </div>
@@ -226,7 +228,7 @@ export const ReviewPage = () => {
                     multiline
                     rows={4}
                     value='test text'
-                    sx={{mb: 5}}
+                    sx={{ mb: 5 }}
                     // defaultValue="Default Value"
                     />
                 </Box>
@@ -259,12 +261,12 @@ export const ReviewPage = () => {
                     multiline
                     rows={4}
                     value='test text'
-                    sx={{mb: 5}}
+                    sx={{ mb: 5 }}
                     // defaultValue="Default Value"
                     />
                 </Box>
 
         </div>
         </>
-    )
-}
+    );
+};
