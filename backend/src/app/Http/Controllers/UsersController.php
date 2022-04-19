@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\LeaveReason;
-
 use App\Models\UserFavoriteItem;
 use App\Models\UserUnmatchedItem;
 use App\Models\UserHistory;
@@ -38,21 +37,17 @@ class UsersController extends Controller
     public function updateMe(Request $request)
     {
         
-        //入力バリデーション
         $validator = Validator::make($request->all(),[
             'name' => 'required',
             'birth_date' => 'required',
             'email' => 'required|email',
             'skin_type_id' => 'required',
-            // 'password' => 'alpha_num',
         ]);
 
-        //バリデーションで問題がある時はエラーを返す。
         if ($validator->fails()) {
             return response()->json($validator->messages(), Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        //バリエーションで問題がなかったらユーザを作成する。
         $user = $request->user();
 
         // Log::debug('before ' . $user->password);
@@ -71,7 +66,6 @@ class UsersController extends Controller
 
         // Log::debug('after ' . $user->password);
 
-        //ユーザの作成が完了するとjsonを返す
         return response()->json($user->toArray());
 
     }    
