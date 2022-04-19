@@ -25,6 +25,7 @@ import { CheckBox } from '@material-ui/icons';
 import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import { useNavigate } from 'react-router-dom';
 
 const useStyles = makeStyles({
     SearchBox: {
@@ -45,6 +46,7 @@ export const ItemSearch = () => {
     const [selectedSafeOnly, setSelectedSafeOnly] = useState(0);
     const [selectedMatchingOnly, setSelectedMatchingOnly] = useState(0);
     const [selectedBrand, setSelectedBrand] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(async () => {
         const responseUser = await axios.get('/me')
@@ -63,7 +65,7 @@ export const ItemSearch = () => {
         setCategories(c)
         setBrands(b)
     }, [])
-
+    
     const message = () => {
         if(user === null){
             return <CircularProgress color="success" size="15px" />
@@ -260,7 +262,7 @@ export const ItemSearch = () => {
 
                 <Grid container spacing={1} direction="row" alignItems="center" style={{gridTemplateColumns: '1, 1fr', gap: '1',}}>
                         {item.map((item) => (
-                        <Grid item xs={2}>
+                        <Grid item xs={2} onClick={() => { navigate(`/item/${item.id}`) }}>
                             <ImageListItem key={item.img} className={classes.cardPaper}>
                             <img
                                 src={item.img}
