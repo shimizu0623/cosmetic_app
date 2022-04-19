@@ -16,17 +16,65 @@ class User extends Authenticatable
     
     protected $fillable = ['name','gender_id','birth_date','email','password','skin_type_id','contact_id'];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        self::deleting(function (User $user) {
+
+            foreach ($user->favorites as $favorite)
+            {
+                $favorite->delete();
+            }
+            foreach ($user->unmatched as $unmatched)
+            {
+                $unmatched->delete();
+            }
+            foreach ($user->histories as $history)
+            {
+                $history->delete();
+            }
+            foreach ($user->requests as $request)
+            {
+                $request->delete();
+            }
+
+        });
+    }
+
+    public function favorites()
+    {
+        return $this->hasMany(UserFavoriteItem::class);
+    }
+
+    public function unmatched()
+    {
+        return $this->hasMany(UserUnmatchedItem::class);
+    }
+
+    public function histories()
+    {
+        return $this->hasMany(UserHistory::class);
+    }
+
+    public function requests()
+    {
+        return $this->hasMany(Request::class);
+    }
+
+    public function unmatchedItems()
+    {
+        return $this->belongsToMany(UnmatchedItem::class, UserUnmatchedItem::class);
+    }
+
     public function skin_type()
     {
         return $this->belongsTo(SkinType::class);
     }
+
     public function gender()
     {
         return $this->belongsTo(Gender::class);
-    }
-    public function unmatchedItems()
-    {
-        return $this->belongsToMany(UnmatchedItem::class, UserUnmatchedItem::class);
     }
 
     public function birthday_string() {
