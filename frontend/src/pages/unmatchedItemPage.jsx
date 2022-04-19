@@ -24,7 +24,7 @@ const useStyles = makeStyles({
         margin: '0 auto',
     },
 
-})
+});
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -42,7 +42,7 @@ const condition = [
     { title: '肌が固くなった' },
     { title: '吹き出物ができた' },
     { title: '毛穴が開いた' },
-]
+];
 
 export const UnmatchedItem = () => {
     const classes = useStyles();
@@ -51,16 +51,16 @@ export const UnmatchedItem = () => {
     // const [ingredients, setIngredients] = useState(null);
     
     useEffect(async () => {
-        const responseItem = await axios.get('/user_unmatchedItems')
+        const responseItem = await axios.get('/user_unmatchedItems');
         // const responseIngredients = await axios.get('/item_ingredients')
-        const i = responseItem.data
+        const i = responseItem.data;
         // const ingredient = responseIngredients.data
-        setItem(i)
+        setItem(i);
         // setIngredients(ingredient)
-    }, [])
+    }, []);
 
     const itemInformation = () => {
-        if(item === null){
+        if (item === null){
             return <CircularProgress color="success" size="15px" />
         }
         return(
@@ -104,76 +104,73 @@ export const UnmatchedItem = () => {
                                 background: 'rgba(141, 203, 193)',
                                 borderRadius: '7px',
                             }}
-                            onClick={onClickDelete}>
+                            onClick={handleDelete}>
                         削除
                         </Button>
                     </td>
                     </tr>
                 ))}
             </>
-        )
-    }
-
-    const onClickDelete = () => {
+        );
+    };
+    // TODO: ifの時の処理↓
+    const handleDelete = () => {
         const confirmMessage = '削除してよろしいですか？'
         let result = window.confirm(confirmMessage);
-        if(result){
-            console.log('onClickDelete')       
-        }else{
+        if (result){
+            console.log('handleDelete')       
+        } else {
             return;
         }    
-    }
+    };
 
 
 
     return(
         <>
         <div className='MainContainer'>
-        <GoBackBtn />
-        <img src={header_img} alt="header" style={{ width: '100%' }}/>
+            <GoBackBtn />
+            <img src={header_img} alt="header" style={{ width: '100%' }}/>
 
-        <div>
-            <p>ここでは、肌に合わなかったアイテムを確認することができます。</p>
-            <p>共通成分が見つかると、その成分が含まれない化粧品を探すことができるようになります。</p>
-            <p>過去に合わなかったアイテムを登録して、自分の肌に合わない成分を見つけましょう。</p>
-        </div>
-
-        <div className={classes.alertForm}>
-            <h4 style={{color: 'red', paddingTop: '10px'}}>共通成分が見つかりました！</h4>
-            <div style={{paddingBottom: '10px'}}>
-                <ul style={{ listStyle: 'none', padding: 0 }}>
-                    <li>○○酸</li>
-                </ul>
+            <div>
+                <p>ここでは、肌に合わなかったアイテムを確認することができます。</p>
+                <p>共通成分が見つかると、その成分が含まれない化粧品を探すことができるようになります。</p>
+                <p>過去に合わなかったアイテムを登録して、自分の肌に合わない成分を見つけましょう。</p>
             </div>
-        </div>
-        
-        <div className={classes.alertForm}>
-            <h4 style={{color: 'black', padding: '10px'}}>共通成分はありません</h4>
-        </div>
+
+            <div className={classes.alertForm}>
+                <h4 style={{color: 'red', paddingTop: '10px'}}>共通成分が見つかりました！</h4>
+                <div style={{paddingBottom: '10px'}}>
+                    <ul style={{ listStyle: 'none', padding: 0 }}>
+                        <li>○○酸</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div className={classes.alertForm}>
+                <h4 style={{color: 'black', padding: '10px'}}>共通成分はありません</h4>
+            </div>
 
 
-        <img src={green_leaf} alt="" style={{ maxWidth: '90px', display: 'inline-block', verticalAlign: 'middle', margin: '0 auto 40px' }} />
-        <h1 style={{ fontSize: '40px', display: 'inline-block' }}>登録中の肌に合わなかったアイテム</h1>
-        <div style={ {margin: '50px 0 20px 0' }}>
-            <table style={{ margin: '0 auto' }}>
-                <tr>
-                    <th className={classes.tableHeader}></th>
-                    <th className={classes.tableHeader}>ブランド</th>
-                    <th className={classes.tableHeader}>商品名</th>
-                    <th className={classes.tableHeader}>メモ</th>
-                </tr>
+            <img src={green_leaf} alt="" style={{ maxWidth: '90px', display: 'inline-block', verticalAlign: 'middle', margin: '0 auto 40px' }} />
+            <h1 style={{ fontSize: '40px', display: 'inline-block' }}>登録中の肌に合わなかったアイテム</h1>
+            <div style={ {margin: '50px 0 20px 0' }}>
+                <table style={{ margin: '0 auto' }}>
+                    <tr>
+                        <th className={classes.tableHeader}></th>
+                        <th className={classes.tableHeader}>ブランド</th>
+                        <th className={classes.tableHeader}>商品名</th>
+                        <th className={classes.tableHeader}>メモ</th>
+                    </tr>
 
-                    {itemInformation()}
+                        {itemInformation()}
 
-            </table>
-        </div>
+                </table>
+            </div>
 
-        <div>
-            <p>登録中のアイテムはありません。</p>
-        </div>
-
-
-
+            <div>
+                <p>登録中のアイテムはありません。</p>
+            </div>
         </div>
         </>
     )
