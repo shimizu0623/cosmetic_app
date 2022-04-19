@@ -114,7 +114,6 @@ export const ItemDetail = () => {
         setItem(i);
         setCount(c);
         
-
         // ↓履歴
         try {
             const response = await axios.post('/user_histories', {
@@ -149,15 +148,11 @@ export const ItemDetail = () => {
             console.error(e)
             return;
         }
-    }
+    };
 
     const handleAddFolder = () => {
         console.log('handleAddFolder');
-    }
-
-    const handleAddComparison = () => {
-        console.log('handleAddComparison');
-    }
+    };
 
     // TODO: ↓既に登録していたらはじくorアイテムから外すBtnに切り替える
     const handleAddUnmatchedItems = async () => {
@@ -171,11 +166,41 @@ export const ItemDetail = () => {
             // console.log('ok')
         } catch (e) {
             window.alert('登録に失敗しました');
-            console.error(e)
+            console.error(e);
             return;
         }
+        
+    };
+    
+    const handleAddComparison = () => {
+        console.log('handleAddComparison');
+    };
 
-    }    
+    const handleDeleteFavorite = () => {
+        console.log('handleDeleteFavorite');
+    };
+
+    const handleDeleteFolder = () => {
+        console.log('handleDeleteFolder');
+    };
+
+    const handleDeleteUnmatchedItems = async () => {
+        console.log('handleDeleteUnmatchedItems');
+        try {
+            const response = await axios.delete(`/user_unmatchedItems/${id}`);
+            window.alert('肌に合わなかったアイテムから削除しました');
+            // console.log(response);
+            console.log('ok')
+        } catch (e) {
+            window.alert('削除に失敗しました');
+            console.error(e);
+            return;
+        }
+    };
+
+    const handleDeleteComparison = () => {
+        console.log('handleDeleteComparison');
+    };
 
     const handleReview = () => navigate("/reviewPage");
 
@@ -215,19 +240,31 @@ export const ItemDetail = () => {
                         <button className={classes.btn} onClick={handleAddFavorite}>お気に入りへ追加</button>
                     </div>
                     <div className={classes.btnForm}>
+                        <button className={classes.btn} onClick={handleDeleteFavorite}>お気に入りから削除</button>
+                    </div>
+                    <div className={classes.btnForm}>
                         <button className={classes.btn} onClick={handleAddFolder}>マイフォルダへ追加</button>
+                    </div>
+                    <div className={classes.btnForm}>
+                        <button className={classes.btn} onClick={handleDeleteFolder}>マイフォルダから削除</button>
                     </div>
                     <div className={classes.btnForm}>
                         <button className={classes.btn} onClick={handleAddUnmatchedItems}>肌に合わなかったアイテムへ追加</button>
                     </div>
                     <div className={classes.btnForm}>
+                        <button className={classes.btn} onClick={handleDeleteUnmatchedItems}>肌に合わなかったアイテムから削除</button>
+                    </div>
+                    <div className={classes.btnForm}>
                         <button className={classes.btn} onClick={handleAddComparison}>コスメ比較へ追加</button>
+                    </div>
+                    <div className={classes.btnForm}>
+                        <button className={classes.btn} onClick={handleDeleteComparison}>コスメ比較から削除</button>
                     </div>
                         <p>→<Link component={RouterLink} to="/itemComparison">コスメ比較ページ</Link>を見る</p>
                 </div>
             </div>     
         );
-    }    
+    };   
 
     const ingredientsInformation = () => {
         if (item === null){
@@ -235,40 +272,39 @@ export const ItemDetail = () => {
         }
         return(
             <>
-            {item.ingredients.map((ingredient) => (
-                <tr>
-                    <td scope="row">{ingredient.name}</td>
-                    {(()=>{
-                        if (ingredient.score === 1){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_1} alt="Level_1_img" style={{ width: '30px' }} /></td>)}
-                        else if (ingredient.score === 2){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_2} alt="Level_2_img" style={{ width: '30px' }} /></td>)}
-                        else if (ingredient.score === 3){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_3} alt="Level_3_img" style={{ width: '30px' }} /></td>)}
-                        else if (ingredient.score === 4){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_4} alt="Level_4_img" style={{ width: '30px' }} /></td>)}
-                        else if (ingredient.score === 5){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_5} alt="Level_5_img" style={{ width: '30px' }} /></td>)}
-                        else if (ingredient.score === 6){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_6} alt="Level_6_img" style={{ width: '30px' }} /></td>)}
-                        else if (ingredient.score === 7){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_7} alt="Level_7_img" style={{ width: '30px' }} /></td>)}
-                        else if (ingredient.score === 8){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_8} alt="Level_8_img" style={{ width: '30px' }} /></td>)}
-                        else if (ingredient.score === 9){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_9} alt="Level_9_img" style={{ width: '30px' }} /></td>)}
-                        else if (ingredient.score === 10){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_10} alt="Level_10_img" style={{ width: '30px' }} /></td>)}
-                        else {return (<td><p>no information</p></td>)}
-                    })()}
+                {item.ingredients.map((ingredient) => (
+                    <tr>
+                        <td scope="row">{ingredient.name}</td>
+                        {(()=>{
+                            if (ingredient.score === 1){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_1} alt="Level_1_img" style={{ width: '30px' }} /></td>)}
+                            else if (ingredient.score === 2){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_2} alt="Level_2_img" style={{ width: '30px' }} /></td>)}
+                            else if (ingredient.score === 3){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_3} alt="Level_3_img" style={{ width: '30px' }} /></td>)}
+                            else if (ingredient.score === 4){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_4} alt="Level_4_img" style={{ width: '30px' }} /></td>)}
+                            else if (ingredient.score === 5){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_5} alt="Level_5_img" style={{ width: '30px' }} /></td>)}
+                            else if (ingredient.score === 6){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_6} alt="Level_6_img" style={{ width: '30px' }} /></td>)}
+                            else if (ingredient.score === 7){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_7} alt="Level_7_img" style={{ width: '30px' }} /></td>)}
+                            else if (ingredient.score === 8){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_8} alt="Level_8_img" style={{ width: '30px' }} /></td>)}
+                            else if (ingredient.score === 9){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_9} alt="Level_9_img" style={{ width: '30px' }} /></td>)}
+                            else if (ingredient.score === 10){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_10} alt="Level_10_img" style={{ width: '30px' }} /></td>)}
+                            else {return (<td><p>no information</p></td>)}
+                        })()}
 
-                        {/* {ingredient.score === 1 ? (<td><img src={Level_1} alt="Level_1_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)}
-                        {ingredient.score === 2 ? (<td><img src={Level_2} alt="Level_2_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)}
-                        {ingredient.score === 3 ? (<td><img src={Level_3} alt="Level_3_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)}
-                        {ingredient.score === 4 ? (<td><img src={Level_4} alt="Level_4_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)}
-                        {ingredient.score === 5 ? (<td><img src={Level_5} alt="Level_5_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)} */}
-                    <td>{ingredient.safety}</td>
-                    <td>{ingredient.purpose}</td>
-                    <td>{ingredient.cancer}</td>
-                    <td>{ingredient.developmental}</td>
-                    <td>{ingredient.allergies}</td>
-                    <td>{ingredient.explain}</td>
-                </tr>
-            ))}
+                            {/* {ingredient.score === 1 ? (<td><img src={Level_1} alt="Level_1_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)}
+                            {ingredient.score === 2 ? (<td><img src={Level_2} alt="Level_2_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)}
+                            {ingredient.score === 3 ? (<td><img src={Level_3} alt="Level_3_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)}
+                            {ingredient.score === 4 ? (<td><img src={Level_4} alt="Level_4_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)}
+                            {ingredient.score === 5 ? (<td><img src={Level_5} alt="Level_5_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)} */}
+                        <td>{ingredient.safety}</td>
+                        <td>{ingredient.purpose}</td>
+                        <td>{ingredient.cancer}</td>
+                        <td>{ingredient.developmental}</td>
+                        <td>{ingredient.allergies}</td>
+                        <td>{ingredient.explain}</td>
+                    </tr>
+                ))}
             </>
         );
-
-    }
+    };
 
     let data = [
         //データないor不明時↓
@@ -298,17 +334,14 @@ export const ItemDetail = () => {
         });
         return(
             <span style={{ fontSize: '25px', fontWeight: 'bold', color: '#5ac9b4' }}>{green}</span>
-            );
-        }
+        );
+    };
 
     const rateGreen = () => {
         const calc = Math.round(green / 3 * 100);
-        //TODO: ↓valueを数字からcalcに変えたら、ブラウザに表示されなくなった
         const add = { index: 0, name: 'Low Hazard', value: calc };
-        console.log(calc);
         data.push(add);
-        console.log(data);
-    }
+    };
 
     let yellow = 0;
     const scoreYellow = () => {
@@ -325,19 +358,15 @@ export const ItemDetail = () => {
         });
         return(
             <span style={{ fontSize: '25px', fontWeight: 'bold', color: '#f5c56b' }}>{yellow}</span>
-            );
-        }
+        );
+    };
 
     const rateYellow = () => {
         const calc = Math.round(yellow / 3 * 100);
         const add = { index: 1, name: 'Moderate Hazard', value: calc };
-        console.log(calc);
         data.push(add);
-        console.log(data);
-
-    }
+    };
     
-        
     let red = 0;
     const scoreRed = () => {
         if (item === null){
@@ -353,116 +382,106 @@ export const ItemDetail = () => {
         });
         return(
             <span style={{ fontSize: '25px', fontWeight: 'bold', color: '#f04b4be7' }}>{red}</span>
-            );
-    }
+        );
+    };
 
     const rateRed = () => {
         const calc = Math.round(red / 3 * 100);
         const add = { index: 2, name: 'High Hazard', value: calc };
-        console.log(calc);
         data.push(add);
-        console.log(data);
-
-    }
-
-
-    
+    };
         
     const explain_green = 'EWG 1~2等級（有害性が低い成分）';
     const explain_yellow = 'EWG 3~6等級（有害性が普通の成分）';
     const explain_red = 'EWG 7~10等級（有害性が高い成分）';
-
     
     return(
-        <>
         <div className='MainContainer'>
             
-        <GoBackBtn />
+            <GoBackBtn />
 
-        {itemInformation()}
+            {itemInformation()}
 
             {/* TODO: 表示切替 */}
             <div className={classes.alertForm}>
                 <h4 style={{ color: 'red', paddingTop: '10px' }}>注意！</h4>
                 <p>肌に合わなかった共通成分があります</p>
                 <div style={{ paddingBottom: '10px' }}>
-                <ul style={{ listStyle: 'none', padding: 0 }}>
-                    <li>○○酸</li>
-                </ul>
-            </div>
+                    <ul style={{ listStyle: 'none', padding: 0 }}>
+                        <li>○○酸</li>
+                    </ul>
+                </div>
             </div>
 
             <div className={classes.ewgForm}>
                 <p style={{ fontSize: '30px', color: 'green', textShadow: '2px 2px 1px white', margin: '20px auto' }}>EWG安全性</p>
                 <Grid container spacing={1}>
-                <Grid item xs={6}>
-                <div>
-                    <p style={{ color: 'green', textShadow: '2px 2px 1px white' }}>配合成分合計： {count}種類</p>
-                    <Tooltip title={explain_green} followCursor>
-                    <div className={classes.styleParent}>
-                        <img src={leaf_green} alt="sampleImg" style={{ width: '80px', marginRight: '30px' }} />
-                    <div style={{ fontSize: '15px', marginTop: '20px' }}>{scoreGreen()} / {count}</div>
-                    </div>
-                    </Tooltip>
-                    <Tooltip title={explain_yellow} followCursor>
-                    <div className={classes.styleParent}>
-                        <img src={leaf_yellow} alt="sampleImg" style={{ width: '80px', marginRight: '30px' }} />
-                        <div style={{ fontSize: '15px', marginTop: '20px' }}>{scoreYellow()} / {count}</div>
-                    </div>
-                    </Tooltip>
-                    <Tooltip title={explain_red} followCursor>
-                    <div className={classes.styleParent}>
-                        <img src={leaf_brown} alt="sampleImg" style={{ width: '80px', marginRight: '30px' }} />
-                        <div style={{ fontSize: '15px', marginTop: '20px' }}>{scoreRed()} / {count}</div>
-                    </div>
-                    </Tooltip>
-                </div>
+                    <Grid item xs={6}>
+                        <div>
+                            <p style={{ color: 'green', textShadow: '2px 2px 1px white' }}>配合成分合計： {count}種類</p>
+                            <Tooltip title={explain_green} followCursor>
+                            <div className={classes.styleParent}>
+                                <img src={leaf_green} alt="sampleImg" style={{ width: '80px', marginRight: '30px' }} />
+                            <div style={{ fontSize: '15px', marginTop: '20px' }}>{scoreGreen()} / {count}</div>
+                            </div>
+                            </Tooltip>
+                            <Tooltip title={explain_yellow} followCursor>
+                            <div className={classes.styleParent}>
+                                <img src={leaf_yellow} alt="sampleImg" style={{ width: '80px', marginRight: '30px' }} />
+                                <div style={{ fontSize: '15px', marginTop: '20px' }}>{scoreYellow()} / {count}</div>
+                            </div>
+                            </Tooltip>
+                            <Tooltip title={explain_red} followCursor>
+                            <div className={classes.styleParent}>
+                                <img src={leaf_brown} alt="sampleImg" style={{ width: '80px', marginRight: '30px' }} />
+                                <div style={{ fontSize: '15px', marginTop: '20px' }}>{scoreRed()} / {count}</div>
+                            </div>
+                            </Tooltip>
+                        </div>
+                    </Grid>
+                    {rateGreen()}
+                    {rateYellow()}
+                    {rateRed()}
+                    {/* TODO: 不明のものも足す{rateNotInformation()} */}
+                    <Grid item xs={6}>
+                        <div style={{ display: 'inline-block'}}>
+                            <p style={{ color: 'green', textShadow: '2px 2px 1px white' }}>EWG等級別成分割合(％)</p>
+                            <PieChart width={300} height={300}>
+                                <Pie 
+                                    data={data} 
+                                    dataKey="value" 
+                                    outerRadius={100} 
+                                    label 
+                                    isAnimationActive={ isAnimation }
+                                    // onAnimationEnd={() => setIsAnimation(false)}
+                                >
+                                    {data.map((entry, index) => (
+                                        <Cell key={entry.name} fill={ChartColors[index % ChartColors.length]} />
+                                    ))}
+                                </Pie>
+                            </PieChart>
+                        </div>
+                    </Grid>
                 </Grid>
-                {rateGreen()}
-                {rateYellow()}
-                {rateRed()}
-                {/* TODO: 不明のものも足す{rateNotInformation()} */}
-                <Grid item xs={6}>
-                <div style={{ display: 'inline-block'}} >
-                    <p style={{ color: 'green', textShadow: '2px 2px 1px white' }} >EWG等級別成分割合(％)</p>
-                    <PieChart width={300} height={300}>
-                    <Pie 
-                        data={data} 
-                        dataKey="value" 
-                        outerRadius={100} 
-                        label 
-                        isAnimationActive={ isAnimation }
-                        // onAnimationEnd={() => setIsAnimation(false)}
-                    >
-                    {data.map((entry, index) => (
-                        <Cell key={entry.name} fill={ChartColors[index % ChartColors.length]} />
-                    ))}
-                    </Pie>
-                    </PieChart>
-                </div>
-                </Grid>
-            </Grid>
             </div>
 
             <div style={{ margin: '50px 0 20px 0' }}>
                 <table style={{ margin: '0 auto' }}>
-                <caption style={{ fontSize: '25px', marginBottom: '10px' }}>配合成分詳細</caption>
-                <tr>
-                    <th className={classes.tableHeader}>成分名</th>
-                    <th className={classes.tableHeader}>EWG SCORE</th>
-                    <th className={classes.tableHeader}>安全度</th>
-                    <th className={classes.tableHeader}>配合目的</th>
-                    <th className={classes.tableHeader}>発がん性</th>
-                    <th className={classes.tableHeader}>発達/生殖毒性</th>
-                    <th className={classes.tableHeader}>免疫毒性</th>
-                    <th className={classes.tableHeader}>成分説明</th>
-                </tr>
-                {ingredientsInformation()}
+                    <caption style={{ fontSize: '25px', marginBottom: '10px' }}>配合成分詳細</caption>
+                    <tr>
+                        <th className={classes.tableHeader}>成分名</th>
+                        <th className={classes.tableHeader}>EWG SCORE</th>
+                        <th className={classes.tableHeader}>安全度</th>
+                        <th className={classes.tableHeader}>配合目的</th>
+                        <th className={classes.tableHeader}>発がん性</th>
+                        <th className={classes.tableHeader}>発達/生殖毒性</th>
+                        <th className={classes.tableHeader}>免疫毒性</th>
+                        <th className={classes.tableHeader}>成分説明</th>
+                    </tr>
+                    {ingredientsInformation()}
                 </table>
             </div>
-
         </div>
-        </>
     );
-}
+};
 
