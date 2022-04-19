@@ -38,19 +38,22 @@ use App\Http\Controllers\ReasonsController;
 Route::post('/register', [RegisterController::class, 'register']);
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout']);
+Route::resource('genders', GendersController::class, ['only' => ['index']]);
+Route::resource('skin_types', SkinTypeController::class, ['only' => ['index']]);
 
 Route::middleware('auth:sanctum')->group(function(){
     
     // Route::get('/users', [UsersController::class, 'index']);
     Route::post('/me', [UsersController::class, 'updateMe']);    
+    Route::post('/delete_me', [UsersController::class, 'deleteMe']);    
     Route::get('/me', [UsersController::class, 'me']);    
+    // TODO: ↓deleteじゃない？
+    // Route::post('/delete_me', [UsersController::class, 'destroy']);    
     Route::get('/me/{id}', [UsersController::class, 'show']);
-    Route::resource('skin_types', SkinTypeController::class, ['only' => ['index']]);
     Route::resource('brands', BrandsController::class, ['only' => ['index']]);
     Route::resource('categories', CategoriesController::class, ['only' => ['index']]);
     Route::resource('ingredients', IngredientsController::class, ['only' => ['index']]);
     Route::resource('item_ingredients', ItemIngredientsController::class, ['only' => ['index']]);
-    Route::resource('genders', GendersController::class, ['only' => ['index']]);
     Route::resource('skin_troubles', SkinTroublesController::class, ['only' => ['index']]);
     Route::resource('contacts', ContactsController::class, ['only' => ['index']]);
     Route::resource('user_contacts', UserContactsController::class, ['only' => ['index']]);
@@ -66,7 +69,7 @@ Route::middleware('auth:sanctum')->group(function(){
     
     // Route::get('/items', [ItemsController::class, 'index']);
     // Route::get('/items/{id}', [ItemsController::class, 'show']);
-    // ↓TODO: 質問中
+    // ↓TODO: 調べる
     Route::resource('items', ItemsController::class, ['only' => ['index', 'show']]);
     
 });
