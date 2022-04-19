@@ -16,18 +16,25 @@ export const DeleteConfirm = () => {
     };
 
     const handleSend = async () => {
-        try {
-            console.log('handleSend');
-            const response = await axios.post('/delete_me', {
-                reason: reason,
-            });
-            localStorage.removeItem('access-token');
-            navigate("/delete");
-        } catch (e) {
-            window.alert('送信に失敗しました');
-            console.error(e)
+        const confirmMessage = 'データは完全に消去されます。本当に削除してもよろしいですか？'
+        let result = window.confirm(confirmMessage);
+        if (result){
+            console.log('onClickDelete');
+            try {
+                console.log('handleSend');
+                const response = await axios.post('/delete_me', {
+                    reason: reason,
+                });
+                localStorage.removeItem('access-token');
+                navigate("/delete");
+            } catch (e) {
+                window.alert('送信に失敗しました');
+                console.error(e)
+                return;
+            }         
+        } else {
             return;
-        }
+        }    
     };
 
     return(
