@@ -34,6 +34,7 @@ class User extends Authenticatable
             {
                 $history->delete();
             }
+            // TODO: ↓user_idなしのテーブル作成後削除する
             foreach ($user->requests as $request)
             {
                 $request->delete();
@@ -56,7 +57,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserHistory::class);
     }
-
+    // TODO: ↓user_idなしのテーブル作成後削除する
     public function requests()
     {
         return $this->hasMany(Request::class);
