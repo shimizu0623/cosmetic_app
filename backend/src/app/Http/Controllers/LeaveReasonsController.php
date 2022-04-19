@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\LeaveReason;
 use Illuminate\Support\Facades\Validator;
 use \Symfony\Component\HttpFoundation\Response;
-use Carbon\Carbon;
 
 class LeaveReasonsController extends Controller
 {
