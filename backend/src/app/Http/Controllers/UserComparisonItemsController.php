@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\UserComparisonItem;
+use App\Models\Item;
+use Illuminate\Support\Facades\Validator;
+use \Symfony\Component\HttpFoundation\Response;
 
 class UserComparisonItemsController extends Controller
 {
@@ -11,9 +15,18 @@ class UserComparisonItemsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $user = $request->user();
+
+        $items = Item::userComparisonItemOnly($user->id)
+        ->get();
+
+        return response()->json(
+            $items->map(function ($item) {
+                return $item->toArray();
+            })
+        );
     }
 
     /**
