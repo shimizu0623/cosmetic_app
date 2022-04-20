@@ -20,6 +20,7 @@ use App\Http\Controllers\UserFavoriteItemsController;
 use App\Http\Controllers\UserHistoriesController;
 use App\Http\Controllers\UserItemsController;
 use App\Http\Controllers\UserUnmatchedItemsController;
+use App\Http\Controllers\UserComparisonItemsController;
 use App\Http\Controllers\LeaveReasonsController;
 use App\Http\Controllers\RequestsController;
 use App\Http\Controllers\ReasonsController;
@@ -61,6 +62,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::resource('user_histories', UserHistoriesController::class, ['only' => ['index', 'store']]);
     Route::resource('user_items', UserItemsController::class, ['only' => ['index']]);
     Route::resource('user_unmatchedItems', UserUnmatchedItemsController::class,['only' => ['index', 'store', 'destroy']]);
+    Route::resource('user_comparisonItems', UserComparisonItemsController::class,['only' => ['index']]);
     Route::resource('leave_reasons', LeaveReasonsController::class,['only' => ['index', 'store']]);
     Route::resource('requests', RequestsController::class, ['only' => ['store']]);
     Route::resource('reasons', ReasonsController::class, ['only' => ['index']]);
