@@ -95,8 +95,18 @@ class UserComparisonItemsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $itemId)
     {
-        //
+        $user = $request->user();
+
+        $item = UserComparisonItem::where('item_id', $itemId)->where('user_id', $user->id);
+
+        if ($item->count() === 0){
+            return response()->json(['message' => '登録されていません'],
+            Response::HTTP_NOT_FOUND);
+        }
+
+        $item->delete();
+        return response()->noContent();
     }
 }
