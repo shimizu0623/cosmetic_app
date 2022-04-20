@@ -112,15 +112,11 @@ class Item extends Model
         ];
     }
 
-
-
-
-
-    // ↓TODO: これいらない？？
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+    // // ↓TODO: これいらない？？
+    // public function user()
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
 
     public function scopeUserFavoriteOnly($query, $userId)
     {
@@ -156,6 +152,18 @@ class Item extends Model
             $join->where('user_unmatched_items.user_id', '=', $userId);
         })
         ->where('user_unmatched_items.item_id', '!=', NULL);
+    }
+
+    public function scopeUserComparisonItemOnly($query, $userId)
+    {
+        return $query
+        ->leftJoin('user_comparison_items', function($join) use ($userId)
+        // ->innerJoin('user_unmatched_items', function($join) use ($userId)
+        {
+            $join->on('items.id', '=', 'user_comparison_items.item_id');
+            $join->where('user_comparison_items.user_id', '=', $userId);
+        })
+        ->where('user_comparison_items.item_id', '!=', NULL);
     }
 
 
