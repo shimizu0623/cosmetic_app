@@ -37,7 +37,33 @@ class UserComparisonItemsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = $request->user();
+
+        $validator = Validator::make($request->all(),[
+            'item_id' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->messages()],
+            Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $items = UserComparisonItem::where('user_id', $user->id)
+        ->where('item_id', $request->item_id)
+        ->get();
+
+        if ($items->count() !== 0){
+            return response()->json(['message' => '既に登録されています'],
+            Response::HTTP_BAD_REQUEST);
+        }
+
+        UserComparisonItem::create([
+            'user_id' => $user->id,
+            'item_id' => $request->item_id,
+        ]);
+
+        return response()->noContent();
+
     }
 
     /**
