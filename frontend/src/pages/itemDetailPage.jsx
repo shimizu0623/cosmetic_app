@@ -133,7 +133,7 @@ export const ItemDetail = () => {
 
 
     // TODO: ↓既に登録していたらはじくorお気に入りから外すBtnに切り替える
-    const handleAddFavorite = async() => {
+    const handleAddFavorite = async () => {
         console.log('handleAddFavorite');
         console.log(item.id);
         try {
@@ -169,11 +169,20 @@ export const ItemDetail = () => {
             console.error(e);
             return;
         }
-        
     };
     
-    const handleAddComparison = () => {
+    const handleAddComparison = async () => {
         console.log('handleAddComparison');
+        try {
+            const response = await axios.post('/user_comparisonItems', {
+                item_id: id,
+            });
+            window.alert('コスメ比較へ追加しました');
+        } catch (e) {
+            window.alert('登録に失敗しました');
+            console.error(e);
+            return;
+        }
     };
 
     const handleDeleteFavorite =  async () => {
@@ -207,8 +216,16 @@ export const ItemDetail = () => {
         }
     };
 
-    const handleDeleteComparison = () => {
+    const handleDeleteComparison = async () => {
         console.log('handleDeleteComparison');
+        try {
+            const response = await axios.delete(`/user_comparisonItems/${id}`);
+            window.alert('コスメ比較から削除しました');
+        } catch (e) {
+            window.alert('削除に失敗しました');
+            console.error(e);
+            return;
+        }
     };
 
     const itemInformation = () => {
