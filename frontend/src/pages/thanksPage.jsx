@@ -17,6 +17,9 @@ export const Thanks = () => {
         </div>
             <Btn message='マイページへ戻る' component={RouterLink} to="/myPage" />
         </div>
+        <p>内容によっては対応が難しいこともございます。</p>
+        <p>恐れ入りますが、御理解賜りますようお願い申し上げます。</p>
+
         </>
     )
 }
