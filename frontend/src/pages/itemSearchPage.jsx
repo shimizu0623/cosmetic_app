@@ -140,8 +140,9 @@ export const ItemSearch = () => {
                     <h2 style={{ marginTop: '0' }}>改善したい肌の悩みはございますか？</h2>
 
                     <FormGroup sx={{ justifyContent: 'center',display: 'grid', gap: 1, gridTemplateColumns: 'repeat(5, 1fr)' }}>
-                    {skinTroubles.map((skinTrouble) => (
+                    {skinTroubles.map((skinTrouble, index) => (
                     <FormControlLabel 
+                      key={index} 
                       sx={{ mx: 'auto' }} 
                       control={<Checkbox 
                         checked={selectedSkinTrouble.includes(skinTrouble.id)}
@@ -155,10 +156,11 @@ export const ItemSearch = () => {
                     <h2>お探しのカテゴリーはどちらですか？</h2>
 
                     <FormGroup sx={{ justifyContent: 'center',display: 'grid', gap: 1, gridTemplateColumns: 'repeat(5, 1fr)' }}>
-                    {categories.map((category) => (
+                    {categories.map((category, index) => (
                     <FormControlLabel
-                    sx={{ mx: 'auto' }} 
-                    control={<Checkbox 
+                      key={index}
+                      sx={{ mx: 'auto' }} 
+                      control={<Checkbox 
                         checked={selectedCategory.includes(category.id)}
                         onChange={(e) => { handleCategoryChecked(e, category.id) }} 
                       />} 
@@ -200,8 +202,8 @@ export const ItemSearch = () => {
                         style={{ marginRight: '10px' }}
                         >
                         <MenuItem value={null} style={{ width: '100%' }}>選択しない</MenuItem>
-                        {brands.map((brand) => (
-                        <MenuItem value={brand.id} style={{ width: '100%' }}>{brand.name}</MenuItem>
+                        {brands.map((brand, index) => (
+                        <MenuItem value={brand.id} key={index} style={{ width: '100%' }}>{brand.name}</MenuItem>
                         ))}
                         </Select>
                     </FormControl>
@@ -221,8 +223,8 @@ export const ItemSearch = () => {
                 </ImageListItem>
 
                 <Grid container spacing={1} direction="row" alignItems="center" style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
-                        {item.map((item) => (
-                        <Grid item xs={2}>
+                        {item.map((item, index) => (
+                        <Grid item xs={2} key={index} onClick={() => { navigate(`/item/${item.id}`) }}>
                             <ImageListItem key={item.img} className={classes.cardPaper}>
                             <img
                                 src={item.img}
@@ -257,8 +259,8 @@ export const ItemSearch = () => {
                 <ImageList style={{ width: '100%', gridTemplateColumns: 'repeat(1, 1fr)' }}>
 
                 <Grid container spacing={1} direction="row" alignItems="center" style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
-                        {item.map((item) => (
-                        <Grid item xs={2} onClick={() => { navigate(`/item/${item.id}`) }}>
+                        {item.map((item, index) => (
+                        <Grid item xs={2} key={index} onClick={() => { navigate(`/item/${item.id}`) }}>
                             <ImageListItem key={item.img} className={classes.cardPaper}>
                             <img
                                 src={item.img}
