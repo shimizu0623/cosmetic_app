@@ -3,6 +3,7 @@ import axios from '../axios';
 import Link from '@mui/material/Link';
 import { Link as RouterLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
+import { useNavigate } from 'react-router-dom';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
@@ -74,7 +75,8 @@ export const HomePage = () => {
     const [toner, setToner] = useState([]);
     const [emulsion, setEmulsion] = useState([]);
     const [serum, setSerum] = useState([]);
-    
+    const navigate = useNavigate();
+
     useEffect(async () => {
         const response = await axios.get('/me');
         const u = response.data;
@@ -150,17 +152,21 @@ export const HomePage = () => {
             <ImageList style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
             <Grid container spacing={1} direction="row" justifyContent="center" alignItems="center">
             {toner.map((toner, index) => (
-                <ImageListItem key={index} className={classes.CardPaper}>
-                <img
-                    src={toner.img}
-                    alt={toner.name}
-                    loading="lazy"
-                    style={{ maxWidth: '250px', height: '100%', margin: '0 auto' }}
-                />
-                <ImageListItemBar
-                    title={toner.brand}
-                    subtitle={toner.name}
-                />
+                <ImageListItem 
+                  key={index} 
+                  className={classes.CardPaper} 
+                  onClick={() => { navigate(`/item/${toner.id}`) }}
+                >
+                    <img
+                        src={toner.img}
+                        alt={toner.name}
+                        loading="lazy"
+                        style={{ maxWidth: '250px', height: '100%', margin: '0 auto' }}
+                    />
+                    <ImageListItemBar
+                        title={toner.brand}
+                        subtitle={toner.name}
+                    />
                 </ImageListItem>
             ))}
             </Grid>
@@ -176,17 +182,21 @@ export const HomePage = () => {
             <ImageList style={{gridTemplateColumns: '1, 1fr', gap: '1'}}>
             <Grid container spacing={1} direction="row" justifyContent="center" alignItems="center">
             {emulsion.map((emulsion, index) => (
-                <ImageListItem key={index} className={classes.CardPaper}>
-                <img
-                    src={emulsion.img}
-                    alt={emulsion.name}
-                    loading="lazy"
-                    style={{maxWidth: '250px', height: '100%', margin: '0 auto'}}
-                />
-                <ImageListItemBar
-                    title={emulsion.brand}
-                    subtitle={emulsion.name}
-                />
+                <ImageListItem 
+                  key={index} 
+                  className={classes.CardPaper}
+                  onClick={() => { navigate(`/item/${emulsion.id}`) }}
+                >
+                    <img
+                        src={emulsion.img}
+                        alt={emulsion.name}
+                        loading="lazy"
+                        style={{maxWidth: '250px', height: '100%', margin: '0 auto'}}
+                    />
+                    <ImageListItemBar
+                        title={emulsion.brand}
+                        subtitle={emulsion.name}
+                    />
                 </ImageListItem>
             ))}
             </Grid>
@@ -211,8 +221,11 @@ export const HomePage = () => {
                 <ImageList style={{gridTemplateColumns: '1, 1fr', gap: '1'}}>
                 <Grid container spacing={1} direction="row" justifyContent="center" alignItems="center">
                 {serum.map((serum, index) => (
-                    <ImageListItem key={index} className={classes.CardPaper}>
-                        {/* TODO: onClickで商品ページへ移動できるように */}
+                    <ImageListItem 
+                      key={index} 
+                      className={classes.CardPaper}
+                      onClick={() => { navigate(`/item/${serum.id}`) }}
+                    >
                     <img
                         src={serum.img}
                         alt={serum.name}
