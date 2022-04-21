@@ -5,9 +5,6 @@ import {Btn} from '../components/btn';
 import header_img from '../img/headerSearch.jpg';
 
 import { makeStyles } from "@material-ui/core/styles";
-import TextField from '@mui/material/TextField';
-import Stack from '@mui/material/Stack';
-import Autocomplete from '@mui/material/Autocomplete';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
@@ -21,7 +18,6 @@ import Select from '@mui/material/Select';
 import Link from '@mui/material/Link';
 import { Link as RouterLink } from "react-router-dom";
 import Grid from '@mui/material/Grid';
-import { CheckBox } from '@material-ui/icons';
 import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -32,7 +28,7 @@ const useStyles = makeStyles({
         display: 'flex',
         margin: '20px auto 0',
     },
-})
+});
 
 export const ItemSearch = () => {
     const classes = useStyles();
@@ -49,22 +45,22 @@ export const ItemSearch = () => {
     const navigate = useNavigate();
 
     useEffect(async () => {
-        const responseUser = await axios.get('/me')
-        const responseItem = await axios.get('/items')
-        const responseSkinTroubles = await axios.get('/skin_troubles')
-        const responseCategories = await axios.get('/categories')
-        const responseBrands = await axios.get('/brands')
-        const u = responseUser.data
-        const i = responseItem.data
-        const s = responseSkinTroubles.data
-        const c = responseCategories.data
-        const b = responseBrands.data
-        setUser(u)
-        setItem(i)
-        setSkinTroubles(s)
-        setCategories(c)
-        setBrands(b)
-    }, [])
+        const responseUser = await axios.get('/me');
+        const responseItem = await axios.get('/items');
+        const responseSkinTroubles = await axios.get('/skin_troubles');
+        const responseCategories = await axios.get('/categories');
+        const responseBrands = await axios.get('/brands');
+        const u = responseUser.data;
+        const i = responseItem.data;
+        const s = responseSkinTroubles.data;
+        const c = responseCategories.data;
+        const b = responseBrands.data;
+        setUser(u);
+        setItem(i);
+        setSkinTroubles(s);
+        setCategories(c);
+        setBrands(b);
+    }, []);
     
     const message = () => {
         if(user === null){
@@ -74,8 +70,8 @@ export const ItemSearch = () => {
           <>
             <p>{user.name}様の貴重なご意見をお待ちしております。</p>
           </>
-        )
-      }
+        );
+    };
 
     const handleSkinTroubleChecked = (event, id) => {
         if (event.target.checked) {
@@ -83,7 +79,7 @@ export const ItemSearch = () => {
         } else {
             setSelectedSkinTrouble(selectedSkinTrouble.filter(selectedSkinTroubleId => selectedSkinTroubleId !== id));
         }
-    }
+    };
 
     const handleCategoryChecked = (event, id) => {
         if (event.target.checked) {
@@ -91,7 +87,7 @@ export const ItemSearch = () => {
         } else {
             setSelectedCategory(selectedCategory.filter(selectedCategoryId => selectedCategoryId !== id));
         }
-    }
+    };
 
     const handleSafeOnlyChecked = (event) => {
         if (event.target.checked) {
@@ -99,7 +95,7 @@ export const ItemSearch = () => {
         } else {
             setSelectedSafeOnly(0);
         }
-    }
+    };
 
     const handleMatchingOnlyChecked = (event) => {
         if (event.target.checked) {
@@ -107,11 +103,11 @@ export const ItemSearch = () => {
         } else {
             setSelectedMatchingOnly(0);
         }
-    }
+    };
 
     const handleBrandChecked = (event) => {
         setSelectedBrand(event.target.value);
-    }
+    };
 
     const handleSearch = async () => {
         const responseItem = await axios.get('/items', {
@@ -125,7 +121,7 @@ export const ItemSearch = () => {
         });
         const i = responseItem.data;
         setItem(i);
-    }
+    };
 
 
     return(
@@ -232,7 +228,7 @@ export const ItemSearch = () => {
                                 src={item.img}
                                 alt={item.name}
                                 loading="lazy"
-                                style={{maxWidth: '300px', height: '100%', margin: '0 auto'}}
+                                style={{ maxWidth: '300px', height: '100%', margin: '0 auto' }}
                             />
                             <ImageListItemBar
                                 title={item.brand}
@@ -283,5 +279,5 @@ export const ItemSearch = () => {
         </div>
         </div>
         </>
-    )
-}
+    );
+};
