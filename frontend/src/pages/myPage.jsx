@@ -26,6 +26,7 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import ListSubheader from '@mui/material/ListSubheader';
+import { useNavigate } from 'react-router-dom';
 
 const responsive = {
     superLargeDesktop: {
@@ -70,22 +71,6 @@ const useStyles = makeStyles({
     header: {
         width: '100%',
     },
-    // rightArrow: {
-    //     maxWidth: '50px',
-    //     margin: 'auto 0 auto auto',
-    //     '&:hover':{
-    //         cursor: 'pointer',
-    //         opacity: '0.6',
-    //     }
-    // },
-    // leftArrow: {
-    //     maxWidth: '50px',
-    //     margin: 'auto  auto auto 0',
-    //     '&:hover':{
-    //         cursor: 'pointer',
-    //         opacity: '0.6',
-    //     }
-    // },
     skinTypeForm: {
         margin: '0 auto',
     },
@@ -125,7 +110,8 @@ export const MyPage = () => {
     const [user, setUser] = useState(null);
     const [favorites, setFavorites] = useState([]);
     const [histories, setHistories] = useState([]);
-
+    const navigate = useNavigate();
+    
     useEffect(async () => {
         const response = await axios.get('/me');
         const responseFavorites = await axios.get('/user_favorites');
@@ -136,7 +122,7 @@ export const MyPage = () => {
         setUser(u);
         setFavorites(f);
         setHistories(h);
-
+        console.log(responseHistories.data.item_id);
     }, []);
     
     const userInformation = () => {
@@ -173,24 +159,24 @@ export const MyPage = () => {
         updateSkinType(1);
     };
 
-    const handleInnerDrySkin = () => {
-        updateSkinType(2);
-    };
+    // const handleInnerDrySkin = () => {
+    //     updateSkinType(2);
+    // };
 
     const handleDrySkin = () => {
-        updateSkinType(3);
+        updateSkinType(2);
     };
     
     const handleOilySkin = () => {
-        updateSkinType(4);
+        updateSkinType(3);
     };
 
     const handleCombinationSkin = () => {
-        updateSkinType(5);
+        updateSkinType(4);
     };
 
     const handleSensitiveSkin = () => {
-        updateSkinType(6);
+        updateSkinType(5);
     };
 
     const loading = () => {
@@ -283,7 +269,7 @@ export const MyPage = () => {
                         >
                             <p className={classes.p}>Normal</p>
                         </Paper>
-                        <Paper 
+                        {/* <Paper 
                             className={classes.skinPaper}
                             onClick={handleInnerDrySkin} 
                             style={{
@@ -292,7 +278,7 @@ export const MyPage = () => {
                             }}
                         >
                             <p className={classes.p}>InnerDry</p>
-                        </Paper>
+                        </Paper> */}
                         <Paper 
                             className={classes.skinPaper}
                             onClick={handleDrySkin} 
@@ -392,7 +378,11 @@ export const MyPage = () => {
                             > 
                                 {histories.map((history) => (
                                     <div style={{ maxWidth: '90%' }}>
-                                        <ImageListItem key={history.img} className={classes.cardPaper}>
+                                        <ImageListItem 
+                                          key={history.img} 
+                                          className={classes.cardPaper} 
+                                          onClick={() => { navigate(`/item/${history.item_id}`) }}
+                                        >
                                             <img
                                                 src={history.img}
                                                 alt={history.name}
