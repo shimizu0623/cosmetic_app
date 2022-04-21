@@ -214,7 +214,11 @@ export const MyPage = () => {
                         >
                             {favorites.map((favorite) => (
                                 <div style={{ maxWidth: '90%' }}>
-                                    <ImageListItem key={favorite.id} className={classes.cardPaper}>
+                                    <ImageListItem 
+                                      key={favorite.id} 
+                                      className={classes.cardPaper}
+                                      onClick={() => { navigate(`/item/${favorite.item_id}`) }}
+                                    >
                                         <img
                                             src={favorite.img}
                                             alt={favorite.name}
@@ -330,25 +334,48 @@ export const MyPage = () => {
                     {/* TODO: 表示されない */}
                     {loading()}
 
-
-                    {/* <Grid container spacing={1} direction="row" alignItems="center" style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
-                        {favorites.map((favorite) => (
-                        <Grid m={1}>
-                            <ImageListItem key={favorite.img} className={classes.cardPaper}>
-                            <img
-                                src={favorite.img}
-                                alt={favorite.name}
-                                loading="lazy"
-                                style={{ maxWidth: '300px', height: '100%', margin: '0 auto' }}
-                            />
-                            <ImageListItemBar
-                                title={favorite.brand}
-                                subtitle={favorite.name}
-                            />
-                            </ImageListItem>
-                        </Grid>
-                        ))}
-                    </Grid> */}
+{/* 
+                    <ImageList style={{ width: '100%', gridTemplateColumns: 'repeat(1, 1fr)' }}>
+                        <ImageListItem key="Subheader" cols={2}>
+                            <ListSubheader component="div">お気に入りに登録中のアイテム</ListSubheader>
+                        </ImageListItem>
+        
+                        <Carousel
+                            showDots={true}
+                            responsive={responsive}
+                            infinite={true}
+                            autoPlaySpeed={1000}
+                            autoPlay={false}
+                            keyBoardControl={true}
+                            transitionDuration={500}
+                            containerClass="carousel-container"
+                            removeArrowOnDeviceType={["tablet", "mobile"]}
+                            dotListClass="custom-dot-list-style"
+                            itemClass="carousel-item-padding-40-px"
+                            shouldResetAutoplay={false}
+                        >
+                            {favorites.map((favorite) => (
+                                <div style={{ maxWidth: '90%' }}>
+                                    <ImageListItem 
+                                      key={favorite.id} 
+                                      className={classes.cardPaper}
+                                      onClick={() => { navigate(`/item/${favorite.item_id}`) }}
+                                    >
+                                        <img
+                                            src={favorite.img}
+                                            alt={favorite.name}
+                                            loading="lazy"
+                                            style={{ maxWidth: '100%', height: '100%', margin: '0 auto' }}
+                                        />
+                                        <ImageListItemBar
+                                            title={favorite.brand}
+                                            subtitle={favorite.name}
+                                        />
+                                    </ImageListItem>
+                                </div>
+                            ))}
+                        </Carousel>
+                    </ImageList> */}
 
             </div>
             
