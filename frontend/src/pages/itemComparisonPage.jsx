@@ -22,60 +22,113 @@ const useStyles = makeStyles({
 
 export const ItemComparison = () => {
     const classes = useStyles();
-    const [item, setItem] = useState(null);
+    const [item, setItem] = useState([]);
     const navigate = useNavigate();
-
-    // const [ingredients, setIngredients] = useState(null);
     
     useEffect(async () => {
-        const responseItem = await axios.get('/item');
-        // const responseIngredients = await axios.get('/item_ingredients')
+        const responseItem = await axios.get('/user_comparisonItems');
         const i = responseItem.data;
-        // const ingredient = responseIngredients.data
         setItem(i);
-        // setIngredients(ingredient)
+        console.log(item);
     }, []);
 
+    // let green = 0;
+    // const scoreGreen = () => {
+    //     if (item === null){
+    //         return <CircularProgress color="success" size="15px" />
+    //     }
+    //     const count = item.ingredients.map((ingredient) => {
+    //         (()=>{
+    //             if (ingredient.score === 1 || ingredient.score === 2){green++}
+    //         })()
+    //     });
+    //     return(
+    //         <span style={{ fontSize: '25px', fontWeight: 'bold', color: '#5ac9b4' }}>{green}</span>
+    //     );
+    // };
 
-    const handleDetail = () => navigate(`/item/${item.id}`);
-
+    // let yellow = 0;
+    // const scoreYellow = () => {
+    //     if (item === null){
+    //         return <CircularProgress color="success" size="15px" />
+    //     }
+    //     const count = item.ingredients.map((ingredient) => {
+    //         (()=>{
+    //             if (ingredient.score === 3){yellow++}
+    //             else if (ingredient.score === 4){yellow++}
+    //             else if (ingredient.score === 5){yellow++}
+    //             else if (ingredient.score === 6){yellow++}
+    //         })()
+    //     });
+    //     return(
+    //         <span style={{ fontSize: '25px', fontWeight: 'bold', color: '#f5c56b' }}>{yellow}</span>
+    //     );
+    // };
+    
+    // let red = 0;
+    // const scoreRed = () => {
+    //     if (item === null){
+    //         return <CircularProgress color="success" size="15px" />
+    //     }
+    //     const count = item.ingredients.map((ingredient) => {
+    //         (()=>{
+    //             if (ingredient.score === 7){red++}
+    //             else if (ingredient.score === 8){red++}
+    //             else if (ingredient.score === 9){red++}
+    //             else if (ingredient.score === 10){red++}
+    //         })()
+    //     });
+    //     return(
+    //         <span style={{ fontSize: '25px', fontWeight: 'bold', color: '#f04b4be7' }}>{red}</span>
+    //     );
+    // };
+    
     const itemInformation = () => {
-        if (item === null){
-            return <CircularProgress color="success" size="15px" />
+        if (item.length === 0){
+            return <CircularProgress color="success" size="15px" /> 
         }
         return(
-                // TODO: ↓item_ingredientsのデータ？
-                <tr>
-                    <td scope="row"><img src={item.img} alt="itemImg" style={{ maxWidth: '90px', height: '100%', margin: 'auto 30px' }} onClick={handleDetail} /></td>
-                    <td>{item.brand}</td>
-                    <td>{item.name}</td>
-                    <td>{item.volume}</td>
-                    <td>￥{item.price}</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td><Button 
-                            variant="contained" 
-                            style={{
-                                marginTop: '10px',
-                                color: 'white',
-                                background: 'rgba(141, 203, 193)',
-                                borderRadius: '7px',
-                            }}
-                            onClick={handleDelete}>
-                        削除
-                        </Button>
-                    </td>
-                </tr>   
-        )
+            <>
+                {item.map((item, index) => (
+                    <tbody key={index}>
+                        <tr>
+                            <td scope="row"><img src={item.img} alt="itemImg" style={{ maxWidth: '90px', height: '100%', margin: 'auto 30px' }} onClick={() => navigate(`/item/${item.id}`)} /></td>
+                            <td>{item.brand}</td>
+                            <td>{item.name}</td>
+                            <td>{item.volume}</td>
+                            <td>￥{item.price}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            {/* <td>{scoreGreen()}</td>
+                            <td>{scoreYellow()}</td>
+                            <td>{scoreRed()}</td> */}
+                            {/* <td>-</td> */}
+                            <td><Button 
+                                    variant="contained" 
+                                    style={{
+                                        marginTop: '10px',
+                                        color: 'white',
+                                        background: 'rgba(141, 203, 193)',
+                                        borderRadius: '7px',
+                                    }}
+                                    onClick={handleDelete}>
+                                削除
+                                </Button>
+                            </td>
+                        </tr>  
+                    </tbody>
+                ))}
+            </>
+        );
     };
+    
     // TODO: ifの時の処理↓
     const handleDelete = () => {
         const confirmMessage = '削除してよろしいですか？';
         let result = window.confirm(confirmMessage);
         if (result){
-            console.log('handleDelete')   ;    
+            console.log('handleDelete');    
         } else {
             return;
         }    
@@ -103,30 +156,32 @@ export const ItemComparison = () => {
 
                 <div style={{ margin: '50px 0 20px 0' }}>
                     <table style={{ margin: '0 auto' }}>
-                        <tr>
-                            <th className={classes.tableHeader}></th>
-                            <th className={classes.tableHeader}>ブランド</th>
-                            <th className={classes.tableHeader}>商品名</th>
-                            <th className={classes.tableHeader}>容量</th>
-                            <th className={classes.tableHeader}>価格</th>
-                            <Tooltip title={explain_green} followCursor>
-                            <th className={classes.tableHeader}><img src={leaf_green} alt="ewg_green" style={{ width: '30px' }} />成分数</th>
-                            </Tooltip>
-                            <Tooltip title={explain_yellow} followCursor>
-                            <th className={classes.tableHeader}><img src={leaf_yellow} alt="ewg_yellow" style={{ width: '30px' }} />成分数</th>
-                            </Tooltip>
-                            <Tooltip title={explain_red} followCursor>
-                            <th className={classes.tableHeader}><img src={leaf_brown} alt="ewg_red" style={{ width: '30px' }} />成分数</th>
-                            </Tooltip>
-                            <th className={classes.tableHeader}>評価レビュー</th>
-                        </tr>
+                        <thead>
+                            <tr>
+                                <th className={classes.tableHeader}></th>
+                                <th className={classes.tableHeader}>ブランド</th>
+                                <th className={classes.tableHeader}>商品名</th>
+                                <th className={classes.tableHeader}>容量</th>
+                                <th className={classes.tableHeader}>価格</th>
+                                <Tooltip title={explain_green} followCursor>
+                                <th className={classes.tableHeader}><img src={leaf_green} alt="ewg_green" style={{ width: '30px' }} />成分数</th>
+                                </Tooltip>
+                                <Tooltip title={explain_yellow} followCursor>
+                                <th className={classes.tableHeader}><img src={leaf_yellow} alt="ewg_yellow" style={{ width: '30px' }} />成分数</th>
+                                </Tooltip>
+                                <Tooltip title={explain_red} followCursor>
+                                <th className={classes.tableHeader}><img src={leaf_brown} alt="ewg_red" style={{ width: '30px' }} />成分数</th>
+                                </Tooltip>
+                                {/* <th className={classes.tableHeader}>評価レビュー</th> */}
+                                <th className={classes.tableHeader}></th>
+                            </tr>
+                        </thead>
 
                         {itemInformation()}
-
+                        
                     </table>
                 </div>
-
-                <p>コスメ比較へ追加されたアイテムはありません。</p>
+                {/* <p>コスメ比較へ追加されたアイテムはありません。</p> */}
             </div>
         </div>
         </>
