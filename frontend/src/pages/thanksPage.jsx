@@ -1,4 +1,4 @@
-
+// MEMO: スタイル調整済
 import React from 'react';
 import header_img from '../img/headerThanks.jpg';
 import { Btn } from '../components/btn';
@@ -21,5 +21,5 @@ export const Thanks = () => {
         <p>恐れ入りますが、御理解賜りますようお願い申し上げます。</p>
 
         </>
-    )
-}
+    );
+};
