@@ -242,7 +242,7 @@ export const ItemSearch = () => {
             </div>
 
 {/* notFound_message */}
-            <div style={{fontSize: '20px', color: 'green'}}>
+            <div style={{ fontSize: '20px', color: 'green' }}>
                 <p>申し訳ございません。条件に当てはまるアイテムが見つかりませんでした。</p>
                 <p><Link component={RouterLink} to="/requestPage">リクエストページ</Link>にて、ご要望も承っております。</p>
                 {message()}
@@ -253,10 +253,10 @@ export const ItemSearch = () => {
         <div>
             <h2>選択した肌悩みにおすすめのアイテム</h2>
 
-            <div className='recommend_results' style={{margin: '50px'}}>
-                <ImageList style={{width: '100%', gridTemplateColumns: 'repeat(1, 1fr)'}}>
+            <div className='recommend_results' style={{ margin: '50px' }}>
+                <ImageList style={{ width: '100%', gridTemplateColumns: 'repeat(1, 1fr)' }}>
 
-                <Grid container spacing={1} direction="row" alignItems="center" style={{gridTemplateColumns: '1, 1fr', gap: '1',}}>
+                <Grid container spacing={1} direction="row" alignItems="center" style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
                         {item.map((item) => (
                         <Grid item xs={2} onClick={() => { navigate(`/item/${item.id}`) }}>
                             <ImageListItem key={item.img} className={classes.cardPaper}>
@@ -264,7 +264,7 @@ export const ItemSearch = () => {
                                 src={item.img}
                                 alt={item.name}
                                 loading="lazy"
-                                style={{maxWidth: '200px', height: '100%', margin: '0 auto'}}
+                                style={{ maxWidth: '200px', height: '100%', margin: '0 auto' }}
                             />
                             <ImageListItemBar
                                 title={item.brand}
