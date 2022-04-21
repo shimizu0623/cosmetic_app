@@ -1,7 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import axios from '../axios';
-
-import { Btn } from '../components/btn';
 import Link from '@mui/material/Link';
 import { Link as RouterLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
@@ -10,7 +8,6 @@ import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import CircularProgress from '@mui/material/CircularProgress';
 import Grid from '@mui/material/Grid';
-
 import green_leaf from '../img/green_leaf_img_clear.png';
 import top_img from '../img/Whiteday2020-09.JPG';
 
@@ -68,13 +65,12 @@ const useStyles = makeStyles({
         left: '50%',
         transform: 'translate(-50%, -50%)',
     },
-})
+});
 
 
 export const HomePage = () => {
     const classes = useStyles();
     const [user, setUser] = useState(null);
-    // const [item, setItem] = useState([]);
     const [toner, setToner] = useState([]);
     const [emulsion, setEmulsion] = useState([]);
     const [serum, setSerum] = useState([]);
@@ -110,28 +106,29 @@ export const HomePage = () => {
         });
         const s = responseSerum.data;
         setSerum(s);
-        console.log(serum)
+        console.log(serum);
 
-    }, [])
+    }, []);
     
     const userSkinType = () => {
-        if(user === null){
+        if (user === null){
             return <CircularProgress color="success" size="15px" />
         }
         return(
             <p>{user.skin_type_name}タイプの方に</p>
         );
-    }
+    };
+
     const homeMessage = () => {
-        if(user === null){
+        if (user === null){
             return <CircularProgress color="success" size="40px" />
         }
         return(
             <p>{user.name}さん、こんにちは！<br/>
             最近のお肌の調子はいかがですか？<br/>
             {user.name}さんのお肌に合ったスキンケアが見つかりますように．．</p>
-        )
-    }
+        );
+    };
 
     const recommendToner = () => {
         // ↓エラーになったところUncaught Error:
@@ -146,14 +143,14 @@ export const HomePage = () => {
         // const i = responseItem.data;
         // setItem(i);
         // console.log(item)
-        if(toner === null){
+        if (toner === null){
             return <CircularProgress color="success" size="15px" />
         }
         return(
             <ImageList style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
             <Grid container spacing={1} direction="row" justifyContent="center" alignItems="center">
-            {toner.map((toner) => (
-                <ImageListItem key={toner.img} className={classes.CardPaper}>
+            {toner.map((toner, index) => (
+                <ImageListItem key={index} className={classes.CardPaper}>
                 <img
                     src={toner.img}
                     alt={toner.name}
@@ -168,18 +165,18 @@ export const HomePage = () => {
             ))}
             </Grid>
             </ImageList>
-        )
-    }
+        );
+    };
 
     const recommendEmulsion = () => {
-        if(emulsion === null){
+        if (emulsion === null){
             return <CircularProgress color="success" size="15px" />
         }
         return(
             <ImageList style={{gridTemplateColumns: '1, 1fr', gap: '1'}}>
             <Grid container spacing={1} direction="row" justifyContent="center" alignItems="center">
-            {emulsion.map((emulsion) => (
-                <ImageListItem key={emulsion.img} className={classes.CardPaper}>
+            {emulsion.map((emulsion, index) => (
+                <ImageListItem key={index} className={classes.CardPaper}>
                 <img
                     src={emulsion.img}
                     alt={emulsion.name}
@@ -194,8 +191,8 @@ export const HomePage = () => {
             ))}
             </Grid>
             </ImageList>
-        )
-    }
+        );
+    };
 
     const recommendSerum = () => {
         if (serum === null){
@@ -213,8 +210,8 @@ export const HomePage = () => {
             return(
                 <ImageList style={{gridTemplateColumns: '1, 1fr', gap: '1'}}>
                 <Grid container spacing={1} direction="row" justifyContent="center" alignItems="center">
-                {serum.map((serum) => (
-                    <ImageListItem key={serum.img} className={classes.CardPaper}>
+                {serum.map((serum, index) => (
+                    <ImageListItem key={index} className={classes.CardPaper}>
                         {/* TODO: onClickで商品ページへ移動できるように */}
                     <img
                         src={serum.img}
@@ -230,9 +227,9 @@ export const HomePage = () => {
                 ))}
                 </Grid>
                 </ImageList>
-            )
-        }   
-    }
+            );
+        };  
+    };
 
 
 
@@ -265,7 +262,6 @@ export const HomePage = () => {
 
                 </div>
                 
-
             {/* recommend */}
                 <div className='recommend'>
                     <div className='TitleForm'>
@@ -275,9 +271,7 @@ export const HomePage = () => {
 
                     {recommendEmulsion()}
 
-                </div>
-                
-
+                </div>                
 
             {/* recommend */}
                 <div className='recommend'>
@@ -290,8 +284,7 @@ export const HomePage = () => {
 
                 </div>
                 
-
         </div>
         </>
-    )
-}
+    );
+};
