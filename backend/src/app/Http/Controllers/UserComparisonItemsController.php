@@ -24,7 +24,7 @@ class UserComparisonItemsController extends Controller
 
         return response()->json(
             $items->map(function ($item) {
-                return $item->toArray();
+                return $item->toArrayItemId();
             })
         );
     }
