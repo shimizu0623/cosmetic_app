@@ -109,6 +109,8 @@ class Item extends Model
           'name' => $this->name,
           'brand' => $this->brand->name,
           'img' => $this->img,
+          'price' => $this->price,
+          'volume' => $this->volume,
         ];
     }
 
