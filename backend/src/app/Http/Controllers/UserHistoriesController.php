@@ -28,7 +28,7 @@ class UserHistoriesController extends Controller
 
         return response()->json(
             $histories->map(function ($history) {
-                return $history->toArray();
+                return $history->toArrayItemId();
             })
         );
     }
