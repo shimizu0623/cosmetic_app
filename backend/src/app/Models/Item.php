@@ -11,6 +11,11 @@ class Item extends Model
     use HasFactory;
     
 
+    public function item()
+    {
+        return $this->belongsTo(Item::class);
+    }
+
     public function brand()
     {
         return $this->belongsTo(Brand::class);
@@ -114,6 +119,19 @@ class Item extends Model
         ];
     }
 
+    public function toArrayItemId() 
+    {
+        return [
+          'id' => $this->id,
+          'name' => $this->name,
+          'brand' => $this->brand->name,
+          'img' => $this->img,
+          'price' => $this->price,
+          'volume' => $this->volume,
+          'item_id' => $this->item->id,
+        ];
+    }
+
     // // ↓TODO: これいらない？？
     // public function user()
     // {
@@ -172,4 +190,4 @@ class Item extends Model
 
 
 
-}
+};
