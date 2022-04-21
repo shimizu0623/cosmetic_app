@@ -10,7 +10,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { makeStyles } from "@material-ui/core/styles";
 import Link from '@mui/material/Link';
 import { Link as RouterLink } from "react-router-dom";
-import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
+import Tooltip from '@mui/material/Tooltip';
 import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles({
@@ -92,7 +92,14 @@ export const ItemComparison = () => {
                 {item.map((item, index) => (
                     <tbody key={index}>
                         <tr>
-                            <td scope="row"><img src={item.img} alt="itemImg" style={{ maxWidth: '90px', height: '100%', margin: 'auto 30px' }} onClick={() => navigate(`/item/${item.id}`)} /></td>
+                            <td scope="row">
+                                <img 
+                                  src={item.img} 
+                                  alt="itemImg" 
+                                  style={{ maxWidth: '90px', height: '100%', margin: 'auto 30px' }} 
+                                  onClick={() => navigate(`/item/${item.item_id}`)} 
+                                />
+                            </td>
                             <td>{item.brand}</td>
                             <td>{item.name}</td>
                             <td>{item.volume}</td>
@@ -164,13 +171,22 @@ export const ItemComparison = () => {
                                 <th className={classes.tableHeader}>容量</th>
                                 <th className={classes.tableHeader}>価格</th>
                                 <Tooltip title={explain_green} followCursor>
-                                <th className={classes.tableHeader}><img src={leaf_green} alt="ewg_green" style={{ width: '30px' }} />成分数</th>
+                                    <th className={classes.tableHeader}>
+                                        <img src={leaf_green} alt="ewg_green" style={{ width: '30px' }} />
+                                        成分数
+                                    </th>
                                 </Tooltip>
                                 <Tooltip title={explain_yellow} followCursor>
-                                <th className={classes.tableHeader}><img src={leaf_yellow} alt="ewg_yellow" style={{ width: '30px' }} />成分数</th>
+                                    <th className={classes.tableHeader}>
+                                        <img src={leaf_yellow} alt="ewg_yellow" style={{ width: '30px' }} />
+                                        成分数
+                                    </th>
                                 </Tooltip>
                                 <Tooltip title={explain_red} followCursor>
-                                <th className={classes.tableHeader}><img src={leaf_brown} alt="ewg_red" style={{ width: '30px' }} />成分数</th>
+                                    <th className={classes.tableHeader}>
+                                        <img src={leaf_brown} alt="ewg_red" style={{ width: '30px' }} />
+                                        成分数
+                                    </th>
                                 </Tooltip>
                                 {/* <th className={classes.tableHeader}>評価レビュー</th> */}
                                 <th className={classes.tableHeader}></th>
@@ -185,5 +201,5 @@ export const ItemComparison = () => {
             </div>
         </div>
         </>
-    )
-}
+    );
+};
