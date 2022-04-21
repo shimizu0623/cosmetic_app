@@ -120,10 +120,10 @@ export const ItemDetail = () => {
                 item_id: id,
             });
             console.log(response);
-            console.log('ok')
+            console.log('ok');
         } catch (e) {
             window.alert('登録に失敗しました');
-            console.error(e)
+            console.error(e);
             return;
         }
 
@@ -145,7 +145,7 @@ export const ItemDetail = () => {
             // console.log('ok')
         } catch (e) {
             window.alert('登録に失敗しました');
-            console.error(e)
+            console.error(e);
             return;
         }
     };
@@ -296,35 +296,37 @@ export const ItemDetail = () => {
         }
         return(
             <>
-                {item.ingredients.map((ingredient) => (
-                    <tr>
-                        <td scope="row">{ingredient.name}</td>
-                        {(()=>{
-                            if (ingredient.score === 1){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_1} alt="Level_1_img" style={{ width: '30px' }} /></td>)}
-                            else if (ingredient.score === 2){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_2} alt="Level_2_img" style={{ width: '30px' }} /></td>)}
-                            else if (ingredient.score === 3){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_3} alt="Level_3_img" style={{ width: '30px' }} /></td>)}
-                            else if (ingredient.score === 4){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_4} alt="Level_4_img" style={{ width: '30px' }} /></td>)}
-                            else if (ingredient.score === 5){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_5} alt="Level_5_img" style={{ width: '30px' }} /></td>)}
-                            else if (ingredient.score === 6){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_6} alt="Level_6_img" style={{ width: '30px' }} /></td>)}
-                            else if (ingredient.score === 7){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_7} alt="Level_7_img" style={{ width: '30px' }} /></td>)}
-                            else if (ingredient.score === 8){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_8} alt="Level_8_img" style={{ width: '30px' }} /></td>)}
-                            else if (ingredient.score === 9){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_9} alt="Level_9_img" style={{ width: '30px' }} /></td>)}
-                            else if (ingredient.score === 10){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_10} alt="Level_10_img" style={{ width: '30px' }} /></td>)}
-                            else {return (<td><p>no information</p></td>)}
-                        })()}
+                {item.ingredients.map((ingredient, index) => (
+                    <tbody key={index}>
+                        <tr>
+                            <td scope="row">{ingredient.name}</td>
+                            {(()=>{
+                                if (ingredient.score === 1){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_1} alt="Level_1_img" style={{ width: '30px' }} /></td>)}
+                                else if (ingredient.score === 2){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_2} alt="Level_2_img" style={{ width: '30px' }} /></td>)}
+                                else if (ingredient.score === 3){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_3} alt="Level_3_img" style={{ width: '30px' }} /></td>)}
+                                else if (ingredient.score === 4){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_4} alt="Level_4_img" style={{ width: '30px' }} /></td>)}
+                                else if (ingredient.score === 5){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_5} alt="Level_5_img" style={{ width: '30px' }} /></td>)}
+                                else if (ingredient.score === 6){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_6} alt="Level_6_img" style={{ width: '30px' }} /></td>)}
+                                else if (ingredient.score === 7){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_7} alt="Level_7_img" style={{ width: '30px' }} /></td>)}
+                                else if (ingredient.score === 8){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_8} alt="Level_8_img" style={{ width: '30px' }} /></td>)}
+                                else if (ingredient.score === 9){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_9} alt="Level_9_img" style={{ width: '30px' }} /></td>)}
+                                else if (ingredient.score === 10){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_10} alt="Level_10_img" style={{ width: '30px' }} /></td>)}
+                                else {return (<td><p>no information</p></td>)}
+                            })()}
 
-                            {/* {ingredient.score === 1 ? (<td><img src={Level_1} alt="Level_1_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)}
-                            {ingredient.score === 2 ? (<td><img src={Level_2} alt="Level_2_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)}
-                            {ingredient.score === 3 ? (<td><img src={Level_3} alt="Level_3_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)}
-                            {ingredient.score === 4 ? (<td><img src={Level_4} alt="Level_4_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)}
-                            {ingredient.score === 5 ? (<td><img src={Level_5} alt="Level_5_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)} */}
-                        <td>{ingredient.safety}</td>
-                        <td>{ingredient.purpose}</td>
-                        <td>{ingredient.cancer}</td>
-                        <td>{ingredient.developmental}</td>
-                        <td>{ingredient.allergies}</td>
-                        <td>{ingredient.explain}</td>
-                    </tr>
+                                {/* {ingredient.score === 1 ? (<td><img src={Level_1} alt="Level_1_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)}
+                                {ingredient.score === 2 ? (<td><img src={Level_2} alt="Level_2_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)}
+                                {ingredient.score === 3 ? (<td><img src={Level_3} alt="Level_3_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)}
+                                {ingredient.score === 4 ? (<td><img src={Level_4} alt="Level_4_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)}
+                                {ingredient.score === 5 ? (<td><img src={Level_5} alt="Level_5_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)} */}
+                            <td>{ingredient.safety}</td>
+                            <td>{ingredient.purpose}</td>
+                            <td>{ingredient.cancer}</td>
+                            <td>{ingredient.developmental}</td>
+                            <td>{ingredient.allergies}</td>
+                            <td>{ingredient.explain}</td>
+                        </tr>
+                    </tbody>
                 ))}
             </>
         );
@@ -492,16 +494,19 @@ export const ItemDetail = () => {
             <div style={{ margin: '50px 0 20px 0' }}>
                 <table style={{ margin: '0 auto' }}>
                     <caption style={{ fontSize: '25px', marginBottom: '10px' }}>配合成分詳細</caption>
-                    <tr>
-                        <th className={classes.tableHeader}>成分名</th>
-                        <th className={classes.tableHeader}>EWG SCORE</th>
-                        <th className={classes.tableHeader}>安全度</th>
-                        <th className={classes.tableHeader}>配合目的</th>
-                        <th className={classes.tableHeader}>発がん性</th>
-                        <th className={classes.tableHeader}>発達/生殖毒性</th>
-                        <th className={classes.tableHeader}>免疫毒性</th>
-                        <th className={classes.tableHeader}>成分説明</th>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th className={classes.tableHeader}>成分名</th>
+                            <th className={classes.tableHeader}>EWG SCORE</th>
+                            <th className={classes.tableHeader}>安全度</th>
+                            <th className={classes.tableHeader}>配合目的</th>
+                            <th className={classes.tableHeader}>発がん性</th>
+                            <th className={classes.tableHeader}>発達/生殖毒性</th>
+                            <th className={classes.tableHeader}>免疫毒性</th>
+                            <th className={classes.tableHeader}>成分説明</th>
+                        </tr>
+                    </thead>
+
                     {ingredientsInformation()}
                 </table>
             </div>
