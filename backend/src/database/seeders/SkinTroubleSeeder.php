@@ -44,8 +44,8 @@ class SkinTroubleSeeder extends Seeder
         DB::table('skin_troubles')->insert([
             'name' => 'にきび',
         ]);
-        DB::table('skin_troubles')->insert([
-            'name' => '敏感肌',
-        ]);
+        // DB::table('skin_troubles')->insert([
+        //     'name' => '敏感肌',
+        // ]);
     }
 }
