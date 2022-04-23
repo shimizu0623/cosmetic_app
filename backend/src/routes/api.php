@@ -48,8 +48,6 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('/me', [UsersController::class, 'updateMe']);    
     Route::post('/delete_me', [UsersController::class, 'deleteMe']);    
     Route::get('/me', [UsersController::class, 'me']);    
-    // TODO: ↓deleteじゃない？
-    // Route::post('/delete_me', [UsersController::class, 'destroy']);    
     Route::get('/me/{id}', [UsersController::class, 'show']);
     Route::resource('brands', BrandsController::class, ['only' => ['index']]);
     Route::resource('categories', CategoriesController::class, ['only' => ['index']]);
@@ -66,6 +64,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::resource('leave_reasons', LeaveReasonsController::class,['only' => ['index', 'store']]);
     Route::resource('requests', RequestsController::class, ['only' => ['store']]);
     Route::resource('reasons', ReasonsController::class, ['only' => ['index']]);
+    // TODO: ↓recommendItem？
     Route::get('/recommendItem', [ItemsController::class, 'recommendItem']);
     Route::get('/items/{id}', [ItemsController::class, 'show']);
     
