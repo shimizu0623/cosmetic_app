@@ -48,15 +48,11 @@ export const UnmatchedItem = () => {
     const classes = useStyles();
     const { id } = useParams();
     const [item, setItem] = useState([]);
-    // const [ingredients, setIngredients] = useState(null);
     
     useEffect(async () => {
         const responseItem = await axios.get('/user_unmatchedItems');
-        // const responseIngredients = await axios.get('/item_ingredients')
         const i = responseItem.data;
-        // const ingredient = responseIngredients.data
         setItem(i);
-        // setIngredients(ingredient)
     }, []);
 
     const itemInformation = () => {
@@ -64,10 +60,9 @@ export const UnmatchedItem = () => {
             return <CircularProgress color="success" size="15px" />
         }
         return(
-                // TODO: ↓item_ingredientsのデータ？
             <>
-                {item.map((item) => (
-                    <tr>
+                {item.map((item, index) => (
+                    <tr key={index}>
                     <td scope="row"><img src={item.img} alt="itemImg" style={{ maxWidth: '90px', height: '100%', margin: 'auto 30px' }} /></td>
                     <td>{item.brand}</td>
                     <td>{item.name}</td>
@@ -91,20 +86,21 @@ export const UnmatchedItem = () => {
                             </li>
                         )}
                         style={{ minWidth: 300 }}
+                        // TODO: ↓state?
                         renderInput={(params) => (
                             <TextField {...params} label="使用後の肌状態" />
                         )}
                     />
                     </td>
                     <td><Button 
-                            variant="contained" 
+                            variant="contained"
                             style={{
                                 marginTop: '10px',
                                 color: 'white',
                                 background: 'rgba(141, 203, 193)',
                                 borderRadius: '7px',
                             }}
-                            onClick={handleDelete}>
+                            onClick={(e) => handleDelete(e, item.item_id)}>
                         削除
                         </Button>
                     </td>
@@ -113,12 +109,25 @@ export const UnmatchedItem = () => {
             </>
         );
     };
-    // TODO: ifの時の処理↓
-    const handleDelete = () => {
+
+    const handleDelete = async (e, id) => {
         const confirmMessage = '削除してよろしいですか？'
         let result = window.confirm(confirmMessage);
         if (result){
-            console.log('handleDelete')       
+            console.log('handleDelete');
+            try {
+                console.log('try');
+                const response = await axios.delete(`/user_unmatchedItems/${id}`);
+                console.log('ok')
+                const responseItem = await axios.get('/user_unmatchedItems');
+                const i = responseItem.data;
+                setItem(i);
+                window.alert('削除しました');
+            } catch (e) {
+                window.alert('削除できませんでした');
+                console.error(e)
+                return;
+            }                
         } else {
             return;
         }    
@@ -173,5 +182,5 @@ export const UnmatchedItem = () => {
             </div>
         </div>
         </>
-    )
-}
+    );
+};
