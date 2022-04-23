@@ -25,7 +25,7 @@ class UserUnmatchedItemsController extends Controller
 
         return response()->json(
             $unmatchedItems->map(function ($item) {
-                return $item->toArray();
+                return $item->toArrayItemId();
             })
         );
     }
@@ -87,3 +87,4 @@ class UserUnmatchedItemsController extends Controller
         return response()->noContent();
     }
 }
+
