@@ -24,7 +24,7 @@ class UserHistoriesController extends Controller
         $user = $request->user();
 
         $histories = Item::userHistory($user->id)
-        ->get();
+        ->paginate(10);
 
         return response()->json(
             $histories->map(function ($history) {
