@@ -49,6 +49,7 @@ class ItemsController extends Controller
         // Log::debug($items->toSql());
         // Log::debug($user->id);
 
+        // TODO: ↓ホームはpaginateして、検索結果はページ？カルーセル？を切り替えて全て見られるようにする
         $items = $items->get(['items.*']);
 
         return response()->json(
@@ -58,22 +59,22 @@ class ItemsController extends Controller
         );
     }
 
-    public function item()
-    {
-        $item = Item::find(1);
+    // public function item()
+    // {
+    //     $item = Item::find(1);
 
-        return response()->json(
-            [
-                'id' => $item->id,
-                'name' => $item->name,
-                'brand' => $item->brand->name,
-                'price' => $item->price,
-                'category' => $item->category->name,
-                'volume' => $item->volume,
-                'img' => $item->img,
-            ]
-        );
-    }
+    //     return response()->json(
+    //         [
+    //             'id' => $item->id,
+    //             'name' => $item->name,
+    //             'brand' => $item->brand->name,
+    //             'price' => $item->price,
+    //             'category' => $item->category->name,
+    //             'volume' => $item->volume,
+    //             'img' => $item->img,
+    //         ]
+    //     );
+    // }
 
     /**
      * Display the specified resource.
