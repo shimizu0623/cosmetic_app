@@ -15,7 +15,7 @@ import './img/cosmetic_background3.jpg';
 const App = () =>{
 
 
-  const webName = "(サイトの名前)";
+  const webName = "Cosmetic Search";
 
 
   return (
