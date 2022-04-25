@@ -3,9 +3,10 @@ import React from 'react';
 import Button from '@mui/material/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link as RouterLink } from "react-router-dom";
+import logo_img from "../img/CS_logo.png";
 
 const useStyles = makeStyles({
-    header: {
+    headerRight: {
         position: 'fixed',
         textAlign: 'right',
         top: '0',
@@ -13,21 +14,12 @@ const useStyles = makeStyles({
         height: '60px',
         lineHeight: '60px',
         background: 'rgba(243, 240, 240, 0.734)',
-        },    
-    root: {
-        color:'green',
-        background: 'rgba(205, 226, 168, 0.612)',
-        letterSpacing: 3,
-        fontSize: 16,
-        borderColor:'green',
-        borderRadius: 3,
-        margin: '10px 10px 10px auto',
-        padding: '10px 40px',
-        '&:hover': {
-        color: 'white',
-        borderColor:'green',
-        background: 'green',
-        },
+    },
+    headerLeft: {
+        position: 'fixed',
+        textAlign: 'left',
+        top: '0',
+        zIndex: '2147483647',
     },
 });
   
@@ -35,17 +27,27 @@ export const HeaderLogoOnly = () => {
     const classes = useStyles();
 
     return(
-        <header className={classes.header}>
-            <div className="headerLogo">
-                <img src="" alt="Logo" />
+        <header>
+            <div className={classes.headerLeft}>
+                <img src={logo_img} alt="Logo" style={{ margin: '0 30px', height: '60px' }} />
             </div>
-            <Button
-                variant="outlined"
-                className={classes.root}
-                component={RouterLink}
-                to="/login">
-            ログイン
-            </Button>
+            <div className={classes.headerRight}>
+                <Button
+                    variant="outlined"
+                    style={{
+                        color:'green',
+                        letterSpacing: '3',
+                        fontSize: '16',
+                        borderColor:'green',
+                        borderRadius: '3',
+                        margin: '0 30px 0 auto',
+                        padding: '10px 40px',
+                    }}
+                    component={RouterLink}
+                    to="/login">
+                ログイン
+                </Button>
+            </div>
         </header>
     );
 };
