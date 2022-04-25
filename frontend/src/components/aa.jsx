@@ -28,7 +28,6 @@
 import React from 'react';
 
 export const aa = () => {
-    const classes = useStyles();
     
     return(
         <div className='MainContainer'>
