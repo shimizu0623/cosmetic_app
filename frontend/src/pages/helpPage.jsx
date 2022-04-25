@@ -40,11 +40,11 @@ export const HelpPage = () => {
 
 
                 <div className='aboutService'>
-                    <img src={green_leaf} alt="" style={{ maxWidth: '60px', display: 'inline-block', verticalAlign: 'middle', margin: '10px auto 40px' }} />
+                    <img src={green_leaf} alt="green_leaf" style={{ maxWidth: '60px', display: 'inline-block', verticalAlign: 'middle', margin: '10px auto 40px' }} />
                     <h1 style={{ fontSize: '30px', display: 'inline-block' }}>サービス内容</h1>
 
                     {helpForm('どのようなサービスですか？', 
-                    '当サイトはEWG等級を元に、消費者の方が安心して化粧品を選べるようにできることを目的としたサービスです。商品の詳細として全成分を細かく確認できるだけではなく、今まで肌に合わなかった化粧品を登録しておくことで、あなたの肌に合わない可能性のある成分を探すこともできます。美しさと健康を両方叶えるお手伝いができますように。')}
+                    '当サイトはEWG等級を元に、消費者の方が安心して化粧品を選べるサポートができるように作られたサービスです。商品の詳細として全成分を細かく確認できるだけではなく、今まで肌に合わなかった化粧品を登録しておくことで、あなたの肌に合わない可能性のある成分を探すこともできます。美しさと健康を両方叶えるお手伝いができますように。')}
                     
                     {helpForm('EWG等級とは何ですか？', 
                     'EWG等級とは、化粧品成分の有害性の程度を数字で表している等級のことです。数字が低いほど安全な成分となっております。画面右上にある“HELP”→“EWGってなに？”をクリックしていただくと、より詳しくご覧いただけます。')}
