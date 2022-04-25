@@ -12,7 +12,6 @@ import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import NotInterestedIcon from '@material-ui/icons/NotInterested';
-import PortraitIcon from '@material-ui/icons/Portrait';
 import SearchIcon from '@material-ui/icons/Search';
 import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
@@ -28,13 +27,13 @@ const useStyles = makeStyles({
     height: '60px',
     lineHeight: '60px',
     background: 'rgba(243, 240, 240, 0.734)',
-    },
-    headerLeft: {
+  },
+  headerLeft: {
     position: 'fixed',
     textAlign: 'left',
     top: '0',
     zIndex: '2147483647'
-    },
+  },
 });
 
 export const Header = () => {
