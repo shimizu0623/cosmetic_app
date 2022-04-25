@@ -3,12 +3,10 @@ import React, {useState, useEffect} from 'react';
 import axios from '../axios';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-
 import leaf_menu_img from '../img/leaf_menu_img.jpg';
 import leaf_favorite_img from '../img/leaf_favorite_img.jpg';
 import leaf_history_img from '../img/leaf_history_img.jpg';
 import normal_skin_img from '../img/normal_skin_img.jpg';
-import innerDry_skin_img from '../img/innerDry_skin_img.jpg';
 import dry_skin_img from '../img/dry_skin_img.jpg';
 import oily_skin_img from '../img/oily_skin_img.jpg';
 import combination_skin_img from '../img/combination_skin_img.jpg';
@@ -19,7 +17,6 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Link from '@material-ui/core/Link';
 import { Link as RouterLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { Paper } from '@mui/material';
 import ImageList from '@mui/material/ImageList';
@@ -159,10 +156,6 @@ export const MyPage = () => {
         updateSkinType(1);
     };
 
-    // const handleInnerDrySkin = () => {
-    //     updateSkinType(2);
-    // };
-
     const handleDrySkin = () => {
         updateSkinType(2);
     };
@@ -273,16 +266,6 @@ export const MyPage = () => {
                         >
                             <p className={classes.p}>Normal</p>
                         </Paper>
-                        {/* <Paper 
-                            className={classes.skinPaper}
-                            onClick={handleInnerDrySkin} 
-                            style={{
-                                borderRadius: '50%', 
-                                backgroundImage: `url(${innerDry_skin_img})`
-                            }}
-                        >
-                            <p className={classes.p}>InnerDry</p>
-                        </Paper> */}
                         <Paper 
                             className={classes.skinPaper}
                             onClick={handleDrySkin} 
@@ -334,49 +317,6 @@ export const MyPage = () => {
                     {/* TODO: 表示されない */}
                     {loading()}
 
-{/* 
-                    <ImageList style={{ width: '100%', gridTemplateColumns: 'repeat(1, 1fr)' }}>
-                        <ImageListItem key="Subheader" cols={2}>
-                            <ListSubheader component="div">お気に入りに登録中のアイテム</ListSubheader>
-                        </ImageListItem>
-        
-                        <Carousel
-                            showDots={true}
-                            responsive={responsive}
-                            infinite={true}
-                            autoPlaySpeed={1000}
-                            autoPlay={false}
-                            keyBoardControl={true}
-                            transitionDuration={500}
-                            containerClass="carousel-container"
-                            removeArrowOnDeviceType={["tablet", "mobile"]}
-                            dotListClass="custom-dot-list-style"
-                            itemClass="carousel-item-padding-40-px"
-                            shouldResetAutoplay={false}
-                        >
-                            {favorites.map((favorite) => (
-                                <div style={{ maxWidth: '90%' }}>
-                                    <ImageListItem 
-                                      key={favorite.id} 
-                                      className={classes.cardPaper}
-                                      onClick={() => { navigate(`/item/${favorite.item_id}`) }}
-                                    >
-                                        <img
-                                            src={favorite.img}
-                                            alt={favorite.name}
-                                            loading="lazy"
-                                            style={{ maxWidth: '100%', height: '100%', margin: '0 auto' }}
-                                        />
-                                        <ImageListItemBar
-                                            title={favorite.brand}
-                                            subtitle={favorite.name}
-                                        />
-                                    </ImageListItem>
-                                </div>
-                            ))}
-                        </Carousel>
-                    </ImageList> */}
-
             </div>
             
 {/* history */}
@@ -426,28 +366,6 @@ export const MyPage = () => {
                         {/* </div> */}
                     {/* </div> */}
                     
-                    {/* <Grid container spacing={1} direction="row" alignItems="center" style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
-
-                        {histories.map((history) => (
-                        // <Grid m={1}>
-                            <div style={{ maxWidth: '100px' }}>
-                                <ImageListItem key={history.img} className={classes.cardPaper}>
-                                <img
-                                    src={history.img}
-                                    alt={history.name}
-                                    loading="lazy"
-                                    style={{ maxWidth: '100px', height: '100%', margin: '0 auto' }}
-                                />
-                                <ImageListItemBar
-                                    title={history.brand}
-                                    subtitle={history.name}
-                                />
-                                </ImageListItem>
-                            </div>
-                        // </Grid>
-                        ))}
-                    </Grid> */}
-
                 </ImageList>
             </div>
             
