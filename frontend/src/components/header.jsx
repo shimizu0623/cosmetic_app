@@ -111,12 +111,12 @@ export const Header = () => {
               </ListItemIcon>
               アイテムを探す
             </MenuItem>
-            <MenuItem component={RouterLink} to="/ranking">
+            {/* <MenuItem component={RouterLink} to="/ranking">
               <ListItemIcon>
                 <EmojiEventsIcon />
               </ListItemIcon>
               ランキング
-            </MenuItem>
+            </MenuItem> */}
           </Menu>
         
           <Button
@@ -197,7 +197,7 @@ export const Header = () => {
               </ListItemIcon>
               マイページ
             </MenuItem>
-            <MenuItem component={RouterLink} to="/myFolder">
+            {/* <MenuItem component={RouterLink} to="/myFolder">
               <ListItemIcon>
                 <FolderSpecialIcon />
               </ListItemIcon>
@@ -208,7 +208,7 @@ export const Header = () => {
                 <EqualizerIcon />
               </ListItemIcon>
               コスメ比較
-            </MenuItem>
+            </MenuItem> */}
             <MenuItem component={RouterLink} to="/unmatchedItem">
               <ListItemIcon>
                 <NotInterestedIcon />
