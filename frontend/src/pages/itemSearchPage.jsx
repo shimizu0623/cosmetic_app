@@ -34,6 +34,7 @@ export const ItemSearch = () => {
     const classes = useStyles();
     const [user, setUser] = useState(null);
     const [item, setItem] = useState([]);
+    const [skinTroubleItem, setSkinTroubleItem] = useState([]);
     const [skinTroubles, setSkinTroubles] = useState([]);
     const [categories, setCategories] = useState([]);
     const [brands, setBrands] = useState([]);
@@ -46,24 +47,21 @@ export const ItemSearch = () => {
 
     useEffect(async () => {
         const responseUser = await axios.get('/me');
-        const responseItem = await axios.get('/items');
         const responseSkinTroubles = await axios.get('/skin_troubles');
         const responseCategories = await axios.get('/categories');
         const responseBrands = await axios.get('/brands');
         const u = responseUser.data;
-        const i = responseItem.data;
         const s = responseSkinTroubles.data;
         const c = responseCategories.data;
         const b = responseBrands.data;
         setUser(u);
-        setItem(i);
         setSkinTroubles(s);
         setCategories(c);
         setBrands(b);
     }, []);
     
     const message = () => {
-        if(user === null){
+        if (user === null){
             return <CircularProgress color="success" size="15px" />
         }
         return(
@@ -121,6 +119,98 @@ export const ItemSearch = () => {
         });
         const i = responseItem.data;
         setItem(i);
+
+        if (selectedSkinTrouble.length === 0){
+            setSkinTroubleItem([]);
+        }
+        if (selectedSkinTrouble.length !== 0){
+            const responseSkinTroubleItem = await axios.get('/items', {
+                params: {
+                    skin_trouble_id: selectedSkinTrouble,
+                }
+            });
+            const s = responseSkinTroubleItem.data;
+            setSkinTroubleItem(s);
+        }
+    };
+
+    const searchItem = () => {
+        if (item.length === 0){
+            return (
+                <div style={{ fontSize: '20px', color: 'green', margin: '90px auto' }}>
+                    <p>条件に当てはまるアイテムが見つかりませんでした。</p>
+                    <p>条件を変更して、再度検索するボタンをクリックしてください。</p>
+                    <div style={{ margin: '20px auto' }}>
+                        <p>尚、<Link component={RouterLink} to="/requestPage">リクエストページ</Link>にて、ご要望も承っております。</p>
+                        {message()}
+                    </div>
+                </div>
+            )
+        }
+        if (item.length !== 0){
+            return (
+                <div className='search_results' style={{ margin: '50px' }}>
+                    <ImageList style={{ width: '100%', gridTemplateColumns: 'repeat(1, 1fr)' }}>
+                        <ImageListItem key="Subheader" cols={2}>
+                            <ListSubheader component="div">条件に当てはまるアイテムが見つかりました！</ListSubheader>
+                        </ImageListItem>
+
+                        <Grid container spacing={1} direction="row" alignItems="center" style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
+                            {item.map((item, index) => (
+                            <Grid item xs={2} key={index} onClick={() => { navigate(`/item/${item.id}`) }}>
+                                <ImageListItem key={item.img} className={classes.cardPaper}>
+                                <img
+                                    src={item.img}
+                                    alt={item.name}
+                                    loading="lazy"
+                                    style={{ maxWidth: '300px', height: '100%', margin: '0 auto' }}
+                                />
+                                <ImageListItemBar
+                                    title={item.brand}
+                                    subtitle={item.name}
+                                />
+                                </ImageListItem>
+                            </Grid>
+                            ))}
+                        </Grid>
+                    </ImageList>
+                </div>
+            )
+        }
+    };
+
+    const recommendItem = () => {
+        console.log(skinTroubleItem)
+        if (skinTroubleItem.length !== 0){
+            return (
+                <div className='recommend_results' style={{ margin: '50px' }}>
+                    <ImageList style={{ width: '100%', gridTemplateColumns: 'repeat(1, 1fr)' }}>
+                        <Grid container spacing={1} direction="row" alignItems="center" style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
+                            {skinTroubleItem.map((item, index) => (
+                                <Grid item xs={2} key={index} onClick={() => { navigate(`/item/${item.id}`) }}>
+                                <ImageListItem key={item.img} className={classes.cardPaper}>
+                                <img
+                                    src={item.img}
+                                    alt={item.name}
+                                    loading="lazy"
+                                    style={{ maxWidth: '200px', height: '100%', margin: '0 auto' }}
+                                    />
+                                <ImageListItemBar
+                                    title={item.brand}
+                                    subtitle={item.name}
+                                    />
+                                </ImageListItem>
+                            </Grid>
+                            ))}
+                        </Grid>
+                    </ImageList>
+                </div>
+            )
+        } else {
+            return (
+                <p>肌の悩みをチェックして、検索してみましょう</p>
+            )
+        }
     };
 
 
@@ -155,17 +245,18 @@ export const ItemSearch = () => {
                 
                     <h2>お探しのカテゴリーはどちらですか？</h2>
 
-                    <FormGroup sx={{ justifyContent: 'center',display: 'grid', gap: 1, gridTemplateColumns: 'repeat(5, 1fr)' }}>
-                    {categories.map((category, index) => (
-                    <FormControlLabel
-                      key={index}
-                      sx={{ mx: 'auto' }} 
-                      control={<Checkbox 
-                        checked={selectedCategory.includes(category.id)}
-                        onChange={(e) => { handleCategoryChecked(e, category.id) }} 
-                      />} 
-                      label={category.name} />
-                    ))}
+                    <FormGroup sx={{ justifyContent: 'center', display: 'grid', gap: 1, gridTemplateColumns: 'repeat(5, 1fr)' }}>
+                        {categories.map((category, index) => (
+                            <FormControlLabel
+                                key={index}
+                                sx={{ mx: 'auto' }} 
+                                control={<Checkbox 
+                                    checked={selectedCategory.includes(category.id)}
+                                    onChange={(e) => { handleCategoryChecked(e, category.id) }} 
+                                />} 
+                                label={category.name}
+                            />
+                        ))}
                     </FormGroup>
 
 
@@ -187,8 +278,6 @@ export const ItemSearch = () => {
                           label='肌に合わない成分が入っていないアイテムで探す' />
                     </FormGroup>
 
-
-
                     <h2 style={{ marginBottom: 0 }}>ブランド名を選択すると、ブランドの中から条件に当てはまるアイテムを探すことができます。</h2>
                     <Box sx={{ width: 300 }} className={classes.SearchBox}>
                     <FormControl fullWidth>
@@ -209,76 +298,15 @@ export const ItemSearch = () => {
                     </FormControl>
                     </Box>
                 </div>
-
                 <Btn message="この条件で検索する" onClick={handleSearch} />
             </div>
 
-
-{/* search_results */}
-
-            <div className='search_results' style={{ margin: '50px' }}>
-                <ImageList style={{ width: '100%', gridTemplateColumns: 'repeat(1, 1fr)' }}>
-                <ImageListItem key="Subheader" cols={2}>
-                    <ListSubheader component="div">条件に当てはまるアイテムが見つかりました！</ListSubheader>
-                </ImageListItem>
-
-                <Grid container spacing={1} direction="row" alignItems="center" style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
-                        {item.map((item, index) => (
-                        <Grid item xs={2} key={index} onClick={() => { navigate(`/item/${item.id}`) }}>
-                            <ImageListItem key={item.img} className={classes.cardPaper}>
-                            <img
-                                src={item.img}
-                                alt={item.name}
-                                loading="lazy"
-                                style={{ maxWidth: '300px', height: '100%', margin: '0 auto' }}
-                            />
-                            <ImageListItemBar
-                                title={item.brand}
-                                subtitle={item.name}
-                            />
-                            </ImageListItem>
-                        </Grid>
-                        ))}
-                </Grid>
-                </ImageList>
-            </div>
-
-{/* notFound_message */}
-            <div style={{ fontSize: '20px', color: 'green' }}>
-                <p>申し訳ございません。条件に当てはまるアイテムが見つかりませんでした。</p>
-                <p><Link component={RouterLink} to="/requestPage">リクエストページ</Link>にて、ご要望も承っております。</p>
-                {message()}
-            </div>
-
-{/* recommend */}
+            {searchItem()}
         
-        <div>
-            <h2>選択した肌悩みにおすすめのアイテム</h2>
-
-            <div className='recommend_results' style={{ margin: '50px' }}>
-                <ImageList style={{ width: '100%', gridTemplateColumns: 'repeat(1, 1fr)' }}>
-
-                <Grid container spacing={1} direction="row" alignItems="center" style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
-                        {item.map((item, index) => (
-                        <Grid item xs={2} key={index} onClick={() => { navigate(`/item/${item.id}`) }}>
-                            <ImageListItem key={item.img} className={classes.cardPaper}>
-                            <img
-                                src={item.img}
-                                alt={item.name}
-                                loading="lazy"
-                                style={{ maxWidth: '200px', height: '100%', margin: '0 auto' }}
-                            />
-                            <ImageListItemBar
-                                title={item.brand}
-                                subtitle={item.name}
-                            />
-                            </ImageListItem>
-                        </Grid>
-                        ))}
-                </Grid>
-                </ImageList>
+            <div>
+                <h2>選択した肌悩みにおすすめのアイテム</h2>
+                {recommendItem()}
             </div>
-        </div>
         </div>
         </>
     );
