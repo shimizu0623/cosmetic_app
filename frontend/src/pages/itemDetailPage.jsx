@@ -119,23 +119,19 @@ export const ItemDetail = () => {
             const response = await axios.post('/user_histories', {
                 item_id: id,
             });
-            console.log(response);
-            console.log('ok');
+            // console.log(response);
         } catch (e) {
             window.alert('登録に失敗しました');
-            console.error(e);
+            // console.error(e);
             return;
         }
-
-        // console.log('count=' + count)
-        // setIngredients(ingredient)
     }, []);
 
 
     // TODO: ↓既に登録していたらはじくorお気に入りから外すBtnに切り替える
     const handleAddFavorite = async () => {
-        console.log('handleAddFavorite');
-        console.log(item.id);
+        // console.log('handleAddFavorite');
+        // console.log(item.id);
         try {
             const response = await axios.post('/user_favorites', {
                 item_id: id,
@@ -145,7 +141,7 @@ export const ItemDetail = () => {
             // console.log('ok')
         } catch (e) {
             window.alert('登録に失敗しました');
-            console.error(e);
+            // console.error(e);
             return;
         }
     };
@@ -156,7 +152,7 @@ export const ItemDetail = () => {
 
     // TODO: ↓既に登録していたらはじくorアイテムから外すBtnに切り替える
     const handleAddUnmatchedItems = async () => {
-        console.log('handleAddUnmatchedItems');
+        // console.log('handleAddUnmatchedItems');
         try {
             const response = await axios.post('/user_unmatchedItems', {
                 item_id: id,
@@ -166,13 +162,13 @@ export const ItemDetail = () => {
             // console.log('ok')
         } catch (e) {
             window.alert('登録に失敗しました');
-            console.error(e);
+            // console.error(e);
             return;
         }
     };
     
     const handleAddComparison = async () => {
-        console.log('handleAddComparison');
+        // console.log('handleAddComparison');
         try {
             const response = await axios.post('/user_comparisonItems', {
                 item_id: id,
@@ -180,20 +176,19 @@ export const ItemDetail = () => {
             window.alert('コスメ比較へ追加しました');
         } catch (e) {
             window.alert('登録に失敗しました');
-            console.error(e);
+            // console.error(e);
             return;
         }
     };
 
     const handleDeleteFavorite =  async () => {
-        console.log('handleDeleteFavorite');
+        // console.log('handleDeleteFavorite');
         try {
             const response = await axios.delete(`/user_favorites/${id}`);
             window.alert('お気に入りから削除しました');
-            console.log('ok')
         } catch (e) {
             window.alert('削除に失敗しました');
-            console.error(e);
+            // console.error(e);
             return;
         }
     };
@@ -203,27 +198,26 @@ export const ItemDetail = () => {
     // };
 
     const handleDeleteUnmatchedItems = async () => {
-        console.log('handleDeleteUnmatchedItems');
+        // console.log('handleDeleteUnmatchedItems');
         try {
             const response = await axios.delete(`/user_unmatchedItems/${id}`);
             window.alert('肌に合わなかったアイテムから削除しました');
             // console.log(response);
-            console.log('ok')
         } catch (e) {
             window.alert('削除に失敗しました');
-            console.error(e);
+            // console.error(e);
             return;
         }
     };
 
     const handleDeleteComparison = async () => {
-        console.log('handleDeleteComparison');
+        // console.log('handleDeleteComparison');
         try {
             const response = await axios.delete(`/user_comparisonItems/${id}`);
             window.alert('コスメ比較から削除しました');
         } catch (e) {
             window.alert('削除に失敗しました');
-            console.error(e);
+            // console.error(e);
             return;
         }
     };
@@ -263,27 +257,27 @@ export const ItemDetail = () => {
                     <div className={classes.btnForm}>
                         <button className={classes.btn} onClick={handleAddFavorite}>お気に入りへ追加</button>
                     </div>
-                    <div className={classes.btnForm}>
-                        <button className={classes.btn} onClick={handleDeleteFavorite}>お気に入りから削除</button>
-                    </div>
                     {/* <div className={classes.btnForm}>
-                        <button className={classes.btn} onClick={handleAddFolder}>マイフォルダへ追加</button>
-                    </div>
-                    <div className={classes.btnForm}>
-                        <button className={classes.btn} onClick={handleDeleteFolder}>マイフォルダから削除</button>
+                        <button className={classes.btn} onClick={handleDeleteFavorite}>お気に入りから削除</button>
                     </div> */}
+                            {/* <div className={classes.btnForm}>
+                                <button className={classes.btn} onClick={handleAddFolder}>マイフォルダへ追加</button>
+                            </div>
+                            <div className={classes.btnForm}>
+                                <button className={classes.btn} onClick={handleDeleteFolder}>マイフォルダから削除</button>
+                            </div> */}
                     <div className={classes.btnForm}>
                         <button className={classes.btn} onClick={handleAddUnmatchedItems}>肌に合わなかったアイテムへ追加</button>
                     </div>
-                    <div className={classes.btnForm}>
+                    {/* <div className={classes.btnForm}>
                         <button className={classes.btn} onClick={handleDeleteUnmatchedItems}>肌に合わなかったアイテムから削除</button>
-                    </div>
+                    </div> */}
                     <div className={classes.btnForm}>
                         <button className={classes.btn} onClick={handleAddComparison}>コスメ比較へ追加</button>
                     </div>
-                    <div className={classes.btnForm}>
+                    {/* <div className={classes.btnForm}>
                         <button className={classes.btn} onClick={handleDeleteComparison}>コスメ比較から削除</button>
-                    </div>
+                    </div> */}
                         <p>→<Link component={RouterLink} to="/itemComparison">コスメ比較ページ</Link>を見る</p>
                 </div>
             </div>     
@@ -314,11 +308,6 @@ export const ItemDetail = () => {
                                 else {return (<td><p>no information</p></td>)}
                             })()}
 
-                                {/* {ingredient.score === 1 ? (<td><img src={Level_1} alt="Level_1_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)}
-                                {ingredient.score === 2 ? (<td><img src={Level_2} alt="Level_2_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)}
-                                {ingredient.score === 3 ? (<td><img src={Level_3} alt="Level_3_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)}
-                                {ingredient.score === 4 ? (<td><img src={Level_4} alt="Level_4_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)}
-                                {ingredient.score === 5 ? (<td><img src={Level_5} alt="Level_5_img" style={{ width: '20px' }} /></td>) : (<td><p>error</p></td>)} */}
                             <td>{ingredient.safety}</td>
                             <td>{ingredient.purpose}</td>
                             <td>{ingredient.cancer}</td>
@@ -332,21 +321,14 @@ export const ItemDetail = () => {
         );
     };
 
-    let data = [
-        //データないor不明時↓
-        {
-          index: 3,
-          name: 'High Hazard',
-          value: 0,
-        },
-          
-      ];
+    let data = [];
+
     const ChartColors = [
-        '#cae1df7d',
-        '#5ac9b4',
-        '#f5c56b',
-        '#f04b4be7',
-      ];
+        '#5ac9b4', //green
+        '#f5c56b', //yellow
+        '#f04b4be7', //red
+        '#ababab', //gray
+    ];
     
     let green = 0;
     const scoreGreen = () => {
@@ -363,11 +345,6 @@ export const ItemDetail = () => {
         );
     };
 
-    const rateGreen = () => {
-        const calc = Math.round(green / 3 * 100);
-        const add = { index: 0, name: 'Low Hazard', value: calc };
-        data.push(add);
-    };
 
     let yellow = 0;
     const scoreYellow = () => {
@@ -387,11 +364,6 @@ export const ItemDetail = () => {
         );
     };
 
-    const rateYellow = () => {
-        const calc = Math.round(yellow / 3 * 100);
-        const add = { index: 1, name: 'Moderate Hazard', value: calc };
-        data.push(add);
-    };
     
     let red = 0;
     const scoreRed = () => {
@@ -411,11 +383,43 @@ export const ItemDetail = () => {
         );
     };
 
+    let gray = 0;
+    const scoreGray = () => {
+        if (item !== null){
+            const count = item.ingredients.map((ingredient) => {
+                (()=>{
+                    if (ingredient.score === -1){gray++}
+                })()
+            });
+        }
+    };
+
+
+    const rateGreen = () => {
+        const calc = Math.round(green / count * 100);
+        const add = { index: 0, name: 'Low Hazard', value: calc };
+        data.push(add);
+    };
+
+    const rateYellow = () => {
+        const calc = Math.round(yellow / count * 100);
+        const add = { index: 1, name: 'Moderate Hazard', value: calc };
+        data.push(add);
+    };
+
     const rateRed = () => {
-        const calc = Math.round(red / 3 * 100);
+        const calc = Math.round(red / count * 100);
         const add = { index: 2, name: 'High Hazard', value: calc };
         data.push(add);
     };
+
+    //データないor不明時↓
+    const rateGray = () => {
+        const calc = Math.round(gray / count * 100);
+        const add = { index: 3, name: 'Not Information', value: calc };
+        data.push(add);
+    };
+
         
     const explain_green = 'EWG 1~2等級（有害性が低い成分）';
     const explain_yellow = 'EWG 3~6等級（有害性が普通の成分）';
@@ -446,31 +450,34 @@ export const ItemDetail = () => {
                         <div>
                             <p style={{ color: 'green', textShadow: '2px 2px 1px white' }}>配合成分合計： {count}種類</p>
                             <Tooltip title={explain_green} followCursor>
-                            <div className={classes.styleParent}>
-                                <img src={leaf_green} alt="sampleImg" style={{ width: '80px', marginRight: '30px' }} />
-                            <div style={{ fontSize: '15px', marginTop: '20px' }}>{scoreGreen()} / {count}</div>
-                            </div>
+                                <div className={classes.styleParent}>
+                                    <img src={leaf_green} alt="sampleImg" style={{ width: '80px', marginRight: '30px' }} />
+                                    <div style={{ fontSize: '15px', marginTop: '20px' }}>{scoreGreen()} / {count}</div>
+                                </div>
                             </Tooltip>
                             <Tooltip title={explain_yellow} followCursor>
-                            <div className={classes.styleParent}>
-                                <img src={leaf_yellow} alt="sampleImg" style={{ width: '80px', marginRight: '30px' }} />
-                                <div style={{ fontSize: '15px', marginTop: '20px' }}>{scoreYellow()} / {count}</div>
-                            </div>
+                                <div className={classes.styleParent}>
+                                    <img src={leaf_yellow} alt="sampleImg" style={{ width: '80px', marginRight: '30px' }} />
+                                    <div style={{ fontSize: '15px', marginTop: '20px' }}>{scoreYellow()} / {count}</div>
+                                </div>
                             </Tooltip>
                             <Tooltip title={explain_red} followCursor>
-                            <div className={classes.styleParent}>
-                                <img src={leaf_brown} alt="sampleImg" style={{ width: '80px', marginRight: '30px' }} />
-                                <div style={{ fontSize: '15px', marginTop: '20px' }}>{scoreRed()} / {count}</div>
-                            </div>
+                                <div className={classes.styleParent}>
+                                    <img src={leaf_brown} alt="sampleImg" style={{ width: '80px', marginRight: '30px' }} />
+                                    <div style={{ fontSize: '15px', marginTop: '20px' }}>{scoreRed()} / {count}</div>
+                                </div>
                             </Tooltip>
+                            {scoreGray()}
                         </div>
                     </Grid>
+
                     {rateGreen()}
                     {rateYellow()}
                     {rateRed()}
-                    {/* TODO: 不明のものも足す{rateNotInformation()} */}
+                    {rateGray()}
+
                     <Grid item xs={6}>
-                        <div style={{ display: 'inline-block'}}>
+                        <div style={{ display: 'inline-block' }}>
                             <p style={{ color: 'green', textShadow: '2px 2px 1px white' }}>EWG等級別成分割合(％)</p>
                             <PieChart width={300} height={300}>
                                 <Pie 
