@@ -85,8 +85,7 @@ class Item extends Model
         if(empty($categoryIds)){
             return $query;
         }
-        // TODO: ↓複数[]で受け取るからwhereIn?
-        return $query->where('items.category_id', $categoryIds);
+        return $query->whereIn('items.category_id', $categoryIds);
     }
     
     public function scopeWithBrand($query, $brandIds)
@@ -102,7 +101,6 @@ class Item extends Model
         if(empty($skinTypeIds)){
             return $query;
         }
-        // TODO: ↓複数[]で受け取るからwhereIn?
         return $query->where('items.skin_type_id', $skinTypeIds);
     }
 
