@@ -119,7 +119,7 @@ export const ItemComparison = () => {
                                         background: 'rgba(141, 203, 193)',
                                         borderRadius: '7px',
                                     }}
-                                    onClick={handleDelete}>
+                                    onClick={(e) => handleDelete(e, item.item_id)}>
                                 削除
                                 </Button>
                             </td>
@@ -130,16 +130,23 @@ export const ItemComparison = () => {
         );
     };
     
-    // TODO: ifの時の処理↓
-    const handleDelete = () => {
+    const handleDelete = async (e, id) => {
+        // console.log('handleDeleteComparison');
         const confirmMessage = '削除してよろしいですか？';
         let result = window.confirm(confirmMessage);
-        if (result){
-            console.log('handleDelete');    
-        } else {
+        try {
+            const response = await axios.delete(`/user_comparisonItems/${id}`);
+            const responseItem = await axios.get('/user_comparisonItems');
+            const i = responseItem.data;
+            setItem(i);
+            window.alert('コスメ比較から削除しました');
+        } catch (e) {
+            window.alert('削除に失敗しました');
+            // console.error(e);
             return;
-        }    
+        }
     };
+
 
 
     const explain_green = 'EWG 1~2等級（有害性が低い成分）';
