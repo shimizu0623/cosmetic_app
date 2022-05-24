@@ -95,6 +95,7 @@ class ItemsController extends Controller
                 'price' => $item->price,
                 'category' => $item->category->name,
                 'volume' => $item->volume,
+                'link' => $item->link,
                 'img' => $item->img,
                 'ingredients' => $item->ingredients->map(function($ingredient) { return $ingredient->toArray(); }),
             ]
