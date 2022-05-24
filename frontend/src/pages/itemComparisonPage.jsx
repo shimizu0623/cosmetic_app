@@ -95,6 +95,7 @@ export const ItemComparison = () => {
                 </tbody>
             );
         }
+        // TODO: ↓データが来るまでの間、上のメッセージが表示されてしまうので直す
         // if (item.length !== 0){
         return(
             <>
