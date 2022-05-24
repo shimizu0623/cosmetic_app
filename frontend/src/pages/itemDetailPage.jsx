@@ -102,6 +102,7 @@ export const ItemDetail = () => {
     const classes = useStyles();
     const { id } = useParams();
     const [item, setItem] = useState(null);
+    // const [favorite, setFavorite] = useState(false);
     const [count, setCount] = useState(0);
     const [value, setValue] = useState(3); //☆
     const [isAnimation, setIsAnimation] = useState(false);
@@ -128,7 +129,9 @@ export const ItemDetail = () => {
     }, []);
 
 
-    // TODO: ↓既に登録していたらはじくorお気に入りから外すBtnに切り替える
+
+
+    // TODO: ↓お気に入りから外すBtnに切り替える
     const handleAddFavorite = async () => {
         // console.log('handleAddFavorite');
         // console.log(item.id);
@@ -139,6 +142,7 @@ export const ItemDetail = () => {
             window.alert('お気に入りへ追加しました');
             // console.log(response);
             // console.log('ok')
+            // setFavorite(true);
         } catch (e) {
             window.alert('登録に失敗しました');
             // console.error(e);
@@ -262,9 +266,9 @@ export const ItemDetail = () => {
                     <div className={classes.btnForm}>
                         <button className={classes.btn} onClick={handleAddFavorite}>お気に入りへ追加</button>
                     </div>
-                    {/* <div className={classes.btnForm}>
+                    <div className={classes.btnForm}>
                         <button className={classes.btn} onClick={handleDeleteFavorite}>お気に入りから削除</button>
-                    </div> */}
+                    </div>
                             {/* <div className={classes.btnForm}>
                                 <button className={classes.btn} onClick={handleAddFolder}>マイフォルダへ追加</button>
                             </div>
@@ -287,7 +291,7 @@ export const ItemDetail = () => {
                 </div>
             </div>     
         );
-    };   
+    };
 
     const ingredientsInformation = () => {
         if (item === null){
@@ -312,12 +316,20 @@ export const ItemDetail = () => {
                                 else if (ingredient.score === 10){return (<td style={{ display:'flex', justifyContent: 'center' }}><img src={Level_10} alt="Level_10_img" style={{ width: '30px' }} /></td>)}
                                 else {return (<td><p>no information</p></td>)}
                             })()}
-
                             <td>{ingredient.safety}</td>
                             <td>{ingredient.purpose}</td>
-                            <td>{ingredient.cancer}</td>
-                            <td>{ingredient.developmental}</td>
-                            <td>{ingredient.allergies}</td>
+                            {(()=>{
+                                if (ingredient.cancer === -1){return (<td><p>不明</p></td>)}
+                                else {return (<td>{ingredient.cancer}</td>)}
+                            })()}
+                            {(()=>{
+                                if (ingredient.developmental === -1){return (<td><p>不明</p></td>)}
+                                else {return (<td>{ingredient.developmental}</td>)}
+                            })()}
+                            {(()=>{
+                                if (ingredient.allergies === -1){return (<td><p>不明</p></td>)}
+                                else {return (<td>{ingredient.allergies}</td>)}
+                            })()}
                             <td>{ingredient.explain}</td>
                         </tr>
                     </tbody>
