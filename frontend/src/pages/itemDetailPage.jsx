@@ -240,8 +240,9 @@ export const ItemDetail = () => {
                         <button onClick={() => navigate("/reviewPage")} className={classes.reviewBtn}>この商品のレビューを見る</button>
                     </div>
                     <div className={classes.styleP}>
-                        {/* TODO: ↓rink先 */}
-                        <Link component={RouterLink} to="/">公式サイトで購入する</Link>
+                        {/* TODO: ↓rink先Linkじゃなくてもaタグで問題ないか確認する（Linkだと上手く飛ばない） */}
+                        <a href={item.link}>公式サイトで購入する</a>
+                        {/* <Link component={RouterLink} to={item.link}>公式サイトで購入する</Link> */}
                     </div>
                     <div className={classes.styleP}>
                         <p className={classes.itemDetail}>内容量：</p>
