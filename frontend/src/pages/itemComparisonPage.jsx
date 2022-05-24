@@ -6,12 +6,12 @@ import leaf_yellow from '../img/leaf_yellow.png';
 import leaf_brown from '../img/leaf_brown.png';
 import { GoBackBtn } from '../components/goBackBtn';
 import Button from '@mui/material/Button';
-import CircularProgress from '@mui/material/CircularProgress';
 import { makeStyles } from "@material-ui/core/styles";
 import Link from '@mui/material/Link';
 import { Link as RouterLink } from "react-router-dom";
 import Tooltip from '@mui/material/Tooltip';
 import { useNavigate } from "react-router-dom";
+// import CircularProgress from '@mui/material/CircularProgress';
 
 const useStyles = makeStyles({
     tableHeader: {
@@ -85,8 +85,17 @@ export const ItemComparison = () => {
     
     const itemInformation = () => {
         if (item.length === 0){
-            return <CircularProgress color="success" size="15px" /> 
+            // return <CircularProgress color="success" size="15px" /> 
+            return (
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td colspan="7" style={{ fontSize: '20px', paddingTop: '30px' }}>アイテムが登録されていません。</td>
+                    </tr>
+                </tbody>
+            );
         }
+        // if (item.length !== 0){
         return(
             <>
                 {item.map((item, index) => (
@@ -128,6 +137,7 @@ export const ItemComparison = () => {
                 ))}
             </>
         );
+        // }
     };
     
     const handleDelete = async (e, id) => {
