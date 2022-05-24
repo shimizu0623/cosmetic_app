@@ -240,6 +240,10 @@ export const ItemDetail = () => {
                         <button onClick={() => navigate("/reviewPage")} className={classes.reviewBtn}>この商品のレビューを見る</button>
                     </div>
                     <div className={classes.styleP}>
+                        {/* TODO: ↓rink先 */}
+                        <Link component={RouterLink} to="/">公式サイトで購入する</Link>
+                    </div>
+                    <div className={classes.styleP}>
                         <p className={classes.itemDetail}>内容量：</p>
                         <p>{item.volume}</p>
                     </div>
@@ -248,7 +252,7 @@ export const ItemDetail = () => {
                         <p>￥{item.price}</p>
                     </div>
                     <div>
-                        <p style={{ color: 'gray', fontSize: '13px' }}>※実際の価格と異なる場合がございますので、ご購入時はサイトをご確認ください。</p>
+                        <p style={{ color: 'gray', fontSize: '13px' }}>※実際の価格と異なる場合がございますので、ご購入時は公式サイトをご確認ください。</p>
                     </div>
                     <div className={classes.styleP}>
                         <p className={classes.itemDetail}>カテゴリー：</p>
