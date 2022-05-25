@@ -195,8 +195,24 @@ export const ItemDetail = () => {
             </>
     )};
 
-
-
+    const AttentionLink = (attention) => {
+        if (attention) {
+            return (
+            <>
+                <div className={classes.alertForm}>
+                    <h4 style={{ color: 'red', paddingTop: '10px' }}>注意！</h4>
+                    <p>肌に合わなかった共通成分があります</p>
+                    <div style={{ paddingBottom: '10px' }}>
+                        <ul style={{ listStyle: 'none', padding: 0 }}>
+                            <li>○○酸</li>
+                            {/* <li>{item.}</li> */}
+                        </ul>
+                    </div>
+                </div>
+            </>
+            )}
+        return;
+    };
 
     const handleAddFavorite = async () => {
         try {
@@ -279,6 +295,7 @@ export const ItemDetail = () => {
             return <CircularProgress color="success" size="15px" />
         }
         return(
+            <>
             <div className={classes.styleParent}>
                 <img src={item.img} alt="itemImg" style={{ maxWidth: '370px', height: '100%', margin: 'auto 30px' }} />
                 <div>
@@ -320,7 +337,11 @@ export const ItemDetail = () => {
                     {ComparisonLink(item.comparison)}
                         <p>→<Link component={RouterLink} to="/itemComparison">コスメ比較ページ</Link>を見る</p>
                 </div>
-            </div>     
+            </div>
+            
+            {AttentionLink(item.attention)}
+
+            </>
         );
     };
 
@@ -479,17 +500,6 @@ export const ItemDetail = () => {
             <GoBackBtn />
 
             {itemInformation()}
-
-            {/* TODO: 表示切替 */}
-            <div className={classes.alertForm}>
-                <h4 style={{ color: 'red', paddingTop: '10px' }}>注意！</h4>
-                <p>肌に合わなかった共通成分があります</p>
-                <div style={{ paddingBottom: '10px' }}>
-                    <ul style={{ listStyle: 'none', padding: 0 }}>
-                        <li>○○酸</li>
-                    </ul>
-                </div>
-            </div>
 
             <div className={classes.ewgForm}>
                 <p style={{ fontSize: '30px', color: 'green', textShadow: '2px 2px 1px white', margin: '20px auto' }}>EWG安全性</p>
