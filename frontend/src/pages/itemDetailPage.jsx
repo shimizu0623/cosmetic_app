@@ -142,9 +142,27 @@ export const ItemDetail = () => {
                     <button className={classes.btn} onClick={handleAddFavorite}>お気に入りへ追加</button>
                 </div>
             </>
-    )}
+    )};
 
-    
+    const UnmatchedLink = (unmatched) => {
+        if (unmatched) {
+            return (
+            <>
+                <div className={classes.btnForm}>
+                    <button className={classes.btn} onClick={handleDeleteUnmatchedItems}>肌に合わなかったアイテムから削除</button>
+                </div>
+            </>
+            )}
+            return (
+            <>
+                <div className={classes.btnForm}>
+                    <button className={classes.btn} onClick={handleAddUnmatchedItems}>肌に合わなかったアイテムへ追加</button>
+                </div>
+            </>
+    )};
+
+
+
 
     // TODO: ↓お気に入りから外すBtnに切り替える
     const handleAddFavorite = async () => {
@@ -271,12 +289,7 @@ export const ItemDetail = () => {
                             <div className={classes.btnForm}>
                                 <button className={classes.btn} onClick={handleDeleteFolder}>マイフォルダから削除</button>
                             </div> */}
-                    <div className={classes.btnForm}>
-                        <button className={classes.btn} onClick={handleAddUnmatchedItems}>肌に合わなかったアイテムへ追加</button>
-                    </div>
-                    {/* <div className={classes.btnForm}>
-                        <button className={classes.btn} onClick={handleDeleteUnmatchedItems}>肌に合わなかったアイテムから削除</button>
-                    </div> */}
+                    {UnmatchedLink(item.unmatched)}
                     <div className={classes.btnForm}>
                         <button className={classes.btn} onClick={handleAddComparison}>コスメ比較へ追加</button>
                     </div>
