@@ -100,8 +100,9 @@ class ItemsController extends Controller
                 'ingredients' => $item->ingredients->map(function($ingredient) { return $ingredient->toArray(); }),
                 'isFavorite' => true,
                 // 'myFolder' => true,
-                'unmatched' => true,
+                'unmatched' => false,
                 'comparison' => false,
+                'attention' => true,
             ]
         );
     }
