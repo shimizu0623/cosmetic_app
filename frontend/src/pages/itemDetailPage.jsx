@@ -127,23 +127,39 @@ export const ItemDetail = () => {
         }
     }, []);
 
+    const FavoriteLink = (isFavorite) => {
+        if (isFavorite) {
+            return (
+            <>
+                <div className={classes.btnForm}>
+                    <button className={classes.btn} onClick={handleDeleteFavorite}>お気に入りから削除</button>
+                </div>
+            </>
+            )}
+            return (
+            <>
+                <div className={classes.btnForm}>
+                    <button className={classes.btn} onClick={handleAddFavorite}>お気に入りへ追加</button>
+                </div>
+            </>
+    )}
 
-
+    
 
     // TODO: ↓お気に入りから外すBtnに切り替える
     const handleAddFavorite = async () => {
         try {
             const response = await axios.post('/user_favorites', {
                 item_id: id,
-            });
+            });    
             window.alert('お気に入りへ追加しました');
             // setFavorite(true);
         } catch (e) {
             window.alert('登録に失敗しました');
             // console.error(e);
             return;
-        }
-    };
+        }    
+    };    
 
     // const handleAddFolder = () => {
     // };
@@ -248,12 +264,7 @@ export const ItemDetail = () => {
                         <p className={classes.itemDetail}>カテゴリー：</p>
                         <p>{item.category}</p>
                     </div>
-                    <div className={classes.btnForm}>
-                        <button className={classes.btn} onClick={handleAddFavorite}>お気に入りへ追加</button>
-                    </div>
-                    <div className={classes.btnForm}>
-                        <button className={classes.btn} onClick={handleDeleteFavorite}>お気に入りから削除</button>
-                    </div>
+                    {FavoriteLink(item.isFavorite)}
                             {/* <div className={classes.btnForm}>
                                 <button className={classes.btn} onClick={handleAddFolder}>マイフォルダへ追加</button>
                             </div>
