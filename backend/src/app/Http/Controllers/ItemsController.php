@@ -98,6 +98,10 @@ class ItemsController extends Controller
                 'link' => $item->link,
                 'img' => $item->img,
                 'ingredients' => $item->ingredients->map(function($ingredient) { return $ingredient->toArray(); }),
+                'isFavorite' => true,
+                // 'myFolder' => true,
+                'unmatched' => true,
+                'comparison' => false,
             ]
         );
     }
