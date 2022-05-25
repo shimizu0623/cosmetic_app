@@ -144,6 +144,23 @@ export const ItemDetail = () => {
             </>
     )};
 
+    // const MyFolderLink = (myFolder) => {
+    //     if (myFolder) {
+    //         return (
+    //         <>
+    //             <div className={classes.btnForm}>
+    //                 <button className={classes.btn} onClick={handleDeleteFolder}>マイフォルダから削除</button>
+    //             </div>
+    //         </>
+    //         )}
+    //         return (
+    //         <>
+    //             <div className={classes.btnForm}>
+    //                 <button className={classes.btn} onClick={handleAddFolder}>マイフォルダへ追加</button>
+    //             </div>
+    //         </>
+    // )};
+
     const UnmatchedLink = (unmatched) => {
         if (unmatched) {
             return (
@@ -161,10 +178,26 @@ export const ItemDetail = () => {
             </>
     )};
 
+    const ComparisonLink = (comparison) => {
+        if (comparison) {
+            return (
+            <>
+                <div className={classes.btnForm}>
+                    <button className={classes.btn} onClick={handleDeleteComparison}>コスメ比較から削除</button>
+                </div>
+            </>
+            )}
+            return (
+            <>
+                <div className={classes.btnForm}>
+                    <button className={classes.btn} onClick={handleAddComparison}>コスメ比較へ追加</button>
+                </div>
+            </>
+    )};
 
 
 
-    // TODO: ↓お気に入りから外すBtnに切り替える
+
     const handleAddFavorite = async () => {
         try {
             const response = await axios.post('/user_favorites', {
@@ -182,7 +215,6 @@ export const ItemDetail = () => {
     // const handleAddFolder = () => {
     // };
 
-    // TODO: ↓既に登録していたらはじくorアイテムから外すBtnに切り替える
     const handleAddUnmatchedItems = async () => {
         try {
             const response = await axios.post('/user_unmatchedItems', {
@@ -191,7 +223,6 @@ export const ItemDetail = () => {
             window.alert('肌に合わなかったアイテムへ追加しました');
         } catch (e) {
             window.alert('登録に失敗しました');
-            // console.error(e);
             return;
         }
     };
@@ -204,7 +235,6 @@ export const ItemDetail = () => {
             window.alert('コスメ比較へ追加しました');
         } catch (e) {
             window.alert('登録に失敗しました');
-            // console.error(e);
             return;
         }
     };
@@ -240,7 +270,6 @@ export const ItemDetail = () => {
             window.alert('コスメ比較から削除しました');
         } catch (e) {
             window.alert('削除に失敗しました');
-            // console.error(e);
             return;
         }
     };
@@ -283,19 +312,12 @@ export const ItemDetail = () => {
                         <p>{item.category}</p>
                     </div>
                     {FavoriteLink(item.isFavorite)}
-                            {/* <div className={classes.btnForm}>
-                                <button className={classes.btn} onClick={handleAddFolder}>マイフォルダへ追加</button>
-                            </div>
-                            <div className={classes.btnForm}>
-                                <button className={classes.btn} onClick={handleDeleteFolder}>マイフォルダから削除</button>
-                            </div> */}
+
+                    {/* {MyFolderLink(item.myFolder)} */}
+
                     {UnmatchedLink(item.unmatched)}
-                    <div className={classes.btnForm}>
-                        <button className={classes.btn} onClick={handleAddComparison}>コスメ比較へ追加</button>
-                    </div>
-                    {/* <div className={classes.btnForm}>
-                        <button className={classes.btn} onClick={handleDeleteComparison}>コスメ比較から削除</button>
-                    </div> */}
+
+                    {ComparisonLink(item.comparison)}
                         <p>→<Link component={RouterLink} to="/itemComparison">コスメ比較ページ</Link>を見る</p>
                 </div>
             </div>     
