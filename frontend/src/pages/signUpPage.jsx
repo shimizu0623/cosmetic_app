@@ -194,13 +194,16 @@ export const SignUpPage = () => {
                   autoFocus
                   onChange={handleUserInformationChange}
                 />
+                <FormControl style={{ width: '100%' }}>
+                <InputLabel>
+                  パスワード
+                </InputLabel>
                 <OutlinedInput
                   margin="normal"
-                  style={{ margin: '5px 0 10px' }}
+                  // style={{ margin: '5px 0 10px' }}
                   required
                   fullWidth
                   name="password"
-                  // TODO: ↓labelがきかない
                   label="パスワード"
                   type={values.showPassword ? 'text' : 'password'}
                   onChange={handleUserInformationChange}
@@ -219,6 +222,7 @@ export const SignUpPage = () => {
                     </InputAdornment>
                   }
                 />
+                </FormControl>          
                 <FormControl style={{ margin: '20px 20px 0 0' }}>
                   <InputLabel id="demo-simple-select-helper-label">性別</InputLabel>
                   <Select
