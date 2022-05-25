@@ -302,7 +302,7 @@ export const ItemDetail = () => {
                     <p style={{ textAlign: 'left', fontSize: '25px' }}>{item.brand}</p>
                     <p style={{ fontSize: '40px' }}>{item.name}</p>
                     <div className={classes.styleP}>
-                        <p className={classes.itemDetail}>評価レビュー</p>
+                        {/* <p className={classes.itemDetail}>評価レビュー</p> */}
                         <Box borderColor="transparent">
                             <Rating name="read-only" value={value} readOnly />
                         </Box>
@@ -314,6 +314,10 @@ export const ItemDetail = () => {
                         {/* <Link component={RouterLink} to={item.link}>公式サイトで購入する</Link> */}
                     </div>
                     <div className={classes.styleP}>
+                        <p className={classes.itemDetail}>カテゴリー：</p>
+                        <p>{item.category}</p>
+                    </div>
+                    <div className={classes.styleP}>
                         <p className={classes.itemDetail}>内容量：</p>
                         <p>{item.volume}</p>
                     </div>
@@ -323,10 +327,6 @@ export const ItemDetail = () => {
                     </div>
                     <div>
                         <p style={{ color: 'gray', fontSize: '13px' }}>※実際の価格と異なる場合がございますので、ご購入時は公式サイトをご確認ください。</p>
-                    </div>
-                    <div className={classes.styleP}>
-                        <p className={classes.itemDetail}>カテゴリー：</p>
-                        <p>{item.category}</p>
                     </div>
                     {FavoriteLink(item.isFavorite)}
 
