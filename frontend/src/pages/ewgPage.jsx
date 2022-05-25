@@ -8,7 +8,8 @@ import Link from '@mui/material/Link';
 import { Link as RouterLink } from "react-router-dom";
 import CircularProgress from '@mui/material/CircularProgress';
 
-export const EwgPage = () => {
+export const EwgPage = (props) => {
+    const {webName} = props;
     const [user, setUser] = useState(null);
 
     useEffect(async () => {
@@ -42,7 +43,7 @@ export const EwgPage = () => {
         <>
             <div className='MainContainer'>
                 <GoBackBtn />
-                <Ewg HeaderEwg={headerEwg()} />
+                <Ewg HeaderEwg={headerEwg()} webName={webName} />
 
                 <h2>EWG等級が低いものを探すには？</h2>
                 <p>右上にあるMENUボタン → <Link component={RouterLink} to="/itemSearch">アイテムを探す</Link>より検索することができます。</p>

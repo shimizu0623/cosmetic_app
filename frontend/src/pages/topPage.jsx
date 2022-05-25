@@ -156,7 +156,7 @@ export const TopPage = (props) => {
             </div>
         </div>
 
-        <Ewg HeaderEwg={headerEwg()} />
+        <Ewg HeaderEwg={headerEwg()} webName={webName} />
 
         <LoginBtn />
 

@@ -31,6 +31,8 @@ import {
 } from 'react-router-dom'
 
 
+const webName = "Cosmetic Search";
+
 ReactDom.render(
   <React.StrictMode>
     <BrowserRouter>
@@ -38,7 +40,7 @@ ReactDom.render(
         <Route path='/' element={<App />}>
           <Route
               path='/'
-              element={<TopPage />}
+              element={<TopPage webName={webName} />}
             />
           <Route
               path='/signUpPage'
@@ -58,7 +60,7 @@ ReactDom.render(
             />  
           <Route
               path='/ewgPage'
-              element={<EwgPage />}
+              element={<EwgPage webName={webName} />}
             />  
           <Route
               path='/myPage'
