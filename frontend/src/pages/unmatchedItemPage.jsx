@@ -114,11 +114,8 @@ export const UnmatchedItem = () => {
         const confirmMessage = '削除してよろしいですか？'
         let result = window.confirm(confirmMessage);
         if (result){
-            console.log('handleDelete');
             try {
-                console.log('try');
                 const response = await axios.delete(`/user_unmatchedItems/${id}`);
-                console.log('ok')
                 const responseItem = await axios.get('/user_unmatchedItems');
                 const i = responseItem.data;
                 setItem(i);

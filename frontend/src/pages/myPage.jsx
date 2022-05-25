@@ -119,15 +119,12 @@ export const MyPage = () => {
         setUser(u);
         setFavorites(f);
         setHistories(h);
-        console.log(responseHistories.data.item_id);
     }, []);
     
     const userInformation = () => {
         if (user === null){
             return <CircularProgress color="success" size="35px" />
         }
-        console.log('favorites=', favorites)
-        console.log('histories=', histories)
         return(
             <div style={{ margin: 'auto 0', width: '400px' }}>
                 <p style={{ fontSize: '30px', marginBottom: '15px' }}>{user.name}</p>
@@ -140,9 +137,7 @@ export const MyPage = () => {
     const updateSkinType = async (skinTypeId) => {
         try {
             const response = await axios.post('/me', {...user, skin_type_id: skinTypeId});
-            console.log(response);
             window.alert('スキンタイプを変更しました');
-            console.log(user);
             const u = response.data;
             setUser(u);
         } catch (e) {

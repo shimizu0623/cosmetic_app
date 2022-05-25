@@ -29,7 +29,6 @@ export const ItemComparison = () => {
         const responseItem = await axios.get('/user_comparisonItems');
         const i = responseItem.data;
         setItem(i);
-        console.log(item);
     }, []);
 
     // let green = 0;
@@ -142,7 +141,6 @@ export const ItemComparison = () => {
     };
     
     const handleDelete = async (e, id) => {
-        // console.log('handleDeleteComparison');
         const confirmMessage = '削除してよろしいですか？';
         let result = window.confirm(confirmMessage);
         try {

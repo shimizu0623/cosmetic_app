@@ -180,7 +180,6 @@ export const ItemSearch = () => {
     };
 
     const recommendItem = () => {
-        console.log(skinTroubleItem)
         if (skinTroubleItem.length !== 0){
             return (
                 <div className='recommend_results' style={{ margin: '50px' }}>

@@ -37,7 +37,6 @@ export const FixAccount = () => {
     const response = await axios.get('/me');
     const u = response.data;
     setUser(u);
-    console.log(user);
   }, []);
 
   const userName = () => {
@@ -157,9 +156,7 @@ export const FixAccount = () => {
 
   const handleUpdate = async () => {
     try {
-      console.log(user);
       const response = await axios.post('/me', user);
-      console.log(response);
       window.alert('登録変更しました');
     } catch (e) {
       window.alert('登録に失敗しました');

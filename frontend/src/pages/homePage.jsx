@@ -108,8 +108,6 @@ export const HomePage = () => {
         });
         const s = responseSerum.data;
         setSerum(s);
-        console.log(serum);
-
     }, []);
     
     const userSkinType = () => {
@@ -144,7 +142,6 @@ export const HomePage = () => {
         // });
         // const i = responseItem.data;
         // setItem(i);
-        // console.log(item)
         if (toner === null){
             return <CircularProgress color="success" size="15px" />
         }

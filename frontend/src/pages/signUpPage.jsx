@@ -63,9 +63,7 @@ export const SignUpPage = () => {
 
   const handleRegister = async () => {
     try {
-      // console.log(userInformation);
       const response = await axios.post('/register', userInformation);
-      // console.log(response);
       const loginResponse = await axios.post('/login', {
         email: userInformation.email,
         password: userInformation.password,
@@ -83,10 +81,6 @@ export const SignUpPage = () => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
-    // console.log({
-    //   email: data.get('email'),
-    //   password: data.get('password'),
-    // });
   };
 
   const [values, setValues] = useState({

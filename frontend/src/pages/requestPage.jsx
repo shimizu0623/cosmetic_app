@@ -23,7 +23,6 @@ export const RequestPage = () => {
     useEffect(async () => {
       const response = await axios.get('/me')
       setRequestForm({...requestForm, user_id: response.data.id})
-      console.log(requestForm)
     }, [])
     
     const handleRequestFormChange = (event) => {

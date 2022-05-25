@@ -12,16 +12,13 @@ export const DeleteConfirm = () => {
 
     const handleAddReason = (event) => {
         setReason(() => event.target.value);
-        console.log(reason);
     };
 
     const handleSend = async () => {
         const confirmMessage = 'データは完全に消去されます。本当に削除してもよろしいですか？'
         let result = window.confirm(confirmMessage);
         if (result){
-            console.log('onClickDelete');
             try {
-                console.log('handleSend');
                 const response = await axios.post('/delete_me', {
                     reason: reason,
                 });

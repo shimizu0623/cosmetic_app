@@ -120,7 +120,6 @@ export const ItemDetail = () => {
             const response = await axios.post('/user_histories', {
                 item_id: id,
             });
-            // console.log(response);
         } catch (e) {
             window.alert('登録に失敗しました');
             // console.error(e);
@@ -133,15 +132,11 @@ export const ItemDetail = () => {
 
     // TODO: ↓お気に入りから外すBtnに切り替える
     const handleAddFavorite = async () => {
-        // console.log('handleAddFavorite');
-        // console.log(item.id);
         try {
             const response = await axios.post('/user_favorites', {
                 item_id: id,
             });
             window.alert('お気に入りへ追加しました');
-            // console.log(response);
-            // console.log('ok')
             // setFavorite(true);
         } catch (e) {
             window.alert('登録に失敗しました');
@@ -151,19 +146,15 @@ export const ItemDetail = () => {
     };
 
     // const handleAddFolder = () => {
-    //     console.log('handleAddFolder');
     // };
 
     // TODO: ↓既に登録していたらはじくorアイテムから外すBtnに切り替える
     const handleAddUnmatchedItems = async () => {
-        // console.log('handleAddUnmatchedItems');
         try {
             const response = await axios.post('/user_unmatchedItems', {
                 item_id: id,
             });
             window.alert('肌に合わなかったアイテムへ追加しました');
-            // console.log(response);
-            // console.log('ok')
         } catch (e) {
             window.alert('登録に失敗しました');
             // console.error(e);
@@ -172,7 +163,6 @@ export const ItemDetail = () => {
     };
     
     const handleAddComparison = async () => {
-        // console.log('handleAddComparison');
         try {
             const response = await axios.post('/user_comparisonItems', {
                 item_id: id,
@@ -186,7 +176,6 @@ export const ItemDetail = () => {
     };
 
     const handleDeleteFavorite =  async () => {
-        // console.log('handleDeleteFavorite');
         try {
             const response = await axios.delete(`/user_favorites/${id}`);
             window.alert('お気に入りから削除しました');
@@ -202,20 +191,16 @@ export const ItemDetail = () => {
     // };
 
     const handleDeleteUnmatchedItems = async () => {
-        // console.log('handleDeleteUnmatchedItems');
         try {
             const response = await axios.delete(`/user_unmatchedItems/${id}`);
             window.alert('肌に合わなかったアイテムから削除しました');
-            // console.log(response);
         } catch (e) {
             window.alert('削除に失敗しました');
-            // console.error(e);
             return;
         }
     };
 
     const handleDeleteComparison = async () => {
-        // console.log('handleDeleteComparison');
         try {
             const response = await axios.delete(`/user_comparisonItems/${id}`);
             window.alert('コスメ比較から削除しました');
