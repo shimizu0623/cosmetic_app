@@ -16,18 +16,18 @@ class RequestsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
 
         $user = $request->user();
+        $date = \Carbon\Carbon::now();
 
         $validator = Validator::make($request->all(),[
             'detail' => 'required',
-            // 'user_id' => 'required',
         ]);
 
         Log::debug('before');
-
 
         if ($validator->fails()) {
             return response()->json($validator->messages(), Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -37,7 +37,7 @@ class RequestsController extends Controller
 
         $create = RequestText::create([
             'detail' => $request->detail,
-            'user_id' => $user->id,
+            'posted_date' => $date
         ]);
 
         //ユーザの作成が完了するとjsonを返す
