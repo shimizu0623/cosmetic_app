@@ -51,6 +51,7 @@ export const ReviewPage = () => {
     const [user, setUser] = useState(null);
     const [item, setItem] = useState(null);
     const [skinTypes, setSkinTypes] = useState([]);
+    const [reviews, setReviews] = useState(null);
     const [value, setValue] = useState(0); //☆
     const [select, setSelect] = useState([]);
 
@@ -59,12 +60,15 @@ export const ReviewPage = () => {
         // TODO: id受け取れない↓
         const responseItem = await axios.get(`/items/${1}`);
         const responseSkinTypes = await axios.get('/skin_types');
+        const responseReviews = await axios.get('/reviews');
         const u = responseUser.data;
         const i = responseItem.data;
         const s = responseSkinTypes.data;
+        const r = responseReviews.data;
         setUser(u);
         setItem(i);
         setSkinTypes(s);
+        setReviews(r);
     }, [])
 
     const userName = () =>{
@@ -120,8 +124,7 @@ export const ReviewPage = () => {
         } else {
             return;
         }
-    };
-  
+    };  
 
     return(
         <>
@@ -204,19 +207,21 @@ export const ReviewPage = () => {
                     </Select>
                 </FormControl>
             </div>
-
-            <div style={{ width: '500px', margin: '0 auto' }}>
-                <p style={{ fontSize: '25px', textAlign: 'left' }}>〇〇ユーザー名</p>
-                <p style={{ fontSize: '15px', textAlign: 'left' }}>〇〇スキンタイプ</p>
-                <Box style={{ padding: '0', textAlign: 'right' }} component="fieldset" borderColor="transparent">
-                {/* <Typography component="legend">Controlled</Typography> */}
-                    <Rating
-                    name="read-only"
-                    value={value}
-                    readOnly
-                    />
-                </Box>
-            </div>
+            
+            {reviews.map((review) => (
+            <>
+                <div style={{ width: '500px', margin: '0 auto' }}>
+                    <p style={{ fontSize: '25px', textAlign: 'left' }}>〇〇ユーザー名</p>
+                    <p style={{ fontSize: '15px', textAlign: 'left' }}>〇〇スキンタイプ</p>
+                    <Box style={{ padding: '0', textAlign: 'right' }} component="fieldset" borderColor="transparent">
+                    {/* <Typography component="legend">Controlled</Typography> */}
+                        <Rating
+                        name="read-only"
+                        value={value}
+                        readOnly
+                        />
+                    </Box>
+                </div>
                 <Box
                 component="form"
                 sx={{
@@ -230,44 +235,14 @@ export const ReviewPage = () => {
                     id="outlined-multiline-static"
                     multiline
                     rows={4}
-                    value='test text'
+                    value={review.review}
                     sx={{ mb: 5 }}
                     // defaultValue="Default Value"
                     />
                 </Box>
+            </>
+            ))}
 
-
-
-            <div style={{ width: '500px', margin: '0 auto' }}>
-                <p style={{ fontSize: '25px', textAlign: 'left' }}>〇〇ユーザー名</p>
-                <p style={{ fontSize: '15px', textAlign: 'left' }}>〇〇スキンタイプ</p>
-                <Box style={{ padding: '0', textAlign: 'right' }} component="fieldset" borderColor="transparent">
-                {/* <Typography component="legend">Controlled</Typography> */}
-                    <Rating
-                    name="read-only"
-                    value={value}
-                    readOnly
-                    />
-                </Box>
-            </div>
-                <Box
-                component="form"
-                sx={{
-                    borderColor: 'green',
-                    '& .MuiTextField-root': { m: 1, width: '500px' },
-                }}
-                noValidate
-                autoComplete="off"
-                >        
-                    <TextField
-                    id="outlined-multiline-static"
-                    multiline
-                    rows={4}
-                    value='test text'
-                    sx={{ mb: 5 }}
-                    // defaultValue="Default Value"
-                    />
-                </Box>
 
         </div>
         </>
