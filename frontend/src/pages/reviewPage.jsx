@@ -17,6 +17,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { useParams } from 'react-router-dom';
 
 const useStyles = makeStyles({
     styleParent: {
@@ -46,6 +47,7 @@ const useStyles = makeStyles({
 
 export const ReviewPage = () => {
     const classes = useStyles();
+    const { id } = useParams();
     const [user, setUser] = useState(null);
     const [item, setItem] = useState(null);
     const [skinTypes, setSkinTypes] = useState([]);
@@ -54,7 +56,8 @@ export const ReviewPage = () => {
 
     useEffect(async () => {
         const responseUser = await axios.get('/me');
-        const responseItem = await axios.get('/item');
+        // TODO: id受け取れない↓
+        const responseItem = await axios.get(`/items/${1}`);
         const responseSkinTypes = await axios.get('/skin_types');
         const u = responseUser.data;
         const i = responseItem.data;
