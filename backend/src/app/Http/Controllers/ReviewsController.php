@@ -31,7 +31,36 @@ class ReviewsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = $request->user();
+
+        $validator = Validator::make($request->all(),[
+            'review' => 'required',
+            'star' => 'required',
+            'posted_date' => 'required',
+            'item_id' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->messages()], 
+            Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $review = Review::where('user_id', $user->id)->get();
+        
+        if ($review->count() !== 0){
+            return response()->json(['既に口コミが登録されています'],
+            Response::HTTP_BAD_REQUEST);
+        }
+
+        Review::create([
+            'user_id' => $user->id,
+            'review' => $request->review,
+            'star' => $request->star,
+            'posted_date' => $request->posted_date,
+            'item_id' => $request->item_id,
+        ]);
+
+        return response()->noContent();
     }
 
     /**
