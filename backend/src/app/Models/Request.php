@@ -9,7 +9,8 @@ class Request extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['detail', 'user_id'];
+    protected $fillable = ['user_id', 'detail', 'posted_date'];
+    
 
 }
 
