@@ -24,6 +24,7 @@ use App\Http\Controllers\UserComparisonItemsController;
 use App\Http\Controllers\LeaveReasonsController;
 use App\Http\Controllers\RequestsController;
 use App\Http\Controllers\ReasonsController;
+use App\Http\Controllers\ReviewsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,6 +65,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::resource('leave_reasons', LeaveReasonsController::class,['only' => ['index', 'store']]);
     Route::resource('requests', RequestsController::class, ['only' => ['store']]);
     Route::resource('reasons', ReasonsController::class, ['only' => ['index']]);
+    Route::resource('reviews', ReviewsController::class, ['only' => ['index']]);
     // TODO: ↓recommendItem？
     Route::get('/recommendItem', [ItemsController::class, 'recommendItem']);
     Route::get('/items/{id}', [ItemsController::class, 'show']);
