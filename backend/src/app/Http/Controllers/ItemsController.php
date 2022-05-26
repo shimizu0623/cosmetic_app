@@ -82,10 +82,11 @@ class ItemsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $item = Item::find($id);
 
+        $user = $request->user();
         
         return response()->json(
             [
@@ -98,11 +99,11 @@ class ItemsController extends Controller
                 'link' => $item->link,
                 'img' => $item->img,
                 'ingredients' => $item->ingredients->map(function($ingredient) { return $ingredient->toArray(); }),
-                'isFavorite' => true,
-                // 'myFolder' => true,
-                'unmatched' => false,
-                'comparison' => false,
-                'attention' => true,
+                'isFavorite' => $user->favorites()->where("user_favorite_items.item_id", $item->id)->count() > 0,
+                // 'isMyFolder' => true,
+                'isUnmatched' => $user->unmatched()->where("user_unmatched_items.item_id", $item->id)->count() > 0,
+                'isComparison' => false,
+                'isAttention' => true,
             ]
         );
     }
