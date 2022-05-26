@@ -34,6 +34,12 @@ class User extends Authenticatable
             {
                 $history->delete();
             }
+            // foreach ($user->histories as $history)
+            // {
+            //     $history->delete();
+            // }
+            // comparison
+
             // TODO: ↓user_idなしのテーブル作成後削除する
             foreach ($user->requests as $request)
             {
@@ -57,6 +63,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserHistory::class);
     }
+    
+    public function comparisonItems()
+    {
+        return $this->hasMany(UserComparisonItem::class);
+    }
+    
     // TODO: ↓user_idなしのテーブル作成後削除する
     public function requests()
     {
