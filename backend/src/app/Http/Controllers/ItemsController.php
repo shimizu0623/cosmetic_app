@@ -102,7 +102,7 @@ class ItemsController extends Controller
                 'isFavorite' => $user->favorites()->where("user_favorite_items.item_id", $item->id)->count() > 0,
                 // 'isMyFolder' => true,
                 'isUnmatched' => $user->unmatched()->where("user_unmatched_items.item_id", $item->id)->count() > 0,
-                'isComparison' => false,
+                'isComparison' =>$user->comparisonItems()->where("user_comparison_items.item_id", $item->id)->count() > 0,
                 'isAttention' => true,
             ]
         );
