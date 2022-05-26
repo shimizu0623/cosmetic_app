@@ -213,11 +213,12 @@ export const ReviewPage = () => {
                 <div style={{ width: '500px', margin: '0 auto' }}>
                     <p style={{ fontSize: '25px', textAlign: 'left' }}>〇〇ユーザー名</p>
                     <p style={{ fontSize: '15px', textAlign: 'left' }}>〇〇スキンタイプ</p>
+                    <p style={{ fontSize: '15px', textAlign: 'right' }}>{review.posted_date}</p>
                     <Box style={{ padding: '0', textAlign: 'right' }} component="fieldset" borderColor="transparent">
                     {/* <Typography component="legend">Controlled</Typography> */}
                         <Rating
                         name="read-only"
-                        value={value}
+                        value={review.star}
                         readOnly
                         />
                     </Box>
