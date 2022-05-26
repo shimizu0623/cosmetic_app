@@ -126,6 +126,49 @@ export const ReviewPage = () => {
         }
     };  
 
+    const allReviews = () => {
+        if (reviews === null){
+            return <CircularProgress color="success" size="15px" />
+        }
+        return(
+            reviews.map((review, index) => (
+            <>
+                <div style={{ width: '500px', margin: '0 auto' }}>
+                    <p style={{ fontSize: '25px', textAlign: 'left' }} key={index}>{review.id}</p>
+                    <p style={{ fontSize: '15px', textAlign: 'left' }}>〇〇スキンタイプ</p>
+                    <p style={{ fontSize: '15px', textAlign: 'right' }}>{review.posted_date}</p>
+                    <Box style={{ padding: '0', textAlign: 'right' }} component="fieldset" borderColor="transparent">
+                    {/* <Typography component="legend">Controlled</Typography> */}
+                        <Rating
+                        name="read-only"
+                        value={review.star}
+                        readOnly
+                        />
+                    </Box>
+                </div>
+                <Box
+                component="form"
+                sx={{
+                    borderColor: 'green',
+                    '& .MuiTextField-root': { m: 1, width: '500px' },
+                }}
+                noValidate
+                autoComplete="off"
+                >        
+                    <TextField
+                    id="outlined-multiline-static"
+                    multiline
+                    rows={4}
+                    value={review.review}
+                    sx={{ mb: 5 }}
+                    // defaultValue="Default Value"
+                    />
+                </Box>
+            </>
+            ))
+        );
+    }
+
     return(
         <>
         <div className='MainContainer'>
@@ -207,43 +250,8 @@ export const ReviewPage = () => {
                     </Select>
                 </FormControl>
             </div>
-            
-            {reviews.map((review) => (
-            <>
-                <div style={{ width: '500px', margin: '0 auto' }}>
-                    <p style={{ fontSize: '25px', textAlign: 'left' }}>〇〇ユーザー名</p>
-                    <p style={{ fontSize: '15px', textAlign: 'left' }}>〇〇スキンタイプ</p>
-                    <p style={{ fontSize: '15px', textAlign: 'right' }}>{review.posted_date}</p>
-                    <Box style={{ padding: '0', textAlign: 'right' }} component="fieldset" borderColor="transparent">
-                    {/* <Typography component="legend">Controlled</Typography> */}
-                        <Rating
-                        name="read-only"
-                        value={review.star}
-                        readOnly
-                        />
-                    </Box>
-                </div>
-                <Box
-                component="form"
-                sx={{
-                    borderColor: 'green',
-                    '& .MuiTextField-root': { m: 1, width: '500px' },
-                }}
-                noValidate
-                autoComplete="off"
-                >        
-                    <TextField
-                    id="outlined-multiline-static"
-                    multiline
-                    rows={4}
-                    value={review.review}
-                    sx={{ mb: 5 }}
-                    // defaultValue="Default Value"
-                    />
-                </Box>
-            </>
-            ))}
 
+            {allReviews()}
 
         </div>
         </>
