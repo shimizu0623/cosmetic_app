@@ -256,6 +256,10 @@ export const ItemDetail = () => {
                 item_id: id,
             });
             window.alert('コスメ比較へ追加しました');
+            setItem({
+                ...item,
+                isComparison: true,
+            })
         } catch (e) {
             window.alert('登録に失敗しました');
             return;
@@ -298,6 +302,10 @@ export const ItemDetail = () => {
         try {
             const response = await axios.delete(`/user_comparisonItems/${id}`);
             window.alert('コスメ比較から削除しました');
+            setItem({
+                ...item,
+                isComparison: false,
+            })
         } catch (e) {
             window.alert('削除に失敗しました');
             return;
