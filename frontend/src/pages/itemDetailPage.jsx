@@ -220,7 +220,10 @@ export const ItemDetail = () => {
                 item_id: id,
             });    
             window.alert('お気に入りへ追加しました');
-            // setFavorite(true);
+            setItem({
+                ...item,
+                isFavorite: true,
+            })
         } catch (e) {
             window.alert('登録に失敗しました');
             // console.error(e);
@@ -259,9 +262,12 @@ export const ItemDetail = () => {
         try {
             const response = await axios.delete(`/user_favorites/${id}`);
             window.alert('お気に入りから削除しました');
+            setItem({
+                ...item,
+                isFavorite: false,
+            })
         } catch (e) {
             window.alert('削除に失敗しました');
-            // console.error(e);
             return;
         }
     };
