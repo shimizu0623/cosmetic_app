@@ -63,8 +63,20 @@ class ReviewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $user = $request->user();
+
+        // TODO: ↓userはnullableなので削除できない？
+        // $review = Review::where('user_id', $user->id)->where('id', $id);
+        $review = Review::where('id', $id);
+
+        if ($review->count() === 0){
+            return response()->json(['message' => '口コミが登録されていません'],
+            Response::HTTP_NOT_FOUND);
+        }
+
+        $review->delete();
+        return response()->noContent();
     }
 }
