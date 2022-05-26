@@ -240,6 +240,10 @@ export const ItemDetail = () => {
                 item_id: id,
             });
             window.alert('肌に合わなかったアイテムへ追加しました');
+            setItem({
+                ...item,
+                isUnmatched: true,
+            })
         } catch (e) {
             window.alert('登録に失敗しました');
             return;
@@ -280,6 +284,10 @@ export const ItemDetail = () => {
         try {
             const response = await axios.delete(`/user_unmatchedItems/${id}`);
             window.alert('肌に合わなかったアイテムから削除しました');
+            setItem({
+                ...item,
+                isUnmatched: false,
+            })
         } catch (e) {
             window.alert('削除に失敗しました');
             return;
@@ -338,9 +346,9 @@ export const ItemDetail = () => {
 
                     {/* {MyFolderLink(item.myFolder)} */}
 
-                    {UnmatchedLink(item.unmatched)}
+                    {UnmatchedLink(item.isUnmatched)}
 
-                    {ComparisonLink(item.comparison)}
+                    {ComparisonLink(item.isComparison)}
                         <p>→<Link component={RouterLink} to="/itemComparison">コスメ比較ページ</Link>を見る</p>
                 </div>
             </div>
