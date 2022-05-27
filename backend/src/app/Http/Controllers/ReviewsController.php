@@ -16,11 +16,24 @@ class ReviewsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $itemIds = $request->query('item_id');
+        $user = $request->user();
+
+        $reviews = Review::withItems($itemIds);
+
+        $reviews = $reviews->get(['reviews.*']);
+        
+        // Log::debug('check'. $reviews);
+
+
         return response()->json(
-            Review::all()
+            $reviews->map(function ($review) {
+                return $review->toArray();
+            })
         );
+
     }
 
     /**
@@ -54,6 +67,8 @@ class ReviewsController extends Controller
 
         Review::create([
             'user_id' => $user->id,
+            // 'name' => $user->name,
+            // 'skin_type' => $user->skin_type,
             'review' => $request->review,
             'star' => $request->star,
             'posted_date' => $request->posted_date,
