@@ -235,6 +235,7 @@ export const ReviewPage = () => {
     }
 
     const button = () => {
+        // TODO: ボタン切替
         // if (){
         //     return (
         //         <Btn message='投稿する' onClick={handleSend} />
