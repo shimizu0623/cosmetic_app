@@ -134,6 +134,13 @@ export const ReviewPage = () => {
         if (reviews === null){
             return <CircularProgress color="success" size="15px" />
         }
+        if (reviews.length === 0){
+            return (
+                <div style={{ fontSize: '20px', color: 'green', margin: '90px auto' }}>
+                    <p>この商品のレビューはまだありません。</p>
+                </div>
+            )
+        }
         return(
             reviews.map((review, index) => (
             <>
