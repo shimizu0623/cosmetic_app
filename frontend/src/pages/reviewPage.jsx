@@ -58,9 +58,13 @@ export const ReviewPage = () => {
     useEffect(async () => {
         const responseUser = await axios.get('/me');
         // TODO: id受け取れない↓
-        const responseItem = await axios.get(`/items/${1}`);
+        const responseItem = await axios.get(`/items/${4}`);
         const responseSkinTypes = await axios.get('/skin_types');
-        const responseReviews = await axios.get('/reviews');
+        const responseReviews = await axios.get('/reviews', {
+            params: {
+                item_id: responseItem.data.id,
+            }
+        });
         const u = responseUser.data;
         const i = responseItem.data;
         const s = responseSkinTypes.data;
@@ -134,8 +138,8 @@ export const ReviewPage = () => {
             reviews.map((review, index) => (
             <>
                 <div style={{ width: '500px', margin: '0 auto' }}>
-                    <p style={{ fontSize: '25px', textAlign: 'left' }} key={index}>{review.id}</p>
-                    <p style={{ fontSize: '15px', textAlign: 'left' }}>〇〇スキンタイプ</p>
+                    <p style={{ fontSize: '25px', textAlign: 'left' }} key={index}>{review.name}</p>
+                    <p style={{ fontSize: '15px', textAlign: 'left' }}>{review.skin_type}</p>
                     <p style={{ fontSize: '15px', textAlign: 'right' }}>{review.posted_date}</p>
                     <Box style={{ padding: '0', textAlign: 'right' }} component="fieldset" borderColor="transparent">
                     {/* <Typography component="legend">Controlled</Typography> */}
@@ -191,7 +195,8 @@ export const ReviewPage = () => {
                     {/* <Typography component="legend">Controlled</Typography> */}
                         <Rating
                         name="simple-controlled"
-                        value={value}
+                        // value={myReviews}
+                        value='yy'
                         onChange={(event, newValue) => {
                             setValue(newValue);
                         }}
