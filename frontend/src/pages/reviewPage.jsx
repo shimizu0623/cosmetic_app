@@ -108,7 +108,7 @@ export const ReviewPage = () => {
                     <p style={{ textAlign: 'left', fontSize: '25px' }}>{item.brand}</p>
                     <p style={{ textAlign: 'left', fontSize: '25px' }}>{item.name}</p>
                     <Box borderColor="transparent" style={{ marginTop: '20px', textAlign: 'right' }}>
-                        <p style={{ fontSize: '20px' }}>レビュー評価（○○件）</p>
+                        <p style={{ fontSize: '20px' }}>レビュー評価（{reviews.length}件）</p>
                         <Rating name="read-only" value={value} readOnly />
                     </Box>
                 </div>
