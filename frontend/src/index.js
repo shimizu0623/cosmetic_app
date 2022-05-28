@@ -111,7 +111,7 @@ ReactDom.render(
               element={<HelpPage />}
             />  
           <Route
-              path='/reviewPage'
+              path='/reviewPage/:id'
               element={<ReviewPage />}
             />  
           <Route
