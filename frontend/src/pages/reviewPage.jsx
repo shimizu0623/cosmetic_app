@@ -234,6 +234,24 @@ export const ReviewPage = () => {
         );
     }
 
+    const button = () => {
+        // if (){
+        //     return (
+        //         <Btn message='投稿する' onClick={handleSend} />
+        //     )
+        // }
+        return (
+            <>
+                <Btn message='編集する' onClick={handleEdit} />
+                <Tooltip title="Delete" style={{ marginLeft: '20px' }}>
+                    <IconButton>
+                        <DeleteIcon onClick={handleDelete} />
+                    </IconButton>
+                </Tooltip>
+            </>
+        )
+    }
+
     return(
         <>
         <div className='MainContainer'>
@@ -252,6 +270,8 @@ export const ReviewPage = () => {
                 <p className={classes.Title}>マイレビュー</p> */}
 
                 {review()}
+
+                {button()}
 
             </div>
 
