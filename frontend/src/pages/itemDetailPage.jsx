@@ -328,7 +328,11 @@ export const ItemDetail = () => {
                         <Box borderColor="transparent">
                             <Rating name="read-only" value={value} readOnly />
                         </Box>
-                        <button onClick={() => navigate("/reviewPage")} className={classes.reviewBtn}>この商品のレビューを見る</button>
+                        <button
+                            onClick={() => { navigate(`/reviewPage/${item.id}`) }}
+                            className={classes.reviewBtn}
+                        >
+                            この商品のレビューを見る</button>
                     </div>
                     <div className={classes.styleP}>
                         {/* TODO: ↓rink先Linkじゃなくてもaタグで問題ないか確認する（Linkだと上手く飛ばない） */}
