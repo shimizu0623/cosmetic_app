@@ -52,6 +52,7 @@ export const ReviewPage = () => {
     const [item, setItem] = useState(null);
     const [skinTypes, setSkinTypes] = useState([]);
     const [reviews, setReviews] = useState(null);
+    const [myReview, setMyReview] = useState(null);
     const [value, setValue] = useState(0); //☆
     const [select, setSelect] = useState([]);
 
@@ -69,10 +70,18 @@ export const ReviewPage = () => {
         const i = responseItem.data;
         const s = responseSkinTypes.data;
         const r = responseReviews.data;
+        const m = responseReviews.data.filter((data) => data.user_id === responseUser.data.id);
+        if (m.length === 1) {
+            console.log(m[0].name);
+        }
+        else{
+            console.log("multiple same id.");
+        }
         setUser(u);
         setItem(i);
         setSkinTypes(s);
         setReviews(r);
+        setMyReview(m);
     }, [])
 
     const userName = () =>{
@@ -128,7 +137,52 @@ export const ReviewPage = () => {
         } else {
             return;
         }
-    };  
+    };
+
+    const review = () => {
+        if (myReview === null){
+            return <CircularProgress color="success" size="15px" />
+        }
+        return (
+            <>
+                <div style={{ width: '500px', margin: '0 auto' }}>
+                    {userName()}
+                    <Box style={{ padding: '0', textAlign: 'right' }} component="fieldset" borderColor="transparent">
+                    {/* <Typography component="legend">Controlled</Typography> */}
+                        <Rating
+                        name="simple-controlled"
+                        value={myReview[0].review}
+                        onChange={(event, newValue) => {
+                            setValue(newValue);
+                        }}
+                        />
+                    </Box>
+                </div>
+
+                <div>
+                    <Box
+                    className={classes.Title}
+                    component="form"
+                    sx={{
+                        borderColor: 'green',
+                        margin: '20px auto',
+                        '& .MuiTextField-root': { m: 1, width: '500px' },
+                    }}
+                    noValidate
+                    autoComplete="off"
+                    >        
+                        <TextField
+                        id="outlined-multiline-static"
+                        multiline
+                        rows={4}
+                        // defaultValue="Default Value"
+                        />
+                    </Box>
+                </div>
+
+            </>
+        )
+    }
 
     const allReviews = () => {
         if (reviews === null){
@@ -196,49 +250,8 @@ export const ReviewPage = () => {
             <div className={classes.TitleForm}>
                 {/* <img src={green_leaf} alt="" className={classes.TitleImg} />
                 <p className={classes.Title}>マイレビュー</p> */}
-                <div style={{ width: '500px', margin: '0 auto' }}>
-                    {userName()}
-                    <Box style={{ padding: '0', textAlign: 'right' }} component="fieldset" borderColor="transparent">
-                    {/* <Typography component="legend">Controlled</Typography> */}
-                        <Rating
-                        name="simple-controlled"
-                        // value={myReviews}
-                        value='yy'
-                        onChange={(event, newValue) => {
-                            setValue(newValue);
-                        }}
-                        />
-                    </Box>
-                </div>
 
-                <div>
-                    <Box
-                    className={classes.Title}
-                    component="form"
-                    sx={{
-                        borderColor: 'green',
-                        margin: '20px auto',
-                        '& .MuiTextField-root': { m: 1, width: '500px' },
-                    }}
-                    noValidate
-                    autoComplete="off"
-                    >        
-                        <TextField
-                        id="outlined-multiline-static"
-                        multiline
-                        rows={4}
-                        // defaultValue="Default Value"
-                        />
-                    </Box>
-                </div>
-
-                <Btn message='投稿する' onClick={handleSend} />
-                {/* <Btn message='編集する' onClick={handleEdit} /> */}
-                <Tooltip title="Delete" style={{ marginLeft: '20px' }}>
-                    <IconButton>
-                        <DeleteIcon onClick={handleDelete} />
-                    </IconButton>
-                </Tooltip>
+                {review()}
 
             </div>
 
