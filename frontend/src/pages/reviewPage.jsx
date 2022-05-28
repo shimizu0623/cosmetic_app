@@ -54,6 +54,7 @@ export const ReviewPage = () => {
     const [reviews, setReviews] = useState(null);
     const [myReview, setMyReview] = useState(null);
     const [value, setValue] = useState(0); //☆
+    const [starAverage, setStarAverage] = useState(0); //☆
     const [select, setSelect] = useState([]);
 
     useEffect(async () => {
@@ -82,6 +83,16 @@ export const ReviewPage = () => {
         setSkinTypes(s);
         setReviews(r);
         setMyReview(m);
+
+        let starTotal = 0;
+        for(let i = 0; i < responseReviews.data.length; i++){
+            starTotal = starTotal + (responseReviews.data[i].star);
+        }
+        // console.log(starTotal);
+        const calc = starTotal / responseReviews.data.length;
+        console.log(calc);
+        const int = Math.round(calc)
+        setStarAverage(int);
     }, [])
 
     const userName = () =>{
@@ -101,23 +112,26 @@ export const ReviewPage = () => {
         if (item === null){
             return <CircularProgress color="success" size="15px" />
         }
-        return(
-            <div className={classes.styleParent}>
-                <img src={item.img} alt="itemImg" style={{ maxWidth: '180px', height: '100%', margin: 'auto 30px' }} />
-                <div>
-                    <p style={{ textAlign: 'left', fontSize: '25px' }}>{item.brand}</p>
-                    <p style={{ textAlign: 'left', fontSize: '25px' }}>{item.name}</p>
-                    <Box borderColor="transparent" style={{ marginTop: '20px', textAlign: 'right' }}>
-                        <p style={{ fontSize: '20px' }}>レビュー評価（{reviews.length}件）</p>
-                        <Rating name="read-only" value={value} readOnly />
-                    </Box>
+        if (reviews !== null){
+            return(
+                <div className={classes.styleParent}>
+                    <img src={item.img} alt="itemImg" style={{ maxWidth: '180px', height: '100%', margin: 'auto 30px' }} />
+                    <div>
+                        <p style={{ textAlign: 'left', fontSize: '25px' }}>{item.brand}</p>
+                        <p style={{ textAlign: 'left', fontSize: '25px' }}>{item.name}</p>
+                        <Box borderColor="transparent" style={{ marginTop: '20px', textAlign: 'right' }}>
+                            <p style={{ fontSize: '20px' }}>レビュー評価（{reviews.length}件）</p>
+                            <Rating name="read-only" value={starAverage} readOnly />
+                        </Box>
+                    </div>
                 </div>
-            </div>
-        );
+            );
+        }
     };
 
     const handleSend = () => {
         console.log('handleSend');
+
     };
 
     const handleEdit = () => {
@@ -151,7 +165,8 @@ export const ReviewPage = () => {
                     {/* <Typography component="legend">Controlled</Typography> */}
                         <Rating
                         name="simple-controlled"
-                        value={myReview[0].review}
+                        value={value}
+                        // value={myReview[0].review}
                         onChange={(event, newValue) => {
                             setValue(newValue);
                         }}
