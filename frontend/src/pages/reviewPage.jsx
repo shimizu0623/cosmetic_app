@@ -58,7 +58,7 @@ export const ReviewPage = () => {
     useEffect(async () => {
         const responseUser = await axios.get('/me');
         // TODO: id受け取れない↓
-        const responseItem = await axios.get(`/items/${4}`);
+        const responseItem = await axios.get(`/items/${id}`);
         const responseSkinTypes = await axios.get('/skin_types');
         const responseReviews = await axios.get('/reviews', {
             params: {
