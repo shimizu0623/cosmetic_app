@@ -142,7 +142,6 @@ export const ReviewPage = () => {
         setSelect(event.target.value);
     };
 
-    // TODO: ifの時の処理↓
     const handleDelete = async() => {
         const confirmMessage = '投稿中のレビューを削除してよろしいですか？'
         let result = window.confirm(confirmMessage);
@@ -153,6 +152,7 @@ export const ReviewPage = () => {
                 const responseReview = await axios.get('/reviews');
                 const r = responseReview.data;
                 setMyReview(r);
+                // TODO: 星の数とレビュー評価の総数も書き換える？
                 window.alert('削除しました');
             } catch (e) {
                 window.alert('送信に失敗しました');
