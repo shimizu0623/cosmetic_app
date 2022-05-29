@@ -85,12 +85,12 @@ export const ReviewPage = () => {
         setMyReview(m);
 
         let starTotal = 0;
-        for(let i = 0; i < responseReviews.data.length; i++){
+        for (let i = 0; i < responseReviews.data.length; i++){
             starTotal = starTotal + (responseReviews.data[i].star);
         }
         // console.log(starTotal);
         const calc = starTotal / responseReviews.data.length;
-        console.log(calc);
+        // console.log(calc);
         const int = Math.round(calc)
         setStarAverage(int);
     }, [])
@@ -99,7 +99,7 @@ export const ReviewPage = () => {
         if (user === null){
             return <CircularProgress color="success" size="15px" />
         }
-        return(
+        return (
             <>
             <p style={{ fontSize: '25px', textAlign: 'left' }}>{user.name}</p>
             <p style={{ fontSize: '15px', textAlign: 'left' }}>{user.skin_type_name}</p>
@@ -113,7 +113,7 @@ export const ReviewPage = () => {
             return <CircularProgress color="success" size="15px" />
         }
         if (reviews !== null){
-            return(
+            return (
                 <div className={classes.styleParent}>
                     <img src={item.img} alt="itemImg" style={{ maxWidth: '180px', height: '100%', margin: 'auto 30px' }} />
                     <div>
@@ -165,8 +165,8 @@ export const ReviewPage = () => {
                     {/* <Typography component="legend">Controlled</Typography> */}
                         <Rating
                         name="simple-controlled"
-                        value={value}
-                        // value={myReview[0].review}
+                        // value={value}
+                        value={myReview[0].star}
                         onChange={(event, newValue) => {
                             setValue(newValue);
                         }}
@@ -190,6 +190,7 @@ export const ReviewPage = () => {
                         id="outlined-multiline-static"
                         multiline
                         rows={4}
+                        value={myReview[0].review}
                         // defaultValue="Default Value"
                         />
                     </Box>
@@ -210,8 +211,8 @@ export const ReviewPage = () => {
                 </div>
             )
         }
-        return(
-            reviews.map((review, index) => (
+        return (
+            reviews.filter((data) => data.user_id !== user.id).map((review, index) => (
             <>
                 <div style={{ width: '500px', margin: '0 auto' }}>
                     <p style={{ fontSize: '25px', textAlign: 'left' }} key={index}>{review.name}</p>
