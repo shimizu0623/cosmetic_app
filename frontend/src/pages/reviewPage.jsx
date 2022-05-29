@@ -53,9 +53,10 @@ export const ReviewPage = () => {
     const [skinTypes, setSkinTypes] = useState([]);
     const [reviews, setReviews] = useState(null);
     const [myReview, setMyReview] = useState(null);
-    const [value, setValue] = useState(0); //自分の☆
+    const [star, setStar] = useState(0); //自分の☆
     const [starAverage, setStarAverage] = useState(0);
     const [select, setSelect] = useState([]); //skinType選択
+    const [form, setForm] = useState('');
 
     useEffect(async () => {
         const responseUser = await axios.get('/me');
@@ -64,7 +65,7 @@ export const ReviewPage = () => {
         const responseSkinTypes = await axios.get('/skin_types');
         const responseReviews = await axios.get('/reviews', {
             params: {
-                item_id: responseItem.data.id,
+                item_id: id,
             }
         });
         const u = responseUser.data;
@@ -106,6 +107,8 @@ export const ReviewPage = () => {
             </>
         );
     };
+    
+    console.log(myReview)
 
 
     const itemInformation = () => {
@@ -129,6 +132,11 @@ export const ReviewPage = () => {
         }
     };
 
+    // const handleAddForm = () => {
+    //     console.log('handleAddForm');
+
+    // };
+
     const handleSend = () => {
         console.log('handleSend');
 
@@ -149,9 +157,18 @@ export const ReviewPage = () => {
             console.log('handleDelete');
             try {
                 const response = await axios.delete(`/reviews/${id}`);
-                const responseReview = await axios.get('/reviews');
-                const r = responseReview.data;
-                setMyReview(r);
+                const responseReviews = await axios.get('/reviews', {
+                    params: {
+                        item_id: id,
+                    }
+                });
+                const m = responseReviews.data.filter((data) => data.user_id === user.id);
+                if (m.length === 1){
+                    console.log(m[0].name);
+                } else {
+                    console.log("multiple same id.");
+                }        
+                setMyReview(m);
                 // TODO: 星の数とレビュー評価の総数も書き換える？
                 window.alert('削除しました');
             } catch (e) {
@@ -172,9 +189,9 @@ export const ReviewPage = () => {
                 <Box style={{ padding: '0', textAlign: 'right' }} component="fieldset" borderColor="transparent">
                     <Rating
                     name="simple-controlled"
-                    value={value}
-                    onChange={(event, newValue) => {
-                        setValue(newValue);
+                    value={star}
+                    onChange={(event, newStar) => {
+                        setStar(newStar);
                     }}
                     />
                 </Box>
@@ -195,10 +212,14 @@ export const ReviewPage = () => {
                     id="outlined-multiline-static"
                     multiline
                     rows={4}
+                    value={form}
                     // defaultValue="Default Value"
                     />
                 </Box>
             </div>
+
+            <Btn message='投稿する' onClick={handleSend} />
+
         </>
         )
     }
@@ -220,9 +241,7 @@ export const ReviewPage = () => {
                         name="simple-controlled"
                         // value={value}
                         value={myReview[0].star}
-                        onChange={(event, newValue) => {
-                            setValue(newValue);
-                        }}
+                        readOnly
                         />
                     </Box>
                 </div>
@@ -248,7 +267,12 @@ export const ReviewPage = () => {
                         />
                     </Box>
                 </div>
-
+                <Btn message='編集する' onClick={handleEdit} />
+                <Tooltip title="Delete" style={{ marginLeft: '20px' }}>
+                    <IconButton>
+                        <DeleteIcon onClick={handleDelete} />
+                    </IconButton>
+                </Tooltip>
             </>
         )
     }
@@ -305,7 +329,6 @@ export const ReviewPage = () => {
     }
 
     const button = () => {
-        // TODO: ボタン切替
         // if (){
         //     return (
         //         <Btn message='投稿する' onClick={handleSend} />
@@ -342,7 +365,7 @@ export const ReviewPage = () => {
 
                 {review()}
 
-                {button()}
+                {/* {button()} */}
 
             </div>
 
