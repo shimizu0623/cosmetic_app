@@ -85,6 +85,7 @@ export const ReviewPage = () => {
         setMyReview(m);
 
         let starTotal = 0;
+        // ↓TODO: for文だと口コミ増えた時に重くなる？
         for (let i = 0; i < responseReviews.data.length; i++){
             starTotal = starTotal + (responseReviews.data[i].star);
         }
