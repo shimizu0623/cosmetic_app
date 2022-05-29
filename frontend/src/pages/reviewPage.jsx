@@ -164,12 +164,51 @@ export const ReviewPage = () => {
         }
     };
 
+    const reviewForm = () => {
+        return (
+            <>
+            <div style={{ width: '500px', margin: '0 auto' }}>
+                {userName()}
+                <Box style={{ padding: '0', textAlign: 'right' }} component="fieldset" borderColor="transparent">
+                    <Rating
+                    name="simple-controlled"
+                    value={value}
+                    onChange={(event, newValue) => {
+                        setValue(newValue);
+                    }}
+                    />
+                </Box>
+            </div>
+            <div>
+                <Box
+                className={classes.Title}
+                component="form"
+                sx={{
+                    borderColor: 'green',
+                    margin: '20px auto',
+                    '& .MuiTextField-root': { m: 1, width: '500px' },
+                }}
+                noValidate
+                autoComplete="off"
+                >        
+                    <TextField
+                    id="outlined-multiline-static"
+                    multiline
+                    rows={4}
+                    // defaultValue="Default Value"
+                    />
+                </Box>
+            </div>
+        </>
+        )
+    }
+
     const review = () => {
         if (myReview === null){
             return <CircularProgress color="success" size="15px" />
         }
         if (myReview.length === 0){
-            return <p>no</p>
+            return (reviewForm())
         }
         return (
             <>
