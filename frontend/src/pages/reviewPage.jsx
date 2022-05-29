@@ -53,9 +53,9 @@ export const ReviewPage = () => {
     const [skinTypes, setSkinTypes] = useState([]);
     const [reviews, setReviews] = useState(null);
     const [myReview, setMyReview] = useState(null);
-    const [value, setValue] = useState(0); //☆
-    const [starAverage, setStarAverage] = useState(0); //☆
-    const [select, setSelect] = useState([]);
+    const [value, setValue] = useState(0); //自分の☆
+    const [starAverage, setStarAverage] = useState(0);
+    const [select, setSelect] = useState([]); //skinType選択
 
     useEffect(async () => {
         const responseUser = await axios.get('/me');
@@ -72,10 +72,9 @@ export const ReviewPage = () => {
         const s = responseSkinTypes.data;
         const r = responseReviews.data;
         const m = responseReviews.data.filter((data) => data.user_id === responseUser.data.id);
-        if (m.length === 1) {
+        if (m.length === 1){
             console.log(m[0].name);
-        }
-        else{
+        } else {
             console.log("multiple same id.");
         }
         setUser(u);
@@ -144,11 +143,22 @@ export const ReviewPage = () => {
     };
 
     // TODO: ifの時の処理↓
-    const handleDelete = () => {
+    const handleDelete = async() => {
         const confirmMessage = '投稿中のレビューを削除してよろしいですか？'
         let result = window.confirm(confirmMessage);
         if (result){
-            console.log('handleDelete')       
+            console.log('handleDelete');
+            try {
+                const response = await axios.delete(`/reviews/${id}`);
+                const responseReview = await axios.get('/reviews');
+                const r = responseReview.data;
+                setMyReview(r);
+                window.alert('削除しました');
+            } catch (e) {
+                window.alert('送信に失敗しました');
+                console.error(e)
+                return;
+            }         
         } else {
             return;
         }
@@ -157,6 +167,9 @@ export const ReviewPage = () => {
     const review = () => {
         if (myReview === null){
             return <CircularProgress color="success" size="15px" />
+        }
+        if (myReview.length === 0){
+            return <p>no</p>
         }
         return (
             <>
