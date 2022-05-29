@@ -132,10 +132,10 @@ export const ReviewPage = () => {
         }
     };
 
-    // const handleAddForm = () => {
-    //     console.log('handleAddForm');
-
-    // };
+    const handleAddForm = (event) => {
+        setForm(() => event.target.value);
+        // console.log(form);
+    };
 
     const handleSend = () => {
         console.log('handleSend');
@@ -213,6 +213,7 @@ export const ReviewPage = () => {
                     multiline
                     rows={4}
                     value={form}
+                    onChange={handleAddForm}
                     // defaultValue="Default Value"
                     />
                 </Box>
