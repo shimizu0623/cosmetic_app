@@ -295,6 +295,7 @@ export const ReviewPage = () => {
                     rows={4}
                     value={review.review}
                     sx={{ mb: 5 }}
+                    inputProps={{ readonly: true }}
                     // defaultValue="Default Value"
                     />
                 </Box>
