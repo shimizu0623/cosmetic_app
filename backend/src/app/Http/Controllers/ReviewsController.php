@@ -109,11 +109,11 @@ class ReviewsController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        $user = $request->user();
+        $user = $request->user()->id;
 
         // TODO: ↓userはnullableなので削除できない？
         // $review = Review::where('user_id', $user->id)->where('id', $id);
-        $review = Review::where('id', $id);
+        $review = Review::where('user_id', $user)->where('item_id', $id);
 
         if ($review->count() === 0){
             return response()->json(['message' => '口コミが登録されていません'],
