@@ -137,8 +137,33 @@ export const ReviewPage = () => {
         // console.log(form);
     };
 
-    const handleSend = () => {
+    const handleSend = async () => {
         console.log('handleSend');
+        try {
+            const response = await axios.post(`/reviews/${id}`, {
+                skin_type_id: user.skin_type_id,
+                review: form,
+                star: star,
+                item_id: id,
+            });
+            const responseReviews = await axios.get('/reviews', {
+                params: {
+                    item_id: id,
+                }
+            });
+            const m = responseReviews.data.filter((data) => data.user_id === user.id);
+            if (m.length === 1){
+                console.log(m[0].name);
+            } else {
+                console.log("multiple same id.");
+            }        
+            setMyReview(m);
+            window.alert('口コミを投稿しました');
+        } catch (e) {
+            window.alert('送信に失敗しました');
+            console.error(e)
+            return;
+        }         
 
     };
 
