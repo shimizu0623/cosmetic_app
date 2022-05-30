@@ -42,14 +42,16 @@ class ReviewsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        $user = $request->user();
+        $user = $request->user()->id;
+        $date = \Carbon\Carbon::now();
 
         $validator = Validator::make($request->all(),[
+            'skin_type_id' => 'required',
             'review' => 'required',
             'star' => 'required',
-            'posted_date' => 'required',
+            // 'posted_date' => 'required',
             'item_id' => 'required',
         ]);
 
@@ -58,21 +60,21 @@ class ReviewsController extends Controller
             Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $review = Review::where('user_id', $user->id)->get();
+        $review = Review::where('user_id', $user)->where('item_id', $id)->get();
         
         if ($review->count() !== 0){
             return response()->json(['既に口コミが登録されています'],
             Response::HTTP_BAD_REQUEST);
         }
 
-        Review::create([
-            'user_id' => $user->id,
+        $create = Review::create([
+            'user_id' => $user,
             // 'name' => $user->name,
-            // 'skin_type' => $user->skin_type,
+            'skin_type_id' => $request->skin_type_id,
             'review' => $request->review,
             'star' => $request->star,
-            'posted_date' => $request->posted_date,
-            'item_id' => $request->item_id,
+            'posted_date' => $date,
+            'item_id' => $id,
         ]);
 
         return response()->noContent();
