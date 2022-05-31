@@ -104,7 +104,7 @@ export const ItemDetail = () => {
     const [item, setItem] = useState(null);
     // const [favorite, setFavorite] = useState(false);
     const [count, setCount] = useState(0);
-    const [value, setValue] = useState(3); //☆
+    const [starAverage, setStarAverage] = useState(null);
     const [isAnimation, setIsAnimation] = useState(false);
     const navigate = useNavigate();
 
@@ -125,6 +125,22 @@ export const ItemDetail = () => {
             // console.error(e);
             return;
         }
+
+        // ↓☆の平均
+        const responseReviews = await axios.get('/reviews', {
+            params: {
+                item_id: id,
+            }
+        });
+        let starTotal = 0;
+        // ↓TODO: for文だと口コミ増えた時に重くなる？
+        for (let i = 0; i < responseReviews.data.length; i++){
+            starTotal = starTotal + (responseReviews.data[i].star);
+        }
+        const calc = starTotal / responseReviews.data.length;
+        const int = Math.round(calc)
+        console.log(int)
+        setStarAverage(int);
     }, []);
 
     const FavoriteLink = (isFavorite) => {
@@ -312,11 +328,22 @@ export const ItemDetail = () => {
         }
     };
 
+    const star = () => {
+        if (starAverage === null){
+            return <CircularProgress color="success" size="15px" />
+        }
+        return (
+            <Box borderColor="transparent">
+                <Rating name="read-only" value={starAverage} readOnly />
+            </Box>
+        );
+    };
+
     const itemInformation = () => {
         if (item === null){
             return <CircularProgress color="success" size="15px" />
         }
-        return(
+        return (
             <>
             <div className={classes.styleParent}>
                 <img src={item.img} alt="itemImg" style={{ maxWidth: '370px', height: '100%', margin: 'auto 30px' }} />
@@ -325,9 +352,7 @@ export const ItemDetail = () => {
                     <p style={{ textAlign: 'left', fontSize: '40px' }}>{item.name}</p>
                     <div className={classes.styleP}>
                         {/* <p className={classes.itemDetail}>評価レビュー</p> */}
-                        <Box borderColor="transparent">
-                            <Rating name="read-only" value={value} readOnly />
-                        </Box>
+                        {star()}
                         <button
                             onClick={() => { navigate(`/reviewPage/${item.id}`) }}
                             className={classes.reviewBtn}
@@ -375,7 +400,7 @@ export const ItemDetail = () => {
         if (item === null){
             return <CircularProgress color="success" size="15px" />
         }
-        return(
+        return (
             <>
                 {item.ingredients.map((ingredient, index) => (
                     <tbody key={index}>
@@ -435,7 +460,7 @@ export const ItemDetail = () => {
                 if (ingredient.score === 1 || ingredient.score === 2){green++}
             })()
         });
-        return(
+        return (
             <span style={{ fontSize: '25px', fontWeight: 'bold', color: '#5ac9b4' }}>{green}</span>
         );
     };
@@ -454,7 +479,7 @@ export const ItemDetail = () => {
                 else if (ingredient.score === 6){yellow++}
             })()
         });
-        return(
+        return (
             <span style={{ fontSize: '25px', fontWeight: 'bold', color: '#f5c56b' }}>{yellow}</span>
         );
     };
@@ -473,7 +498,7 @@ export const ItemDetail = () => {
                 else if (ingredient.score === 10){red++}
             })()
         });
-        return(
+        return (
             <span style={{ fontSize: '25px', fontWeight: 'bold', color: '#f04b4be7' }}>{red}</span>
         );
     };
@@ -520,7 +545,7 @@ export const ItemDetail = () => {
     const explain_yellow = 'EWG 3~6等級（有害性が普通の成分）';
     const explain_red = 'EWG 7~10等級（有害性が高い成分）';
     
-    return(
+    return (
         <div className='MainContainer'>
             
             <GoBackBtn />
