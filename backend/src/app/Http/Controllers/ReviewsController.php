@@ -42,16 +42,14 @@ class ReviewsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $id)
+    public function store(Request $request)
     {
-        $user = $request->user()->id;
+        $user = $request->user();
         $date = \Carbon\Carbon::now();
 
         $validator = Validator::make($request->all(),[
-            'skin_type_id' => 'required',
             'review' => 'required',
             'star' => 'required',
-            // 'posted_date' => 'required',
             'item_id' => 'required',
         ]);
 
@@ -60,7 +58,7 @@ class ReviewsController extends Controller
             Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $review = Review::where('user_id', $user)->where('item_id', $id)->get();
+        $review = Review::where('user_id', $user->id)->where('item_id', $request->item_id)->get();
         
         if ($review->count() !== 0){
             return response()->json(['既に口コミが登録されています'],
@@ -68,13 +66,12 @@ class ReviewsController extends Controller
         }
 
         $create = Review::create([
-            'user_id' => $user,
-            // 'name' => $user->name,
-            'skin_type_id' => $request->skin_type_id,
+            'user_id' => $user->id,
+            'skin_type_id' => $user->skin_type_id,
             'review' => $request->review,
             'star' => $request->star,
             'posted_date' => $date,
-            'item_id' => $id,
+            'item_id' => $request->item_id,
         ]);
 
         return response()->noContent();
@@ -111,11 +108,16 @@ class ReviewsController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        $user = $request->user()->id;
+        $user = $request->user();
 
         // TODO: ↓userはnullableなので削除できない？
         // $review = Review::where('user_id', $user->id)->where('id', $id);
-        $review = Review::where('user_id', $user)->where('item_id', $id);
+        $review = Review::find($id);
+
+        if ($review->user_id !== $user->id){
+            return response()->json(['message' => '口コミが登録されていません'],
+            Response::HTTP_NOT_FOUND);
+        }
 
         if ($review->count() === 0){
             return response()->json(['message' => '口コミが登録されていません'],
