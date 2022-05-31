@@ -60,7 +60,6 @@ export const ReviewPage = () => {
 
     useEffect(async () => {
         const responseUser = await axios.get('/me');
-        // TODO: id受け取れない↓
         const responseItem = await axios.get(`/items/${id}`);
         const responseSkinTypes = await axios.get('/skin_types');
         const responseReviews = await axios.get('/reviews', {
@@ -72,12 +71,7 @@ export const ReviewPage = () => {
         const i = responseItem.data;
         const s = responseSkinTypes.data;
         const r = responseReviews.data;
-        const m = responseReviews.data.filter((data) => data.user_id === responseUser.data.id);
-        if (m.length === 1){
-            console.log(m[0].name);
-        } else {
-            console.log("multiple same id.");
-        }
+        const m = responseReviews.data.find((data) => data.user_id === responseUser.data.id);
         setUser(u);
         setItem(i);
         setSkinTypes(s);
@@ -108,7 +102,6 @@ export const ReviewPage = () => {
         );
     };
     
-    console.log(myReview)
 
 
     const itemInformation = () => {
@@ -140,8 +133,8 @@ export const ReviewPage = () => {
     const handleSend = async () => {
         console.log('handleSend');
         try {
-            const response = await axios.post(`/reviews/${id}`, {
-                skin_type_id: user.skin_type_id,
+            const response = await axios.post('/reviews', {
+                // skin_type_id: user.skin_type_id,
                 review: form,
                 star: star,
                 item_id: id,
@@ -179,9 +172,9 @@ export const ReviewPage = () => {
         const confirmMessage = '投稿中のレビューを削除してよろしいですか？'
         let result = window.confirm(confirmMessage);
         if (result){
-            console.log('handleDelete');
+            console.log(myReview);
             try {
-                const response = await axios.delete(`/reviews/${id}`);
+                const response = await axios.delete(`/reviews/${myReview.id}`);
                 const responseReviews = await axios.get('/reviews', {
                     params: {
                         item_id: id,
@@ -254,7 +247,7 @@ export const ReviewPage = () => {
         if (myReview === null){
             return <CircularProgress color="success" size="15px" />
         }
-        if (myReview.length === 0){
+        if (myReview === undefined){
             return (reviewForm())
         }
         return (
@@ -266,7 +259,7 @@ export const ReviewPage = () => {
                         <Rating
                         name="simple-controlled"
                         // value={value}
-                        value={myReview[0].star}
+                        value={myReview.star}
                         readOnly
                         />
                     </Box>
@@ -288,7 +281,7 @@ export const ReviewPage = () => {
                         id="outlined-multiline-static"
                         multiline
                         rows={4}
-                        value={myReview[0].review}
+                        value={myReview.review}
                         // defaultValue="Default Value"
                         />
                     </Box>
