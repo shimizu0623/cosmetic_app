@@ -85,7 +85,7 @@ class Item extends Model
         if(empty($categoryIds)){
             return $query;
         }
-        return $query->whereIn('items.category_id', $categoryIds);
+        return $query->where('items.category_id', $categoryIds);
     }
     
     public function scopeWithBrand($query, $brandIds)
@@ -103,7 +103,6 @@ class Item extends Model
         }
         return $query->where('items.skin_type_id', $skinTypeIds);
     }
-
 
     public function toArray() 
     {
