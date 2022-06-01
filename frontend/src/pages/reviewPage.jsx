@@ -215,6 +215,8 @@ export const ReviewPage = () => {
                 });
                 const m = responseReviews.data.find((data) => data.user_id === user.id);
                 setMyReview(m);
+                setStar(0);
+                setForm('');
                 // TODO: 星の数とレビュー評価の総数も書き換える？
                 window.alert('削除しました');
             } catch (e) {
