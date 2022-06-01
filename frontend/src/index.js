@@ -21,8 +21,6 @@ import { UnmatchedItem } from "./pages/unmatchedItemPage.jsx";
 import { HelpPage } from "./pages/helpPage";
 import { ReviewPage } from "./pages/reviewPage";
 import { Ranking } from "./pages/rankingPage";
-import { Btn } from "./components/btn";
-import { LoginBtn } from "./components/loginBtn";
 
 import {
   BrowserRouter,
@@ -117,14 +115,6 @@ ReactDom.render(
           <Route
               path='/ranking'
               element={<Ranking />}
-            />  
-          <Route
-              path='/btn'
-              element={<Btn />}
-            />  
-          <Route
-              path='/loginBtn'
-              element={<LoginBtn />}
             />  
         </Route>
       </Routes>
