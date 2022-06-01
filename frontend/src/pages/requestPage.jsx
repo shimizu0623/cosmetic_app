@@ -1,10 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import axios from '../axios';
 import header_img from '../img/headerRequest.jpg';
 import { GoBackBtn } from '../components/goBackBtn';
 import { Btn } from '../components/btn';
 import { useNavigate } from "react-router-dom";
-import { Link as RouterLink } from "react-router-dom";
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -19,11 +18,6 @@ export const RequestPage = () => {
     const [requestForm, setRequestForm] = useState({detail:''});
     const classes = useStyles();
     const navigate = useNavigate();
-
-    useEffect(async () => {
-      const response = await axios.get('/me')
-      setRequestForm({...requestForm, user_id: response.data.id})
-    }, [])
     
     const handleRequestFormChange = (event) => {
         setRequestForm({...requestForm, detail: event.target.value})
