@@ -79,7 +79,7 @@ export const ReviewPage = () => {
         setMyReview(m);
 
         let starTotal = 0;
-        // ↓TODO: for文だと口コミ増えた時に重くなる？
+        // ↓TODO: for文だとレビュー増えた時に重くなる？
         for (let i = 0; i < responseReviews.data.length; i++){
             starTotal = starTotal + (responseReviews.data[i].star);
         }
@@ -127,15 +127,20 @@ export const ReviewPage = () => {
 
     const handleAddForm = (event) => {
         setForm(() => event.target.value);
-        // console.log(form);
     };
 
     const handleSend = async () => {
         console.log('handleSend');
-        
         try {
+            if (form.replace(/\n|\s/g, '') === ''){
+                window.alert('レビューを記入してください');
+                return;
+            }
+            if (star === 0){
+                window.alert('星の数を選択してください');
+                return;
+            }
             const response = await axios.post('/reviews', {
-                // skin_type_id: user.skin_type_id,
                 review: form,
                 star: star,
                 item_id: id,
@@ -147,7 +152,7 @@ export const ReviewPage = () => {
             });
             const m = responseReviews.data.find((data) => data.user_id === user.id);
             setMyReview(m);
-            window.alert('口コミを投稿しました');
+            window.alert('レビューを投稿しました');
         } catch (e) {
             window.alert('送信に失敗しました');
             console.error(e)
@@ -182,9 +187,9 @@ export const ReviewPage = () => {
                 });
                 const newDate = responseReviews.data.find((data) => data.user_id === user.id);
                 setMyReview(newDate);
-                window.alert('口コミを変更しました');
+                window.alert('レビューを変更しました');
             }else{
-                window.alert('口コミが変更されていません');
+                window.alert('レビューが変更されていません');
             }
         } catch (e) {
             window.alert('送信に失敗しました');
@@ -231,8 +236,8 @@ export const ReviewPage = () => {
                     <Rating
                     name="simple-controlled"
                     value={star}
-                    onChange={(event, newStar) => {
-                        setStar(newStar);
+                    onChange={(event) => {
+                        setStar(event.target.value);
                     }}
                     />
                 </Box>
@@ -284,8 +289,8 @@ export const ReviewPage = () => {
                         // value={value}
                         value={myReview.star}
                         // readOnly
-                        onChange={(event, newStar) => {
-                            setMyReview({...myReview, star:newStar});
+                        onChange={(event) => {
+                            setMyReview({...myReview, star: event.target.value});
                         }}
                         />
                     </Box>
