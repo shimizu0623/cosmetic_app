@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { useNavigate } from "react-router-dom";
 import Button from '@mui/material/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
@@ -41,6 +42,7 @@ export const Header = () => {
   const [anchorElSearch, setAnchorElSearch] = useState(null);
   const [anchorElHelp, setAnchorElHelp] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
+  const navigate = useNavigate();
   const openSearch = Boolean(anchorElSearch);
   const openHelp = Boolean(anchorElHelp);
   const open = Boolean(anchorEl);
@@ -59,6 +61,23 @@ export const Header = () => {
       setAnchorElHelp(null);
       setAnchorEl(null);
   };
+
+  const handleLogout = async () => {
+    const confirmMessage = 'ログアウトしますか？'
+    let result = window.confirm(confirmMessage);
+    if (result){
+        try {
+            localStorage.removeItem('access-token');
+            navigate("/");
+        } catch (e) {
+            window.alert('送信に失敗しました');
+            console.error(e)
+            return;
+        }         
+    } else {
+        return;
+    }    
+};
 
   return(
     <>
@@ -111,12 +130,12 @@ export const Header = () => {
               </ListItemIcon>
               アイテムを探す
             </MenuItem>
-            {/* <MenuItem component={RouterLink} to="/ranking">
+            <MenuItem component={RouterLink} to="/ranking">
               <ListItemIcon>
                 <EmojiEventsIcon />
               </ListItemIcon>
               ランキング
-            </MenuItem> */}
+            </MenuItem>
           </Menu>
         
           <Button
@@ -197,7 +216,7 @@ export const Header = () => {
               </ListItemIcon>
               マイページ
             </MenuItem>
-            {/* <MenuItem component={RouterLink} to="/myFolder">
+            <MenuItem component={RouterLink} to="/myFolder">
               <ListItemIcon>
                 <FolderSpecialIcon />
               </ListItemIcon>
@@ -208,7 +227,7 @@ export const Header = () => {
                 <EqualizerIcon />
               </ListItemIcon>
               コスメ比較
-            </MenuItem> */}
+            </MenuItem>
             <MenuItem component={RouterLink} to="/unmatchedItem">
               <ListItemIcon>
                 <NotInterestedIcon />
@@ -221,7 +240,7 @@ export const Header = () => {
               </ListItemIcon>
               リクエスト
             </MenuItem>
-            <MenuItem component={RouterLink} to="/">
+            <MenuItem onClick={handleLogout}>
               <ListItemIcon>
                 <Logout fontSize="small" />
               </ListItemIcon>
