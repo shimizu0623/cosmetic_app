@@ -40,7 +40,6 @@ class RequestsController extends Controller
             'posted_date' => $date
         ]);
 
-        //ユーザの作成が完了するとjsonを返す
         return response()->json($create, Response::HTTP_OK);
     }
 }
