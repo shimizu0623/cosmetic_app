@@ -132,6 +132,7 @@ export const ReviewPage = () => {
 
     const handleSend = async () => {
         console.log('handleSend');
+        
         try {
             const response = await axios.post('/reviews', {
                 // skin_type_id: user.skin_type_id,
@@ -144,12 +145,7 @@ export const ReviewPage = () => {
                     item_id: id,
                 }
             });
-            const m = responseReviews.data.filter((data) => data.user_id === user.id);
-            if (m.length === 1){
-                console.log(m[0].name);
-            } else {
-                console.log("multiple same id.");
-            }        
+            const m = responseReviews.data.find((data) => data.user_id === user.id);
             setMyReview(m);
             window.alert('口コミを投稿しました');
         } catch (e) {
@@ -160,11 +156,43 @@ export const ReviewPage = () => {
 
     };
 
-    const handleEdit = () => {
+    const handleEdit = async () => {
         console.log('handleEdit');
-    };
+        try {
+            const responseReviews = await axios.get('/reviews', {
+                params: {
+                    item_id: id,
+                }
+            });
+            const m = responseReviews.data.find((data) => data.user_id === user.id);
+            const mKeys =  JSON.stringify(m);
+            const myReviewKeys =  JSON.stringify(myReview);
 
-    const handleChange = (event) => {
+            if (mKeys !== myReviewKeys){
+                const responseDelete = await axios.delete(`/reviews/${myReview.id}`);
+                const responsePost = await axios.post('/reviews', {
+                    review: myReview.review,
+                    star: myReview.star,
+                    item_id: id,
+                });
+                const responseReviews = await axios.get('/reviews', {
+                    params: {
+                        item_id: id,
+                    }
+                });
+                const newDate = responseReviews.data.find((data) => data.user_id === user.id);
+                setMyReview(newDate);
+                window.alert('口コミを変更しました');
+            }else{
+                window.alert('口コミが変更されていません');
+            }
+        } catch (e) {
+            window.alert('送信に失敗しました');
+            return;
+        }         
+};
+
+    const handleSkinTypeChange = (event) => {
         setSelect(event.target.value);
     };
 
@@ -180,12 +208,7 @@ export const ReviewPage = () => {
                         item_id: id,
                     }
                 });
-                const m = responseReviews.data.filter((data) => data.user_id === user.id);
-                if (m.length === 1){
-                    console.log(m[0].name);
-                } else {
-                    console.log("multiple same id.");
-                }        
+                const m = responseReviews.data.find((data) => data.user_id === user.id);
                 setMyReview(m);
                 // TODO: 星の数とレビュー評価の総数も書き換える？
                 window.alert('削除しました');
@@ -260,7 +283,10 @@ export const ReviewPage = () => {
                         name="simple-controlled"
                         // value={value}
                         value={myReview.star}
-                        readOnly
+                        // readOnly
+                        onChange={(event, newStar) => {
+                            setMyReview({...myReview, star:newStar});
+                        }}
                         />
                     </Box>
                 </div>
@@ -283,10 +309,13 @@ export const ReviewPage = () => {
                         rows={4}
                         value={myReview.review}
                         // defaultValue="Default Value"
+                        onChange={(event) => {
+                            setMyReview({...myReview, review:event.target.value});
+                        }}                    
                         />
                     </Box>
                 </div>
-                <Btn message='編集する' onClick={handleEdit} />
+                <Btn message='上記の内容で上書きする' onClick={handleEdit} />
                 <Tooltip title="Delete" style={{ marginLeft: '20px' }}>
                     <IconButton>
                         <DeleteIcon onClick={handleDelete} />
@@ -347,23 +376,23 @@ export const ReviewPage = () => {
         );
     }
 
-    const button = () => {
-        // if (){
-        //     return (
-        //         <Btn message='投稿する' onClick={handleSend} />
-        //     )
-        // }
-        return (
-            <>
-                <Btn message='編集する' onClick={handleEdit} />
-                <Tooltip title="Delete" style={{ marginLeft: '20px' }}>
-                    <IconButton>
-                        <DeleteIcon onClick={handleDelete} />
-                    </IconButton>
-                </Tooltip>
-            </>
-        )
-    }
+    // const button = () => {
+    //     // if (){
+    //     //     return (
+    //     //         <Btn message='投稿する' onClick={handleSend} />
+    //     //     )
+    //     // }
+    //     return (
+    //         <>
+    //             <Btn message='編集する' onClick={handleEdit} />
+    //             <Tooltip title="Delete" style={{ marginLeft: '20px' }}>
+    //                 <IconButton>
+    //                     <DeleteIcon onClick={handleDelete} />
+    //                 </IconButton>
+    //             </Tooltip>
+    //         </>
+    //     )
+    // }
 
     return(
         <>
@@ -398,7 +427,7 @@ export const ReviewPage = () => {
                     id="demo-simple-select"
                     value={select}
                     label="Select"
-                    onChange={handleChange}
+                    onChange={handleSkinTypeChange}
                     >
                         {/* TODO: ↓idが0はOK？ */}
                         <MenuItem value={0}>All</MenuItem>
