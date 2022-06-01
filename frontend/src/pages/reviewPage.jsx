@@ -55,7 +55,7 @@ export const ReviewPage = () => {
     const [myReview, setMyReview] = useState(null);
     const [star, setStar] = useState(0); //自分の☆
     const [starAverage, setStarAverage] = useState(0);
-    const [select, setSelect] = useState([]); //skinType選択
+    const [select, setSelect] = useState(0); //skinType選択
     const [form, setForm] = useState('');
 
     useEffect(async () => {
@@ -343,8 +343,49 @@ export const ReviewPage = () => {
                 </div>
             )
         }
+        if (select === 0){
+            return (
+                reviews.filter((data) => data.user_id !== user.id).map((review, index) => (
+                <>
+                    <div style={{ width: '500px', margin: '0 auto' }}>
+                        <p style={{ fontSize: '25px', textAlign: 'left' }} key={index}>{review.name}</p>
+                        <p style={{ fontSize: '15px', textAlign: 'left' }}>{review.skin_type}</p>
+                        <p style={{ fontSize: '15px', textAlign: 'right' }}>{review.posted_date}</p>
+                        <Box style={{ padding: '0', textAlign: 'right' }} component="fieldset" borderColor="transparent">
+                        {/* <Typography component="legend">Controlled</Typography> */}
+                            <Rating
+                            name="read-only"
+                            value={review.star}
+                            readOnly
+                            />
+                        </Box>
+                    </div>
+                    <Box
+                    component="form"
+                    sx={{
+                        borderColor: 'green',
+                        '& .MuiTextField-root': { m: 1, width: '500px' },
+                    }}
+                    noValidate
+                    autoComplete="off"
+                    >        
+                        <TextField
+                        id="outlined-multiline-static"
+                        multiline
+                        rows={4}
+                        value={review.review}
+                        sx={{ mb: 5 }}
+                        inputProps={{ readonly: true }}
+                        // defaultValue="Default Value"
+                        />
+                    </Box>
+                </>
+                ))
+            );
+        }
+        
         return (
-            reviews.filter((data) => data.user_id !== user.id).map((review, index) => (
+            reviews.filter((data) => data.user_id !== user.id && data.skin_type_id === select).map((review, index) => (
             <>
                 <div style={{ width: '500px', margin: '0 auto' }}>
                     <p style={{ fontSize: '25px', textAlign: 'left' }} key={index}>{review.name}</p>
