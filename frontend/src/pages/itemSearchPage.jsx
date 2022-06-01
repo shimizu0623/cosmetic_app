@@ -43,6 +43,7 @@ export const ItemSearch = () => {
     const [selectedSafeOnly, setSelectedSafeOnly] = useState(0);
     const [selectedMatchingOnly, setSelectedMatchingOnly] = useState(0);
     const [selectedBrand, setSelectedBrand] = useState(null);
+    const [searching, setSearching] = useState(false);
     const navigate = useNavigate();
 
     useEffect(async () => {
@@ -115,11 +116,11 @@ export const ItemSearch = () => {
                 is_safe_only: selectedSafeOnly,
                 is_matching_only: selectedMatchingOnly,
                 brand_id: selectedBrand,
-              }
+            }
         });
         const i = responseItem.data;
         setItem(i);
-
+        
         if (selectedSkinTrouble.length === 0){
             setSkinTroubleItem([]);
         }
@@ -132,21 +133,10 @@ export const ItemSearch = () => {
             const s = responseSkinTroubleItem.data;
             setSkinTroubleItem(s);
         }
+        setSearching(true);
     };
 
     const searchItem = () => {
-        if (item.length === 0){
-            return (
-                <div style={{ fontSize: '20px', color: 'green', margin: '90px auto' }}>
-                    <p>条件に当てはまるアイテムが見つかりませんでした。</p>
-                    <p>条件を変更して、再度検索するボタンをクリックしてください。</p>
-                    <div style={{ margin: '20px auto' }}>
-                        <p>尚、<Link component={RouterLink} to="/requestPage">リクエストページ</Link>にて、ご要望も承っております。</p>
-                        {message()}
-                    </div>
-                </div>
-            )
-        }
         if (item.length !== 0){
             return (
                 <div className='search_results' style={{ margin: '50px' }}>
@@ -174,6 +164,19 @@ export const ItemSearch = () => {
                             ))}
                         </Grid>
                     </ImageList>
+                </div>
+            )
+        }
+        if (item.length === 0 && searching){
+            console.log(searching)
+            return (
+                <div style={{ fontSize: '20px', color: 'green', margin: '90px auto' }}>
+                    <p>条件に当てはまるアイテムが見つかりませんでした。</p>
+                    <p>条件を変更して、再度検索するボタンをクリックしてください。</p>
+                    <div style={{ margin: '20px auto' }}>
+                        <p>尚、<Link component={RouterLink} to="/requestPage">リクエストページ</Link>にて、ご要望も承っております。</p>
+                        {message()}
+                    </div>
                 </div>
             )
         }
