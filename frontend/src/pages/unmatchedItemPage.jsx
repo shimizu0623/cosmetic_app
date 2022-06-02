@@ -58,9 +58,25 @@ export const UnmatchedItem = () => {
     const itemInformation = () => {
         if (item === null){
             return <CircularProgress color="success" size="15px" />
+        }    
+        if (item.length === 0){
+            return (
+                <div style={{ paddingBottom: '100px' }}>
+                    <p>登録中のアイテムはありません。</p>
+                </div>
+            )
         }
-        return(
+
+        return (
             <>
+            <table style={{ margin: '0 auto' }}>
+                <tr>
+                    <th className={classes.tableHeader}></th>
+                    <th className={classes.tableHeader}>ブランド</th>
+                    <th className={classes.tableHeader}>商品名</th>
+                    <th className={classes.tableHeader}>メモ</th>
+                </tr>
+
                 {item.map((item, index) => (
                     <tr key={index}>
                     <td scope="row"><img src={item.img} alt="itemImg" style={{ maxWidth: '90px', height: '100%', margin: 'auto 30px' }} /></td>
@@ -106,6 +122,7 @@ export const UnmatchedItem = () => {
                     </td>
                     </tr>
                 ))}
+            </table>
             </>
         );
     };
@@ -132,7 +149,7 @@ export const UnmatchedItem = () => {
 
 
 
-    return(
+    return (
         <>
         <div className='MainContainer'>
             <GoBackBtn />
@@ -161,22 +178,11 @@ export const UnmatchedItem = () => {
             <img src={green_leaf} alt="" style={{ maxWidth: '90px', display: 'inline-block', verticalAlign: 'middle', margin: '0 auto 40px' }} />
             <h1 style={{ fontSize: '40px', display: 'inline-block' }}>登録中の肌に合わなかったアイテム</h1>
             <div style={ {margin: '50px 0 20px 0' }}>
-                <table style={{ margin: '0 auto' }}>
-                    <tr>
-                        <th className={classes.tableHeader}></th>
-                        <th className={classes.tableHeader}>ブランド</th>
-                        <th className={classes.tableHeader}>商品名</th>
-                        <th className={classes.tableHeader}>メモ</th>
-                    </tr>
 
                         {itemInformation()}
 
-                </table>
             </div>
 
-            <div>
-                <p>登録中のアイテムはありません。</p>
-            </div>
         </div>
         </>
     );
