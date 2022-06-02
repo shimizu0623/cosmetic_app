@@ -47,7 +47,7 @@ const condition = [
 export const UnmatchedItem = () => {
     const classes = useStyles();
     const { id } = useParams();
-    const [item, setItem] = useState([]);
+    const [item, setItem] = useState(null);
     const [attention, setAttention] = useState(null);
     
     useEffect(async () => {
