@@ -48,12 +48,37 @@ export const UnmatchedItem = () => {
     const classes = useStyles();
     const { id } = useParams();
     const [item, setItem] = useState([]);
+    const [attention, setAttention] = useState(null);
     
     useEffect(async () => {
         const responseItem = await axios.get('/user_unmatchedItems');
         const i = responseItem.data;
         setItem(i);
     }, []);
+
+    const attentionMessage = () => {
+        if (attention === null){
+            return <CircularProgress color="success" size="15px" />
+        }
+        if (attention.length === 0){
+            return (
+                <div className={classes.alertForm}>
+                    <h4 style={{color: 'black', padding: '10px'}}>共通成分はありません</h4>
+                </div>
+            )
+        }
+
+        return (
+            <div className={classes.alertForm}>
+                <h4 style={{color: 'red', paddingTop: '10px'}}>共通成分が見つかりました！</h4>
+                <div style={{paddingBottom: '10px'}}>
+                    <ul style={{ listStyle: 'none', padding: 0 }}>
+                        <li>○○酸</li>
+                    </ul>
+                </div>
+            </div>
+        );
+    }
 
     const itemInformation = () => {
         if (item === null){
@@ -64,7 +89,7 @@ export const UnmatchedItem = () => {
                 <div style={{ paddingBottom: '100px' }}>
                     <p>登録中のアイテムはありません。</p>
                 </div>
-            )
+            );
         }
 
         return (
@@ -161,25 +186,15 @@ export const UnmatchedItem = () => {
                 <p>過去に合わなかったアイテムを登録して、自分の肌に合わない成分を見つけましょう。</p>
             </div>
 
-            <div className={classes.alertForm}>
-                <h4 style={{color: 'red', paddingTop: '10px'}}>共通成分が見つかりました！</h4>
-                <div style={{paddingBottom: '10px'}}>
-                    <ul style={{ listStyle: 'none', padding: 0 }}>
-                        <li>○○酸</li>
-                    </ul>
-                </div>
-            </div>
             
-            <div className={classes.alertForm}>
-                <h4 style={{color: 'black', padding: '10px'}}>共通成分はありません</h4>
-            </div>
-
 
             <img src={green_leaf} alt="" style={{ maxWidth: '90px', display: 'inline-block', verticalAlign: 'middle', margin: '0 auto 40px' }} />
             <h1 style={{ fontSize: '40px', display: 'inline-block' }}>登録中の肌に合わなかったアイテム</h1>
             <div style={ {margin: '50px 0 20px 0' }}>
 
-                        {itemInformation()}
+            {/* {attentionMessage()} */}
+
+            {itemInformation()}
 
             </div>
 
