@@ -156,7 +156,6 @@ class Item extends Model
             $join->where('user_histories.user_id', '=', $userId);
         })
         ->where('user_histories.item_id', '!=', NULL);
-        // TODO: ↑複数[]で受け取るからwhereIn?
     }
 
     public function scopeUserUnmatchedOnly($query, $userId)
