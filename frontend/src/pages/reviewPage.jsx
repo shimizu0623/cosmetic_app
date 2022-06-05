@@ -70,8 +70,8 @@ export const ReviewPage = () => {
         const u = responseUser.data;
         const i = responseItem.data;
         const s = responseSkinTypes.data;
-        const r = responseReviews.data;
-        const m = responseReviews.data.find((data) => data.user_id === responseUser.data.id);
+        const r = responseReviews.data.filter((data) => data.user_id !== u.id);
+        const m = responseReviews.data.find((data) => data.user_id === u.id);
         setUser(u);
         setItem(i);
         setSkinTypes(s);
@@ -345,7 +345,7 @@ export const ReviewPage = () => {
         }
         if (select === 0){
             return (
-                reviews.filter((data) => data.user_id !== user.id).map((review, index) => (
+                reviews.map((review, index) => (
                 <>
                     <div style={{ width: '500px', margin: '0 auto' }}>
                         <p style={{ fontSize: '25px', textAlign: 'left' }} key={index}>{review.name}</p>
@@ -477,7 +477,6 @@ export const ReviewPage = () => {
                     label="Select"
                     onChange={handleSkinTypeChange}
                     >
-                        {/* TODO: ↓idが0はOK？ */}
                         <MenuItem value={0}>All</MenuItem>
                         {skinTypes.map((skinType) => (
                             <MenuItem value={skinType.id}>{skinType.name}</MenuItem>
