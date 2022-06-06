@@ -288,9 +288,7 @@ export const ReviewPage = () => {
                     {/* <Typography component="legend">Controlled</Typography> */}
                         <Rating
                         name="simple-controlled"
-                        // value={value}
                         value={myReview.star}
-                        // readOnly
                         onChange={(event) => {
                             setMyReview({...myReview, star: event.target.value});
                         }}
