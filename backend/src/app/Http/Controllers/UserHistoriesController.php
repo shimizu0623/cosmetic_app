@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\UserHistory;
@@ -24,6 +25,7 @@ class UserHistoriesController extends Controller
         $user = $request->user();
 
         $histories = Item::userHistory($user->id)
+        ->orderBy('user_histories.updated_at', 'desc')
         ->paginate(10);
 
         return response()->json(
@@ -42,13 +44,23 @@ class UserHistoriesController extends Controller
     public function store(Request $request)
     {
         $user = $request->user();
-
+        $date = \Carbon\Carbon::now();
+        $histories = UserHistory::where('user_id', $user->id)
+            ->where('item_id', $request->item_id)
+            ->get();
+        $history = $histories->first();
         $validator = Validator::make($request->all(),[
             'item_id' => 'required',
         ]);
 
         if ($validator->fails()) {
             return response()->json($validator->messages(), Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        if ($history !== null) {
+            // Log::debug('check'. $history);
+            $history->update(['updated_at' => $date]);
+            return response()->json($history, Response::HTTP_OK);
         }
 
         $create = UserHistory::create([
@@ -60,37 +72,5 @@ class UserHistoriesController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }
