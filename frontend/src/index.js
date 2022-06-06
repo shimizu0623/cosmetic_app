@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDom from 'react-dom';
+import {RecoilRoot} from 'recoil';
 import App from "./App";
 import { TopPage } from "./pages/topPage";
 import { LoginPage } from "./pages/loginPage";
@@ -33,92 +34,94 @@ const webName = "Cosmetic Search";
 
 ReactDom.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<App />}>
-          <Route
-              path='/'
-              element={<TopPage webName={webName} />}
-            />
-          <Route
-              path='/signUpPage'
-              element={<SignUpPage />}
-            />  
-          <Route
-              path='/fixAccount'
-              element={<FixAccount />}
-            />  
-          <Route
-              path='/login'
-              element={<LoginPage />}
-            />  
-          <Route
-              path='/ewg'
-              element={<Ewg />}
-            />  
-          <Route
-              path='/ewgPage'
-              element={<EwgPage webName={webName} />}
-            />  
-          <Route
-              path='/myPage'
-              element={<MyPage />}
-            />  
-          <Route
-              path='/confirm'
-              element={<DeleteConfirm />}
-            />  
-          <Route
-              path='/delete'
-              element={<DeleteInformation />}
-            />  
-          <Route
-              path='/homePage'
-              element={<HomePage />}
-            />  
-          <Route
-              path='/itemSearch'
-              element={<ItemSearch />}
-            />  
-          <Route
-              path='/item/:id'
-              element={<ItemDetail />}
-            />  
-          <Route
-              path='/itemComparison'
-              element={<ItemComparison />}
-            />  
-          <Route
-              path='/requestPage'
-              element={<RequestPage />}
-            />  
-          <Route
-              path='/thanks'
-              element={<Thanks />}
-            />  
-          <Route
-              path='/myFolder'
-              element={<MyFolder />}
-            />  
-          <Route
-              path='/unmatchedItem'
-              element={<UnmatchedItem />}
-            />  
-          <Route
-              path='/helpPage'
-              element={<HelpPage />}
-            />  
-          <Route
-              path='/reviewPage/:id'
-              element={<ReviewPage />}
-            />  
-          <Route
-              path='/ranking'
-              element={<Ranking />}
-            />  
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <RecoilRoot>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<App />}>
+            <Route
+                path='/'
+                element={<TopPage webName={webName} />}
+              />
+            <Route
+                path='/signUpPage'
+                element={<SignUpPage />}
+              />  
+            <Route
+                path='/fixAccount'
+                element={<FixAccount />}
+              />  
+            <Route
+                path='/login'
+                element={<LoginPage />}
+              />  
+            <Route
+                path='/ewg'
+                element={<Ewg />}
+              />  
+            <Route
+                path='/ewgPage'
+                element={<EwgPage webName={webName} />}
+              />  
+            <Route
+                path='/myPage'
+                element={<MyPage />}
+              />  
+            <Route
+                path='/confirm'
+                element={<DeleteConfirm />}
+              />  
+            <Route
+                path='/delete'
+                element={<DeleteInformation />}
+              />  
+            <Route
+                path='/homePage'
+                element={<HomePage />}
+              />  
+            <Route
+                path='/itemSearch'
+                element={<ItemSearch />}
+              />  
+            <Route
+                path='/item/:id'
+                element={<ItemDetail />}
+              />  
+            <Route
+                path='/itemComparison'
+                element={<ItemComparison />}
+              />  
+            <Route
+                path='/requestPage'
+                element={<RequestPage />}
+              />  
+            <Route
+                path='/thanks'
+                element={<Thanks />}
+              />  
+            <Route
+                path='/myFolder'
+                element={<MyFolder />}
+              />  
+            <Route
+                path='/unmatchedItem'
+                element={<UnmatchedItem />}
+              />  
+            <Route
+                path='/helpPage'
+                element={<HelpPage />}
+              />  
+            <Route
+                path='/reviewPage/:id'
+                element={<ReviewPage />}
+              />  
+            <Route
+                path='/ranking'
+                element={<Ranking />}
+              />  
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </RecoilRoot>
   </React.StrictMode>,
   document.getElementById('root')
 );
