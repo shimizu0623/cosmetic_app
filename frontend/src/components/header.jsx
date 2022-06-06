@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import userAtom from '../recoil/user';
+import { useRecoilState } from 'recoil';
 import { useNavigate } from "react-router-dom";
 import Button from '@mui/material/Button';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -39,6 +41,7 @@ const useStyles = makeStyles({
 
 export const Header = () => {
   const classes = useStyles();
+  const [user, setUser] = useRecoilState(userAtom);
   const [anchorElSearch, setAnchorElSearch] = useState(null);
   const [anchorElHelp, setAnchorElHelp] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -68,6 +71,7 @@ export const Header = () => {
     if (result){
         try {
             localStorage.removeItem('access-token');
+            setUser(false);
             navigate("/");
         } catch (e) {
             window.alert('送信に失敗しました');
@@ -77,7 +81,7 @@ export const Header = () => {
     } else {
         return;
     }    
-};
+  };
 
   return(
     <>
