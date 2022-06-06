@@ -126,6 +126,7 @@ class Item extends Model
           'price' => $this->price,
           'volume' => $this->volume,
           'item_id' => $this->item->id,
+          'memo' => $this->memo,
         ];
     }
 
