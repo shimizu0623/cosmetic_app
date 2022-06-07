@@ -42,6 +42,7 @@ const condition = [
     { title: '肌が固くなった' },
     { title: '吹き出物ができた' },
     { title: '毛穴が開いた' },
+    { title: 'その他' },
 ];
 
 export const UnmatchedItem = () => {
@@ -80,76 +81,25 @@ export const UnmatchedItem = () => {
         );
     }
 
-    const itemInformation = () => {
-        if (item === null){
-            return <CircularProgress color="success" size="15px" />
+    const handleSave = async (e, id) => {
+        const confirmMessage = 'メモを保存しますか？'
+        let result = window.confirm(confirmMessage);
+        if (result){
+            try {
+                // const response = await axios.delete(`/user_unmatchedItems/${id}`);
+                // const responseItem = await axios.get('/user_unmatchedItems');
+                // const i = responseItem.data;
+                // setItem(i);
+                console.log(id)
+                window.alert('保存しました');
+            } catch (e) {
+                window.alert('保存できませんでした');
+                console.error(e)
+                return;
+            }                
+        } else {
+            return;
         }    
-        if (item.length === 0){
-            return (
-                <div style={{ paddingBottom: '100px' }}>
-                    <p>登録中のアイテムはありません。</p>
-                </div>
-            );
-        }
-
-        return (
-            <>
-            <table style={{ margin: '0 auto' }}>
-                <tr>
-                    <th className={classes.tableHeader}></th>
-                    <th className={classes.tableHeader}>ブランド</th>
-                    <th className={classes.tableHeader}>商品名</th>
-                    <th className={classes.tableHeader}>メモ</th>
-                </tr>
-
-                {item.map((item, index) => (
-                    <tr key={index}>
-                    <td scope="row"><img src={item.img} alt="itemImg" style={{ maxWidth: '90px', height: '100%', margin: 'auto 30px' }} /></td>
-                    <td>{item.brand}</td>
-                    <td>{item.name}</td>
-                    <td>
-                    <Autocomplete
-                        multiple
-                        id="checkboxes-tags-demo"
-                        options={condition}
-                        sx={{ margin: '8px' }}
-                        disableCloseOnSelect
-                        getOptionLabel={(option) => option.title}
-                        renderOption={(props, option, { selected }) => (
-                            <li {...props}>
-                            <Checkbox
-                                icon={icon}
-                                checkedIcon={checkedIcon}
-                                style={{ marginRight: 8 }}
-                                checked={selected}
-                            />
-                            {option.title}
-                            </li>
-                        )}
-                        style={{ minWidth: 300 }}
-                        // TODO: ↓state?
-                        renderInput={(params) => (
-                            <TextField {...params} label="使用後の肌状態" />
-                        )}
-                    />
-                    </td>
-                    <td><Button 
-                            variant="contained"
-                            style={{
-                                marginTop: '10px',
-                                color: 'white',
-                                background: 'rgba(141, 203, 193)',
-                                borderRadius: '7px',
-                            }}
-                            onClick={(e) => handleDelete(e, item.item_id)}>
-                        削除
-                        </Button>
-                    </td>
-                    </tr>
-                ))}
-            </table>
-            </>
-        );
     };
 
     const handleDelete = async (e, id) => {
@@ -170,6 +120,110 @@ export const UnmatchedItem = () => {
         } else {
             return;
         }    
+    };
+
+
+
+    // const handleChangeMemo = (e, id) => {
+    //     console.log('sss')
+    //     console.log(id)
+    // }
+
+    const itemInformation = () => {
+        if (item === null){
+            return <CircularProgress color="success" size="15px" />
+        }    
+        if (item.length === 0){
+            return (
+                <div style={{ paddingBottom: '100px' }}>
+                    <p>登録中のアイテムはありません。</p>
+                </div>
+            );
+        }
+
+        return (
+            <>
+            <table style={{ margin: '0 auto' }}>
+                <tr>
+                    <th className={classes.tableHeader}></th>
+                    <th className={classes.tableHeader}>ブランド</th>
+                    <th className={classes.tableHeader}>商品名</th>
+                    {/* <th className={classes.tableHeader}>使用後の肌状態</th> */}
+                    <th className={classes.tableHeader}>メモ</th>
+                </tr>
+
+                {item.map((item, index) => (
+                    <tr key={index}>
+                    <td scope="row"><img src={item.img} alt="itemImg" style={{ maxWidth: '90px', height: '100%', margin: 'auto 30px' }} /></td>
+                    <td>{item.brand}</td>
+                    <td>{item.name}</td>
+                    {/* <td>
+                    <Autocomplete
+                        multiple
+                        id="checkboxes-tags-demo"
+                        options={condition}
+                        sx={{ margin: '8px' }}
+                        disableCloseOnSelect
+                        getOptionLabel={(option) => option.title}
+                        renderOption={(props, option, { selected }) => (
+                            <li {...props}>
+                            <Checkbox
+                                icon={icon}
+                                checkedIcon={checkedIcon}
+                                style={{ marginRight: 8 }}
+                                // onClick={(e) => {handleChangeMemo(e, condition.id)}}
+                                checked={selected}
+                            />
+                            {option.title}
+                            </li>
+                        )}
+                        style={{ minWidth: 300 }}
+                        renderInput={(params) => (
+                            <TextField {...params} label="使用後の肌状態" />
+                        )}
+                    />
+                    </td> */}
+                    <td>
+                        <TextField
+                        id="outlined-multiline-static"
+                        multiline
+                        rows={2}
+                        label="使用後の肌"
+                        value={item.memo}
+                        // onChange={(event) => {
+                        //     setMyReview({...myReview, review:event.target.value});
+                        // }}                    
+                        />
+                    </td>
+                    <td><Button 
+                            variant="contained"
+                            style={{
+                                marginTop: '10px',
+                                color: 'white',
+                                background: 'rgba(141, 203, 193)',
+                                borderRadius: '7px',
+                            }}
+                            onClick={(e) => handleSave(e, item.item_id)}>
+                        メモを保存
+                        </Button>
+                    </td>
+                    <td><Button 
+                            variant="contained"
+                            style={{
+                                marginTop: '10px',
+                                color: 'white',
+                                background: '#f04b4be7',
+                                borderRadius: '7px',
+                            }}
+                            onClick={(e) => handleDelete(e, item.item_id)}>
+                        削除
+                        </Button>
+                    </td>
+                    </tr>
+                ))}
+            </table>
+            </>
+        );
     };
 
 
