@@ -84,7 +84,14 @@ export const ItemComparison = () => {
     
     const itemInformation = () => {
         if (item === null){
-            return <CircularProgress color="success" size="15px" /> 
+            return (
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td colspan="7"><CircularProgress color="success" size="15px" /></td>
+                    </tr>
+                </tbody>
+            )
         }
         if (item.length === 0){
             return (
