@@ -11,7 +11,7 @@ import Link from '@mui/material/Link';
 import { Link as RouterLink } from "react-router-dom";
 import Tooltip from '@mui/material/Tooltip';
 import { useNavigate } from "react-router-dom";
-// import CircularProgress from '@mui/material/CircularProgress';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const useStyles = makeStyles({
     tableHeader: {
@@ -22,7 +22,7 @@ const useStyles = makeStyles({
 
 export const ItemComparison = () => {
     const classes = useStyles();
-    const [item, setItem] = useState([]);
+    const [item, setItem] = useState(null);
     const navigate = useNavigate();
     
     useEffect(async () => {
@@ -83,8 +83,10 @@ export const ItemComparison = () => {
     // };
     
     const itemInformation = () => {
+        if (item === null){
+            return <CircularProgress color="success" size="15px" /> 
+        }
         if (item.length === 0){
-            // return <CircularProgress color="success" size="15px" /> 
             return (
                 <tbody>
                     <tr>
@@ -94,8 +96,6 @@ export const ItemComparison = () => {
                 </tbody>
             );
         }
-        // TODO: ↓データが来るまでの間、上のメッセージが表示されてしまうので直す
-        // if (item.length !== 0){
         return(
             <>
                 {item.map((item, index) => (
@@ -137,7 +137,6 @@ export const ItemComparison = () => {
                 ))}
             </>
         );
-        // }
     };
     
     const handleDelete = async (e, id) => {
