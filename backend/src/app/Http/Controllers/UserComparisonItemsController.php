@@ -24,7 +24,17 @@ class UserComparisonItemsController extends Controller
 
         return response()->json(
             $items->map(function ($item) {
-                return $item->toArrayItemId();
+                $array = $item->toArrayItemId();
+                $array['green'] = $item->ingredients
+                ->filter(function($ingredient) { return 1 <= $ingredient->score && $ingredient->score <= 2; })
+                ->count();                
+                $array['yellow'] = $item->ingredients
+                ->filter(function($ingredient) { return 3 <= $ingredient->score && $ingredient->score <= 6; })
+                ->count();                
+                $array['red'] = $item->ingredients
+                ->filter(function($ingredient) { return 7 <= $ingredient->score && $ingredient->score <= 10; })
+                ->count();                
+                return $array;
             })
         );
     }
