@@ -80,7 +80,7 @@ export const ItemComparison = () => {
                                         background: '#f04b4be7',
                                         borderRadius: '7px',
                                     }}
-                                    onClick={(e) => handleDelete(e, item.item_id)}>
+                                    onClick={(e) => handleDelete(e, item.id)}>
                                 削除
                                 </Button>
                             </td>
@@ -106,8 +106,9 @@ export const ItemComparison = () => {
                 // console.error(e);
                 return;
             }
+        } else {
+            return;
         }
-        return;
     };
 
 
