@@ -77,7 +77,7 @@ export const ItemComparison = () => {
                                     style={{
                                         marginTop: '10px',
                                         color: 'white',
-                                        background: 'rgba(141, 203, 193)',
+                                        background: '#f04b4be7',
                                         borderRadius: '7px',
                                     }}
                                     onClick={(e) => handleDelete(e, item.item_id)}>
@@ -94,17 +94,20 @@ export const ItemComparison = () => {
     const handleDelete = async (e, id) => {
         const confirmMessage = '削除してよろしいですか？';
         let result = window.confirm(confirmMessage);
-        try {
-            const response = await axios.delete(`/user_comparisonItems/${id}`);
-            const responseItem = await axios.get('/user_comparisonItems');
-            const i = responseItem.data;
-            setItem(i);
-            window.alert('コスメ比較から削除しました');
-        } catch (e) {
-            window.alert('削除に失敗しました');
-            // console.error(e);
-            return;
+        if (result){
+            try {
+                const response = await axios.delete(`/user_comparisonItems/${id}`);
+                const responseItem = await axios.get('/user_comparisonItems');
+                const i = responseItem.data;
+                setItem(i);
+                window.alert('コスメ比較から削除しました');
+            } catch (e) {
+                window.alert('削除に失敗しました');
+                // console.error(e);
+                return;
+            }
         }
+        return;
     };
 
 
