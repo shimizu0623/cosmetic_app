@@ -188,7 +188,7 @@ export const ReviewPage = () => {
                 const newDate = responseReviews.data.find((data) => data.user_id === user.id);
                 setMyReview(newDate);
                 window.alert('レビューを変更しました');
-            }else{
+            } else {
                 window.alert('レビューが変更されていません');
             }
         } catch (e) {
