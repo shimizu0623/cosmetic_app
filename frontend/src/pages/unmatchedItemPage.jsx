@@ -48,13 +48,14 @@ const condition = [
 export const UnmatchedItem = () => {
     const classes = useStyles();
     const { id } = useParams();
-    const [item, setItem] = useState(null);
+    const [items, setItems] = useState(null);
     const [attention, setAttention] = useState(null);
-    
+
     useEffect(async () => {
-        const responseItem = await axios.get('/user_unmatchedItems');
-        const i = responseItem.data;
-        setItem(i);
+        const responseItems = await axios.get('/user_unmatchedItems');
+        const i = responseItems.data;
+        setItems(i);
+        console.log('useEffect')
     }, []);
 
     const attentionMessage = () => {
@@ -81,20 +82,23 @@ export const UnmatchedItem = () => {
         );
     }
 
-    const handleSave = async (e, id) => {
+    const handleSave = async (index, id) => {
         const confirmMessage = 'メモを保存しますか？'
         let result = window.confirm(confirmMessage);
         if (result){
             try {
-                // const response = await axios.delete(`/user_unmatchedItems/${id}`);
-                // const responseItem = await axios.get('/user_unmatchedItems');
-                // const i = responseItem.data;
-                // setItem(i);
-                console.log(id)
+                const responseDelete = await axios.delete(`/user_unmatchedItems/${id}`);
+                const responsePost = await axios.post('/user_unmatchedItems', {
+                    item_id: id,
+                    memo: items[index].memo,
+                });
+                const responseItems = await axios.get('/user_unmatchedItems');
+                const i = responseItems.data;
+                setItems(i);
                 window.alert('保存しました');
             } catch (e) {
                 window.alert('保存できませんでした');
-                console.error(e)
+                // console.error(e)
                 return;
             }                
         } else {
@@ -108,9 +112,9 @@ export const UnmatchedItem = () => {
         if (result){
             try {
                 const response = await axios.delete(`/user_unmatchedItems/${id}`);
-                const responseItem = await axios.get('/user_unmatchedItems');
-                const i = responseItem.data;
-                setItem(i);
+                const responseItems = await axios.get('/user_unmatchedItems');
+                const i = responseItems.data;
+                setItems(i);
                 window.alert('削除しました');
             } catch (e) {
                 window.alert('削除できませんでした');
@@ -122,18 +126,17 @@ export const UnmatchedItem = () => {
         }    
     };
 
-
-
-    // const handleChangeMemo = (e, id) => {
-    //     console.log('sss')
-    //     console.log(id)
-    // }
+    const handleEdit = (index, value) => {
+        const newMemo = [...items];
+        newMemo[index].memo = value;
+        setItems(newMemo);
+    }
 
     const itemInformation = () => {
-        if (item === null){
+        if (items === null){
             return <CircularProgress color="success" size="15px" />
         }    
-        if (item.length === 0){
+        if (items.length === 0){
             return (
                 <div style={{ paddingBottom: '100px' }}>
                     <p>登録中のアイテムはありません。</p>
@@ -152,7 +155,7 @@ export const UnmatchedItem = () => {
                     <th className={classes.tableHeader}>メモ</th>
                 </tr>
 
-                {item.map((item, index) => (
+                {items.map((item, index) => (
                     <tr key={index}>
                     <td scope="row"><img src={item.img} alt="itemImg" style={{ maxWidth: '90px', height: '100%', margin: 'auto 30px' }} /></td>
                     <td>{item.brand}</td>
@@ -189,10 +192,8 @@ export const UnmatchedItem = () => {
                         multiline
                         rows={2}
                         label="使用後の肌"
-                        value={item.memo}
-                        // onChange={(event) => {
-                        //     setMyReview({...myReview, review:event.target.value});
-                        // }}                    
+                        value={item.memo ? item.memo : ''}
+                        onChange={(e) => handleEdit(index, e.target.value)}                    
                         />
                     </td>
                     <td><Button 
@@ -203,7 +204,7 @@ export const UnmatchedItem = () => {
                                 background: 'rgba(141, 203, 193)',
                                 borderRadius: '7px',
                             }}
-                            onClick={(e) => handleSave(e, item.item_id)}>
+                            onClick={(e) => handleSave(index, item.item_id)}>
                         メモを保存
                         </Button>
                     </td>
