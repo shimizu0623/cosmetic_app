@@ -125,16 +125,10 @@ class Item extends Model
           'img' => $this->img,
           'price' => $this->price,
           'volume' => $this->volume,
-          'item_id' => $this->item->id,
+        //   'item_id' => $this->item->id,
           'memo' => $this->memo,
         ];
     }
-
-    // // ↓TODO: これいらない？？
-    // public function user()
-    // {
-    //     return $this->belongsTo(User::class);
-    // }
 
     public function scopeUserFavoriteOnly($query, $userId)
     {
@@ -180,11 +174,7 @@ class Item extends Model
             $join->on('items.id', '=', 'user_comparison_items.item_id');
             $join->where('user_comparison_items.user_id', '=', $userId);
         })
-        ->where('user_comparison_items.item_id', '!=', NULL);
+        ->where('user_comparison_items.item_id', '!=', NULL)
+        ->select('items.*');
     }
-
-
-
-
-
 };
