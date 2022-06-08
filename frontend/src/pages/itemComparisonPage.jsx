@@ -30,57 +30,6 @@ export const ItemComparison = () => {
         const i = responseItem.data;
         setItem(i);
     }, []);
-
-    // let green = 0;
-    // const scoreGreen = () => {
-    //     if (item === null){
-    //         return <CircularProgress color="success" size="15px" />
-    //     }
-    //     const count = item.ingredients.map((ingredient) => {
-    //         (()=>{
-    //             if (ingredient.score === 1 || ingredient.score === 2){green++}
-    //         })()
-    //     });
-    //     return(
-    //         <span style={{ fontSize: '25px', fontWeight: 'bold', color: '#5ac9b4' }}>{green}</span>
-    //     );
-    // };
-
-    // let yellow = 0;
-    // const scoreYellow = () => {
-    //     if (item === null){
-    //         return <CircularProgress color="success" size="15px" />
-    //     }
-    //     const count = item.ingredients.map((ingredient) => {
-    //         (()=>{
-    //             if (ingredient.score === 3){yellow++}
-    //             else if (ingredient.score === 4){yellow++}
-    //             else if (ingredient.score === 5){yellow++}
-    //             else if (ingredient.score === 6){yellow++}
-    //         })()
-    //     });
-    //     return(
-    //         <span style={{ fontSize: '25px', fontWeight: 'bold', color: '#f5c56b' }}>{yellow}</span>
-    //     );
-    // };
-    
-    // let red = 0;
-    // const scoreRed = () => {
-    //     if (item === null){
-    //         return <CircularProgress color="success" size="15px" />
-    //     }
-    //     const count = item.ingredients.map((ingredient) => {
-    //         (()=>{
-    //             if (ingredient.score === 7){red++}
-    //             else if (ingredient.score === 8){red++}
-    //             else if (ingredient.score === 9){red++}
-    //             else if (ingredient.score === 10){red++}
-    //         })()
-    //     });
-    //     return(
-    //         <span style={{ fontSize: '25px', fontWeight: 'bold', color: '#f04b4be7' }}>{red}</span>
-    //     );
-    // };
     
     const itemInformation = () => {
         if (item === null){
@@ -120,13 +69,9 @@ export const ItemComparison = () => {
                             <td>{item.name}</td>
                             <td>{item.volume}</td>
                             <td>￥{item.price}</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            {/* <td>{scoreGreen()}</td>
-                            <td>{scoreYellow()}</td>
-                            <td>{scoreRed()}</td> */}
-                            {/* <td>-</td> */}
+                            <td>{item.green}</td>
+                            <td>{item.yellow}</td>
+                            <td>{item.red}</td>
                             <td><Button 
                                     variant="contained" 
                                     style={{
@@ -219,7 +164,6 @@ export const ItemComparison = () => {
                         
                     </table>
                 </div>
-                {/* <p>コスメ比較へ追加されたアイテムはありません。</p> */}
             </div>
         </div>
         </>
