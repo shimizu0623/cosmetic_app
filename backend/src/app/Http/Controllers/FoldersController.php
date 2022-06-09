@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Folder;
 
 class FoldersController extends Controller
 {
@@ -11,9 +12,18 @@ class FoldersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $user = $request->user();
+
+        $folders = Folder::where('user_id', $user->id)
+        ->get();
+
+        return response()->json(
+            $folders->map(function ($folder) {
+                return $folder->name;
+            })
+        );
     }
 
     /**
