@@ -66,8 +66,27 @@ class FoldersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $user = $request->user();
+
+        $folder = Folder::where('user_id', $user->id)
+        // ->where('id', $id);
+        ->find($id);
+        // ->get();
+
+
+        if ($folder->user_id !== $user->id){
+            return response()->json(['message' => '口コミが登録されていません'],
+            Response::HTTP_NOT_FOUND);
+        }
+
+        if ($folder->count() === 0){
+            return response()->json(['message' => '口コミが登録されていません'],
+            Response::HTTP_NOT_FOUND);
+        }
+
+        $folder->delete();
+        return response()->noContent();
     }
 }
