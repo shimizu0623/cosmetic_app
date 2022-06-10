@@ -17,6 +17,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Grid from '@mui/material/Grid';
 import CircularProgress from '@mui/material/CircularProgress';
+import { margin } from '@mui/system';
 
 const useStyles = makeStyles({
     StyleCreate: {
@@ -147,7 +148,7 @@ export const MyFolder = () => {
         return (
             <>
             {folders.map((folder, index) => (
-                <div style={{ background: '#cae1df63', padding: '10px', borderRadius: '20px' }} key={index}>
+                <div style={{ background: '#cae1df63', padding: '20px', borderRadius: '20px', marginBottom: '20px' }} key={index}>
                     <div className='FolderName'>
                         <img src={green_leaf} alt="" className={classes.TitleImg} />
                         <p className={classes.Title}>{folder}</p>
