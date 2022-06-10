@@ -124,7 +124,7 @@ export const MyFolder = () => {
             setFolderName('');
             window.alert('フォルダを作成しました');
         } catch (e) {
-            window.alert('作成に失敗しました');
+            window.alert('フォルダの作成は３つまでです');
             // console.error(e);
             return;
         }
