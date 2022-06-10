@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Folder;
+use Illuminate\Support\Facades\Validator;
+use \Symfony\Component\HttpFoundation\Response;
 
 class FoldersController extends Controller
 {
@@ -34,7 +36,31 @@ class FoldersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = $request->user();
+
+        $validator = Validator::make($request->all(),[
+            'name' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->messages()], 
+            Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        // ↓TODO: 作成数制限どうする？
+        $folders = Folder::where('user_id', $user->id)->get();
+        
+        if (3 < $folders->count()){
+            return response()->json(['フォルダの作成は３つまでです'],
+            Response::HTTP_BAD_REQUEST);
+        }
+
+        $create = Folder::create([
+            'user_id' => $user->id,
+            'name' => $request->name,
+        ]);
+
+        return response()->noContent();
     }
 
     /**
