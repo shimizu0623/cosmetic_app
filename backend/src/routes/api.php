@@ -25,6 +25,7 @@ use App\Http\Controllers\LeaveReasonsController;
 use App\Http\Controllers\RequestsController;
 use App\Http\Controllers\ReasonsController;
 use App\Http\Controllers\ReviewsController;
+use App\Http\Controllers\FoldersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,7 +61,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::resource('user_favorites', UserFavoriteItemsController::class, ['only' => ['index', 'store', 'destroy']]);
     Route::resource('user_histories', UserHistoriesController::class, ['only' => ['index', 'store']]);
     Route::resource('user_items', UserItemsController::class, ['only' => ['index']]);
-    Route::resource('user_unmatchedItems', UserUnmatchedItemsController::class,['only' => ['index', 'store', 'destroy']]);
+    Route::resource('user_unmatchedItems', UserUnmatchedItemsController::class,['only' => ['index', 'store', 'update', 'destroy']]);
     Route::resource('user_comparisonItems', UserComparisonItemsController::class,['only' => ['index', 'store', 'destroy']]);
     Route::resource('leave_reasons', LeaveReasonsController::class,['only' => ['index', 'store']]);
     Route::resource('requests', RequestsController::class, ['only' => ['store']]);
