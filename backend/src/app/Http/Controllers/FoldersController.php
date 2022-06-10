@@ -47,20 +47,21 @@ class FoldersController extends Controller
             Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        // ↓TODO: 作成数制限どうする？
         $folders = Folder::where('user_id', $user->id)->get();
         
-        if (3 < $folders->count()){
+        if ($folders->count() < 3){
+            $create = Folder::create([
+                'user_id' => $user->id,
+                'name' => $request->name,
+            ]);
+    
+            return response()->noContent();
+        } else {
             return response()->json(['フォルダの作成は３つまでです'],
             Response::HTTP_BAD_REQUEST);
         }
 
-        $create = Folder::create([
-            'user_id' => $user->id,
-            'name' => $request->name,
-        ]);
 
-        return response()->noContent();
     }
 
     /**
