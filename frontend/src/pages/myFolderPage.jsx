@@ -131,6 +131,11 @@ export const MyFolder = () => {
 
     }
 
+    const handleFolderDelete = (e, index) => {
+        console.log('handleFolderDelete');
+        console.log(index);
+    }
+
 
     const folderForm = () => {
         if (folders === null){
@@ -212,6 +217,20 @@ export const MyFolder = () => {
                             </div>
                             </Grid>
                         </Grid>
+                    </div>
+                    <div>
+                        <Button 
+                            variant="contained"
+                            style={{
+                                marginTop: '30px',
+                                color: 'white',
+                                background: '#f04b4be7',
+                                borderRadius: '7px',
+                            }}
+                            onClick={(e) => handleFolderDelete(e, index)}
+                        >
+                        ファイルを削除する
+                        </Button>
                     </div>
                 </div>
             ))}
