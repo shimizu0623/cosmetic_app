@@ -96,6 +96,7 @@ const ChartColors = [
 
 export const MyFolder = () => {
     const classes = useStyles();
+    const [folderName, setFolderName] = useState('');
     const [folders, setFolders] = useState(null);
 
     useEffect(async () => {
@@ -104,6 +105,30 @@ export const MyFolder = () => {
         setFolders(f);
         console.log(folders)
     }, []);
+
+    const handleFolderCreate = async() => {
+        console.log('handleFolderCreate');
+
+        try {
+            if (folderName === ''){
+                window.alert('フォルダ名を入力してください');
+                return;
+            }
+            const response = await axios.post('/folders', {
+                name: folderName
+            });
+            const responseFolders = await axios.get('/folders');
+            const f = responseFolders.data;
+            setFolders(f);
+            setFolderName('');
+            window.alert('フォルダを作成しました');
+        } catch (e) {
+            window.alert('作成に失敗しました');
+            // console.error(e);
+            return;
+        }
+
+    }
 
 
     const folderForm = () => {
@@ -217,8 +242,16 @@ export const MyFolder = () => {
                         noValidate
                         autoComplete="off"
                         >
-                    <TextField id="standard-basic" label="フォルダ名を入力する" variant="standard" />
-                    <Btn message='作成する' />
+                    <TextField 
+                        id="standard-basic" 
+                        label="フォルダ名を入力する" 
+                        variant="standard"
+                        value={folderName}
+                        onChange={(event) => {
+                            setFolderName(event.target.value);
+                        }}
+                    />
+                    <Btn message='作成する' onClick={handleFolderCreate} />
                     </Box>
                 </div>
             </div>
