@@ -23,7 +23,7 @@ class FoldersController extends Controller
 
         return response()->json(
             $folders->map(function ($folder) {
-                return $folder->name;
+                return $folder->toArray();
             })
         );
     }
