@@ -104,7 +104,6 @@ export const MyFolder = () => {
         const responseFolders = await axios.get('/folders');
         const f = responseFolders.data;
         setFolders(f);
-        console.log(folders)
     }, []);
 
     const handleFolderCreate = async() => {
@@ -131,9 +130,23 @@ export const MyFolder = () => {
 
     }
 
-    const handleFolderDelete = (e, index) => {
-        console.log('handleFolderDelete');
-        console.log(index);
+    const handleFolderDelete = async (e, id) => {
+        let result = window.confirm('ファイルを削除してよろしいですか？');
+        if (result){
+            try {
+                const responseDelete = await axios.delete(`/folders/${id}`);
+                const responseFolders = await axios.get('/folders');
+                const f = responseFolders.data;
+                setFolders(f);
+                window.alert('削除しました');
+            } catch (e) {
+                window.alert('削除できませんでした');
+                // console.error(e)
+                return;
+            }                
+        } else {
+            return;
+        }    
     }
 
 
@@ -156,7 +169,7 @@ export const MyFolder = () => {
                 <div style={{ background: '#cae1df63', padding: '20px', borderRadius: '20px', marginBottom: '20px' }} key={index}>
                     <div className='FolderName'>
                         <img src={green_leaf} alt="" className={classes.TitleImg} />
-                        <p className={classes.Title}>{folder}</p>
+                        <p className={classes.Title}>{folder.name}</p>
                     </div>
                     <div>
                         <Box sx={{ margin: '5px', width: '110px', height: '110px', border: '1px dashed grey', display: 'inline-block'}}>
@@ -227,7 +240,7 @@ export const MyFolder = () => {
                                 background: '#f04b4be7',
                                 borderRadius: '7px',
                             }}
-                            onClick={(e) => handleFolderDelete(e, index)}
+                            onClick={(e) => handleFolderDelete(e, folder.id)}
                         >
                         ファイルを削除する
                         </Button>
