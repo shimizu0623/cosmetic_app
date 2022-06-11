@@ -102,6 +102,7 @@ export const ItemDetail = () => {
     const classes = useStyles();
     const { id } = useParams();
     const [item, setItem] = useState(null);
+    const [folders, setFolders] = useState(null);
     // const [favorite, setFavorite] = useState(false);
     const [count, setCount] = useState(0);
     const [starAverage, setStarAverage] = useState(null);
@@ -110,10 +111,13 @@ export const ItemDetail = () => {
 
     useEffect(async () => {
         const responseItem = await axios.get(`/items/${id}`);
+        const responseFolders = await axios.get('/folders');
         const i = responseItem.data;
         const c = responseItem.data.ingredients.length;
+        const f = responseFolders.data;
         setItem(i);
         setCount(c);
+        setFolders(f);
         
         // ↓履歴
         try {
@@ -160,7 +164,23 @@ export const ItemDetail = () => {
             </>
     )};
 
-    // const MyFolderLink = (myFolder) => {
+    const MyFolderLink = () => {
+        if (folders === null){
+            return <CircularProgress color="success" size="15px" />
+        }
+        if (folders.length === 0){
+            return <p>→<Link component={RouterLink} to="/myFolder">オリジナルのフォルダを作成する</Link></p>
+        }
+        return (
+            <>
+            {folders.map((folder, index) => (
+                <div className={classes.btnForm} key={index}>
+                    <button className={classes.btn} onClick={(e) => handleAddFolder(e, folder.id)}>{folder.name}フォルダへ追加</button>
+                </div>
+            ))}
+            </>
+        )
+    }
     //     if (myFolder) {
     //         return (
     //         <>
@@ -247,8 +267,9 @@ export const ItemDetail = () => {
         }    
     };    
 
-    // const handleAddFolder = () => {
-    // };
+    const handleAddFolder = async (e, id) => {
+        console.log(id)
+    };
 
     const handleAddUnmatchedItems = async () => {
         try {
@@ -381,12 +402,11 @@ export const ItemDetail = () => {
                     </div>
                     {FavoriteLink(item.isFavorite)}
 
-                    {/* {MyFolderLink(item.myFolder)} */}
-
                     {UnmatchedLink(item.isUnmatched)}
 
                     {ComparisonLink(item.isComparison)}
-                        <p>→<Link component={RouterLink} to="/itemComparison">コスメ比較ページ</Link>を見る</p>
+                        
+                    {MyFolderLink()}
                 </div>
             </div>
             
