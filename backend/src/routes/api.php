@@ -67,7 +67,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::resource('requests', RequestsController::class, ['only' => ['store']]);
     Route::resource('reasons', ReasonsController::class, ['only' => ['index']]);
     Route::resource('reviews', ReviewsController::class, ['only' => ['index', 'store', 'destroy']]);
-    Route::resource('folders', FoldersController::class, ['only' => ['index', 'store', 'destroy']]);
+    Route::resource('folders', FoldersController::class, ['only' => ['index', 'show', 'store', 'destroy']]);
     // TODO: ↓recommendItem？
     Route::get('/recommendItem', [ItemsController::class, 'recommendItem']);
     Route::get('/items/{id}', [ItemsController::class, 'show']);
