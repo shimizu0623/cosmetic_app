@@ -104,6 +104,7 @@ class Item extends Model
         return $query->where('items.skin_type_id', $skinTypeIds);
     }
 
+    // TODO: ↓toArrayItemIdとtoArrayをひとつにまとめる
     public function toArray() 
     {
         return [
