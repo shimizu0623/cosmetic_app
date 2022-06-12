@@ -149,16 +149,16 @@ export const ItemSearch = () => {
                             {item.map((item, index) => (
                             <Grid item xs={2} key={index} onClick={() => { navigate(`/item/${item.id}`) }}>
                                 <ImageListItem key={item.img} className={classes.cardPaper}>
-                                <img
-                                    src={item.img}
-                                    alt={item.name}
-                                    loading="lazy"
-                                    style={{ maxWidth: '300px', height: '100%', margin: '0 auto' }}
-                                />
-                                <ImageListItemBar
-                                    title={item.brand}
-                                    subtitle={item.name}
-                                />
+                                    <img
+                                        src={item.img}
+                                        alt={item.name}
+                                        loading="lazy"
+                                        style={{ maxWidth: '300px', height: '100%', margin: '0 auto' }}
+                                    />
+                                    <ImageListItemBar
+                                        title={item.brand}
+                                        subtitle={item.name}
+                                    />
                                 </ImageListItem>
                             </Grid>
                             ))}
