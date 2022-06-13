@@ -41,7 +41,13 @@ class FolderItemsController extends Controller
         }
 
         $items = FolderItem::where('folder_id', $request->folder_id)->get();
+        $check = FolderItem::where('item_id', $request->item_id)->where('folder_id', $request->folder_id)->get();
         
+        if ($check->count() !== 0){
+            return response()->json(['既に登録されています'],
+            Response::HTTP_BAD_REQUEST);
+        }
+
         if (8 <= $items->count()){
             return response()->json(['1つのファイルに登録できるアイテムは8個までです'],
             Response::HTTP_BAD_REQUEST);
