@@ -26,6 +26,7 @@ use App\Http\Controllers\RequestsController;
 use App\Http\Controllers\ReasonsController;
 use App\Http\Controllers\ReviewsController;
 use App\Http\Controllers\FoldersController;
+use App\Http\Controllers\FolderItemsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,6 +69,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::resource('reasons', ReasonsController::class, ['only' => ['index']]);
     Route::resource('reviews', ReviewsController::class, ['only' => ['index', 'store', 'destroy']]);
     Route::resource('folders', FoldersController::class, ['only' => ['index', 'show', 'store', 'destroy']]);
+    Route::resource('folderItems', FolderItemsController::class, ['only' => ['index', 'store', 'destroy']]);
     // TODO: ↓recommendItem？
     Route::get('/recommendItem', [ItemsController::class, 'recommendItem']);
     Route::get('/items/{id}', [ItemsController::class, 'show']);
