@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Models\UserUnmatchedItem;
 use App\Models\Item;
@@ -54,7 +55,7 @@ class UserUnmatchedItemsController extends Controller
             ->get();
         
         if ($unmatchedItem->count() !== 0){
-            return response()->json(['既に登録されています'],
+            return response()->json(['message' => '既に登録されています'],
             Response::HTTP_BAD_REQUEST);
         }
 
@@ -65,6 +66,42 @@ class UserUnmatchedItemsController extends Controller
 
         return response()->noContent();
     }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+
+        $validator = Validator::make($request->all(),[
+            'memo' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $user = $request->user();
+
+        $unmatchedItem = UserUnmatchedItem::where('user_id', $user->id)
+            ->find($id);
+
+        if (empty($unmatchedItem)){
+            return response()->json(['message' => 'データがありません'], Response::HTTP_NOT_FOUND);
+        }
+
+        $unmatchedItem->memo = $request->memo;
+
+        $unmatchedItem->save();
+
+        return response()->noContent();
+
+    }
+
 
     /**
      * Remove the specified resource from storage.

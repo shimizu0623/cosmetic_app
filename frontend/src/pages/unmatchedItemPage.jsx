@@ -87,9 +87,7 @@ export const UnmatchedItem = () => {
         let result = window.confirm(confirmMessage);
         if (result){
             try {
-                const responseDelete = await axios.delete(`/user_unmatchedItems/${id}`);
-                const responsePost = await axios.post('/user_unmatchedItems', {
-                    item_id: id,
+                const responsePut = await axios.put(`/user_unmatchedItems/${id}`, {
                     memo: items[index].memo,
                 });
                 const responseItems = await axios.get('/user_unmatchedItems');
@@ -204,11 +202,12 @@ export const UnmatchedItem = () => {
                                 background: 'rgba(141, 203, 193)',
                                 borderRadius: '7px',
                             }}
-                            onClick={(e) => handleSave(index, item.item_id)}>
+                            onClick={(e) => handleSave(index, item.id)}>
                         メモを保存
                         </Button>
                     </td>
-                    <td><Button 
+                    <td>
+                        <Button 
                             variant="contained"
                             style={{
                                 marginTop: '10px',
