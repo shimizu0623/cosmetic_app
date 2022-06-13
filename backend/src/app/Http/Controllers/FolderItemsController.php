@@ -41,7 +41,7 @@ class FolderItemsController extends Controller
         }
 
         $items = FolderItem::where('folder_id', $request->folder_id)->get();
-        $check = FolderItem::where('item_id', $request->item_id)->where('folder_id', $request->folder_id)->get();
+        $check = FolderItem::where('folder_id', $request->folder_id)->where('item_id', $request->item_id)->get();
         
         if ($check->count() !== 0){
             return response()->json(['既に登録されています'],
@@ -91,8 +91,17 @@ class FolderItemsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $folderItem = FolderItem::where('folder_id', $request->folder_id)->where('item_id', $request->item_id)->first();
+
+        if ($folderItem === null){
+            return response()->json(['message' => '口コミが登録されていません'],
+            Response::HTTP_NOT_FOUND);
+        }
+
+        $folderItem->delete();
+        return response()->noContent();
+        
     }
 }
