@@ -17,7 +17,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Grid from '@mui/material/Grid';
 import CircularProgress from '@mui/material/CircularProgress';
-import { margin } from '@mui/system';
 
 const useStyles = makeStyles({
     StyleCreate: {
@@ -61,7 +60,6 @@ const useStyles = makeStyles({
         width: '70%',
 
     },
-
 })
 
 const data = [
@@ -101,9 +99,9 @@ export const MyFolder = () => {
     const [folders, setFolders] = useState(null);
 
     useEffect(async () => {
-        const responseFolders = await axios.get('/folders');
-        const f = responseFolders.data;
-        setFolders(f);
+        const responseGet = await axios.get('/folders');
+        const g = responseGet.data;
+        setFolders(g);
     }, []);
 
     const handleFolderCreate = async() => {
@@ -124,7 +122,6 @@ export const MyFolder = () => {
             window.alert('フォルダを作成しました');
         } catch (e) {
             window.alert('フォルダの作成は３つまでです');
-            // console.error(e);
             return;
         }
 
@@ -141,7 +138,6 @@ export const MyFolder = () => {
                 window.alert('削除しました');
             } catch (e) {
                 window.alert('削除できませんでした');
-                // console.error(e)
                 return;
             }                
         } else {
@@ -149,12 +145,10 @@ export const MyFolder = () => {
         }    
     }
 
-
     const folderForm = () => {
         if (folders === null){
             return <CircularProgress color="success" size="15px" />
         }
-        console.log(folders)
 
         if (folders.length === 0){
             return (
@@ -163,39 +157,56 @@ export const MyFolder = () => {
                 </>
             )
         }
+    
+        const renderBox = (itemOrNull) => {
+            if (itemOrNull === null){
+                return (
+                    <Box sx={{ margin: '5px', width: '110px', height: '110px', border: '1px dashed grey', display: 'inline-block' }}>
+                        <Button style={{ width: '110px', height: '110px' }} component={RouterLink} to="/itemSearch" ><AddCircleOutlineIcon style={{ color: 'grey' }}/></Button>
+                    </Box>
+                )
+            } else {
+                return (
+                    <Box sx={{ margin: '5px', width: '110px', height: '110px', border: '1px dashed grey', display: 'inline-block' }}>
+                        <Button style={{ width: '110px', height: '110px' }}>
+                            <img
+                                src={itemOrNull.img}
+                                loading="lazy"
+                                style={{ margin: '5px', width: '110px', height: '110px', border: '1px dashed grey', display: 'inline-block' }}
+                            />
+                        </Button>
+                    </Box>
+                )
+            }
+        }
+
+
+            
+
         return (
-            <>
-            {folders.map((folder, index) => (
+        <>
+            {folders.map((folder, index) => {
+                
+            const paddings = [];
+            for (let i = 0; i < 8; i++) {
+                paddings.push(null);
+            }
+            const boxes = folder.items.concat(paddings).slice(0, 8)
+                return (
                 <div style={{ background: '#cae1df63', padding: '20px', borderRadius: '20px', marginBottom: '20px' }} key={index}>
                     <div className='FolderName'>
                         <img src={green_leaf} alt="" className={classes.TitleImg} />
                         <p className={classes.Title}>{folder.name}</p>
                     </div>
                     <div>
-                        <Box sx={{ margin: '5px', width: '110px', height: '110px', border: '1px dashed grey', display: 'inline-block'}}>
-                            <Button style={{ width: '110px', height: '110px' }} component={RouterLink} to="/itemSearch" ><AddCircleOutlineIcon style={{ color: 'grey' }}/></Button>
-                        </Box>
-                        <Box sx={{ margin: '5px', width: '110px', height: '110px', border: '1px dashed grey', display: 'inline-block'}}>
-                            <Button style={{ width: '110px', height: '110px' }} component={RouterLink} to="/itemSearch" ><AddCircleOutlineIcon style={{ color: 'grey' }}/></Button>
-                        </Box>
-                        <Box sx={{ margin: '5px', width: '110px', height: '110px', border: '1px dashed grey', display: 'inline-block'}}>
-                            <Button style={{ width: '110px', height: '110px' }} component={RouterLink} to="/itemSearch" ><AddCircleOutlineIcon style={{ color: 'grey' }}/></Button>
-                        </Box>
-                        <Box sx={{ margin: '5px', width: '110px', height: '110px', border: '1px dashed grey', display: 'inline-block'}}>
-                            <Button style={{ width: '110px', height: '110px' }} component={RouterLink} to="/itemSearch" ><AddCircleOutlineIcon style={{ color: 'grey' }}/></Button>
-                        </Box>
-                        <Box sx={{ margin: '5px', width: '110px', height: '110px', border: '1px dashed grey', display: 'inline-block'}}>
-                            <Button style={{ width: '110px', height: '110px' }} component={RouterLink} to="/itemSearch" ><AddCircleOutlineIcon style={{ color: 'grey' }}/></Button>
-                        </Box>
-                        <Box sx={{ margin: '5px', width: '110px', height: '110px', border: '1px dashed grey', display: 'inline-block'}}>
-                            <Button style={{ width: '110px', height: '110px' }} component={RouterLink} to="/itemSearch" ><AddCircleOutlineIcon style={{ color: 'grey' }}/></Button>
-                        </Box>
-                        <Box sx={{ margin: '5px', width: '110px', height: '110px', border: '1px dashed grey', display: 'inline-block'}}>
-                            <Button style={{ width: '110px', height: '110px' }} component={RouterLink} to="/itemSearch" ><AddCircleOutlineIcon style={{ color: 'grey' }}/></Button>
-                        </Box>
-                        <Box sx={{ margin: '5px', width: '110px', height: '110px', border: '1px dashed grey', display: 'inline-block'}}>
-                            <Button style={{ width: '110px', height: '110px' }} component={RouterLink} to="/itemSearch" ><AddCircleOutlineIcon style={{ color: 'grey' }}/></Button>
-                        </Box>
+                        {boxes.map((itemOrNull) => {
+                            
+                            return (
+                                <>
+                                    {renderBox(itemOrNull)}
+                                </>
+                            )
+                        })}
                     </div>
                     <div className={classes.ewgForm}>
                             <p style={{ fontSize: '30px', color: 'green', textShadow: '2px 2px 1px white', margin: '20px auto' }}>EWG安全性</p>
@@ -246,13 +257,13 @@ export const MyFolder = () => {
                         </Button>
                     </div>
                 </div>
-            ))}
-            </>
+            )})}
+        </>
         )
     }
 
 
-    return(
+    return (
         <>
         <div className='MainContainer'>
             <GoBackBtn />
@@ -269,9 +280,6 @@ export const MyFolder = () => {
                 <div className={classes.CreateMessage}>
                     <Box
                     component="form"
-                        // sx={{
-                        //     '& > :not(style)': { m: 5, width: '25ch' },
-                        // }}
                         noValidate
                         autoComplete="off"
                         >
