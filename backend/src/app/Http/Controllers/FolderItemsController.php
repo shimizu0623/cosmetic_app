@@ -44,12 +44,12 @@ class FolderItemsController extends Controller
         $check = FolderItem::where('folder_id', $request->folder_id)->where('item_id', $request->item_id)->get();
         
         if ($check->count() !== 0){
-            return response()->json(['既に登録されています'],
+            return response()->json(['message' => '既に登録されています'],
             Response::HTTP_BAD_REQUEST);
         }
 
         if (8 <= $items->count()){
-            return response()->json(['1つのファイルに登録できるアイテムは8個までです'],
+            return response()->json(['message' => '1つのファイルに登録できるアイテムは8個までです'],
             Response::HTTP_BAD_REQUEST);
         } else {
             $create = FolderItem::create([
