@@ -38,7 +38,7 @@ class User extends Authenticatable
             // {
             //     $history->delete();
             // }
-            // comparison
+            // ↑comparison
 
             // TODO: ↓user_idなしのテーブル作成後削除する
             foreach ($user->requests as $request)
@@ -75,9 +75,14 @@ class User extends Authenticatable
         return $this->hasMany(Request::class);
     }
 
+    public function folders()
+    {
+        return $this->hasMany(Folder::class);
+    }
+
     public function unmatchedItems()
     {
-        return $this->belongsToMany(UnmatchedItem::class, UserUnmatchedItem::class);
+        return $this->belongsToMany(Item::class, UserUnmatchedItem::class);
     }
 
     public function skin_type()
@@ -123,4 +128,30 @@ class User extends Authenticatable
               ->get();
     }
     
+    public function getPossibleUnmatchedIngredients()
+    {
+        return $this
+            ->unmatchedItems
+            ->map(function($item) {
+                return $item->ingredients->pluck('id');
+            })
+            ->flatten()
+            ->unique();
+    }
+
+    public function getCommonUnmatchedIngredients()
+    {
+        $ingredientsGroupedByItems = $this
+            ->unmatchedItems
+            ->map(function($item) {
+                return $item->ingredients->pluck('id');
+            });
+        $possibleUnmatchedIngredients = $this->getPossibleUnmatchedIngredients();
+
+        return $possibleUnmatchedIngredients->filter(function($ingredientId) use ($ingredientsGroupedByItems) {
+          return $ingredientsGroupedByItems->every(function($ingredientIds) use ($ingredientId) {
+            return $ingredientIds->contains($ingredientId);
+          });
+        })->values();
+    }
 }

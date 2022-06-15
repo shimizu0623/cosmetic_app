@@ -178,4 +178,13 @@ class Item extends Model
         ->where('user_comparison_items.item_id', '!=', NULL)
         ->select('items.*');
     }
+
+    public function getCommonUnmatchedIngredientsByUser(User $user)
+    {
+       $unmatchedItemIds = $user->getCommonUnmatchedIngredients();
+    //    Log::debug($unmatchedItemIds);
+       return $this->ingredients->filter(function($ingredient) use($unmatchedItemIds) {
+           return $unmatchedItemIds->search($ingredient->id) !== false;
+       })->values();
+    }
 };

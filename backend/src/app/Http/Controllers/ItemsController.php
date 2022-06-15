@@ -107,7 +107,7 @@ class ItemsController extends Controller
                 'folders' => $folders,
                 'isUnmatched' => $user->unmatched()->where("user_unmatched_items.item_id", $item->id)->count() > 0,
                 'isComparison' =>$user->comparisonItems()->where("user_comparison_items.item_id", $item->id)->count() > 0,
-                // 'isAttention' => true,
+                'unmatched_ingredients' => $item->getCommonUnmatchedIngredientsByUser($user),
             ]
         );
     }

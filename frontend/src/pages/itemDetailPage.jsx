@@ -238,17 +238,17 @@ export const ItemDetail = () => {
             </>
     )};
 
-    const AttentionLink = (attention) => {
-        if (attention) {
+    const AttentionLink = (item) => {
+        if (item.unmatched_ingredients.length > 0){
             return (
             <>
+                
                 <div className={classes.alertForm}>
                     <h4 style={{ color: 'red', paddingTop: '10px' }}>注意！</h4>
                     <p>肌に合わなかった共通成分があります</p>
                     <div style={{ paddingBottom: '10px' }}>
                         <ul style={{ listStyle: 'none', padding: 0 }}>
-                            <li>○○酸</li>
-                            {/* <li>{item.}</li> */}
+                            {item.unmatched_ingredients.map(ingredient => (<li>{ingredient.name}</li>))}
                         </ul>
                     </div>
                 </div>
@@ -341,8 +341,10 @@ export const ItemDetail = () => {
         }
     };
 
+    // TODO: ↓handleDeleteFolder
     const handleDeleteFolder = () => {
         console.log('handleDeleteFolder');
+
     };
 
     const handleDeleteUnmatchedItems = async () => {
@@ -434,7 +436,7 @@ export const ItemDetail = () => {
                 </div>
             </div>
             
-            {AttentionLink(item.attention)}
+            {AttentionLink(item)}
 
             </>
         );
