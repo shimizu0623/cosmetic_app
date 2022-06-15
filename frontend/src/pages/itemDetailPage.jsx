@@ -164,35 +164,42 @@ export const ItemDetail = () => {
             </>
     )};
 
-    const MyFolderLink = () => {
-        if (folders === null){
-            return <CircularProgress color="success" size="15px" />
-        }
+    const MyFolderLink = (folders) => {
         if (folders.length === 0){
             return <p>→<Link component={RouterLink} to="/myFolder">オリジナルのフォルダを作成する</Link></p>
         }
         return (
             <>
-            {folders.map((folder, index) => (
+            {folders.map((folder, index) => {
+                if (folder.has_item) {
+                    return (
+                        <div className={classes.btnForm} key={index}>
+                            <button className={classes.btn} onClick={(e) => handleDeleteFolder(e, folder.id)}>{folder.name}フォルダから削除</button>
+                        </div>
+                    )
+                }
+                return (
                 <div className={classes.btnForm} key={index}>
                     <button className={classes.btn} onClick={(e) => handleAddFolder(e, folder.id)}>{folder.name}フォルダへ追加</button>
                 </div>
-            ))}
+            )
+            })}
             </>
         )
     }
+
     //     if (myFolder) {
     //         return (
     //         <>
     //             <div className={classes.btnForm}>
-    //                 <button className={classes.btn} onClick={handleDeleteFolder}>マイフォルダから削除</button>
+    //                 <button className={classes.btn} onClick={handleDeleteFolder}>{folder.name}フォルダへ追加</button>
     //             </div>
     //         </>
     //         )}
     //         return (
     //         <>
     //             <div className={classes.btnForm}>
-    //                 <button className={classes.btn} onClick={handleAddFolder}>マイフォルダへ追加</button>
+    //                 <button className={classes.btn} onClick={handleAddFolder}>{folder.name}フォルダへ追加</button>
     //             </div>
     //         </>
     // )};
@@ -267,9 +274,26 @@ export const ItemDetail = () => {
         }    
     };    
 
-    const handleAddFolder = async (e, id) => {
-        console.log(id)
-    };
+    const handleAddFolder = async (e, folderId) => {
+        // console.log(folderId)
+        // console.log('id=' + id)
+        try {
+            const response = await axios.post('/folderItems', {
+                folder_id: folderId,
+                item_id: id,
+            });
+            window.alert('フォルダへ追加しました');
+            // setItem({
+            //     ...item,
+            //     isUnmatched: true,
+            // })
+        } catch (e) {
+            window.alert(e.response.data.message);
+            return;
+        }
+
+
+};
 
     const handleAddUnmatchedItems = async () => {
         try {
@@ -317,9 +341,9 @@ export const ItemDetail = () => {
         }
     };
 
-    // const handleDeleteFolder = () => {
-    //     console.log('handleDeleteFolder');
-    // };
+    const handleDeleteFolder = () => {
+        console.log('handleDeleteFolder');
+    };
 
     const handleDeleteUnmatchedItems = async () => {
         try {
@@ -406,7 +430,7 @@ export const ItemDetail = () => {
 
                     {ComparisonLink(item.isComparison)}
                         
-                    {MyFolderLink()}
+                    {MyFolderLink(item.folders)}
                 </div>
             </div>
             
