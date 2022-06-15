@@ -19,7 +19,6 @@ class ItemsController extends Controller
         $categoryIds = $request->query('category_id');
         $brandIds = $request->query('brand_id');
         $skinTypeIds = $request->query('skin_type_id');
-
         // $score = $request->query('score');
         $user = $request->user();
         $isMatchingOnly = $request->query('is_matching_only') === '1';
@@ -31,7 +30,6 @@ class ItemsController extends Controller
         ->withCategories($categoryIds)
         ->withBrand($brandIds)
         ->withSkinTypes($skinTypeIds);
-
         // ->excludeUnmatched($user->id);
         // ->withEwgScore(1)
         // ->get();
@@ -84,9 +82,15 @@ class ItemsController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $item = Item::find($id);
-
         $user = $request->user();
+        $item = Item::find($id);
+        $folders = $user->folders->map(function($folder) use ($id) {
+                 return [
+                    'id' => $folder->id,
+                    'name' => $folder->name,
+                    'has_item' => $folder->items->where('id', $id)->count() > 0,
+                ];
+        });
         
         return response()->json(
             [
@@ -100,11 +104,10 @@ class ItemsController extends Controller
                 'img' => $item->img,
                 'ingredients' => $item->ingredients->map(function($ingredient) { return $ingredient->toArray(); }),
                 'isFavorite' => $user->favorites()->where("user_favorite_items.item_id", $item->id)->count() > 0,
-                // 'isMyFolder' => true,
+                'folders' => $folders,
                 'isUnmatched' => $user->unmatched()->where("user_unmatched_items.item_id", $item->id)->count() > 0,
                 'isComparison' =>$user->comparisonItems()->where("user_comparison_items.item_id", $item->id)->count() > 0,
-                'isAttention' => true,
-                'isAverage' => 3,
+                // 'isAttention' => true,
             ]
         );
     }
