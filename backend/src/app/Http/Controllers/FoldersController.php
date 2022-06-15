@@ -57,7 +57,7 @@ class FoldersController extends Controller
     
             return response()->noContent();
         } else {
-            return response()->json(['フォルダの作成は３つまでです'],
+            return response()->json(['フォルダの作成は3つまでです'],
             Response::HTTP_BAD_REQUEST);
         }
 
@@ -70,9 +70,25 @@ class FoldersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        //
+        $user = $request->user();
+        $folder = Folder::find($id);
+        
+        return response()->json(
+            [
+                'id' => $folder->id,
+                'user_id' => $user->id,
+                'name' => $folder->name,
+                'items' => $folder->items->map(function($item) { return $item->toArray(); }),
+                'ingredient_score' => $ingredientScore,
+
+                // 'ingredients' => $item->ingredients->map(function($ingredient) { return $ingredient->toArray(); }),
+
+                // 'ingredients' => $folder->items->map(function($item) { return $item->ingredients->map(function($ingredient) { return $ingredient->toArray(); }) }),
+                // 'ingredients' => $folder->items->map(function($item) { return $item })->$item->ingredients->map(function($ingredient) { return $ingredient->toArray(); }),
+            ]
+        );
     }
 
     /**
