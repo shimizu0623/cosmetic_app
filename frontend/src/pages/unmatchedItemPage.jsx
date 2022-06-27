@@ -26,24 +26,24 @@ const useStyles = makeStyles({
 
 });
 
-const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
-const checkedIcon = <CheckBoxIcon fontSize="small" />;
-const condition = [
-    { title: 'かゆみがでた' },
-    { title: '肌が赤くなった' },
-    { title: '肌が熱くなった' },
-    { title: 'ひりひりした' },
-    { title: '発疹が出た' },
-    { title: '皮がむけた' },
-    { title: '腫れた' },
-    { title: 'かぶれた' },
-    { title: '肌がかさついた' },
-    { title: '肌がごわついた' },
-    { title: '肌が固くなった' },
-    { title: '吹き出物ができた' },
-    { title: '毛穴が開いた' },
-    { title: 'その他' },
-];
+// const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
+// const checkedIcon = <CheckBoxIcon fontSize="small" />;
+// const condition = [
+//     { title: 'かゆみがでた' },
+//     { title: '肌が赤くなった' },
+//     { title: '肌が熱くなった' },
+//     { title: 'ひりひりした' },
+//     { title: '発疹が出た' },
+//     { title: '皮がむけた' },
+//     { title: '腫れた' },
+//     { title: 'かぶれた' },
+//     { title: '肌がかさついた' },
+//     { title: '肌がごわついた' },
+//     { title: '肌が固くなった' },
+//     { title: '吹き出物ができた' },
+//     { title: '毛穴が開いた' },
+//     { title: 'その他' },
+// ];
 
 export const UnmatchedItem = () => {
     const classes = useStyles();
@@ -71,6 +71,17 @@ export const UnmatchedItem = () => {
         }
 
         return (
+            <>
+            {/* <div className={classes.alertForm}>
+                <h4 style={{ color: 'red', paddingTop: '10px', fontSize: '20px' }}>共通成分が見つかりました！</h4>
+                <p>肌に合わなかった共通成分があります</p>
+                <div style={{ paddingBottom: '10px' }}>
+                    <ul style={{ listStyle: 'none', padding: 0, fontWeight: 'bold', fontSize: '20px' }}>
+                        {item.unmatched_ingredients.map(ingredient => (<li>{ingredient.name}</li>))}
+                    </ul>
+                </div>
+            </div> */}
+
             <div className={classes.alertForm}>
                 <h4 style={{color: 'red', paddingTop: '10px'}}>共通成分が見つかりました！</h4>
                 <div style={{paddingBottom: '10px'}}>
@@ -79,6 +90,8 @@ export const UnmatchedItem = () => {
                     </ul>
                 </div>
             </div>
+            
+            </>
         );
     }
 
@@ -149,6 +162,7 @@ export const UnmatchedItem = () => {
                     <th className={classes.tableHeader}></th>
                     <th className={classes.tableHeader}>ブランド</th>
                     <th className={classes.tableHeader}>商品名</th>
+                    {/* TODO: ↓後程実装する */}
                     {/* <th className={classes.tableHeader}>使用後の肌状態</th> */}
                     <th className={classes.tableHeader}>メモ</th>
                 </tr>
@@ -246,7 +260,7 @@ export const UnmatchedItem = () => {
             <h1 style={{ fontSize: '40px', display: 'inline-block' }}>登録中の肌に合わなかったアイテム</h1>
             <div style={ {margin: '50px 0 20px 0' }}>
 
-            {/* {attentionMessage()} */}
+            {attentionMessage()}
 
             {itemInformation()}
 
