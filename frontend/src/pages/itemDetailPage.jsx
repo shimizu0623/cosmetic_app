@@ -258,7 +258,6 @@ export const ItemDetail = () => {
         if (item.unmatched_ingredients.length > 0){
             return (
             <>
-                
                 <div className={classes.alertForm}>
                     <h4 style={{ color: 'red', paddingTop: '10px', fontSize: '20px' }}>注意！</h4>
                     <p>肌に合わなかった共通成分があります</p>
