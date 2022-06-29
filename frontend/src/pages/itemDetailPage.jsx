@@ -505,7 +505,7 @@ export const ItemDetail = () => {
                                 if (ingredient.allergies === -1){return (<td style={{ color: 'gray' }}><p>不明</p></td>)}
                                 else {return (<td>{ingredient.allergies}</td>)}
                             })()}
-                            <td>{ingredient.explain}</td>
+                            <td>{ingredient.explain.split('\n').map(row => (<p>{row}</p>))}</td>
                         </tr>
                     </tbody>
                 ))}
