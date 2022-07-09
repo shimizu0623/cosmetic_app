@@ -27,6 +27,7 @@ use App\Http\Controllers\ReasonsController;
 use App\Http\Controllers\ReviewsController;
 use App\Http\Controllers\FoldersController;
 use App\Http\Controllers\FolderItemsController;
+use App\Http\Controllers\RankingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,8 +69,9 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::resource('requests', RequestsController::class, ['only' => ['store']]);
     Route::resource('reasons', ReasonsController::class, ['only' => ['index']]);
     Route::resource('reviews', ReviewsController::class, ['only' => ['index', 'store', 'destroy']]);
-    Route::resource('folders', FoldersController::class, ['only' => ['index', 'show', 'store', 'destroy']]);
+    Route::resource('folders', FoldersController::class, ['only' => ['index', 'store', 'show', 'destroy']]);
     Route::resource('folderItems', FolderItemsController::class, ['only' => ['index', 'store', 'destroy']]);
+    Route::resource('rankings', RankingController::class, ['only' => ['index']]);
     // TODO: ↓recommendItem？
     Route::get('/recommendItem', [ItemsController::class, 'recommendItem']);
     Route::get('/items/{id}', [ItemsController::class, 'show']);
