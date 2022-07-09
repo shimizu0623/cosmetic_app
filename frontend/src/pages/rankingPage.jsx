@@ -1,11 +1,12 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import axios from '../axios';
 import header_img from '../img/headerRanking.jpg';
 import { GoBackBtn } from '../components/goBackBtn';
 import { Link as RouterLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
-
+import CircularProgress from '@mui/material/CircularProgress';
 import green_leaf from '../img/green_leaf_img_clear.png';
 import rank_1 from '../img/rank_1.jpg';
 import rank_2 from '../img/rank_2.jpg';
@@ -23,135 +24,103 @@ const useStyles = makeStyles({
         display: 'inline-block',
         listStyle: 'none',
     },
-})
+});
 
 export const Ranking = () => {
     const classes = useStyles();
+    const [skinTypes, setSkinTypes] = useState(null);
+    const [rankings, setRankings] = useState([]);
+    
+    useEffect( async() => {
+        const responseRanking = await axios.get('/rankings');
+        const responseSkinTypes = await axios.get('/skin_types');
+        const r = responseRanking.data;
+        const t = responseSkinTypes.data;
+        setSkinTypes(t);
 
-    const rankingForm = (category) => {
-        return(
+        const pormiseRankingOfSkinType = t.map(async (skinType) => {
+            const responseRanking = await axios.get('/rankings', {
+                params: {
+                    skin_type_id: skinType.id
+                }
+            });
+            return {
+                title: skinType.name,
+                data: responseRanking.data,
+            }
+        });
+        const rankingOfSkinType = await Promise.all(pormiseRankingOfSkinType);
+
+        console.log(rankingOfSkinType)
+
+        setRankings([{
+            title: '総合',
+            data: r,
+        }].concat(rankingOfSkinType));
+
+    }, []);
+
+    const rankingTitleForm = (category) => {
+        return (
             <div>
-            <img src={green_leaf} alt="" style={{ maxWidth: '90px', display: 'inline-block', verticalAlign: 'middle', margin: '10px auto 40px' }} />
-            <h1 style={{ fontSize: '35px', display: 'inline-block' }}>{category}</h1>
+                <img src={green_leaf} alt="green_leaf" style={{ maxWidth: '90px', display: 'inline-block', verticalAlign: 'middle', margin: '10px auto 40px' }} />
+                <h1 style={{ fontSize: '35px', display: 'inline-block' }}>{category}</h1>
             </div>
-        )
-}
+        );
+    };
+
+    const rankingForm = (itemData) => {
+        return (
+            <>
+                <ImageListItem>
+                    <li><img src={itemData.img} alt="item_img"  className={classes.itemImg}/></li>
+                    <ImageListItemBar
+                    title={itemData.name}
+                    subtitle={`￥${itemData.price}`}
+                    />
+                </ImageListItem>
+            </>
+        );
+    };
+
+    const rankingTotal = (ranking) => {
+        const images = [rank_1, rank_2, rank_3];
+        console.log(ranking)
+        console.log(classes)
+
+        // if (ranking.length === 0) {
+        //     return (
+        //         <p>データがありません</p>
+        //     )
+        // }
+        return (
+            <>
+            <div>
+                {rankingTitleForm(ranking.title)}
+                {ranking.data.map((d, index) => {
+                  return (
+                  <ul className={classes.rank}>
+                    <li><img src={images[index]} alt={"rank_" + (index + 1)} className={classes.rankingImg}/></li>
+                    {rankingForm(d)}
+                </ul>
+                )
+                })}
+            </div>
+            </>
+        );
+    };
 
     return(
         <>
         <div className='MainContainer'>
-        <GoBackBtn />
-        <img src={header_img} alt="header" style={{ width: '100%' }}/>
+            <GoBackBtn />
+            <img src={header_img} alt="header" style={{ width: '100%' }}/>
 
+            { rankings.length === 0 && <CircularProgress color="success" size="15px" /> }
 
-                    <div className={classes.rankingForm}>
-                        {rankingForm('総合')}
-                        <ul className={classes.rank}>
-                            <li><img src={rank_1} alt="rank_1" className={classes.rankingImg}/></li>
-                            <ImageListItem>
-                                <li><img src='https://source.unsplash.com/random' alt="item_img"  className={classes.itemImg}/></li>
-                                <ImageListItemBar
-                                title='商品名'
-                                subtitle='￥10,000'
-                                />
-                            </ImageListItem>
-                        </ul>
-                        <ul className={classes.rank}>
-                            <li><img src={rank_2} alt="rank_2"  className={classes.rankingImg}/></li>
-                            <ImageListItem>
-                                <li><img src='https://source.unsplash.com/random' alt="item_img"  className={classes.itemImg}/></li>
-                                <ImageListItemBar
-                                title='商品名'
-                                subtitle='￥10,000'
-                                />
-                            </ImageListItem>
-                        </ul>
-                        <ul className={classes.rank}>
-                            <li><img src={rank_3} alt="rank_3" className={classes.rankingImg}/></li>
-                            <ImageListItem>
-                                <li><img src='https://source.unsplash.com/random' alt="item_img"  className={classes.itemImg}/></li>
-                                <ImageListItemBar
-                                title='商品名'
-                                subtitle='￥10,000'
-                                />
-                            </ImageListItem>
-                        </ul>
-                    </div>
-
-
-
-                    <div className={classes.rankingForm}>
-                        {rankingForm('口コミ数')}
-                        <ul className={classes.rank}>
-                            <li><img src={rank_1} alt="rank_1" className={classes.rankingImg}/></li>
-                            <ImageListItem>
-                                <li><img src='https://source.unsplash.com/random' alt="item_img"  className={classes.itemImg}/></li>
-                                <ImageListItemBar
-                                title='商品名'
-                                subtitle='￥10,000'
-                                />
-                            </ImageListItem>
-                        </ul>
-                        <ul className={classes.rank}>
-                            <li><img src={rank_2} alt="rank_2"  className={classes.rankingImg}/></li>
-                            <ImageListItem>
-                                <li><img src='https://source.unsplash.com/random' alt="item_img"  className={classes.itemImg}/></li>
-                                <ImageListItemBar
-                                title='商品名'
-                                subtitle='￥10,000'
-                                />
-                            </ImageListItem>
-                        </ul>
-                        <ul className={classes.rank}>
-                            <li><img src={rank_3} alt="rank_3" className={classes.rankingImg}/></li>
-                            <ImageListItem>
-                                <li><img src='https://source.unsplash.com/random' alt="item_img"  className={classes.itemImg}/></li>
-                                <ImageListItemBar
-                                title='商品名'
-                                subtitle='￥10,000'
-                                />
-                            </ImageListItem>
-                        </ul>
-                    </div>
-
-
-
-                    <div className={classes.rankingForm}>
-                        {rankingForm('乾燥肌タイプ')}
-                        <ul className={classes.rank}>
-                            <li><img src={rank_1} alt="rank_1" className={classes.rankingImg}/></li>
-                            <ImageListItem>
-                                <li><img src='https://source.unsplash.com/random' alt="item_img"  className={classes.itemImg}/></li>
-                                <ImageListItemBar
-                                title='商品名'
-                                subtitle='￥10,000'
-                                />
-                            </ImageListItem>
-                        </ul>
-                        <ul className={classes.rank}>
-                            <li><img src={rank_2} alt="rank_2"  className={classes.rankingImg}/></li>
-                            <ImageListItem>
-                                <li><img src='https://source.unsplash.com/random' alt="item_img"  className={classes.itemImg}/></li>
-                                <ImageListItemBar
-                                title='商品名'
-                                subtitle='￥10,000'
-                                />
-                            </ImageListItem>
-                        </ul>
-                        <ul className={classes.rank}>
-                            <li><img src={rank_3} alt="rank_3" className={classes.rankingImg}/></li>
-                            <ImageListItem>
-                                <li><img src='https://source.unsplash.com/random' alt="item_img"  className={classes.itemImg}/></li>
-                                <ImageListItemBar
-                                title='商品名'
-                                subtitle='￥10,000'
-                                />
-                            </ImageListItem>
-                        </ul>
-                    </div>
-
+            {rankings.map(ranking => rankingTotal(ranking))}
 
         </div>
         </>
-    )
-}
+    );
+};
