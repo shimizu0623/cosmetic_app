@@ -88,24 +88,27 @@ export const Ranking = () => {
         console.log(ranking)
         console.log(classes)
 
-        // if (ranking.length === 0) {
-        //     return (
-        //         <p>データがありません</p>
-        //     )
-        // }
+        if (ranking.data.length === 0) {
+            return (
+                <>
+                {rankingTitleForm(ranking.title)}
+                <p style={{ margin: '50px 0' }}>ランキングがありません。</p>
+                </>
+            )
+        }
         return (
             <>
-            <div>
-                {rankingTitleForm(ranking.title)}
-                {ranking.data.map((d, index) => {
-                  return (
-                  <ul className={classes.rank}>
-                    <li><img src={images[index]} alt={"rank_" + (index + 1)} className={classes.rankingImg}/></li>
-                    {rankingForm(d)}
-                </ul>
-                )
-                })}
-            </div>
+                <div>
+                    {rankingTitleForm(ranking.title)}
+                    {ranking.data.map((d, index) => {
+                    return (
+                        <ul className={classes.rank}>
+                            <li><img src={images[index]} alt={"rank_" + (index + 1)} className={classes.rankingImg}/></li>
+                            {rankingForm(d)}
+                        </ul>
+                    )
+                    })}
+                </div>
             </>
         );
     };
