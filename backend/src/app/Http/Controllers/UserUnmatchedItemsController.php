@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Models\UserUnmatchedItem;
 use App\Models\Item;
+use App\Models\Ingredient;
 use App\Models\UserFavoriteItem;
 use Illuminate\Support\Facades\Validator;
 use \Symfony\Component\HttpFoundation\Response;
@@ -24,11 +25,20 @@ class UserUnmatchedItemsController extends Controller
         $unmatchedItems = Item::userUnmatchedOnly($user->id)
         ->get();
 
+        // return response()->json(
+        //     $unmatchedItems->map(function ($item) {
+        //         return $item->toArrayItemId();
+        //     })
+        // );
+
         return response()->json(
-            $unmatchedItems->map(function ($item) {
-                return $item->toArrayItemId();
-            })
+            [
+                'unmatched_items' => $unmatchedItems->map(function($item) { return $item->toArrayItemId(); }),
+                // 'unmatched_ingredients' => $user->getCommonUnmatchedIngredientNames()
+                'unmatched_ingredients' => $user->getCommonUnmatchedIngredients($user)
+            ]
         );
+
     }
 
     /**
