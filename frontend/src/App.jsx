@@ -19,13 +19,12 @@ const App = () =>{
   const [user, setUser] = useRecoilState(userAtom);
 
   useEffect(async () => {
+    try {
       const responseUser = await axios.get('/me');
-      console.log(responseUser.data)
-      if (responseUser.data !== null) {
-        setUser(responseUser.data);
-      } else {
-        setUser(false);
-      }
+      setUser(responseUser.data);
+    } catch {
+      setUser(false);
+    }
   }, []);
 
 
