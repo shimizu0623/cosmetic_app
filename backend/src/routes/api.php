@@ -48,7 +48,6 @@ Route::resource('skin_types', SkinTypeController::class, ['only' => ['index']]);
 
 Route::middleware('auth:sanctum')->group(function(){
     
-    // Route::get('/users', [UsersController::class, 'index']);
     Route::post('/me', [UsersController::class, 'updateMe']);    
     Route::post('/delete_me', [UsersController::class, 'deleteMe']);    
     Route::get('/me', [UsersController::class, 'me']);    
@@ -72,14 +71,8 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::resource('folders', FoldersController::class, ['only' => ['index', 'store', 'show', 'destroy']]);
     Route::resource('folderItems', FolderItemsController::class, ['only' => ['index', 'store', 'destroy']]);
     Route::resource('rankings', RankingController::class, ['only' => ['index']]);
-    // TODO: ↓recommendItem？
     Route::get('/recommendItem', [ItemsController::class, 'recommendItem']);
     Route::get('/items/{id}', [ItemsController::class, 'show']);
-    // Route::get('/reviews/{id}', [ItemsController::class, 'index']);
-    
-    // Route::get('/items', [ItemsController::class, 'index']);
-    // Route::get('/items/{id}', [ItemsController::class, 'show']);
-    // ↓TODO: 調べる
     Route::resource('items', ItemsController::class, ['only' => ['index', 'show']]);
     
 });
