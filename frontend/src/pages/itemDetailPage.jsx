@@ -417,7 +417,8 @@ export const ItemDetail = () => {
                     <p style={{ textAlign: 'left', fontSize: '25px' }}>{item.brand}</p>
                     <p style={{ textAlign: 'left', fontSize: '40px' }}>{item.name}</p>
                     <div className={classes.styleP}>
-                        {/* <p className={classes.itemDetail}>評価レビュー</p> */}
+                        {/* ↓TODO: いいね等の評価が高いレビューを参考として一つ表示させる？ */}
+                        {/* <p className={classes.itemDetail}>人気の評価レビュー</p> */}
                         {star()}
                         <button
                             onClick={() => { navigate(`/reviewPage/${item.id}`) }}
