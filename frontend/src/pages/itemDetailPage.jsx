@@ -354,8 +354,6 @@ export const ItemDetail = () => {
     // TODO: ↓handleDeleteFolder
     const handleDeleteFolder = async (e, folderId) => {
         console.log('handleDeleteFolder');
-    //     console.log(folderId);
-    //     console.log(folders);
     //     // try {
     //     //     const response = await axios.delete(`/folderItems/${id}`);
     //     //     window.alert('フォルダから削除しました');
