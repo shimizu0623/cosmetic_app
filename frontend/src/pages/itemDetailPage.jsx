@@ -75,24 +75,14 @@ const useStyles = makeStyles({
         boxShadow: '0px 0px 0px 5px #cae1df',
         width: '70%',
     },
-    reviewBtn: {
-        color: '#60501c',
-        background: '#f6dd89f5',
-        marginLeft: '40px',
-        padding: '5px',
-        borderRadius: '4px',
-        borderColor: '#f5d97ff5',
-        border: '2px solid',
-        '&:hover':{
-            cursor: 'pointer',
-            background: '#f5d56d',
-        }
-    },
     alertForm: {
         background: '#ffeaea',
         maxWidth: '300px',
         margin: '0 auto',
     },
+    link: {
+        color: 'green',
+    }
 });
 
 export const ItemDetail = () => {
@@ -182,7 +172,7 @@ export const ItemDetail = () => {
 
     const MyFolderLink = (folders) => {
         if (folders.length === 0){
-            return <p>→<Link component={RouterLink} to="/myFolder">オリジナルのフォルダを作成する</Link></p>
+            return <p>→<Link component={RouterLink} to="/myFolder" className={classes.link}>オリジナルのフォルダを作成する</Link></p>
         }
         return (
             <>
@@ -225,14 +215,14 @@ export const ItemDetail = () => {
             return (
             <>
                 <div className={classes.btnForm}>
-                    <button className={classes.btn} onClick={handleDeleteUnmatchedItems}>肌に合わなかったアイテムから削除</button>
+                    <button className={classes.btn} onClick={handleDeleteUnmatchedItems}>肌に合わないから削除</button>
                 </div>
             </>
             )}
             return (
             <>
                 <div className={classes.btnForm}>
-                    <button className={classes.btn} onClick={handleAddUnmatchedItems}>肌に合わなかったアイテムへ追加</button>
+                    <button className={classes.btn} onClick={handleAddUnmatchedItems}>肌に合わないへ追加</button>
                 </div>
             </>
     )};
@@ -268,7 +258,8 @@ export const ItemDetail = () => {
                     </div>
                 </div>
             </>
-            )}
+            )
+        }
         return;
     };
 
@@ -310,7 +301,7 @@ export const ItemDetail = () => {
             const response = await axios.post('/user_unmatchedItems', {
                 item_id: id,
             });
-            window.alert('肌に合わなかったアイテムへ追加しました');
+            window.alert('肌に合わないへ追加しました');
             setItem({
                 ...item,
                 isUnmatched: true,
@@ -367,7 +358,7 @@ export const ItemDetail = () => {
     const handleDeleteUnmatchedItems = async () => {
         try {
             const response = await axios.delete(`/user_unmatchedItems/${id}`);
-            window.alert('肌に合わなかったアイテムから削除しました');
+            window.alert('肌に合わないから削除しました');
             setItem({
                 ...item,
                 isUnmatched: false,
@@ -418,16 +409,9 @@ export const ItemDetail = () => {
                         {/* ↓TODO: いいね等の評価が高いレビューを参考として一つ表示させる？ */}
                         {/* <p className={classes.itemDetail}>人気の評価レビュー</p> */}
                         {star()}
-                        <button
-                            onClick={() => { navigate(`/reviewPage/${item.id}`) }}
-                            className={classes.reviewBtn}
-                        >
-                            この商品のレビューを見る</button>
-                    </div>
-                    <div className={classes.styleP}>
-                        {/* TODO: ↓rink先Linkじゃなくてもaタグで問題ないか確認する（Linkだと上手く飛ばない） */}
-                        <a href={item.link}>公式サイトで購入する</a>
-                        {/* <Link component={RouterLink} to={item.link}>公式サイトで購入する</Link> */}
+                        <Link onClick={() => { navigate(`/reviewPage/${item.id}`) }} style={{ marginLeft: '30px' }} className={classes.link}>
+                            この商品のレビューを見る
+                        </Link>
                     </div>
                     <div className={classes.styleP}>
                         <p className={classes.itemDetail}>カテゴリー：</p>
@@ -442,7 +426,11 @@ export const ItemDetail = () => {
                         <p>￥{item.price}</p>
                     </div>
                     <div>
-                        <p style={{ color: 'gray', fontSize: '13px' }}>※実際の価格と異なる場合がございますので、ご購入時は公式サイトをご確認ください。</p>
+                        <p style={{ color: 'gray', fontSize: '13px' }}>※実際の価格と異なる場合がございますので、購入時は
+                            {/* TODO: ↓rink先Linkじゃなくてもaタグで問題ないか確認する（Linkだと上手く飛ばない） */}
+                            <a href={item.link} className={classes.link}>公式サイト</a>をご確認ください。
+                            {/* <Link component={RouterLink} to={item.link}>公式サイトで購入する</Link> */}
+                        </p>
                     </div>
                     {FavoriteLink(item.isFavorite)}
 
@@ -612,6 +600,7 @@ export const ItemDetail = () => {
     };
 
         
+    const explain_ewg = 'アメリカ化粧品成分安全性評価機関での安全性評価';
     const explain_green = 'EWG 1~2等級（有害性が低い成分）';
     const explain_yellow = 'EWG 3~6等級（有害性が普通の成分）';
     const explain_red = 'EWG 7~10等級（有害性が高い成分）';
@@ -627,7 +616,9 @@ export const ItemDetail = () => {
             {itemInformation()}
 
             <div className={classes.ewgForm}>
-                <p style={{ fontSize: '30px', color: 'green', textShadow: '2px 2px 1px white', margin: '20px auto' }}>EWG安全性</p>
+                <Tooltip title={explain_ewg} followCursor>
+                    <p style={{ fontSize: '30px', color: 'green', textShadow: '2px 2px 1px white', margin: '20px auto' }}>EWG SCORE</p>
+                </Tooltip>
                 <Grid container spacing={1}>
                     <Grid item xs={6}>
                         <div>
@@ -691,7 +682,7 @@ export const ItemDetail = () => {
                         <tr style={{fontSize: '17px'}}>
                             <th className={classes.tableHeader}>成分名</th>
                             <Tooltip title={explain_score} followCursor><th className={classes.tableHeader}>EWG SCORE</th></Tooltip>
-                            <Tooltip title={explain_safety} followCursor><th className={classes.tableHeader}>安全度</th></Tooltip>
+                            <Tooltip title={explain_safety} followCursor><th className={classes.tableHeader}>総合安全度</th></Tooltip>
                             <th className={classes.tableHeader}>配合目的</th>
                             <Tooltip title={explain_risk} followCursor><th className={classes.tableHeader}>発がん性リスク</th></Tooltip>
                             <Tooltip title={explain_risk} followCursor><th className={classes.tableHeader}>発達/生殖毒性リスク</th></Tooltip>

@@ -236,7 +236,7 @@ export const Header = () => {
               <ListItemIcon>
                 <NotInterestedIcon />
               </ListItemIcon>
-              肌に合わなかったアイテム
+              肌に合わない
             </MenuItem>
             <MenuItem component={RouterLink} to="/requestPage">
               <ListItemIcon>
