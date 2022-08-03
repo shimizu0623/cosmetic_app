@@ -27,7 +27,7 @@ class UserFavoriteItemsController extends Controller
 
         return response()->json(
             $favorites->map(function ($favorite) {
-                return $favorite->toArrayItemId();
+                return $favorite->toArray();
             })
         );
 

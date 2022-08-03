@@ -18,10 +18,6 @@ class UserHistoriesController extends Controller
      */
     public function index(Request $request)
     {
-        // return response()->json(
-        //     UserHistory::all()
-        // );
-
         $user = $request->user();
 
         $histories = Item::userHistory($user->id)
@@ -30,7 +26,7 @@ class UserHistoriesController extends Controller
 
         return response()->json(
             $histories->map(function ($history) {
-                return $history->toArrayItemId();
+                return $history->toArray();
             })
         );
     }

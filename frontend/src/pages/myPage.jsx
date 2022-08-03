@@ -173,7 +173,7 @@ export const MyPage = () => {
         //     return <CircularProgress color="success" size="15px" />
         // }
 
-        return(
+        return (
             <ImageList style={{ width: '100%', gridTemplateColumns: 'repeat(1, 1fr)' }}>
                 <ImageListItem key="Subheader" cols={2}>
                     <ListSubheader component="div">お気に入りに登録中のアイテム</ListSubheader>
@@ -197,7 +197,7 @@ export const MyPage = () => {
                         >
                             {favorites.map((favorite) => (
                                 <div style={{ maxWidth: '90%' }}>
-                                    <ImageListItem 
+                                    <ImageListItem
                                       key={favorite.id} 
                                       className={classes.cardPaper}
                                       onClick={() => { navigate(`/item/${favorite.item_id}`) }}

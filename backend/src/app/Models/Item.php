@@ -109,11 +109,13 @@ class Item extends Model
     {
         return [
           'id' => $this->id,
+          'item_id' => $this->item->id,
           'name' => $this->name,
           'brand' => $this->brand->name,
           'img' => $this->img,
           'price' => $this->price,
           'volume' => $this->volume,
+          'memo' => $this->memo,
         ];
     }
 
