@@ -168,13 +168,8 @@ export const MyPage = () => {
     };
 
     const loading = () => {
+        // TODO: ↓表示場所修正する
         // if (favorites.length === 0){
-        //     return <CircularProgress color="success" size="15px" />
-        // }
-        // if (favorites.length === []){
-        //     return <CircularProgress color="success" size="15px" />
-        // }
-        // if (favorites.length === null){
         //     return <CircularProgress color="success" size="15px" />
         // }
 
