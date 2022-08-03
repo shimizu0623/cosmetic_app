@@ -38,7 +38,7 @@ export const Ranking = () => {
         const t = responseSkinTypes.data;
         setSkinTypes(t);
 
-        const pormiseRankingOfSkinType = t.map(async (skinType) => {
+        const promiseRankingOfSkinType = t.map(async (skinType) => {
             const responseRanking = await axios.get('/rankings', {
                 params: {
                     skin_type_id: skinType.id
@@ -49,9 +49,7 @@ export const Ranking = () => {
                 data: responseRanking.data,
             }
         });
-        const rankingOfSkinType = await Promise.all(pormiseRankingOfSkinType);
-
-        console.log(rankingOfSkinType)
+        const rankingOfSkinType = await Promise.all(promiseRankingOfSkinType);
 
         setRankings([{
             title: '総合',
@@ -85,8 +83,6 @@ export const Ranking = () => {
 
     const rankingTotal = (ranking) => {
         const images = [rank_1, rank_2, rank_3];
-        console.log(ranking)
-        console.log(classes)
 
         if (ranking.data.length === 0) {
             return (
@@ -101,12 +97,12 @@ export const Ranking = () => {
                 <div>
                     {rankingTitleForm(ranking.title)}
                     {ranking.data.map((d, index) => {
-                    return (
-                        <ul className={classes.rank}>
-                            <li><img src={images[index]} alt={"rank_" + (index + 1)} className={classes.rankingImg}/></li>
-                            {rankingForm(d)}
-                        </ul>
-                    )
+                        return (
+                            <ul className={classes.rank}>
+                                <li><img src={images[index]} alt={"rank_" + (index + 1)} className={classes.rankingImg}/></li>
+                                {rankingForm(d)}
+                            </ul>
+                        )
                     })}
                 </div>
             </>
@@ -121,7 +117,7 @@ export const Ranking = () => {
 
             { rankings.length === 0 && <CircularProgress color="success" size="15px" /> }
 
-            {rankings.map(ranking => rankingTotal(ranking))}
+            { rankings.map(ranking => rankingTotal(ranking)) }
 
         </div>
         </>
