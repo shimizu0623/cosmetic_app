@@ -99,14 +99,14 @@ export const ItemDetail = () => {
 
     useEffect(async () => {
         const responseItem = await axios.get(`/items/${id}`);
-        const responseFolders = await axios.get('/folders');
+        // const responseFolders = await axios.get('/folders');
         // const responseFolderItems = await axios.get('/folderItems');
         const i = responseItem.data;
         const c = responseItem.data.ingredients.length;
-        const f = responseFolders.data;
+        // const f = responseFolders.data;
         setItem(i);
         setCount(c);
-        setFolders(f);
+        // setFolders(f);
         
         // console.log(responseFolderItems.data)
         // responseFolderItems.data.map((items) => {
@@ -428,7 +428,7 @@ export const ItemDetail = () => {
                     <div>
                         <p style={{ color: 'gray', fontSize: '13px' }}>※実際の価格と異なる場合がございますので、購入時は
                             {/* TODO: ↓rink先Linkじゃなくてもaタグで問題ないか確認する（Linkだと上手く飛ばない） */}
-                            <a href={item.link} className={classes.link}>公式サイト</a>をご確認ください。
+                            <a href={item.link} className={classes.link} target="_blank" rel="noopener noreferrer">公式サイト</a>をご確認ください。
                             {/* <Link component={RouterLink} to={item.link}>公式サイトで購入する</Link> */}
                         </p>
                     </div>
@@ -438,7 +438,7 @@ export const ItemDetail = () => {
 
                     {ComparisonLink(item.isComparison)}
                         
-                    {MyFolderLink(item.folders)}
+                    {/* {MyFolderLink(item.folders)} */}
                 </div>
             </div>
             
