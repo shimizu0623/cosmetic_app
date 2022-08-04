@@ -29,7 +29,6 @@ import {
   Route,
 } from 'react-router-dom'
 
-
 const webName = "Cosmetic Search";
 
 ReactDom.render(
