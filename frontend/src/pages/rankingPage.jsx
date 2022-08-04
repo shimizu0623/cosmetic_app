@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import axios from '../axios';
 import header_img from '../img/headerRanking.jpg';
 import { GoBackBtn } from '../components/goBackBtn';
-import { Link as RouterLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
@@ -28,7 +27,6 @@ const useStyles = makeStyles({
 
 export const Ranking = () => {
     const classes = useStyles();
-    const [skinTypes, setSkinTypes] = useState(null);
     const [rankings, setRankings] = useState([]);
     
     useEffect( async() => {
@@ -36,8 +34,6 @@ export const Ranking = () => {
         const responseSkinTypes = await axios.get('/skin_types');
         const r = responseRanking.data;
         const t = responseSkinTypes.data;
-        setSkinTypes(t);
-
         const promiseRankingOfSkinType = t.map(async (skinType) => {
             const responseRanking = await axios.get('/rankings', {
                 params: {
@@ -50,12 +46,10 @@ export const Ranking = () => {
             }
         });
         const rankingOfSkinType = await Promise.all(promiseRankingOfSkinType);
-
         setRankings([{
             title: '総合',
             data: r,
         }].concat(rankingOfSkinType));
-
     }, []);
 
     const rankingTitleForm = (category) => {
@@ -83,8 +77,7 @@ export const Ranking = () => {
 
     const rankingTotal = (ranking) => {
         const images = [rank_1, rank_2, rank_3];
-
-        if (ranking.data.length === 0) {
+        if (ranking.data.length === 0){
             return (
                 <>
                 {rankingTitleForm(ranking.title)}
@@ -111,15 +104,12 @@ export const Ranking = () => {
 
     return(
         <>
-        <div className='MainContainer'>
-            <GoBackBtn />
-            <img src={header_img} alt="header" style={{ width: '100%' }}/>
-
-            { rankings.length === 0 && <CircularProgress color="success" size="15px" /> }
-
-            { rankings.map(ranking => rankingTotal(ranking)) }
-
-        </div>
+            <div className='MainContainer'>
+                <GoBackBtn />
+                <img src={header_img} alt="header" style={{ width: '100%' }}/>
+                { rankings.length === 0 && <CircularProgress color="success" size="15px" /> }
+                { rankings.map(ranking => rankingTotal(ranking)) }
+            </div>
         </>
     );
 };

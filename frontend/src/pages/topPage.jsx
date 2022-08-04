@@ -1,4 +1,3 @@
-// MEMO: スタイル調整済
 import React from 'react';
 import { LoginBtn } from '../components/loginBtn';
 import { Ewg } from "../components/aboutEwg";
@@ -102,11 +101,9 @@ const useStyles = makeStyles({
     },
 });
 
-
 export const TopPage = (props) => {
-    const {webName} = props;
+    const { webName } = props;
     const classes = useStyles();
-
     const headerEwg = () => {
         return (
             <div className={classes.aboutEwg}>
@@ -116,7 +113,7 @@ export const TopPage = (props) => {
         );
     };
 
-    return(
+    return (
         <>
         <div className='MainContainer'>
             <div className={classes.top}>
@@ -124,7 +121,6 @@ export const TopPage = (props) => {
             <h1 className={classes.topTitle}>毎日手にする化粧品<br />
             あなたはどのように選んでいますか？</h1>
             </div>
-            
             <div className={classes.topMain}>
                 <div className="balloonLeft">
                     <div className={classes.topIconLeft}><img className={classes.img} src={trouble_face_img} alt="trouble_face_img" /></div>

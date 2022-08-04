@@ -7,13 +7,11 @@ import { HeaderLogoOnly } from './components/headerLogoOnly';
 import { Footer } from './components/footer';
 import { Outlet } from "react-router-dom";
 import CircularProgress from '@mui/material/CircularProgress';
-import './style.css'
+import './style.css';
 import './img/Whiteday2020-09.JPG';
 import './img/cosmetic_background3.jpg';
 
-
-
-const App = () =>{
+const App = () => {
   const [user, setUser] = useRecoilState(userAtom);
 
   useEffect(async () => {
@@ -24,7 +22,6 @@ const App = () =>{
       setUser(false);
     }
   }, []);
-
 
   return (
     <>
@@ -38,13 +35,11 @@ const App = () =>{
         return (<Header />)
         })()}
 
-
         <Outlet />
 
         <Footer />
         </>
       )}
-    
     </>
   );
 };

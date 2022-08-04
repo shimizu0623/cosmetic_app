@@ -1,4 +1,3 @@
-// MEMO: スタイル調整済
 import React from 'react';
 import header_img from '../img/headerHelp.jpg';
 import green_leaf from '../img/green_leaf_img_clear.png';
@@ -12,9 +11,8 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 export const HelpPage = () => {
-
     const helpForm = (question, answer) => {
-        return(
+        return (
             <Accordion sx={{ textAlign: 'left' }}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography>Q.{question}</Typography>
@@ -26,19 +24,15 @@ export const HelpPage = () => {
         );
     };
 
-
-    return(
+    return (
         <>
             <div className='MainContainer'>
                 <GoBackBtn />
                 <img src={header_img} alt="header" style={{ width: '100%' }}/>
-
                 <div style={{ margin: '30px auto' }}>
                     <p>こちらのページでは、よくあるご質問を確認することができます。</p>
                     <p>このページで解決方法が見つからない場合は、<Link component={RouterLink} to="/requestPage">リクエストページ</Link>よりご連絡ください。</p>  
                 </div>
-
-
                 <div className='aboutService'>
                     <img src={green_leaf} alt="green_leaf" style={{ maxWidth: '60px', display: 'inline-block', verticalAlign: 'middle', margin: '10px auto 40px' }} />
                     <h1 style={{ fontSize: '30px', display: 'inline-block' }}>サービス内容</h1>
@@ -65,7 +59,6 @@ export const HelpPage = () => {
                     'マイページのMENUにある退会ボタンから退会することができます。退会するとデータが全て削除されますので、ご注意ください。一度サイトを離れる際は退会ではなく画面右上にある"MENU"→"Logout"をご利用ください。')}
 
                 </div>
-
                 <div className='howToUse'>
                     <img src={green_leaf} alt="" style={{ maxWidth: '60px', display: 'inline-block', verticalAlign: 'middle', margin: '10px auto 40px' }} />
                     <h1 style={{ fontSize: '30px', display: 'inline-block' }}>使い方</h1>

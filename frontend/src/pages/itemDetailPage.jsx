@@ -1,5 +1,3 @@
-// MEMO: スタイル調整済
-
 import React, {useState, useEffect} from 'react';
 import axios from '../axios';
 import { GoBackBtn } from '../components/goBackBtn';
@@ -133,16 +131,15 @@ export const ItemDetail = () => {
             });
         } catch (e) {
             window.alert('登録に失敗しました');
-            // console.error(e);
             return;
         }
 
-        // ↓☆の平均
         const responseReviews = await axios.get('/reviews', {
             params: {
                 item_id: id,
             }
         });
+        
         let starTotal = 0;
         // ↓TODO: for文だと口コミ増えた時に重くなる？
         for (let i = 0; i < responseReviews.data.length; i++){
@@ -154,21 +151,19 @@ export const ItemDetail = () => {
     }, []);
 
     const FavoriteLink = (isFavorite) => {
-        if (isFavorite) {
+        if (isFavorite){
             return (
-            <>
                 <div className={classes.btnForm}>
                     <button className={classes.btn} onClick={handleDeleteFavorite}>お気に入りから削除</button>
                 </div>
-            </>
-            )}
-            return (
-            <>
-                <div className={classes.btnForm}>
-                    <button className={classes.btn} onClick={handleAddFavorite}>お気に入りへ追加</button>
-                </div>
-            </>
-    )};
+            );
+        }
+        return (
+            <div className={classes.btnForm}>
+                <button className={classes.btn} onClick={handleAddFavorite}>お気に入りへ追加</button>
+            </div>
+        );
+    };
 
     const MyFolderLink = (folders) => {
         if (folders.length === 0){
@@ -176,78 +171,70 @@ export const ItemDetail = () => {
         }
         return (
             <>
-            {folders.map((folder, index) => {
-                if (folder.has_item) {
+                {folders.map((folder, index) => {
+                    if (folder.has_item){
+                        return (
+                            <div className={classes.btnForm} key={index}>
+                                <button className={classes.btn} onClick={(e) => handleDeleteFolder(e, folder.id)}>{folder.name}フォルダから削除</button>
+                            </div>
+                        );
+                    }
                     return (
                         <div className={classes.btnForm} key={index}>
-                            <button className={classes.btn} onClick={(e) => handleDeleteFolder(e, folder.id)}>{folder.name}フォルダから削除</button>
+                            <button className={classes.btn} onClick={(e) => handleAddFolder(e, folder.id)}>{folder.name}フォルダへ追加</button>
                         </div>
-                    )
-                }
-                return (
-                <div className={classes.btnForm} key={index}>
-                    <button className={classes.btn} onClick={(e) => handleAddFolder(e, folder.id)}>{folder.name}フォルダへ追加</button>
-                </div>
-            )
-            })}
+                    );
+                })}
             </>
-        )
+        );
     }
 
-    //     if (myFolder) {
-    //         return (
-    //         <>
+    // if (myFolder){
+    //     return (
     //             <div className={classes.btnForm}>
     //                 <button className={classes.btn} onClick={handleDeleteFolder}>{folder.name}フォルダへ追加</button>
     //             </div>
-    //         </>
-    //         )}
-    //         return (
-    //         <>
-    //             <div className={classes.btnForm}>
-    //                 <button className={classes.btn} onClick={handleAddFolder}>{folder.name}フォルダへ追加</button>
-    //             </div>
-    //         </>
-    // )};
+    //     )
+    // }
+    // return (
+    //         <div className={classes.btnForm}>
+    //             <button className={classes.btn} onClick={handleAddFolder}>{folder.name}フォルダへ追加</button>
+    //         </div>
+    // )
 
     const UnmatchedLink = (unmatched) => {
-        if (unmatched) {
+        if (unmatched){
             return (
-            <>
                 <div className={classes.btnForm}>
                     <button className={classes.btn} onClick={handleDeleteUnmatchedItems}>肌に合わないから削除</button>
                 </div>
-            </>
-            )}
-            return (
-            <>
-                <div className={classes.btnForm}>
-                    <button className={classes.btn} onClick={handleAddUnmatchedItems}>肌に合わないへ追加</button>
-                </div>
-            </>
-    )};
+            )
+        }
+        return (
+            <div className={classes.btnForm}>
+                <button className={classes.btn} onClick={handleAddUnmatchedItems}>肌に合わないへ追加</button>
+            </div>
+        )
+    };
 
     const ComparisonLink = (comparison) => {
         if (comparison) {
             return (
-            <>
                 <div className={classes.btnForm}>
                     <button className={classes.btn} onClick={handleDeleteComparison}>コスメ比較から削除</button>
                 </div>
-            </>
-            )}
-            return (
-            <>
-                <div className={classes.btnForm}>
-                    <button className={classes.btn} onClick={handleAddComparison}>コスメ比較へ追加</button>
-                </div>
-            </>
-    )};
+            )
+        }
+        return (
+            <div className={classes.btnForm}>
+                <button className={classes.btn} onClick={handleAddComparison}>コスメ比較へ追加</button>
+            </div>
+        );
+    };
 
     const AttentionLink = (item) => {
         if (item.unmatched_ingredients.length > 0){
             return (
-            <>
                 <div className={classes.alertForm}>
                     <h4 style={{ color: 'red', paddingTop: '10px', fontSize: '20px' }}>注意！</h4>
                     <p>肌に合わなかった共通成分があります</p>
@@ -257,7 +244,6 @@ export const ItemDetail = () => {
                         </ul>
                     </div>
                 </div>
-            </>
             )
         }
         return;
@@ -275,14 +261,11 @@ export const ItemDetail = () => {
             })
         } catch (e) {
             window.alert('登録に失敗しました');
-            // console.error(e);
             return;
         }    
     };    
 
     const handleAddFolder = async (e, folderId) => {
-        // console.log(folderId)
-        // console.log('id=' + id)
         try {
             const response = await axios.post('/folderItems', {
                 folder_id: folderId,
@@ -328,7 +311,7 @@ export const ItemDetail = () => {
         }
     };
 
-    const handleDeleteFavorite =  async () => {
+    const handleDeleteFavorite = async () => {
         try {
             const response = await axios.delete(`/user_favorites/${id}`);
             window.alert('お気に入りから削除しました');
@@ -345,14 +328,14 @@ export const ItemDetail = () => {
     // TODO: ↓handleDeleteFolder
     const handleDeleteFolder = async (e, folderId) => {
         console.log('handleDeleteFolder');
-    //     // try {
-    //     //     const response = await axios.delete(`/folderItems/${id}`);
-    //     //     window.alert('フォルダから削除しました');
-    //     //      setItem(item);
-    //     // } catch (e) {
-    //     //     window.alert('削除に失敗しました');
-    //     //     return;
-    //     // }
+    // try {
+    //     const response = await axios.delete(`/folderItems/${id}`);
+    //     window.alert('フォルダから削除しました');
+    //      setItem(item);
+    // } catch (e) {
+    //     window.alert('削除に失敗しました');
+    //     return;
+    // }
     };
 
     const handleDeleteUnmatchedItems = async () => {
@@ -406,8 +389,6 @@ export const ItemDetail = () => {
                     <p style={{ textAlign: 'left', fontSize: '25px' }}>{item.brand}</p>
                     <p style={{ textAlign: 'left', fontSize: '40px' }}>{item.name}</p>
                     <div className={classes.styleP}>
-                        {/* ↓TODO: いいね等の評価が高いレビューを参考として一つ表示させる？ */}
-                        {/* <p className={classes.itemDetail}>人気の評価レビュー</p> */}
                         {star()}
                         <Link onClick={() => { navigate(`/reviewPage/${item.id}`) }} style={{ marginLeft: '30px' }} className={classes.link}>
                             この商品のレビューを見る
@@ -524,7 +505,6 @@ export const ItemDetail = () => {
         );
     };
 
-
     let yellow = 0;
     const scoreYellow = () => {
         if (item === null){
@@ -543,7 +523,6 @@ export const ItemDetail = () => {
         );
     };
 
-    
     let red = 0;
     const scoreRed = () => {
         if (item === null){
@@ -573,7 +552,6 @@ export const ItemDetail = () => {
         }
     };
 
-
     const rateGreen = () => {
         const calc = Math.round(green / count * 100);
         const add = { index: 0, name: 'Low Hazard', value: calc };
@@ -598,7 +576,6 @@ export const ItemDetail = () => {
         const add = { index: 3, name: 'Not Information', value: calc };
         data.push(add);
     };
-
         
     const explain_ewg = 'アメリカ化粧品成分安全性評価機関での安全性評価';
     const explain_green = 'EWG 1~2等級（有害性が低い成分）';
@@ -610,7 +587,6 @@ export const ItemDetail = () => {
     
     return (
         <div className='MainContainer'>
-            
             <GoBackBtn />
 
             {itemInformation()}
@@ -671,7 +647,6 @@ export const ItemDetail = () => {
                     </Grid>
                 </Grid>
             </div>
-
             <div style={{ margin: '50px 0 20px 0' }}>
                 <table style={{ margin: '0 auto',borderSpacing: '0 5px' }}>
                     <caption style={{ fontSize: '40px', marginBottom: '10px' }}>
@@ -690,11 +665,9 @@ export const ItemDetail = () => {
                             <th className={classes.tableHeader}>成分説明</th>
                         </tr>
                     </thead>
-
                     {ingredientsInformation()}
                 </table>
             </div>
         </div>
     );
 };
-

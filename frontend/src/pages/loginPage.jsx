@@ -44,7 +44,6 @@ export const LoginPage = () => {
       navigate("/homePage");
     } catch (e) {
       window.alert('ログインに失敗しました');
-      // console.error(e);
       return;
     }
   };
@@ -58,10 +57,6 @@ export const LoginPage = () => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
-    // console.log({
-    //   email: data.get('email'),
-    //   password: data.get('password'),
-    // });
   };
 
   const [values, setValues] = useState({
@@ -73,7 +68,7 @@ export const LoginPage = () => {
   });
 
   const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
+    setValues({...values, [prop]: event.target.value});
     setInputInformation({...inputInformation, password:event.target.value});
   };
 
@@ -102,10 +97,10 @@ export const LoginPage = () => {
       <ThemeProvider theme={theme}>
         <Stack spacing={2} >
           <Breadcrumbs
-          separator={<NavigateNextIcon fontSize="small" />}
-          aria-label="breadcrumb"
+            separator={<NavigateNextIcon fontSize="small" />}
+            aria-label="breadcrumb"
           >
-          {breadcrumbs}
+            {breadcrumbs}
           </Breadcrumbs>
         </Stack>
         <Grid container component="main" style={{ height: '100vh' }}>
@@ -187,7 +182,7 @@ export const LoginPage = () => {
                   ゲストログイン
                 </Button> */}
                 <Grid container>
-                  {/* TODO: ↓削除？ */}
+                  {/* TODO: ↓パスワードリセット用 */}
                   {/* <Grid item xs>
                     <Link href="#" variant="body2">
                       Forgot password?
@@ -211,5 +206,3 @@ export const LoginPage = () => {
     </div>
   );
 };
-
-

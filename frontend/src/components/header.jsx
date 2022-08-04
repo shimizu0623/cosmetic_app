@@ -51,39 +51,38 @@ export const Header = () => {
   const open = Boolean(anchorEl);
 
   const handleSearchClick = (event) => {
-      setAnchorElSearch(event.currentTarget);
+    setAnchorElSearch(event.currentTarget);
   };
   const handleHelpClick = (event) => {
-      setAnchorElHelp(event.currentTarget);
+    setAnchorElHelp(event.currentTarget);
   };
   const handleAccountClick = (event) => {
-      setAnchorEl(event.currentTarget);
+    setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
-      setAnchorElSearch(null);
-      setAnchorElHelp(null);
-      setAnchorEl(null);
+    setAnchorElSearch(null);
+    setAnchorElHelp(null);
+    setAnchorEl(null);
   };
 
   const handleLogout = async () => {
     const confirmMessage = 'ログアウトしますか？'
     let result = window.confirm(confirmMessage);
     if (result){
-        try {
-            localStorage.removeItem('access-token');
-            setUser(false);
-            navigate("/");
-        } catch (e) {
-            window.alert('送信に失敗しました');
-            console.error(e)
-            return;
-        }         
-    } else {
+      try {
+        localStorage.removeItem('access-token');
+        setUser(false);
+        navigate("/");
+      } catch (e) {
+        window.alert('送信に失敗しました');
         return;
+      }         
+    } else {
+      return;
     }    
   };
 
-  return(
+  return (
     <>
       <header>
         <div className={classes.headerLeft}>
@@ -141,7 +140,6 @@ export const Header = () => {
               ランキング
             </MenuItem>
           </Menu>
-        
           <Button
             id="basic-button"
             aria-controls={openHelp ? 'help-menu' : undefined}
@@ -185,7 +183,6 @@ export const Header = () => {
               使い方ヘルプ
             </MenuItem>
           </Menu>
-
           <Button
             id="basic-button"
             aria-controls={open ? 'basic-menu' : undefined}
@@ -207,12 +204,8 @@ export const Header = () => {
             anchorEl={anchorEl}
             open={open}
             onClose={handleClose}
-            MenuListProps={{
-              'aria-labelledby': 'basic-button',
-            }}
-            style={{
-              marginTop: '45px',      
-            }} 
+            MenuListProps={{ 'aria-labelledby': 'basic-button' }}
+            style={{ marginTop: '45px' }} 
           >
             <MenuItem component={RouterLink} to="/myPage">
               <ListItemIcon>

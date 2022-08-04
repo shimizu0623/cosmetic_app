@@ -16,17 +16,16 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-    container: {
-        display: 'flex',
-        flexWrap: 'wrap',
-    },
-    textField: {
-        marginLeft: theme.spacing(1),
-        marginRight: theme.spacing(1),
-    },
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+  },
 }));
 
-// TODO: ↓？
 const theme = createTheme();
 
 export const FixAccount = () => {
@@ -41,41 +40,39 @@ export const FixAccount = () => {
 
   const userName = () => {
     if (user === null){
-        return <CircularProgress color="success" size="15px" />
+      return <CircularProgress color="success" size="15px" />
     }
-    return(
+    return (
       <>
-      <p style={{textAlign: 'left', marginTop: '30px'}}>ニックネーム</p>
-      <TextField
-      margin="normal"
-      value={user.name}
-      required
-      fullWidth
-      id="name"
-      // label="ニックネーム"
-      name="name"
-      autoComplete="name"
-      autoFocus
-      onChange={handleUserChange}
-      />
+        <p style={{ textAlign: 'left', marginTop: '30px' }}>ニックネーム</p>
+        <TextField
+          margin="normal"
+          value={user.name}
+          required
+          fullWidth
+          id="name"
+          name="name"
+          autoComplete="name"
+          autoFocus
+          onChange={handleUserChange}
+        />
       </>
     );
   };
   
   const userBirthDay = () => {
     if (user === null){
-        return <CircularProgress color="success" size="15px" />
+      return <CircularProgress color="success" size="15px" />
     }
-    return(
+    return (
       <form className={classes.container} noValidate>
-        <p style={{textAlign: 'left', marginTop: '30px'}}>生年月日</p>
+        <p style={{ textAlign: 'left', marginTop: '30px' }}>生年月日</p>
         <TextField
           margin="normal"
-          style={{margin: '16px 0 8px 0'}}
+          style={{ margin: '16px 0 8px 0' }}
           required
           fullWidth
           id="date"
-          // label="生年月日"
           name="birth_date"
           value={user.birth_date}
           type="date"
@@ -83,7 +80,7 @@ export const FixAccount = () => {
           autoComplete="date"
           autoFocus
           InputLabelProps={{
-              shrink: true,
+            shrink: true,
           }}
           onChange={handleUserChange}
         />
@@ -93,9 +90,9 @@ export const FixAccount = () => {
 
   const userEmail = () => {
     if (user === null){
-        return <CircularProgress color="success" size="15px" />
+      return <CircularProgress color="success" size="15px" />
     }
-    return(
+    return (
       <>
         <p style={{ textAlign: 'left', marginTop: '30px' }}>メールアドレス</p>
         <TextField
@@ -103,7 +100,6 @@ export const FixAccount = () => {
         required
         fullWidth
         id="email"
-        // label="メールアドレス"
         name="email"
         value={user.email}
         autoComplete="email"
@@ -116,24 +112,22 @@ export const FixAccount = () => {
 
   const userPassword = () => {
     if (user === null){
-        return <CircularProgress color="success" size="15px" />
+      return <CircularProgress color="success" size="15px" />
     }
-    return(
+    return (
       <>
-        <p style={{textAlign: 'left', marginTop: '30px'}}>パスワード</p>
+        <p style={{ textAlign: 'left', marginTop: '30px' }}>パスワード</p>
         <OutlinedInput
-        margin="normal"
-        style={{ margin: '16px 0 30px 0' }}
-        required
-        fullWidth
-        name="password"
-        // value={user.password}
-        // label="パスワード"
-        type={values.showPassword ? 'text' : 'password'}
-        onChange={handleUserChange}
-        id="password"
-        autoComplete="current-password"
-        endAdornment={
+          margin="normal"
+          style={{ margin: '16px 0 30px 0' }}
+          required
+          fullWidth
+          name="password"
+          type={values.showPassword ? 'text' : 'password'}
+          onChange={handleUserChange}
+          id="password"
+          autoComplete="current-password"
+          endAdornment={
             <InputAdornment position="end">
               <IconButton
                 aria-label="toggle password visibility"
@@ -144,7 +138,7 @@ export const FixAccount = () => {
                 {values.showPassword ? <VisibilityOff /> : <Visibility />}
               </IconButton>
             </InputAdornment>
-        }
+          }
         />
       </>
     );
@@ -160,7 +154,6 @@ export const FixAccount = () => {
       window.alert('登録変更しました');
     } catch (e) {
       window.alert('登録に失敗しました');
-      console.error(e)
       return;
     }
   };
@@ -194,37 +187,34 @@ export const FixAccount = () => {
             alignItems: 'center',
           }}
         >
-        <img src={header_img} alt="header" style={{ width: '100%' }}/>
-        <p style={{ paddingTop: '50px' }}>変更が完了いたしましたら、修正するボタンを押してください。</p>
+          <img src={header_img} alt="header" style={{ width: '100%' }}/>
+          <p style={{ paddingTop: '50px' }}>変更が完了いたしましたら、修正するボタンを押してください。</p>
           <Box component="form" noValidate sx={{ mt: 5 }}>
             
             {userName()}
-
             {userBirthDay()}
-
             {userEmail()}
-
             {userPassword()}
             
-          <Button 
-            variant="contained"
-            style={{
-              color: 'gray',
-              marginRight: '20px', 
-              padding: '10px', 
-              borderRadius: '5px',
-              letterSpacing: '2px',
-              background: '#f3f0f0d9',
-            }}
-            component={RouterLink}
-            to="/myPage"
-          >
-          マイページへ戻る
-          </Button>
-          <Btn
-            onClick={handleUpdate}
-            message='修正する'
-          />
+            <Button 
+              variant="contained"
+              style={{
+                color: 'gray',
+                marginRight: '20px', 
+                padding: '10px', 
+                borderRadius: '5px',
+                letterSpacing: '2px',
+                background: '#f3f0f0d9',
+              }}
+              component={RouterLink}
+              to="/myPage"
+            >
+            マイページへ戻る
+            </Button>
+            <Btn
+              onClick={handleUpdate}
+              message='修正する'
+            />
           </Box>
         </Box>
       </div>

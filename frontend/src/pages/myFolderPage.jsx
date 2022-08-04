@@ -11,7 +11,6 @@ import { GoBackBtn } from '../components/goBackBtn';
 import Box from '@material-ui/core/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
 import { Link as RouterLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
@@ -19,7 +18,7 @@ import Grid from '@mui/material/Grid';
 import CircularProgress from '@mui/material/CircularProgress';
 
 const useStyles = makeStyles({
-    StyleCreate: {
+    styleCreate: {
         margin: '30px auto',
         padding: '3%',
         background: '-webkit-gradient(linear,left top,left bottom,from(#cce9cc),to(#e1e9b8))',
@@ -27,7 +26,7 @@ const useStyles = makeStyles({
         position: 'relative',
         maxWidth: '70%',
     },
-    CreateMessage: {
+    createMessage: {
         position: 'absolute',
         top: '50%',
         left: '50%',
@@ -35,14 +34,13 @@ const useStyles = makeStyles({
         width: '80%',
         margin: 'auto',
     },
-    TitleImg: {
+    titleImg: {
         maxWidth: '70px',
         display: 'inline-block',
         verticalAlign: 'middle',
         margin: '0 auto 40px',
-
     },
-    Title: {
+    title: {
         fontSize: '40px',
         display: 'inline-block',
     },
@@ -58,9 +56,8 @@ const useStyles = makeStyles({
         border: 'dashed 2px #019401b8',
         boxShadow: '0px 0px 0px 5px #cae1df',
         width: '70%',
-
     },
-})
+});
 
 const data = [
     {
@@ -84,14 +81,14 @@ const data = [
       name: 'High Hazard',
       value: 0,
     },
-  ];
-const ChartColors = [
+];
+
+const chartColors = [
     '#5ac9b4',
     '#f5c56b',
     '#f04b4be7',
     '#cae1df7d',
-  ];
-
+];
 
 export const MyFolder = () => {
     const classes = useStyles();
@@ -105,8 +102,6 @@ export const MyFolder = () => {
     }, []);
 
     const handleFolderCreate = async() => {
-        console.log('handleFolderCreate');
-
         try {
             if (folderName === ''){
                 window.alert('フォルダ名を入力してください');
@@ -124,7 +119,6 @@ export const MyFolder = () => {
             window.alert('フォルダの作成は３つまでです');
             return;
         }
-
     }
 
     const handleFolderDelete = async (e, id) => {
@@ -149,7 +143,6 @@ export const MyFolder = () => {
         if (folders === null){
             return <CircularProgress color="success" size="15px" />
         }
-
         if (folders.length === 0){
             return (
                 <>
@@ -180,119 +173,113 @@ export const MyFolder = () => {
             }
         }
 
-
-            
-
         return (
         <>
             {folders.map((folder, index) => {
-                
-            const paddings = [];
-            for (let i = 0; i < 8; i++) {
-                paddings.push(null);
-            }
-            const boxes = folder.items.concat(paddings).slice(0, 8)
+                const paddings = [];
+                for (let i = 0; i < 8; i++) {
+                    paddings.push(null);
+                }
+                const boxes = folder.items.concat(paddings).slice(0, 8)
+
                 return (
-                <div style={{ background: '#cae1df63', padding: '20px', borderRadius: '20px', marginBottom: '20px' }} key={index}>
-                    <div className='FolderName'>
-                        <img src={green_leaf} alt="" className={classes.TitleImg} />
-                        <p className={classes.Title}>{folder.name}</p>
-                    </div>
-                    <div>
-                        {boxes.map((itemOrNull) => {
-                            
-                            return (
-                                <>
-                                    {renderBox(itemOrNull)}
-                                </>
-                            )
-                        })}
-                    </div>
-                    <div className={classes.ewgForm}>
+                    <div style={{ background: '#cae1df63', padding: '20px', borderRadius: '20px', marginBottom: '20px' }} key={index}>
+                        <div className='FolderName'>
+                            <img src={green_leaf} alt="" className={classes.titleImg} />
+                            <p className={classes.title}>{folder.name}</p>
+                        </div>
+                        <div>
+                            {boxes.map((itemOrNull) => {
+                                return (
+                                    <>
+                                        {renderBox(itemOrNull)}
+                                    </>
+                                )
+                            })}
+                        </div>
+                        <div className={classes.ewgForm}>
                             <p style={{ fontSize: '30px', color: 'green', textShadow: '2px 2px 1px white', margin: '20px auto' }}>EWG安全性</p>
                             <Grid container spacing={1}>
-                            <Grid item xs={6}>
-                            <div>
-                                <p style={{ color: 'green', textShadow: '2px 2px 1px white' }}>配合成分合計： 28種類</p>
-                                <div className={classes.styleParent}>
-                                    <img src={leaf_green} alt="sampleImg" style={{ width: '80px', marginRight: '30px' }} />
-                                    <div style={{ fontSize: '15px', marginTop: '20px' }}><span style={{ fontSize: '25px', fontWeight: 'bold', color: '#5ac9b4' }}>20</span> / 28</div>
-                                </div>
-                                <div className={classes.styleParent}>
-                                    <img src={leaf_yellow} alt="sampleImg" style={{ width: '80px', marginRight: '30px' }} />
-                                    <div style={{ fontSize: '15px', marginTop: '20px' }}><span style={{ fontSize: '25px', fontWeight: 'bold', color: '#f5c56b' }}>7</span> / 28</div>
-                                </div>
-                                <div className={classes.styleParent}>
-                                    <img src={leaf_brown} alt="sampleImg" style={{ width: '80px', marginRight: '30px' }} />
-                                    <div style={{ fontSize: '15px', marginTop: '20px' }}><span style={{ fontSize: '25px', fontWeight: 'bold', color: '#f04b4be7' }}>1</span> / 28</div>
-                                </div>
-                            </div>
+                                <Grid item xs={6}>
+                                    <div>
+                                        <p style={{ color: 'green', textShadow: '2px 2px 1px white' }}>配合成分合計： 28種類</p>
+                                        <div className={classes.styleParent}>
+                                            <img src={leaf_green} alt="sampleImg" style={{ width: '80px', marginRight: '30px' }} />
+                                            <div style={{ fontSize: '15px', marginTop: '20px' }}><span style={{ fontSize: '25px', fontWeight: 'bold', color: '#5ac9b4' }}>20</span> / 28</div>
+                                        </div>
+                                        <div className={classes.styleParent}>
+                                            <img src={leaf_yellow} alt="sampleImg" style={{ width: '80px', marginRight: '30px' }} />
+                                            <div style={{ fontSize: '15px', marginTop: '20px' }}><span style={{ fontSize: '25px', fontWeight: 'bold', color: '#f5c56b' }}>7</span> / 28</div>
+                                        </div>
+                                        <div className={classes.styleParent}>
+                                            <img src={leaf_brown} alt="sampleImg" style={{ width: '80px', marginRight: '30px' }} />
+                                            <div style={{ fontSize: '15px', marginTop: '20px' }}><span style={{ fontSize: '25px', fontWeight: 'bold', color: '#f04b4be7' }}>1</span> / 28</div>
+                                        </div>
+                                    </div>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <div style={{ display: 'inline-block' }}>
+                                        <p style={{ color: 'green', textShadow: '2px 2px 1px white' }}>EWG等級別成分割合(％)</p>
+                                        <PieChart width={300} height={300}>
+                                            <Pie data={data} dataKey="value" outerRadius={100} label>
+                                                {data.map((entry, index) => (
+                                                    <Cell key={entry.name} fill={chartColors[index % chartColors.length]} />
+                                                ))}
+                                            </Pie>
+                                        </PieChart>
+                                    </div>
+                                </Grid>
                             </Grid>
-                            <Grid item xs={6}>
-                            <div style={{ display: 'inline-block' }}>
-                                <p style={{ color: 'green', textShadow: '2px 2px 1px white' }}>EWG等級別成分割合(％)</p>
-                                <PieChart width={300} height={300}>
-                                <Pie data={data} dataKey="value" outerRadius={100} label>
-                                {data.map((entry, index) => (
-                                    <Cell key={entry.name} fill={ChartColors[index % ChartColors.length]} />
-                                ))}
-                                </Pie>
-                                </PieChart>
-                            </div>
-                            </Grid>
-                        </Grid>
+                        </div>
+                        <div>
+                            <Button 
+                                variant="contained"
+                                style={{
+                                    marginTop: '30px',
+                                    color: 'white',
+                                    background: '#f04b4be7',
+                                    borderRadius: '7px',
+                                }}
+                                onClick={(e) => handleFolderDelete(e, folder.id)}
+                            >
+                            ファイルを削除する
+                            </Button>
+                        </div>
                     </div>
-                    <div>
-                        <Button 
-                            variant="contained"
-                            style={{
-                                marginTop: '30px',
-                                color: 'white',
-                                background: '#f04b4be7',
-                                borderRadius: '7px',
-                            }}
-                            onClick={(e) => handleFolderDelete(e, folder.id)}
-                        >
-                        ファイルを削除する
-                        </Button>
-                    </div>
-                </div>
-            )})}
+                )
+            })}
         </>
-        )
+        );
     }
-
 
     return (
         <>
         <div className='MainContainer'>
             <GoBackBtn />
             <img src={header_img} alt="header" style={{ width: '100%' }}/>
-
             <div style={{ margin: '30px auto' }}>
                 <p>こちらのページでは、あなただけのオリジナル化粧品フォルダが作成することができます。</p>
                 <p>季節や肌状態に合わせてお肌がその時必要とするお手入れを保存してみませんか？</p>
                 <p>総合的なEWG等級別成分割合を確認することもできますよ。</p>
                 <p>どんな時でも健やかな肌で過ごせますように。</p>
             </div>
-
-            <div className={classes.StyleCreate}>
-                <div className={classes.CreateMessage}>
+            <div className={classes.styleCreate}>
+                <div className={classes.createMessage}>
                     <Box
                     component="form"
-                        noValidate
-                        autoComplete="off"
-                        >
-                    <TextField 
-                        id="standard-basic" 
-                        label="フォルダ名を入力する" 
-                        variant="standard"
-                        value={folderName}
-                        onChange={(event) => {
-                            setFolderName(event.target.value);
-                        }}
-                    />
-                    <Btn message='作成する' onClick={handleFolderCreate} />
+                    noValidate
+                    autoComplete="off"
+                    >
+                        <TextField 
+                            id="standard-basic" 
+                            label="フォルダ名を入力する" 
+                            variant="standard"
+                            value={folderName}
+                            onChange={(event) => {
+                                setFolderName(event.target.value);
+                            }}
+                        />
+                        <Btn message='作成する' onClick={handleFolderCreate} />
                     </Box>
                 </div>
             </div>
@@ -301,5 +288,5 @@ export const MyFolder = () => {
 
         </div>
         </>
-    )
-}
+    );
+};

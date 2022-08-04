@@ -40,7 +40,7 @@ export const ItemComparison = () => {
                         <td colspan="7"><CircularProgress color="success" size="15px" /></td>
                     </tr>
                 </tbody>
-            )
+            );
         }
         if (item.length === 0){
             return (
@@ -52,7 +52,7 @@ export const ItemComparison = () => {
                 </tbody>
             );
         }
-        return(
+        return (
             <>
                 {item.map((item, index) => (
                     <tbody key={index}>
@@ -103,7 +103,6 @@ export const ItemComparison = () => {
                 window.alert('コスメ比較から削除しました');
             } catch (e) {
                 window.alert('削除に失敗しました');
-                // console.error(e);
                 return;
             }
         } else {
@@ -111,14 +110,11 @@ export const ItemComparison = () => {
         }
     };
 
-
-
     const explain_green = 'EWG 1~2等級（有害性が低い成分）';
     const explain_yellow = 'EWG 3~6等級（有害性が普通の成分）';
     const explain_red = 'EWG 7~10等級（有害性が高い成分）';
 
-
-    return(
+    return (
         <>
         <div className='MainContainer'>
             <GoBackBtn />
@@ -130,8 +126,6 @@ export const ItemComparison = () => {
                     <p>また、アイテムの画像部分をクリックすると、詳細を確認することができます。</p>
                     <p><Link component={RouterLink} to="/itemSearch">→比較したい商品を探す</Link></p>
                 </div>
-
-
                 <div style={{ margin: '50px 0 20px 0' }}>
                     <table style={{ margin: '0 auto' }}>
                         <thead>

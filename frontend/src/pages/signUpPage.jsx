@@ -72,7 +72,6 @@ export const SignUpPage = () => {
       navigate("/homePage");
     } catch (e) {
       window.alert('登録に失敗しました');
-      // console.error(e);
       return;
     }
   };
@@ -194,7 +193,6 @@ export const SignUpPage = () => {
                 </InputLabel>
                 <OutlinedInput
                   margin="normal"
-                  // style={{ margin: '5px 0 10px' }}
                   required
                   fullWidth
                   name="password"
@@ -247,7 +245,6 @@ export const SignUpPage = () => {
                       value={userInformation.skin_type_id}
                       label="skin_type_id"
                       onChange={handleUserInformationChange}
-                      // TODO: ↓？
                       onClose={() => { setSkinTypeTooltip(''); }}
                       style={{
                         margin: '0 auto',
@@ -258,7 +255,6 @@ export const SignUpPage = () => {
                         <MenuItem
                           value={skinType.id} 
                           style={{ margin: '5px' }}
-                          // TODO: ↓？
                           onMouseOver={() => { setSkinTypeTooltip(skinType.detail); }}
                         >
                         {skinType.name}
@@ -270,7 +266,6 @@ export const SignUpPage = () => {
                 <div style={{ margin: '20px' }}>
                   <p style={{ color: 'gray' }}>登録情報はマイページからいつでも変更できます。</p>
                 </div>
-
                 <Btn
                   onClick={handleRegister}
                   message='登録する'

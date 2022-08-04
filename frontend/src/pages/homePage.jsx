@@ -27,7 +27,6 @@ const useStyles = makeStyles({
         display: 'inline-block',
         verticalAlign: 'middle',
         margin: '0 auto 40px',
-
     },
     Title: {
         fontSize: '35px',
@@ -70,7 +69,6 @@ const useStyles = makeStyles({
     },
 });
 
-
 export const HomePage = () => {
     const classes = useStyles();
     const [user, setUser] = useRecoilState(userAtom);
@@ -92,7 +90,7 @@ export const HomePage = () => {
         });
         const t = responseToner.data;
         setToner(t);
-        
+
         const responseEmulsion = await axios.get('/items', {
             params: {
                 skin_type_id: response.data.skin_type_id,
@@ -116,7 +114,7 @@ export const HomePage = () => {
         if (user === null){
             return <CircularProgress color="success" size="15px" />
         }
-        return(
+        return (
             <p>{user.skin_type_name}タイプの方に</p>
         );
     };
@@ -125,7 +123,7 @@ export const HomePage = () => {
         if (user === null){
             return <CircularProgress color="success" size="40px" />
         }
-        return(
+        return (
             <p>{user.name}さん、こんにちは！<br/>
             最近のお肌の調子はいかがですか？<br/>
             {user.name}さんのお肌に合ったスキンケアが見つかりますように．．</p>
@@ -133,42 +131,31 @@ export const HomePage = () => {
     };
 
     const recommendToner = () => {
-        // ↓エラーになったところUncaught Error:
-        //  Objects are not valid as a React child (found: [object Promise]). If you meant to render a collection of children, use an array instead.
-
-        // const responseItem = await axios.get('/items', {
-        //     params: {
-        //         skin_type_id: skinType,
-        //         // category_id: category,
-        //     }
-        // });
-        // const i = responseItem.data;
-        // setItem(i);
         if (toner === null){
             return <CircularProgress color="success" size="15px" />
         }
-        return(
+        return (
             <ImageList style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
-            <Grid container spacing={1} direction="row" justifyContent="center" alignItems="center">
-            {toner.map((toner, index) => (
-                <ImageListItem 
-                  key={index} 
-                  className={classes.CardPaper} 
-                  onClick={() => { navigate(`/item/${toner.id}`) }}
-                >
-                    <img
-                        src={toner.img}
-                        alt={toner.name}
-                        loading="lazy"
-                        style={{ maxWidth: '250px', height: '100%', margin: '0 auto' }}
-                    />
-                    <ImageListItemBar
-                        title={toner.brand}
-                        subtitle={toner.name}
-                    />
-                </ImageListItem>
-            ))}
-            </Grid>
+                <Grid container spacing={1} direction="row" justifyContent="center" alignItems="center">
+                    {toner.map((toner, index) => (
+                        <ImageListItem 
+                            key={index} 
+                            className={classes.CardPaper} 
+                            onClick={() => { navigate(`/item/${toner.id}`) }}
+                        >
+                            <img
+                                src={toner.img}
+                                alt={toner.name}
+                                loading="lazy"
+                                style={{ maxWidth: '250px', height: '100%', margin: '0 auto' }}
+                            />
+                            <ImageListItemBar
+                                title={toner.brand}
+                                subtitle={toner.name}
+                            />
+                        </ImageListItem>
+                    ))}
+                </Grid>
             </ImageList>
         );
     };
@@ -177,28 +164,28 @@ export const HomePage = () => {
         if (emulsion === null){
             return <CircularProgress color="success" size="15px" />
         }
-        return(
-            <ImageList style={{gridTemplateColumns: '1, 1fr', gap: '1'}}>
-            <Grid container spacing={1} direction="row" justifyContent="center" alignItems="center">
-            {emulsion.map((emulsion, index) => (
-                <ImageListItem 
-                  key={index} 
-                  className={classes.CardPaper}
-                  onClick={() => { navigate(`/item/${emulsion.id}`) }}
-                >
-                    <img
-                        src={emulsion.img}
-                        alt={emulsion.name}
-                        loading="lazy"
-                        style={{maxWidth: '250px', height: '100%', margin: '0 auto'}}
-                    />
-                    <ImageListItemBar
-                        title={emulsion.brand}
-                        subtitle={emulsion.name}
-                    />
-                </ImageListItem>
-            ))}
-            </Grid>
+        return (
+            <ImageList style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
+                <Grid container spacing={1} direction="row" justifyContent="center" alignItems="center">
+                    {emulsion.map((emulsion, index) => (
+                        <ImageListItem 
+                            key={index} 
+                            className={classes.CardPaper}
+                            onClick={() => { navigate(`/item/${emulsion.id}`) }}
+                        >
+                            <img
+                                src={emulsion.img}
+                                alt={emulsion.name}
+                                loading="lazy"
+                                style={{ maxWidth: '250px', height: '100%', margin: '0 auto' }}
+                            />
+                            <ImageListItemBar
+                                title={emulsion.brand}
+                                subtitle={emulsion.name}
+                            />
+                        </ImageListItem>
+                    ))}
+                </Grid>
             </ImageList>
         );
     };
@@ -208,46 +195,44 @@ export const HomePage = () => {
             return <CircularProgress color="success" size="15px" />
         }
         if (serum.length === 0){
-            return(
-                <ImageList style={{gridTemplateColumns: '1, 1fr', gap: '1'}}>
-                <Grid container spacing={1} direction="row" justifyContent="center" alignItems="center">
-                <p>アイテムが見つかりませんでした。</p>
-                </Grid>
+            return (
+                <ImageList style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
+                    <Grid container spacing={1} direction="row" justifyContent="center" alignItems="center">
+                        <p>アイテムが見つかりませんでした。</p>
+                    </Grid>
                 </ImageList>
             )
         } else {
             return(
-                <ImageList style={{gridTemplateColumns: '1, 1fr', gap: '1'}}>
-                <Grid container spacing={1} direction="row" justifyContent="center" alignItems="center">
-                {serum.map((serum, index) => (
-                    <ImageListItem 
-                      key={index} 
-                      className={classes.CardPaper}
-                      onClick={() => { navigate(`/item/${serum.id}`) }}
-                    >
-                    <img
-                        src={serum.img}
-                        alt={serum.name}
-                        loading="lazy"
-                        style={{maxWidth: '250px', height: '100%', margin: '0 auto'}}
-                    />
-                    <ImageListItemBar
-                        title={serum.brand}
-                        subtitle={serum.name}
-                    />
-                    </ImageListItem>
-                ))}
-                </Grid>
+                <ImageList style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
+                    <Grid container spacing={1} direction="row" justifyContent="center" alignItems="center">
+                        {serum.map((serum, index) => (
+                            <ImageListItem 
+                                key={index} 
+                                className={classes.CardPaper}
+                                onClick={() => { navigate(`/item/${serum.id}`) }}
+                            >
+                                <img
+                                    src={serum.img}
+                                    alt={serum.name}
+                                    loading="lazy"
+                                    style={{ maxWidth: '250px', height: '100%', margin: '0 auto' }}
+                                />
+                                <ImageListItemBar
+                                    title={serum.brand}
+                                    subtitle={serum.name}
+                                />
+                            </ImageListItem>
+                        ))}
+                    </Grid>
                 </ImageList>
             );
         };  
     };
 
-
-
-    return(
+    return (
         <>
-        <div className='MainContainer'>
+            <div className='MainContainer'>
                 <div className={classes.message}>
                     <img src={top_img} className={classes.TopImg}/>
                     <div className={classes.TopMessage}>
@@ -255,48 +240,41 @@ export const HomePage = () => {
                     </div>
                 </div>
 
-            {/* search */}
-            <div className={classes.StyleSearch}>
-            <div className={classes.SearchMessage}>
-                <p style={{paddingBottom: '20px', fontSize: '20px'}}>あなたのスキンケアは安全ですか？</p>
-                <p style={{fontSize: '20px'}}>お使いのスキンケアを<Link component={RouterLink} to="/itemSearch" style={{ fontSize: '30px' }}>検索ページ</Link>から探してみましょう。</p>
-            </div>
-            </div>
-            
-            {/* recommend */}
+                {/* search */}
+                <div className={classes.StyleSearch}>
+                    <div className={classes.SearchMessage}>
+                        <p style={{paddingBottom: '20px', fontSize: '20px'}}>あなたのスキンケアは安全ですか？</p>
+                        <p style={{fontSize: '20px'}}>お使いのスキンケアを<Link component={RouterLink} to="/itemSearch" style={{ fontSize: '30px' }}>検索ページ</Link>から探してみましょう。</p>
+                    </div>
+                </div>
+                
+                {/* lotion */}
                 <div className='recommend'>
                     <div className='TitleForm'>
                         <img src={green_leaf} alt="green_leaf" className={classes.TitleImg} />
                         <p className={classes.Title}>{userSkinType()}おすすめの化粧水</p>
                     </div>
-                    
                     {recommendToner()}
-
                 </div>
-                
-            {/* recommend */}
+                    
+                {/* emulsion */}
                 <div className='recommend'>
                     <div className='TitleForm'>
                         <img src={green_leaf} alt="green_leaf" className={classes.TitleImg} />
                         <p className={classes.Title}>{userSkinType()}おすすめの乳液</p>
                     </div>
-
                     {recommendEmulsion()}
-
                 </div>                
 
-            {/* recommend */}
+                {/* serum */}
                 <div className='recommend'>
                     <div className='TitleForm'>
                         <img src={green_leaf} alt="green_leaf" className={classes.TitleImg} />
                         <p className={classes.Title}>{userSkinType()}おすすめの美容液</p>
                     </div>
-
                     {recommendSerum()}
-
-                </div>
-                
-        </div>
+                </div>                
+            </div>
         </>
     );
 };

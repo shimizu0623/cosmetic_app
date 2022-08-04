@@ -1,4 +1,3 @@
-// MEMO: スタイル調整済
 import React, {useState, useEffect} from 'react';
 import axios from '../axios';
 import Carousel from 'react-multi-carousel';
@@ -27,7 +26,6 @@ import { useNavigate } from 'react-router-dom';
 
 const responsive = {
     superLargeDesktop: {
-    // the naming can be any, depends on you.
       breakpoint: { max: 4000, min: 3000 },
       items: 5
     },
@@ -42,7 +40,7 @@ const responsive = {
     mobile: {
       breakpoint: { max: 464, min: 0 },
       items: 1
-    }
+    },
 };
 
 const useStyles = makeStyles({
@@ -83,8 +81,6 @@ const useStyles = makeStyles({
         color: '#0c5b64',
         fontSize: '18px',
         fontWeight: 'bold',
-        // textAlign:'center',
-        // height:'90px',
         lineHeight:'90px',
         textShadow: '0 -1px 0 #cdeef1',
     },
@@ -101,14 +97,13 @@ const useStyles = makeStyles({
     },
 });
 
-
 export const MyPage = () => {
     const classes = useStyles();
     const [user, setUser] = useState(null);
     const [favorites, setFavorites] = useState([]);
     const [histories, setHistories] = useState([]);
     const navigate = useNavigate();
-    
+
     useEffect(async () => {
         const response = await axios.get('/me');
         const responseFavorites = await axios.get('/user_favorites');
@@ -125,7 +120,7 @@ export const MyPage = () => {
         if (user === null){
             return <CircularProgress color="success" size="35px" />
         }
-        return(
+        return (
             <div style={{ margin: 'auto 0', width: '400px' }}>
                 <p style={{ fontSize: '30px', marginBottom: '15px' }}>{user.name}</p>
                 <p>{user.birthday_string}/{user.gender_name}</p>
@@ -142,7 +137,6 @@ export const MyPage = () => {
             setUser(u);
         } catch (e) {
             window.alert('変更できませんでした');
-            console.error(e);
             return;
         };
     };
@@ -172,13 +166,11 @@ export const MyPage = () => {
         // if (favorites.length === 0){
         //     return <CircularProgress color="success" size="15px" />
         // }
-
         return (
             <ImageList style={{ width: '100%', gridTemplateColumns: 'repeat(1, 1fr)' }}>
                 <ImageListItem key="Subheader" cols={2}>
                     <ListSubheader component="div">お気に入りに登録中のアイテム</ListSubheader>
                 </ImageListItem>
-        
                 {/* <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <div style={{ maxWidth: '1000px' }}> */}
                         <Carousel
@@ -222,16 +214,15 @@ export const MyPage = () => {
         )
     }
 
-    return(
+    return (
         <>
         <div className='MainContainer'>
             <GoBackBtn />
             <img src={header_img} alt="header" className={classes.header}/>
-            
             <div className={classes.styleParent}>
 
                 {userInformation()}
-                
+
                 <div className={classes.skinTypeForm}>
                     <p style={{ marginBottom: '20px' }}>＜自分のスキンタイプを変更する＞</p>
                     <Box
@@ -303,10 +294,7 @@ export const MyPage = () => {
 {/* favorite */}
             <div className='favorite'>
                 <img src={leaf_favorite_img} alt="leaf_favorite_img" className={classes.img}/>                
-
-                    {/* TODO: 表示されない */}
-                    {loading()}
-
+                {loading()}
             </div>
             
 {/* history */}
@@ -316,7 +304,6 @@ export const MyPage = () => {
                     <ImageListItem key="Subheader" cols={2}>
                         <ListSubheader component="div">最近チェックしたアイテム</ListSubheader>
                     </ImageListItem>
-
                     {/* <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', maxWidth: '1000px' }}> */}
                         {/* <div style={{ maxWidth: '1000px' }}> */}
                             <Carousel
@@ -355,7 +342,6 @@ export const MyPage = () => {
                             </Carousel>
                         {/* </div> */}
                     {/* </div> */}
-                    
                 </ImageList>
             </div>
             

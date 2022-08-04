@@ -3,13 +3,11 @@ import axios from '../axios';
 import header_img from '../img/headerReview.jpg';
 import { Btn } from '../components/btn';
 import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import CircularProgress from '@mui/material/CircularProgress';
 import { makeStyles } from "@material-ui/core/styles";
 import Rating from '@material-ui/lab/Rating';
-import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import TextField from '@mui/material/TextField';
 import green_leaf from '../img/green_leaf_img_clear.png';
@@ -30,7 +28,6 @@ const useStyles = makeStyles({
         display: 'inline-block',
         verticalAlign: 'middle',
         margin: '0 auto 40px',
-
     },
     Title: {
         fontSize: '27px',
@@ -42,7 +39,6 @@ const useStyles = makeStyles({
         background: '#cae1df63',
         borderRadius: '20px',
     },
-
 });
 
 export const ReviewPage = () => {
@@ -77,32 +73,27 @@ export const ReviewPage = () => {
         setSkinTypes(s);
         setReviews(r);
         setMyReview(m);
-
         let starTotal = 0;
         // ↓TODO: for文だとレビュー増えた時に重くなる？
         for (let i = 0; i < responseReviews.data.length; i++){
             starTotal = starTotal + (responseReviews.data[i].star);
         }
-        // console.log(starTotal);
         const calc = starTotal / responseReviews.data.length;
-        // console.log(calc);
         const int = Math.round(calc)
         setStarAverage(int);
-    }, [])
+    }, []);
 
-    const userName = () =>{
+    const userName = () => {
         if (user === null){
             return <CircularProgress color="success" size="15px" />
         }
         return (
             <>
-            <p style={{ fontSize: '25px', textAlign: 'left' }}>{user.name}</p>
-            <p style={{ fontSize: '15px', textAlign: 'left' }}>{user.skin_type_name}</p>
+                <p style={{ fontSize: '25px', textAlign: 'left' }}>{user.name}</p>
+                <p style={{ fontSize: '15px', textAlign: 'left' }}>{user.skin_type_name}</p>
             </>
         );
     };
-    
-
 
     const itemInformation = () => {
         if (item === null){
@@ -130,7 +121,6 @@ export const ReviewPage = () => {
     };
 
     const handleSend = async () => {
-        console.log('handleSend');
         try {
             if (form.replace(/\n|\s/g, '') === ''){
                 window.alert('レビューを記入してください');
@@ -155,14 +145,11 @@ export const ReviewPage = () => {
             window.alert('レビューを投稿しました');
         } catch (e) {
             window.alert('送信に失敗しました');
-            console.error(e)
             return;
         }         
-
     };
 
     const handleEdit = async () => {
-        console.log('handleEdit');
         try {
             const responseReviews = await axios.get('/reviews', {
                 params: {
@@ -172,7 +159,6 @@ export const ReviewPage = () => {
             const m = responseReviews.data.find((data) => data.user_id === user.id);
             const mKeys =  JSON.stringify(m);
             const myReviewKeys =  JSON.stringify(myReview);
-
             if (mKeys !== myReviewKeys){
                 const responseDelete = await axios.delete(`/reviews/${myReview.id}`);
                 const responsePost = await axios.post('/reviews', {
@@ -195,7 +181,7 @@ export const ReviewPage = () => {
             window.alert('送信に失敗しました');
             return;
         }         
-};
+    };
 
     const handleSkinTypeChange = (event) => {
         setSelect(event.target.value);
@@ -205,7 +191,6 @@ export const ReviewPage = () => {
         const confirmMessage = '投稿中のレビューを削除してよろしいですか？'
         let result = window.confirm(confirmMessage);
         if (result){
-            console.log(myReview);
             try {
                 const response = await axios.delete(`/reviews/${myReview.id}`);
                 const responseReviews = await axios.get('/reviews', {
@@ -262,13 +247,10 @@ export const ReviewPage = () => {
                     rows={4}
                     value={form}
                     onChange={handleAddForm}
-                    // defaultValue="Default Value"
                     />
                 </Box>
             </div>
-
             <Btn message='投稿する' onClick={handleSend} />
-
         </>
         )
     }
@@ -285,7 +267,6 @@ export const ReviewPage = () => {
                 <div style={{ width: '500px', margin: '0 auto' }}>
                     {userName()}
                     <Box style={{ padding: '0', textAlign: 'right' }} component="fieldset" borderColor="transparent">
-                    {/* <Typography component="legend">Controlled</Typography> */}
                         <Rating
                         name="simple-controlled"
                         value={myReview.star}
@@ -295,7 +276,6 @@ export const ReviewPage = () => {
                         />
                     </Box>
                 </div>
-
                 <div>
                     <Box
                     className={classes.Title}
@@ -313,7 +293,6 @@ export const ReviewPage = () => {
                         multiline
                         rows={4}
                         value={myReview.review}
-                        // defaultValue="Default Value"
                         onChange={(event) => {
                             setMyReview({...myReview, review:event.target.value});
                         }}                    
@@ -350,12 +329,7 @@ export const ReviewPage = () => {
                         <p style={{ fontSize: '15px', textAlign: 'left' }}>{review.skin_type}</p>
                         <p style={{ fontSize: '15px', textAlign: 'right' }}>{review.posted_date}</p>
                         <Box style={{ padding: '0', textAlign: 'right' }} component="fieldset" borderColor="transparent">
-                        {/* <Typography component="legend">Controlled</Typography> */}
-                            <Rating
-                            name="read-only"
-                            value={review.star}
-                            readOnly
-                            />
+                            <Rating name="read-only" value={review.star} readOnly />
                         </Box>
                     </div>
                     <Box
@@ -374,7 +348,6 @@ export const ReviewPage = () => {
                         value={review.review}
                         sx={{ mb: 5 }}
                         inputProps={{ readonly: true }}
-                        // defaultValue="Default Value"
                         />
                     </Box>
                 </>
@@ -390,12 +363,7 @@ export const ReviewPage = () => {
                     <p style={{ fontSize: '15px', textAlign: 'left' }}>{review.skin_type}</p>
                     <p style={{ fontSize: '15px', textAlign: 'right' }}>{review.posted_date}</p>
                     <Box style={{ padding: '0', textAlign: 'right' }} component="fieldset" borderColor="transparent">
-                    {/* <Typography component="legend">Controlled</Typography> */}
-                        <Rating
-                        name="read-only"
-                        value={review.star}
-                        readOnly
-                        />
+                        <Rating name="read-only" value={review.star} readOnly />
                     </Box>
                 </div>
                 <Box
@@ -414,7 +382,6 @@ export const ReviewPage = () => {
                     value={review.review}
                     sx={{ mb: 5 }}
                     inputProps={{ readonly: true }}
-                    // defaultValue="Default Value"
                     />
                 </Box>
             </>
@@ -422,47 +389,19 @@ export const ReviewPage = () => {
         );
     }
 
-    // const button = () => {
-    //     // if (){
-    //     //     return (
-    //     //         <Btn message='投稿する' onClick={handleSend} />
-    //     //     )
-    //     // }
-    //     return (
-    //         <>
-    //             <Btn message='編集する' onClick={handleEdit} />
-    //             <Tooltip title="Delete" style={{ marginLeft: '20px' }}>
-    //                 <IconButton>
-    //                     <DeleteIcon onClick={handleDelete} />
-    //                 </IconButton>
-    //             </Tooltip>
-    //         </>
-    //     )
-    // }
-
     return(
         <>
         <div className='MainContainer'>
             <img src={header_img} alt="header" style={{ width: '100%' }}/>
-
             {itemInformation()}
-
             <div style={{ marginTop: '30px' }}>
                 <p>こちらのアイテムを使用したことはありますか？</p>
                 <p>使ってみた感想をぜひ教えてください。</p>
                 <p>まだ使ったことがない方は、同じ肌タイプの方だけのレビューを見ることもできますよ。</p>
             </div>
-
             <div className={classes.TitleForm}>
-                {/* <img src={green_leaf} alt="" className={classes.TitleImg} />
-                <p className={classes.Title}>マイレビュー</p> */}
-
                 {review()}
-
-                {/* {button()} */}
-
             </div>
-
             <div style={{ margin: '40px auto' }}>
                 <img src={green_leaf} alt="green_leaf" className={classes.TitleImg} />
                 <p className={classes.Title}>レビュー一覧</p>
@@ -482,9 +421,7 @@ export const ReviewPage = () => {
                     </Select>
                 </FormControl>
             </div>
-
             {allReviews()}
-
         </div>
         </>
     );

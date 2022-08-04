@@ -1,4 +1,3 @@
-// MEMO: スタイル調整済
 import React from 'react';
 import Button from '@mui/material/Button';
 import { makeStyles } from '@material-ui/core/styles';
@@ -26,7 +25,7 @@ const useStyles = makeStyles({
 export const HeaderLogoOnly = () => {
     const classes = useStyles();
 
-    return(
+    return (
         <header>
             <div className={classes.headerLeft}>
                 <img src={logo_img} alt="Logo" style={{ margin: '0 30px', height: '60px' }} />

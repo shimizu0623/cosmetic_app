@@ -15,7 +15,7 @@ export const DeleteConfirm = () => {
     };
 
     const handleSend = async () => {
-        const confirmMessage = 'データは完全に消去されます。本当に削除してもよろしいですか？'
+        const confirmMessage = 'データは完全に消去されます。本当に削除してもよろしいですか？';
         let result = window.confirm(confirmMessage);
         if (result){
             try {
@@ -26,7 +26,6 @@ export const DeleteConfirm = () => {
                 navigate("/delete");
             } catch (e) {
                 window.alert('送信に失敗しました');
-                console.error(e)
                 return;
             }         
         } else {
@@ -34,33 +33,28 @@ export const DeleteConfirm = () => {
         }    
     };
 
-    return(
+    return (
         <>
-        <div className='MainContainer'>
-
-            <GoBackBtn />
-
-            <img src={green_leaf} alt="" style={{ maxWidth: '90px', display: 'inline-block', verticalAlign: 'middle', margin: '0 auto 40px' }} />
-            <h1 style={{ fontSize: '40px', display: 'inline-block' }}>退会フォーム</h1>
-            <div>
-                <p>いつもご利用いただき、ありがとうございます。</p>
-                <p>よろしければ、退会の理由をお聞かせください。</p>
-                <TextareaAutosize
-                aria-label="minimum height"
-                minRows={20}
-                style={{ width: 400 }}
-                onChange={handleAddReason}
-                />
+            <div className='MainContainer'>
+                <GoBackBtn />
+                <img src={green_leaf} alt="" style={{ maxWidth: '90px', display: 'inline-block', verticalAlign: 'middle', margin: '0 auto 40px' }} />
+                <h1 style={{ fontSize: '40px', display: 'inline-block' }}>退会フォーム</h1>
+                <div>
+                    <p>いつもご利用いただき、ありがとうございます。</p>
+                    <p>よろしければ、退会の理由をお聞かせください。</p>
+                    <TextareaAutosize
+                        aria-label="minimum height"
+                        minRows={20}
+                        style={{ width: 400 }}
+                        onChange={handleAddReason}
+                    />
+                </div>
+                <div style={{ margin: '30px auto' }}>
+                    <p>下のボタンより退会手続きを行ってください。</p>
+                    <p>退会すると、登録データは<span style={{ color: 'red' }}>全て削除</span>されます。</p>
+                </div>
+                <Btn message='退会する' onClick={handleSend} />
             </div>
-            <div style={{margin: '30px auto'}}>
-                <p>下のボタンより退会手続きを行ってください。</p>
-                <p>退会すると、登録データは<span style={{ color: 'red' }}>全て削除</span>されます。</p>
-            </div>
-
-            <Btn message='退会する' onClick={handleSend}/>
-            
-        </div>
         </>
     );
 };
-
