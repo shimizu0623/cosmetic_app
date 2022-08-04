@@ -74,7 +74,7 @@ export const Ranking = () => {
                     <li><img src={itemData.img} alt="item_img"  className={classes.itemImg}/></li>
                     <ImageListItemBar
                     title={itemData.name}
-                    subtitle={`￥${itemData.price}`}
+                    subtitle={`￥${itemData.price.toLocaleString()}`}
                     />
                 </ImageListItem>
             </>

@@ -68,7 +68,7 @@ export const ItemComparison = () => {
                             <td>{item.brand}</td>
                             <td>{item.name}</td>
                             <td>{item.volume}</td>
-                            <td>￥{item.price}</td>
+                            <td>￥{item.price.toLocaleString()}</td>
                             <td>{item.green}</td>
                             <td>{item.yellow}</td>
                             <td>{item.red}</td>

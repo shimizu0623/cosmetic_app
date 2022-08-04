@@ -423,7 +423,7 @@ export const ItemDetail = () => {
                     </div>
                     <div className={classes.styleP}>
                         <p className={classes.itemDetail}>価格：</p>
-                        <p>￥{item.price}</p>
+                        <p>￥{item.price.toLocaleString()}</p>
                     </div>
                     <div>
                         <p style={{ color: 'gray', fontSize: '13px' }}>※実際の価格と異なる場合がございますので、購入時は
