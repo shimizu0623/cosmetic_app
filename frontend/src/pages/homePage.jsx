@@ -21,6 +21,8 @@ const useStyles = makeStyles({
         width: '100%',
         objectFit: 'cover',
         filter: 'blur(4px)',
+        // position: 'relative',
+        // zIndex: '-2147483647',
     },
     TitleImg: {
         maxWidth: '90px',
@@ -60,6 +62,7 @@ const useStyles = makeStyles({
         borderRadius: '10px',
         position: 'relative',
         maxWidth: '80%',
+        // zIndex: '-2147483647',
     },
     SearchMessage: {
         position: 'absolute',
@@ -67,6 +70,16 @@ const useStyles = makeStyles({
         left: '50%',
         transform: 'translate(-50%, -50%)',
     },
+    StyleImg: {
+        maxWidth: '250px', 
+        height: '100%', 
+        margin: '0 auto',
+        // position: 'relative',
+        // zIndex: '-2147483647',
+    },
+    StyleBar: {
+        // zIndex: '-2147483647',
+    }
 });
 
 export const HomePage = () => {
@@ -147,11 +160,12 @@ export const HomePage = () => {
                                 src={toner.img}
                                 alt={toner.name}
                                 loading="lazy"
-                                style={{ maxWidth: '250px', height: '100%', margin: '0 auto' }}
+                                className={classes.StyleImg} 
                             />
                             <ImageListItemBar
                                 title={toner.brand}
                                 subtitle={toner.name}
+                                className={classes.StyleBar} 
                             />
                         </ImageListItem>
                     ))}
@@ -177,11 +191,17 @@ export const HomePage = () => {
                                 src={emulsion.img}
                                 alt={emulsion.name}
                                 loading="lazy"
-                                style={{ maxWidth: '250px', height: '100%', margin: '0 auto' }}
+                                style={{
+                                    maxWidth: '250px', 
+                                    height: '100%',
+                                    margin: '0 auto'
+                                }}
+                                className={classes.StyleImg} 
                             />
                             <ImageListItemBar
                                 title={emulsion.brand}
                                 subtitle={emulsion.name}
+                                className={classes.StyleBar} 
                             />
                         </ImageListItem>
                     ))}
@@ -216,11 +236,12 @@ export const HomePage = () => {
                                     src={serum.img}
                                     alt={serum.name}
                                     loading="lazy"
-                                    style={{ maxWidth: '250px', height: '100%', margin: '0 auto' }}
+                                    className={classes.StyleImg} 
                                 />
                                 <ImageListItemBar
                                     title={serum.brand}
                                     subtitle={serum.name}
+                                    className={classes.StyleBar} 
                                 />
                             </ImageListItem>
                         ))}
@@ -243,8 +264,8 @@ export const HomePage = () => {
                 {/* search */}
                 <div className={classes.StyleSearch}>
                     <div className={classes.SearchMessage}>
-                        <p style={{paddingBottom: '20px', fontSize: '20px'}}>あなたのスキンケアは安全ですか？</p>
-                        <p style={{fontSize: '20px'}}>お使いのスキンケアを<Link component={RouterLink} to="/itemSearch" style={{ fontSize: '30px' }}>検索ページ</Link>から探してみましょう。</p>
+                        <p style={{ paddingBottom: '20px', fontSize: '20px' }}>あなたのスキンケアは安全ですか？</p>
+                        <p style={{ fontSize: '20px' }}>お使いのスキンケアを<Link component={RouterLink} to="/itemSearch" style={{ fontSize: '30px' }} >検索ページ</Link>から探してみましょう。</p>
                     </div>
                 </div>
                 

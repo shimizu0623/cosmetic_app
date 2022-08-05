@@ -264,6 +264,7 @@ export const MyFolder = () => {
                 <p>どんな時でも健やかな肌で過ごせますように。</p>
             </div>
             <div className={classes.styleCreate}>
+            {/* <div className={classes.styleCreate} style={{ zIndex: '-2147483647' }}> */}
                 <div className={classes.createMessage}>
                     <Box
                     component="form"
