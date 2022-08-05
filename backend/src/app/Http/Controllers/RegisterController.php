@@ -15,7 +15,6 @@ class RegisterController extends Controller
 {
     public function register(Request $request)
     {
-        //入力バリデーション
         $validator = Validator::make($request->all(),[
             'gender_id' => 'required',
             'name' => 'required',
@@ -25,23 +24,19 @@ class RegisterController extends Controller
             'skin_type_id' => 'required',
         ]);
 
-        //バリデーションで問題があった際にはエラーを返す。
-        if ($validator->fails()) {
+        if ($validator->fails()){
             return response()->json($validator->messages(), Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        //バリエーションで問題がなかった場合にはユーザを作成する。
         $user = User::create([
             'gender_id' => $request->gender_id,
             'name' => $request->name,
             'birth_date' => $request->birth_date,
             'email' => $request->email,
-            // 'password' => $request->password,
             'password' => Hash::make($request->password),
             'skin_type_id' => $request->skin_type_id,
         ]);
 
-        //ユーザの作成が完了するとjsonを返す
         return response()->json($user, Response::HTTP_OK);
     }
 }

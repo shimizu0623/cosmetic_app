@@ -19,7 +19,6 @@ class RequestsController extends Controller
 
     public function store(Request $request)
     {
-
         $user = $request->user();
         $date = \Carbon\Carbon::now();
 
@@ -27,13 +26,9 @@ class RequestsController extends Controller
             'detail' => 'required',
         ]);
 
-        Log::debug('before');
-
-        if ($validator->fails()) {
+        if ($validator->fails()){
             return response()->json($validator->messages(), Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-
-        Log::debug('after');
 
         $create = RequestText::create([
             'detail' => $request->detail,

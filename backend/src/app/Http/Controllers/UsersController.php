@@ -36,7 +36,6 @@ class UsersController extends Controller
 
     public function updateMe(Request $request)
     {
-        
         $validator = Validator::make($request->all(),[
             'name' => 'required',
             'birth_date' => 'required',
@@ -44,19 +43,15 @@ class UsersController extends Controller
             'skin_type_id' => 'required',
         ]);
 
-        if ($validator->fails()) {
+        if ($validator->fails()){
             return response()->json($validator->messages(), Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         $user = $request->user();
-
-        // Log::debug('before ' . $user->password);
-
         $user->name = $request->name;
         $user->birth_date = $request->birth_date;
         $user->email = $request->email;
         $user->skin_type_id = $request->skin_type_id;
-        
         
         if(!empty($request->password) && $request->password !== 0){
             $user->password = Hash::make($request->password);
@@ -64,20 +59,7 @@ class UsersController extends Controller
 
         $user->save();
 
-        // Log::debug('after ' . $user->password);
-
         return response()->json($user->toArray());
-
-    }    
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -90,7 +72,6 @@ class UsersController extends Controller
     {
         $user = User::find($id);
 
-        
         return response()->json(
             [
                 'id' => $user->id,
@@ -102,18 +83,6 @@ class UsersController extends Controller
                 'items' => $user->unmatchedItems->map(function($unmatchedItem) { return $unmatchedItem->toArray(); }),
             ]
         );
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /**

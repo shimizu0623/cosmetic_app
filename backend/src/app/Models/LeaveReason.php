@@ -10,5 +10,4 @@ class LeaveReason extends Model
     use HasFactory;
 
     protected $fillable = ['user_id', 'reason', 'leave_date'];
-
 }

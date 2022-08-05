@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Log;
 class Item extends Model
 {
     use HasFactory;
-    
 
     public function item()
     {
@@ -33,27 +32,12 @@ class Item extends Model
 
     public function scopeWithSkinTroubles($query, $skinTroubleIds)
     {
-        if(empty($skinTroubleIds)){
+        if (empty($skinTroubleIds)){
             return $query;
         }
-        // Log::debug(print_r($skinTroubleIds, true));
-
-        // return $query->whereIn('skin_trouble_id', [2, 3] );
         return $query->whereIn('items.skin_trouble_id', $skinTroubleIds);
     }
 
-
-    // public function scopeWithEwgScore($query, $score)
-    // {
-    //     if(empty($score)){
-    //         return $query;
-    //     }
-    //     return $query
-    //         ->join('item_ingredients', 'items.id', '=', 'item_ingredients.item_id')
-    //         ->join('ingredients', 'item_ingredients.ingredient_id', '=', 'ingredients.id')
-    //         ->where('ingredients.score', 1);
-
-    // }↓↓↓
     public function scopeSafeOnly($query)
     {
         $subquery = <<<SQL
@@ -66,23 +50,20 @@ class Item extends Model
             ->where('danger_list.item_id', '=', NULL);
     }
 
-
     public function scopeMatchingOnly($query, $userId)
     {
         return $query
-            // ->leftJoin('user_unmatched_items', 'items.id', '=', 'user_unmatched_items.item_id')
             ->leftJoin('user_unmatched_items', function($join) use ($userId)
             {
                 $join->on('items.id', '=', 'user_unmatched_items.item_id');
                 $join->where('user_unmatched_items.user_id', '=', $userId);
             })
-            // ->where('user_unmatched_items.user_id', $userId)
             ->where('user_unmatched_items.item_id', '=', NULL);
     }
 
     public function scopeWithCategories($query, $categoryIds)
     {
-        if(empty($categoryIds)){
+        if (empty($categoryIds)){
             return $query;
         }
         return $query->where('items.category_id', $categoryIds);
@@ -90,7 +71,7 @@ class Item extends Model
     
     public function scopeWithBrand($query, $brandIds)
     {
-        if(empty($brandIds)){
+        if (empty($brandIds)){
             return $query;
         }
         return $query->where('items.brand_id', $brandIds);
@@ -98,7 +79,7 @@ class Item extends Model
 
     public function scopeWithSkinTypes($query, $skinTypeIds)
     {
-        if(empty($skinTypeIds)){
+        if (empty($skinTypeIds)){
             return $query;
         }
         return $query->where('items.skin_type_id', $skinTypeIds);
@@ -184,7 +165,6 @@ class Item extends Model
     public function getCommonUnmatchedIngredientsByUser(User $user)
     {
        $unmatchedItemIds = $user->getCommonUnmatchedIngredients();
-    //    Log::debug($unmatchedItemIds);
        return $this->ingredients->filter(function($ingredient) use($unmatchedItemIds) {
            return $unmatchedItemIds->search($ingredient->id) !== false;
        })->values();

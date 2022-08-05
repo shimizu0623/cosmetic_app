@@ -25,12 +25,6 @@ class UserUnmatchedItemsController extends Controller
         $unmatchedItems = Item::userUnmatchedOnly($user->id)
         ->get();
 
-        // return response()->json(
-        //     $unmatchedItems->map(function ($item) {
-        //         return $item->toArrayItemId();
-        //     })
-        // );
-
         return response()->json(
             [
                 'unmatched_items' => $unmatchedItems->map(function($item) { return $item->toArrayItemId(); }),
@@ -38,7 +32,6 @@ class UserUnmatchedItemsController extends Controller
                 'unmatched_ingredients' => $user->getCommonUnmatchedIngredients($user)
             ]
         );
-
     }
 
     /**
@@ -50,12 +43,11 @@ class UserUnmatchedItemsController extends Controller
     public function store(Request $request)
     {
         $user = $request->user();
-
         $validator = Validator::make($request->all(),[
             'item_id' => 'required',
         ]);
 
-        if ($validator->fails()) {
+        if ($validator->fails()){
             return response()->json(['message' => $validator->messages()], 
             Response::HTTP_UNPROCESSABLE_ENTITY);
         }
@@ -86,17 +78,15 @@ class UserUnmatchedItemsController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $validator = Validator::make($request->all(),[
             'memo' => 'required',
         ]);
 
-        if ($validator->fails()) {
+        if ($validator->fails()){
             return response()->json($validator->messages(), Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         $user = $request->user();
-
         $unmatchedItem = UserUnmatchedItem::where('user_id', $user->id)
             ->find($id);
 
@@ -105,13 +95,10 @@ class UserUnmatchedItemsController extends Controller
         }
 
         $unmatchedItem->memo = $request->memo;
-
         $unmatchedItem->save();
 
         return response()->noContent();
-
     }
-
 
     /**
      * Remove the specified resource from storage.
@@ -122,7 +109,6 @@ class UserUnmatchedItemsController extends Controller
     public function destroy(Request $request, $itemId)
     {
         $user = $request->user();
-
         $unmatchedItem = UserUnmatchedItem::where('user_id', $user->id)->where('item_id', $itemId);
 
         if ($unmatchedItem->count() === 0){
@@ -134,4 +120,3 @@ class UserUnmatchedItemsController extends Controller
         return response()->noContent();
     }
 }
-

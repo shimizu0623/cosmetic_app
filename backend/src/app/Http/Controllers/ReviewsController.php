@@ -8,7 +8,6 @@ use App\Models\Review;
 use Illuminate\Support\Facades\Validator;
 use \Symfony\Component\HttpFoundation\Response;
 
-
 class ReviewsController extends Controller
 {
     /**
@@ -20,20 +19,14 @@ class ReviewsController extends Controller
     {
         $itemIds = $request->query('item_id');
         $user = $request->user();
-
         $reviews = Review::withItems($itemIds);
-
         $reviews = $reviews->get(['reviews.*']);
         
-        // Log::debug('check'. $reviews);
-
-
         return response()->json(
             $reviews->map(function ($review) {
                 return $review->toArray();
             })
         );
-
     }
 
     /**
@@ -53,7 +46,7 @@ class ReviewsController extends Controller
             'item_id' => 'required',
         ]);
 
-        if ($validator->fails()) {
+        if ($validator->fails()){
             return response()->json(['message' => $validator->messages()], 
             Response::HTTP_UNPROCESSABLE_ENTITY);
         }
@@ -78,29 +71,6 @@ class ReviewsController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
@@ -109,9 +79,6 @@ class ReviewsController extends Controller
     public function destroy(Request $request, $id)
     {
         $user = $request->user();
-
-        // TODO: ↓userはnullableなので削除できない？
-        // $review = Review::where('user_id', $user->id)->where('id', $id);
         $review = Review::find($id);
 
         if ($review->user_id !== $user->id){

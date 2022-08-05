@@ -10,7 +10,4 @@ class Request extends Model
     use HasFactory;
 
     protected $fillable = ['user_id', 'detail', 'posted_date'];
-    
-
 }
-

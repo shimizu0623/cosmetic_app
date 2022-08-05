@@ -11,5 +11,4 @@ class UserHistory extends Model
     use HasFactory;
 
     protected $fillable = ['item_id', 'user_id', 'updated_at'];
-
 }

@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SkinTypeController;
@@ -47,7 +46,6 @@ Route::resource('genders', GendersController::class, ['only' => ['index']]);
 Route::resource('skin_types', SkinTypeController::class, ['only' => ['index']]);
 
 Route::middleware('auth:sanctum')->group(function(){
-    
     Route::post('/me', [UsersController::class, 'updateMe']);    
     Route::post('/delete_me', [UsersController::class, 'deleteMe']);    
     Route::get('/me', [UsersController::class, 'me']);    
@@ -73,6 +71,5 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::resource('rankings', RankingController::class, ['only' => ['index']]);
     Route::get('/recommendItem', [ItemsController::class, 'recommendItem']);
     Route::get('/items/{id}', [ItemsController::class, 'show']);
-    Route::resource('items', ItemsController::class, ['only' => ['index', 'show']]);
-    
+    Route::resource('items', ItemsController::class, ['only' => ['index', 'show']]); 
 });

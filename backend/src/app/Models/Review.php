@@ -34,8 +34,6 @@ class Review extends Model
 
     public function scopeWithItems($query, $itemIds)
     {
-        // Log::debug(print_r($itemIds, true));
-
         return $query->where('reviews.item_id', $itemIds);
     }
 
@@ -53,5 +51,4 @@ class Review extends Model
           'item_id' => $this->item->id,
         ];
     }
-
 }

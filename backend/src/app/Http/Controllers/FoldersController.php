@@ -42,7 +42,7 @@ class FoldersController extends Controller
             'name' => 'required'
         ]);
 
-        if ($validator->fails()) {
+        if ($validator->fails()){
             return response()->json(['message' => $validator->messages()], 
             Response::HTTP_UNPROCESSABLE_ENTITY);
         }
@@ -54,14 +54,12 @@ class FoldersController extends Controller
                 'user_id' => $user->id,
                 'name' => $request->name,
             ]);
-    
+
             return response()->noContent();
         } else {
             return response()->json(['フォルダの作成は3つまでです'],
             Response::HTTP_BAD_REQUEST);
         }
-
-
     }
 
     /**
@@ -82,25 +80,11 @@ class FoldersController extends Controller
                 'name' => $folder->name,
                 'items' => $folder->items->map(function($item) { return $item->toArray(); }),
                 'ingredient_score' => $ingredientScore,
-
                 // 'ingredients' => $item->ingredients->map(function($ingredient) { return $ingredient->toArray(); }),
-
                 // 'ingredients' => $folder->items->map(function($item) { return $item->ingredients->map(function($ingredient) { return $ingredient->toArray(); }) }),
                 // 'ingredients' => $folder->items->map(function($item) { return $item })->$item->ingredients->map(function($ingredient) { return $ingredient->toArray(); }),
             ]
         );
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /**
@@ -112,12 +96,10 @@ class FoldersController extends Controller
     public function destroy(Request $request, $id)
     {
         $user = $request->user();
-
         $folder = Folder::where('user_id', $user->id)
         // ->where('id', $id);
         ->find($id);
         // ->get();
-
 
         if ($folder->user_id !== $user->id){
             return response()->json(['message' => '口コミが登録されていません'],

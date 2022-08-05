@@ -49,11 +49,11 @@ class UserHistoriesController extends Controller
             'item_id' => 'required',
         ]);
 
-        if ($validator->fails()) {
+        if ($validator->fails()){
             return response()->json($validator->messages(), Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        if ($history !== null) {
+        if ($history !== null){
             // Log::debug('check'. $history);
             $history->update(['updated_at' => $date]);
             return response()->json($history, Response::HTTP_OK);
@@ -65,8 +65,5 @@ class UserHistoriesController extends Controller
         ]);
 
         return response()->json($create, Response::HTTP_OK);
-
     }
-
-
 }

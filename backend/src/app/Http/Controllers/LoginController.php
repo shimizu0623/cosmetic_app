@@ -13,20 +13,15 @@ class LoginController extends Controller
 {
     public function login(Request $request)
     {
-        //バリデーション
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required'
         ]);
 
-        //login処理
         if (Auth::attempt($credentials)) {
-            $user = User::whereEmail($request->email)->first(); //トークンの作成と取得
-
+            $user = User::whereEmail($request->email)->first(); 
             $user->tokens()->delete();
             $token = $user->createToken("login:user{$user->id}")->plainTextToken;
-
-            //ログインが成功するとtokenを返す。
             return response()->json(['token' => $token], Response::HTTP_OK);
         }
 

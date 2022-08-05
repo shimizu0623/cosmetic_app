@@ -23,9 +23,6 @@ class ItemsController extends Controller
         $user = $request->user();
         $isMatchingOnly = $request->query('is_matching_only') === '1';
         $isSafeOnly = $request->query('is_safe_only') === '1';
-
-        // Log::debug(print_r($skinTroubleIds, true));
-
         $items = Item::withSkinTroubles($skinTroubleIds)
         ->withCategories($categoryIds)
         ->withBrand($brandIds)
@@ -34,18 +31,13 @@ class ItemsController extends Controller
         // ->withEwgScore(1)
         // ->get();
         
-        if ($isSafeOnly) {
-            // Log::debug('if'. $isSafeOnly);
+        if ($isSafeOnly){
             $items = $items->safeOnly();
         }
         
-        if ($isMatchingOnly) {
-            // Log::debug('if'. $);
+        if ($isMatchingOnly){
             $items = $items->matchingOnly($user->id);
         }
-        
-        // Log::debug($items->toSql());
-        // Log::debug($user->id);
 
         // TODO: ↓ホームはpaginateして、検索結果はページ？カルーセル？を切り替えて全て見られるようにする
         $items = $items->get(['items.*']);
@@ -56,23 +48,6 @@ class ItemsController extends Controller
             })
         );
     }
-
-    // public function item()
-    // {
-    //     $item = Item::find(1);
-
-    //     return response()->json(
-    //         [
-    //             'id' => $item->id,
-    //             'name' => $item->name,
-    //             'brand' => $item->brand->name,
-    //             'price' => $item->price,
-    //             'category' => $item->category->name,
-    //             'volume' => $item->volume,
-    //             'img' => $item->img,
-    //         ]
-    //     );
-    // }
 
     /**
      * Display the specified resource.
@@ -85,11 +60,11 @@ class ItemsController extends Controller
         $user = $request->user();
         $item = Item::find($id);
         $folders = $user->folders->map(function($folder) use ($id) {
-                 return [
-                    'id' => $folder->id,
-                    'name' => $folder->name,
-                    'has_item' => $folder->items->where('id', $id)->count() > 0,
-                ];
+            return [
+                'id' => $folder->id,
+                'name' => $folder->name,
+                'has_item' => $folder->items->where('id', $id)->count() > 0,
+            ];
         });
         
         return response()->json(
@@ -111,5 +86,4 @@ class ItemsController extends Controller
             ]
         );
     }
-
 }
