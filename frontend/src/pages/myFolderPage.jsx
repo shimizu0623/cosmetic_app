@@ -180,7 +180,7 @@ export const MyFolder = () => {
                 for (let i = 0; i < 8; i++) {
                     paddings.push(null);
                 }
-                const boxes = folder.items.concat(paddings).slice(0, 8)
+                const boxes = folder.items.concat(paddings).slice(0, 8);
 
                 return (
                     <div style={{ background: '#cae1df63', padding: '20px', borderRadius: '20px', marginBottom: '20px' }} key={index}>
