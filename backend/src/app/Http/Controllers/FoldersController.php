@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Models\Folder;
 use Illuminate\Support\Facades\Validator;
@@ -97,21 +98,24 @@ class FoldersController extends Controller
     {
         $user = $request->user();
         $folder = Folder::where('user_id', $user->id)
-        // ->where('id', $id);
         ->find($id);
-        // ->get();
+
 
         if ($folder->user_id !== $user->id){
-            return response()->json(['message' => '口コミが登録されていません'],
+            return response()->json(['message' => 'フォルダが登録されていません'],
             Response::HTTP_NOT_FOUND);
         }
 
         if ($folder->count() === 0){
-            return response()->json(['message' => '口コミが登録されていません'],
+            return response()->json(['message' => 'フォルダが登録されていません'],
             Response::HTTP_NOT_FOUND);
         }
 
+        // Log::debug($folder); // TODO: →下のdelete()でエラーが出るが、↓しても大丈夫か確認する
+        // https://qiita.com/kouki_o9/items/3e02fa51b34e707b7cec
+
         $folder->delete();
         return response()->noContent();
+
     }
 }
