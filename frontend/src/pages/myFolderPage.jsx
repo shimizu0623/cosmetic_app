@@ -59,30 +59,6 @@ const useStyles = makeStyles({
     },
 });
 
-const data = [
-    {
-      index: 0,
-      name: 'Low Hazard',
-      value: 60,
-    },
-    {
-      index: 1,
-      name: 'Moderate Hazard',
-      value: 20,
-    },
-    {
-      index: 2,
-      name: 'High Hazard',
-      value: 10,
-    },
-    //データないor不明時↓
-    {
-      index: 3,
-      name: 'High Hazard',
-      value: 10,
-    },
-];
-
 const chartColors = [
     '#5ac9b4', //green
     '#f5c56b', //yellow
@@ -181,6 +157,33 @@ export const MyFolder = () => {
                     paddings.push(null);
                 }
                 const boxes = folder.items.concat(paddings).slice(0, 8);
+                const totalIngredient = folder.green + folder.yellow + folder.red + folder.gray;
+                const data = [];
+
+                const rateGreen = () => {
+                    const calc = Math.round(folder.green / totalIngredient * 100);
+                    const add = { index: 0, name: 'Low Hazard', value: calc };
+                    data.push(add);
+                };
+                
+                const rateYellow = () => {
+                    const calc = Math.round(folder.yellow / totalIngredient * 100);
+                    const add = { index: 1, name: 'Moderate Hazard', value: calc };
+                    data.push(add);
+                };
+                
+                const rateRed = () => {
+                    const calc = Math.round(folder.red / totalIngredient * 100);
+                    const add = { index: 2, name: 'High Hazard', value: calc };
+                    data.push(add);
+                };
+                
+                //データないor不明時↓
+                const rateGray = () => {
+                    const calc = Math.round(folder.gray / totalIngredient * 100);
+                    const add = { index: 3, name: 'Not Information', value: calc };
+                    data.push(add);
+                };
 
                 return (
                     <div style={{ background: '#cae1df63', padding: '20px', borderRadius: '20px', marginBottom: '20px' }} key={index}>
@@ -202,21 +205,27 @@ export const MyFolder = () => {
                             <Grid container spacing={1}>
                                 <Grid item xs={6}>
                                     <div>
-                                        <p style={{ color: 'green', textShadow: '2px 2px 1px white' }}>配合成分合計： 28種類</p>
+                                        <p style={{ color: 'green', textShadow: '2px 2px 1px white' }}>配合成分合計： {totalIngredient}種類</p>
                                         <div className={classes.styleParent}>
                                             <img src={leaf_green} alt="sampleImg" style={{ width: '80px', marginRight: '30px' }} />
-                                            <div style={{ fontSize: '15px', marginTop: '20px' }}><span style={{ fontSize: '25px', fontWeight: 'bold', color: '#5ac9b4' }}>20</span> / 28</div>
+                                            <div style={{ fontSize: '15px', marginTop: '20px' }}><span style={{ fontSize: '25px', fontWeight: 'bold', color: '#5ac9b4' }}>{folder.green}</span> / {totalIngredient}</div>
                                         </div>
                                         <div className={classes.styleParent}>
                                             <img src={leaf_yellow} alt="sampleImg" style={{ width: '80px', marginRight: '30px' }} />
-                                            <div style={{ fontSize: '15px', marginTop: '20px' }}><span style={{ fontSize: '25px', fontWeight: 'bold', color: '#f5c56b' }}>7</span> / 28</div>
+                                            <div style={{ fontSize: '15px', marginTop: '20px' }}><span style={{ fontSize: '25px', fontWeight: 'bold', color: '#f5c56b' }}>{folder.yellow}</span> / {totalIngredient}</div>
                                         </div>
                                         <div className={classes.styleParent}>
                                             <img src={leaf_brown} alt="sampleImg" style={{ width: '80px', marginRight: '30px' }} />
-                                            <div style={{ fontSize: '15px', marginTop: '20px' }}><span style={{ fontSize: '25px', fontWeight: 'bold', color: '#f04b4be7' }}>1</span> / 28</div>
+                                            <div style={{ fontSize: '15px', marginTop: '20px' }}><span style={{ fontSize: '25px', fontWeight: 'bold', color: '#f04b4be7' }}>{folder.red}</span> / {totalIngredient}</div>
                                         </div>
                                     </div>
                                 </Grid>
+
+                                {rateGreen()}
+                                {rateYellow()}
+                                {rateRed()}
+                                {rateGray()}
+
                                 <Grid item xs={6}>
                                     <div style={{ display: 'inline-block' }}>
                                         <p style={{ color: 'green', textShadow: '2px 2px 1px white' }}>EWG等級別成分割合(％)</p>
