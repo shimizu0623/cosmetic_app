@@ -60,6 +60,8 @@ const useStyles = makeStyles({
         margin: 'auto 0',
         filter: 'blur(4px)',
         objectFit: 'cover',
+        position: 'relative',
+        zIndex: '-2147483647',
     },
     topTitle: {
         margin: '0 auto',
@@ -78,6 +80,8 @@ const useStyles = makeStyles({
         height: '130px',
         width: 'auto',
         margin: '0 0 20px 0',
+        position: 'relative',
+        zIndex: '-2147483647',
     },
     triangle: {
         width: '0',
@@ -98,6 +102,8 @@ const useStyles = makeStyles({
         filter: 'blur(3px)',
         display: 'block',
         background: 'linear-gradient(120deg, #69c2c733, #8dcbc180)',
+        position: 'relative',
+        zIndex: '-2147483647',
     },
 });
 

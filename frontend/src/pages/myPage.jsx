@@ -95,6 +95,16 @@ const useStyles = makeStyles({
         justifyContent: 'center',
         padding: '30px 0 0 0',
     },
+    styleImg: {
+        maxWidth: '100%',
+        height: '100%',
+        margin: '0 auto',
+        // position: 'relative',
+        // zIndex: '-2147483647',
+    },
+    styleBar: {
+        // zIndex: '-2147483647',
+    }
 });
 
 export const MyPage = () => {
@@ -198,11 +208,12 @@ export const MyPage = () => {
                                             src={favorite.img}
                                             alt={favorite.name}
                                             loading="lazy"
-                                            style={{ maxWidth: '100%', height: '100%', margin: '0 auto' }}
-                                        />
+                                            className={classes.styleImg}
+                                            />
                                         <ImageListItemBar
                                             title={favorite.brand}
                                             subtitle={favorite.name}
+                                            className={classes.styleBar}
                                         />
                                     </ImageListItem>
                                 </div>
@@ -331,10 +342,12 @@ export const MyPage = () => {
                                                 src={history.img}
                                                 alt={history.name}
                                                 loading="lazy"
+                                                // style={{ position: 'relative', zIndex: '-2147483647' }}
                                             />
                                             <ImageListItemBar
                                                 title={history.brand}
                                                 subtitle={history.name}
+                                                className={classes.styleBar}
                                             />
                                         </ImageListItem>
                                     </div>
