@@ -159,25 +159,24 @@ export const MyFolder = () => {
                 const boxes = folder.items.concat(paddings).slice(0, 8);
                 const totalIngredient = folder.green + folder.yellow + folder.red + folder.gray;
                 const data = [];
-
                 const rateGreen = () => {
                     const calc = Math.round(folder.green / totalIngredient * 100);
                     const add = { index: 0, name: 'Low Hazard', value: calc };
                     data.push(add);
                 };
-                
+
                 const rateYellow = () => {
                     const calc = Math.round(folder.yellow / totalIngredient * 100);
                     const add = { index: 1, name: 'Moderate Hazard', value: calc };
                     data.push(add);
                 };
-                
+
                 const rateRed = () => {
                     const calc = Math.round(folder.red / totalIngredient * 100);
                     const add = { index: 2, name: 'High Hazard', value: calc };
                     data.push(add);
                 };
-                
+
                 //データないor不明時↓
                 const rateGray = () => {
                     const calc = Math.round(folder.gray / totalIngredient * 100);
