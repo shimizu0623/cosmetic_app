@@ -265,7 +265,7 @@ export const HomePage = () => {
                 <div className={classes.StyleSearch}>
                     <div className={classes.SearchMessage}>
                         <p style={{ paddingBottom: '20px', fontSize: '20px' }}>あなたのスキンケアは安全ですか？</p>
-                        <p style={{ fontSize: '20px' }}>お使いのスキンケアを<Link component={RouterLink} to="/itemSearch" style={{ fontSize: '30px' }} >検索ページ</Link>から探してみましょう。</p>
+                        <p style={{ fontSize: '20px' }}>お使いのスキンケアを<Link component={RouterLink} to="/itemSearch" >検索ページ</Link>から探してみましょう。</p>
                     </div>
                 </div>
                 

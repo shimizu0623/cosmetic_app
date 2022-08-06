@@ -139,7 +139,7 @@ export const ItemDetail = () => {
                 item_id: id,
             }
         });
-        
+
         let starTotal = 0;
         // ↓TODO: for文だと口コミ増えた時に重くなる？
         for (let i = 0; i < responseReviews.data.length; i++){
@@ -481,9 +481,9 @@ export const ItemDetail = () => {
         );
     };
 
-    let data = [];
+    const data = [];
 
-    const ChartColors = [
+    const chartColors = [
         '#5ac9b4', //green
         '#f5c56b', //yellow
         '#f04b4be7', //red
@@ -639,7 +639,7 @@ export const ItemDetail = () => {
                                     // onAnimationEnd={() => setIsAnimation(false)}
                                 >
                                     {data.map((entry, index) => (
-                                        <Cell key={entry.name} fill={ChartColors[index % ChartColors.length]} />
+                                        <Cell key={entry.name} fill={chartColors[index % chartColors.length]} />
                                     ))}
                                 </Pie>
                             </PieChart>
@@ -654,7 +654,7 @@ export const ItemDetail = () => {
                         配合成分詳細
                     </caption>
                     <thead>
-                        <tr style={{fontSize: '17px'}}>
+                        <tr style={{ fontSize: '17px' }}>
                             <th className={classes.tableHeader}>成分名</th>
                             <Tooltip title={explain_score} followCursor><th className={classes.tableHeader}>EWG SCORE</th></Tooltip>
                             <Tooltip title={explain_safety} followCursor><th className={classes.tableHeader}>総合安全度</th></Tooltip>

@@ -63,7 +63,7 @@ const data = [
     {
       index: 0,
       name: 'Low Hazard',
-      value: 70,
+      value: 60,
     },
     {
       index: 1,
@@ -79,15 +79,15 @@ const data = [
     {
       index: 3,
       name: 'High Hazard',
-      value: 0,
+      value: 10,
     },
 ];
 
 const chartColors = [
-    '#5ac9b4',
-    '#f5c56b',
-    '#f04b4be7',
-    '#cae1df7d',
+    '#5ac9b4', //green
+    '#f5c56b', //yellow
+    '#f04b4be7', //red
+    '#ababab', //gray
 ];
 
 export const MyFolder = () => {

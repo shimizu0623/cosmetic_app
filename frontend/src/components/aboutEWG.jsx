@@ -75,9 +75,9 @@ export const Ewg = (props) => {
         <p>化粧品原料の有害性の程度を<span className={classes.marker}>1~10のレベル</span>で示してくれているので、</p>
         <p>コスメの安全性を簡単に判断することができるのです。</p>
         <h2>どうやって見ればいいの？</h2>
-        <img src={leaf_green} id="leaf_green_img"  alt="leaf_green_img" style={{maxWidth: '80px'}} />
-        <img src={leaf_yellow} id="leaf_yellow_img"  alt="leaf_yellow_img" style={{maxWidth: '80px'}} />
-        <img src={leaf_brown} id="leaf_brown_img"  alt="leaf_brown_img" style={{maxWidth: '80px'}} />
+        <img src={leaf_green} id="leaf_green_img"  alt="leaf_green_img" style={{ maxWidth: '80px' }} />
+        <img src={leaf_yellow} id="leaf_yellow_img"  alt="leaf_yellow_img" style={{ maxWidth: '80px'}} />
+        <img src={leaf_brown} id="leaf_brown_img"  alt="leaf_brown_img" style={{ maxWidth: '80px' }} />
         <p>EWG等級は、数字が低ければ低いほど有害性の低い安全な成分となっています。</p>
         <p>つまり、<span className={classes.marker}>1が最も安全で、10が最も危険</span>ということをを示しています。</p>
         <div className={classes.hazard}>
