@@ -217,7 +217,7 @@ export const HomePage = () => {
         if (serum.length === 0){
             return (
                 <ImageList style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
-                    <Grid container spacing={1} direction="row" justifyContent="center" alignItems="center">
+                    <Grid direction="row" justifyContent="center" alignItems="center">
                         <p>アイテムが見つかりませんでした。</p>
                     </Grid>
                 </ImageList>
