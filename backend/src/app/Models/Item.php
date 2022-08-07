@@ -90,7 +90,7 @@ class Item extends Model
     {
         return [
           'id' => $this->id,
-        //   'item_id' => $this->item->id, //TODO: 確認(お気に入り・履歴・おすすめ)
+        //   'item_id' => $this->item->id, //TODO: 確認(お気に入り・履歴・おすすめ・比較)
           'name' => $this->name,
           'brand' => $this->brand->name,
           'img' => $this->img,
