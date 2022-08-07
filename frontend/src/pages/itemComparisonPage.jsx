@@ -61,18 +61,19 @@ export const ItemComparison = () => {
                                 <img 
                                   src={item.img} 
                                   alt="itemImg" 
-                                  style={{ maxWidth: '90px', height: '100%', margin: 'auto 30px' }} 
-                                  onClick={() => navigate(`/item/${item.item_id}`)} 
+                                  style={{ maxWidth: '90px', height: '100%', margin: 'auto 30px', cursor: 'pointer' }}
+                                  onClick={() => navigate(`/item/${item.id}`)}
                                 />
                             </td>
+                            <td onClick={() => navigate(`/item/${item.id}`)} style={{ cursor: 'pointer' }}>{item.name}</td>
                             <td>{item.brand}</td>
-                            <td>{item.name}</td>
                             <td>{item.volume}</td>
                             <td>￥{item.price.toLocaleString()}</td>
                             <td>{item.green}</td>
                             <td>{item.yellow}</td>
                             <td>{item.red}</td>
-                            <td><Button 
+                            <td>
+                                <Button 
                                     variant="contained" 
                                     style={{
                                         marginTop: '10px',
@@ -123,7 +124,7 @@ export const ItemComparison = () => {
             <div>
                 <div style={{ marginTop: '50px' }}>
                     <p>商品の違いに悩む時はありませんか？</p>
-                    <p>そんな時は、このページでアイテム情報を比較してみることができます。</p>
+                    <p>このページでは、アイテム情報を比較してみることができます。</p>
                     <p>また、アイテムの画像部分をクリックすると、詳細を確認することができます。</p>
                     <p><Link component={RouterLink} to="/itemSearch">→比較したい商品を探す</Link></p>
                 </div>
@@ -132,8 +133,8 @@ export const ItemComparison = () => {
                         <thead>
                             <tr>
                                 <th className={classes.tableHeader}></th>
-                                <th className={classes.tableHeader}>ブランド</th>
                                 <th className={classes.tableHeader}>商品名</th>
+                                <th className={classes.tableHeader}>ブランド</th>
                                 <th className={classes.tableHeader}>容量</th>
                                 <th className={classes.tableHeader}>価格</th>
                                 <Tooltip title={explain_green} followCursor>
@@ -154,7 +155,6 @@ export const ItemComparison = () => {
                                         成分数
                                     </th>
                                 </Tooltip>
-                                {/* <th className={classes.tableHeader}>評価レビュー</th> */}
                                 <th className={classes.tableHeader}></th>
                             </tr>
                         </thead>
