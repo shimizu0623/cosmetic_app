@@ -10,6 +10,7 @@ import Link from '@mui/material/Link';
 import { Link as RouterLink } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import { PieChart, Pie, Cell } from 'recharts';
+import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import Grid from '@mui/material/Grid';
 import green_leaf from '../img/green_leaf_img_clear.png';
@@ -80,6 +81,7 @@ const useStyles = makeStyles({
     },
     link: {
         color: 'green',
+        cursor: 'pointer',
     }
 });
 
@@ -88,8 +90,7 @@ export const ItemDetail = () => {
     const { id } = useParams();
     const [item, setItem] = useState(null);
     const [folders, setFolders] = useState(null);
-    // const [folderItems, setFolderItems] = useState([]);
-    // const [favorite, setFavorite] = useState(false);
+    const [folderItems, setFolderItems] = useState(null);
     const [count, setCount] = useState(0);
     const [starAverage, setStarAverage] = useState(null);
     const [isAnimation, setIsAnimation] = useState(false);
@@ -97,32 +98,18 @@ export const ItemDetail = () => {
 
     useEffect(async () => {
         const responseItem = await axios.get(`/items/${id}`);
-        // const responseFolders = await axios.get('/folders');
-        // const responseFolderItems = await axios.get('/folderItems');
+        const responseFolders = await axios.get('/folders');
+        const responseFolderItems = await axios.get('/folderItems'); //フォルダから削除用。。??
         const i = responseItem.data;
         const c = responseItem.data.ingredients.length;
-        // const f = responseFolders.data;
+        const f = responseFolders.data;
+        const fi = responseFolderItems.data;
         setItem(i);
         setCount(c);
-        // setFolders(f);
-        
-        // console.log(responseFolderItems.data)
-        // responseFolderItems.data.map((items) => {
-        //     // console.log(items);
-        //     console.log('A')
-        //     // console.log(items.item_id);
-        //     // console.log(id);
-        //     let array = []
-        //     if (3 === items.item_id){
-        //         console.log('B')
-        //         console.log(items)
-        //         const add = array.push(items)
-        //         // setFolderItems(...folderItems, items)
-        //     }
-        //     console.log(array)
-        //     // setFolderItems(array)
-        //     // console.log(folderItems)
-        // })
+        setFolders(f);
+        setFolderItems(fi);
+
+        console.log(folderItems);
 
         // ↓履歴
         try {
@@ -146,7 +133,7 @@ export const ItemDetail = () => {
             starTotal = starTotal + (responseReviews.data[i].star);
         }
         const calc = starTotal / responseReviews.data.length;
-        const int = Math.round(calc)
+        const int = Math.round(calc);
         setStarAverage(int);
     }, []);
 
@@ -189,19 +176,6 @@ export const ItemDetail = () => {
         );
     }
 
-    // if (myFolder){
-    //     return (
-    //             <div className={classes.btnForm}>
-    //                 <button className={classes.btn} onClick={handleDeleteFolder}>{folder.name}フォルダへ追加</button>
-    //             </div>
-    //     )
-    // }
-    // return (
-    //         <div className={classes.btnForm}>
-    //             <button className={classes.btn} onClick={handleAddFolder}>{folder.name}フォルダへ追加</button>
-    //         </div>
-    // )
-
     const UnmatchedLink = (unmatched) => {
         if (unmatched){
             return (
@@ -218,7 +192,7 @@ export const ItemDetail = () => {
     };
 
     const ComparisonLink = (comparison) => {
-        if (comparison) {
+        if (comparison){
             return (
                 <div className={classes.btnForm}>
                     <button className={classes.btn} onClick={handleDeleteComparison}>コスメ比較から削除</button>
@@ -272,7 +246,10 @@ export const ItemDetail = () => {
                 item_id: id,
             });
             window.alert('フォルダへ追加しました');
-            // setItem(item);
+            // TODO: true falseで切り替えるように
+            const responseItem = await axios.get(`/items/${id}`);
+            const i = responseItem.data;
+            setItem(i);
         } catch (e) {
             window.alert(e.response.data.message);
             return;
@@ -326,16 +303,19 @@ export const ItemDetail = () => {
     };
 
     // TODO: ↓handleDeleteFolder
-    const handleDeleteFolder = async (e, folderId) => {
+    const handleDeleteFolder = async (e, id) => {
         console.log('handleDeleteFolder');
-    // try {
-    //     const response = await axios.delete(`/folderItems/${id}`);
-    //     window.alert('フォルダから削除しました');
-    //      setItem(item);
-    // } catch (e) {
-    //     window.alert('削除に失敗しました');
-    //     return;
-    // }
+        try {
+            const response = await axios.delete(`/folderItems/${id}`);
+            window.alert('フォルダから削除しました');
+            // TODO: true falseで切り替えるように
+            const responseItem = await axios.get(`/items/${id}`);
+            const i = responseItem.data;
+            setItem(i);
+        } catch (e) {
+            window.alert('削除に失敗しました');
+            return;
+        }
     };
 
     const handleDeleteUnmatchedItems = async () => {
@@ -386,7 +366,7 @@ export const ItemDetail = () => {
             <div className={classes.styleParent}>
                 <img src={item.img} alt="itemImg" style={{ maxWidth: '370px', height: '100%', margin: 'auto 30px' }} />
                 <div>
-                    <p style={{ textAlign: 'left', fontSize: '25px' }}>{item.brand}</p>
+                    <Button onClick={() => { navigate('/catalogPage') }} style={{ display: 'block', padding: '0', fontSize: '25px', background: 'none' }} className={classes.link}>{item.brand}</Button>
                     <p style={{ textAlign: 'left', fontSize: '40px' }}>{item.name}</p>
                     <div className={classes.styleP}>
                         {star()}
@@ -396,7 +376,7 @@ export const ItemDetail = () => {
                     </div>
                     <div className={classes.styleP}>
                         <p className={classes.itemDetail}>カテゴリー：</p>
-                        <p>{item.category}</p>
+                        <Button onClick={() => { navigate('/catalogPage') }} style={{ padding: '0', background: 'none' }} className={classes.link}>{item.category}</Button>
                     </div>
                     <div className={classes.styleP}>
                         <p className={classes.itemDetail}>内容量：</p>
@@ -419,7 +399,7 @@ export const ItemDetail = () => {
 
                     {ComparisonLink(item.isComparison)}
                         
-                    {/* {MyFolderLink(item.folders)} */}
+                    {MyFolderLink(item.folders)}
                 </div>
             </div>
             
