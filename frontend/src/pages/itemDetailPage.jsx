@@ -453,7 +453,7 @@ export const ItemDetail = () => {
                                 if (ingredient.allergies === -1){return (<td style={{ color: 'gray' }}><p>不明</p></td>)}
                                 else {return (<td>{ingredient.allergies}</td>)}
                             })()}
-                            <td>{ingredient.explain.split('\n').map(row => (<p>{row}</p>))}</td>
+                            <td style={{ textAlign: 'left' }}>{ingredient.explain.split('\n').map(row => (<p>{row}</p>))}</td>
                         </tr>
                     </tbody>
                 ))}
@@ -628,7 +628,7 @@ export const ItemDetail = () => {
                 </Grid>
             </div>
             <div style={{ margin: '50px 0 20px 0' }}>
-                <table style={{ margin: '0 auto',borderSpacing: '0 5px' }}>
+                <table style={{ margin: '0 auto',borderSpacing: '4px' }}>
                     <caption style={{ fontSize: '40px', marginBottom: '10px' }}>
                         <img src={green_leaf} alt="" style={{ maxWidth: '90px', display: 'inline-block', verticalAlign: 'middle', margin: '0 auto 40px' }} />
                         配合成分詳細
