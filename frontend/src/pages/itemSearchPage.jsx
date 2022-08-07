@@ -23,7 +23,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import { useNavigate } from 'react-router-dom';
 
 const useStyles = makeStyles({
-    SearchBox: {
+    searchBox: {
         display: 'flex',
         margin: '20px auto 0',
     },
@@ -146,7 +146,7 @@ export const ItemSearch = () => {
                         <Grid container spacing={1} direction="row" alignItems="center" style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
                             {item.map((item, index) => (
                                 <Grid item xs={2} key={index} onClick={() => { navigate(`/item/${item.id}`) }}>
-                                    <ImageListItem key={item.img} className={classes.cardPaper}>
+                                    <ImageListItem key={item.img}>
                                         <img
                                             src={item.img}
                                             alt={item.name}
@@ -187,7 +187,7 @@ export const ItemSearch = () => {
                         <Grid container spacing={1} direction="row" alignItems="center" style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
                             {skinTroubleItem.map((item, index) => (
                                 <Grid item xs={2} key={index} onClick={() => { navigate(`/item/${item.id}`) }}>
-                                    <ImageListItem key={item.img} className={classes.cardPaper}>
+                                    <ImageListItem key={item.img}>
                                         <img
                                             src={item.img}
                                             alt={item.name}
@@ -278,7 +278,7 @@ export const ItemSearch = () => {
                         />
                     </FormGroup>
                     <h2 style={{ marginBottom: 0 }}>ブランド名を選択すると、ブランドの中から条件に当てはまるアイテムを探すことができます。</h2>
-                    <Box sx={{ width: 300 }} className={classes.SearchBox}>
+                    <Box sx={{ width: 300 }} className={classes.searchBox}>
                         <FormControl fullWidth>
                             <InputLabel id="demo-simple-select-label">ブランドを選択する</InputLabel>
                             <Select
