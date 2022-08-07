@@ -6,6 +6,7 @@ const useStyles = makeStyles({
     back: {
         textAlign: 'left',
         color: 'gray',
+        position: 'absolute',
         '&:hover': {
             cursor: 'pointer',
             color: 'black',
