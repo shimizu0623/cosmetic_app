@@ -90,7 +90,6 @@ export const ItemDetail = () => {
     const { id } = useParams();
     const [item, setItem] = useState(null);
     const [folders, setFolders] = useState(null);
-    const [folderItems, setFolderItems] = useState(null);
     const [count, setCount] = useState(0);
     const [starAverage, setStarAverage] = useState(null);
     const [isAnimation, setIsAnimation] = useState(false);
@@ -99,17 +98,13 @@ export const ItemDetail = () => {
     useEffect(async () => {
         const responseItem = await axios.get(`/items/${id}`);
         const responseFolders = await axios.get('/folders');
-        const responseFolderItems = await axios.get('/folderItems'); //フォルダから削除用。。??
         const i = responseItem.data;
         const c = responseItem.data.ingredients.length;
         const f = responseFolders.data;
-        const fi = responseFolderItems.data;
         setItem(i);
         setCount(c);
         setFolders(f);
-        setFolderItems(fi);
 
-        console.log(folderItems);
 
         // ↓履歴
         try {
@@ -306,7 +301,10 @@ export const ItemDetail = () => {
     const handleDeleteFolder = async (e, id) => {
         console.log('handleDeleteFolder');
         try {
-            const response = await axios.delete(`/folderItems/${id}`);
+            const response = await axios.post('/deleteFolderItems', {
+                folder_id: id,
+                item_id: item.id,
+            });
             window.alert('フォルダから削除しました');
             // TODO: true falseで切り替えるように
             const responseItem = await axios.get(`/items/${id}`);
