@@ -67,7 +67,8 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::resource('reasons', ReasonsController::class, ['only' => ['index']]);
     Route::resource('reviews', ReviewsController::class, ['only' => ['index', 'store', 'destroy']]);
     Route::resource('folders', FoldersController::class, ['only' => ['index', 'store', 'show', 'destroy']]);
-    Route::resource('folderItems', FolderItemsController::class, ['only' => ['index', 'store', 'destroy']]);
+    Route::resource('folderItems', FolderItemsController::class, ['only' => ['index', 'store']]);
+    Route::post('/deleteFolderItems', [FolderItemsController::class, 'delete']);
     Route::resource('rankings', RankingController::class, ['only' => ['index']]);
     Route::get('/recommendItem', [ItemsController::class, 'recommendItem']);
     Route::get('/items/{id}', [ItemsController::class, 'show']);

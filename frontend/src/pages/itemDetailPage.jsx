@@ -307,7 +307,7 @@ export const ItemDetail = () => {
             });
             window.alert('フォルダから削除しました');
             // TODO: true falseで切り替えるように
-            const responseItem = await axios.get(`/items/${id}`);
+            const responseItem = await axios.get(`/items/${item.id}`);
             const i = responseItem.data;
             setItem(i);
         } catch (e) {

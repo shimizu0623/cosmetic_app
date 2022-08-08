@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Folder;
 use App\Models\FolderItem;
 use Illuminate\Support\Facades\Validator;
 use \Symfony\Component\HttpFoundation\Response;
@@ -85,23 +86,30 @@ class FolderItemsController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Request $request)
+    public function delete(Request $request)
     {
-        $folderItem = FolderItem::where('folder_id', $request->folder_id)->where('item_id', $request->item_id)->first();
+        $validator = Validator::make($request->all(),[
+            'folder_id' => 'required',
+            'item_id' => 'required',
+        ]);
+
+        if ($validator->fails()){
+            return response()->json(['message' => $validator->messages()], 
+            Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $user = $request->user();
+        $folder = Folder::where('user_id', $user->id)
+        ->find($request->folder_id);
+
+        $folderItem = FolderItem::where('folder_id', $folder->id)->where('item_id', $request->item_id)->first();
 
         if ($folderItem === null){
-            return response()->json(['message' => '口コミが登録されていません'],
+            return response()->json(['message' => 'フォルダが登録されていません'],
             Response::HTTP_NOT_FOUND);
         }
 
         $folderItem->delete();
         return response()->noContent();
-        
     }
 }
