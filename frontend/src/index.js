@@ -14,7 +14,6 @@ import { DeleteInformation } from "./pages/deletedMessagePage";
 import { HomePage } from "./pages/homePage";
 import { ItemSearch } from "./pages/itemSearchPage";
 import { ItemDetail } from "./pages/itemDetailPage";
-import { CatalogPage } from "./pages/catalogPage";
 import { ItemComparison } from "./pages/itemComparisonPage";
 import { RequestPage } from "./pages/requestPage";
 import { Thanks } from "./pages/thanksPage";
@@ -85,10 +84,6 @@ ReactDom.render(
             <Route
                 path='/item/:id'
                 element={<ItemDetail />}
-              />  
-            <Route
-                path='/catalogPage'
-                element={<CatalogPage />}
               />  
             <Route
                 path='/itemComparison'
