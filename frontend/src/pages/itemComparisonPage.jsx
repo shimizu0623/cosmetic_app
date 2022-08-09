@@ -80,7 +80,6 @@ export const ItemComparison = () => {
                                         color: 'white',
                                         background: '#f04b4be7',
                                         borderRadius: '7px',
-                                        // zIndex: '-2147483647',
                                     }}
                                     onClick={(e) => handleDelete(e, item.id)}>
                                 削除

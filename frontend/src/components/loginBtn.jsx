@@ -13,8 +13,6 @@ export const LoginBtn = () => {
         height: 60,
         maxWidth: '300px',
         margin: '20px auto',
-        // position: 'relative',
-        // zIndex: '-2147483647',
         letterSpacing: 3, 
         fontSize: 16, 
         borderRadius: 5, 

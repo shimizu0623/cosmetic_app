@@ -19,8 +19,6 @@ const useStyles = makeStyles({
     itemImg : {
         maxWidth: '350px',
         cursor: 'pointer',
-        // position: 'relative',
-        // zIndex: '-2147483647',
     },
     rank : {
         margin: '0 auto',
@@ -74,9 +72,6 @@ export const Ranking = () => {
                     <ImageListItemBar
                     title={itemData.name}
                     subtitle={`￥${itemData.price.toLocaleString()}`}
-                    // style={{
-                    //     zIndex: '-2147483647',
-                    // }}
                     />
                 </ImageListItem>
             </>

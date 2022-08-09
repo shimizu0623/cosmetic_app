@@ -21,8 +21,6 @@ const useStyles = makeStyles({
         width: '100%',
         objectFit: 'cover',
         filter: 'blur(4px)',
-        // position: 'relative',
-        // zIndex: '-2147483647',
     },
     TitleImg: {
         maxWidth: '90px',
@@ -62,7 +60,6 @@ const useStyles = makeStyles({
         borderRadius: '10px',
         position: 'relative',
         maxWidth: '80%',
-        // zIndex: '-2147483647',
     },
     SearchMessage: {
         position: 'absolute',
@@ -74,12 +71,7 @@ const useStyles = makeStyles({
         maxWidth: '250px', 
         height: '100%', 
         margin: '0 auto',
-        // position: 'relative',
-        // zIndex: '-2147483647',
     },
-    StyleBar: {
-        // zIndex: '-2147483647',
-    }
 });
 
 export const HomePage = () => {
@@ -174,7 +166,6 @@ export const HomePage = () => {
                                 <ImageListItemBar
                                     title={toner.brand}
                                     subtitle={toner.name}
-                                    className={classes.StyleBar}
                                 />
                             </ImageListItem>
                         ))}
@@ -220,7 +211,6 @@ export const HomePage = () => {
                                 <ImageListItemBar
                                     title={emulsion.brand}
                                     subtitle={emulsion.name}
-                                    className={classes.StyleBar}
                                 />
                             </ImageListItem>
                         ))}
@@ -261,7 +251,6 @@ export const HomePage = () => {
                                 <ImageListItemBar
                                     title={serum.brand}
                                     subtitle={serum.name}
-                                    className={classes.StyleBar} 
                                 />
                             </ImageListItem>
                         ))}

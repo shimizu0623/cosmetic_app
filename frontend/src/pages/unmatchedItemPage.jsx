@@ -215,7 +215,6 @@ export const UnmatchedItem = () => {
                                 color: 'white',
                                 background: 'rgba(141, 203, 193)',
                                 borderRadius: '7px',
-                                // zIndex: '-2147483647',
                             }}
                             onClick={(e) => handleSave(index, item.id)}>
                         メモを保存
@@ -229,7 +228,6 @@ export const UnmatchedItem = () => {
                                 color: 'white',
                                 background: '#f04b4be7',
                                 borderRadius: '7px',
-                                // zIndex: '-2147483647',
                             }}
                             onClick={(e) => handleDelete(e, item.item_id)}>
                         削除
