@@ -16,6 +16,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Grid from '@mui/material/Grid';
 import CircularProgress from '@mui/material/CircularProgress';
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles({
     styleCreate: {
@@ -70,6 +71,7 @@ export const MyFolder = () => {
     const classes = useStyles();
     const [folderName, setFolderName] = useState('');
     const [folders, setFolders] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(async () => {
         const responseGet = await axios.get('/folders');
@@ -141,7 +143,8 @@ export const MyFolder = () => {
                             <img
                                 src={itemOrNull.img}
                                 loading="lazy"
-                                style={{ margin: '5px', width: '110px', height: '110px', border: '1px dashed grey', display: 'inline-block' }}
+                                style={{ margin: '5px', width: '110px', height: '110px', border: '1px dashed grey', display: 'inline-block', cursor: 'pointer' }}
+                                onClick={() => navigate(`/item/${itemOrNull.id}`)}
                             />
                         </Button>
                     </Box>
@@ -206,15 +209,15 @@ export const MyFolder = () => {
                                     <div>
                                         <p style={{ color: 'green', textShadow: '2px 2px 1px white' }}>配合成分合計： {totalIngredient}種類</p>
                                         <div className={classes.styleParent}>
-                                            <img src={leaf_green} alt="sampleImg" style={{ width: '80px', marginRight: '30px' }} />
+                                            <img src={leaf_green} alt="leaf_green" style={{ width: '80px', marginRight: '30px' }} />
                                             <div style={{ fontSize: '15px', marginTop: '20px' }}><span style={{ fontSize: '25px', fontWeight: 'bold', color: '#5ac9b4' }}>{folder.green}</span> / {totalIngredient}</div>
                                         </div>
                                         <div className={classes.styleParent}>
-                                            <img src={leaf_yellow} alt="sampleImg" style={{ width: '80px', marginRight: '30px' }} />
+                                            <img src={leaf_yellow} alt="leaf_yellow" style={{ width: '80px', marginRight: '30px' }} />
                                             <div style={{ fontSize: '15px', marginTop: '20px' }}><span style={{ fontSize: '25px', fontWeight: 'bold', color: '#f5c56b' }}>{folder.yellow}</span> / {totalIngredient}</div>
                                         </div>
                                         <div className={classes.styleParent}>
-                                            <img src={leaf_brown} alt="sampleImg" style={{ width: '80px', marginRight: '30px' }} />
+                                            <img src={leaf_brown} alt="leaf_brown" style={{ width: '80px', marginRight: '30px' }} />
                                             <div style={{ fontSize: '15px', marginTop: '20px' }}><span style={{ fontSize: '25px', fontWeight: 'bold', color: '#f04b4be7' }}>{folder.red}</span> / {totalIngredient}</div>
                                         </div>
                                     </div>
