@@ -19,7 +19,6 @@ class ItemsController extends Controller
         $categoryIds = $request->query('category_id');
         $brandIds = $request->query('brand_id');
         $skinTypeIds = $request->query('skin_type_id');
-        // $score = $request->query('score');
         $user = $request->user();
         $isMatchingOnly = $request->query('is_matching_only') === '1';
         $isSafeOnly = $request->query('is_safe_only') === '1';
@@ -27,9 +26,6 @@ class ItemsController extends Controller
         ->withCategories($categoryIds)
         ->withBrand($brandIds)
         ->withSkinTypes($skinTypeIds);
-        // ->excludeUnmatched($user->id);
-        // ->withEwgScore(1)
-        // ->get();
         
         if ($isSafeOnly){
             $items = $items->safeOnly();
@@ -39,7 +35,6 @@ class ItemsController extends Controller
             $items = $items->matchingOnly($user->id);
         }
 
-        // TODO: ↓ホームはpaginateして、検索結果はページ？カルーセル？を切り替えて全て見られるようにする
         $items = $items->get(['items.*']);
 
         return response()->json(
