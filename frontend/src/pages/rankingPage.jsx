@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from '../axios';
 import header_img from '../img/headerRanking.jpg';
+import { useNavigate } from "react-router-dom";
 import { GoBackBtn } from '../components/goBackBtn';
 import { makeStyles } from "@material-ui/core/styles";
 import ImageListItem from '@mui/material/ImageListItem';
@@ -17,6 +18,7 @@ const useStyles = makeStyles({
     },
     itemImg : {
         maxWidth: '350px',
+        cursor: 'pointer',
         // position: 'relative',
         // zIndex: '-2147483647',
     },
@@ -29,6 +31,7 @@ const useStyles = makeStyles({
 
 export const Ranking = () => {
     const classes = useStyles();
+    const navigate = useNavigate();
     const [rankings, setRankings] = useState([]);
     
     useEffect( async() => {
@@ -67,7 +70,7 @@ export const Ranking = () => {
         return (
             <>
                 <ImageListItem>
-                    <li><img src={itemData.img} alt="item_img"  className={classes.itemImg}/></li>
+                    <li><img src={itemData.img} alt="item_img" className={classes.itemImg} onClick={() => navigate(`/item/${itemData.id}`)}/></li>
                     <ImageListItemBar
                     title={itemData.name}
                     subtitle={`￥${itemData.price.toLocaleString()}`}
