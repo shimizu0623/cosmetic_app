@@ -30,12 +30,13 @@ const useStyles = makeStyles({
     height: '60px',
     lineHeight: '60px',
     background: 'rgba(243, 240, 240, 0.734)',
+    zIndex: '2147483646',
   },
   headerLeft: {
     position: 'fixed',
     textAlign: 'left',
     top: '0',
-    zIndex: '2147483647'
+    zIndex: '2147483647',
   },
 });
 
