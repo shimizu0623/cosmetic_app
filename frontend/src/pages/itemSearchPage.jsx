@@ -194,7 +194,7 @@ export const ItemSearch = () => {
                         <ImageListItem key="Subheader" cols={2}>
                             <ListSubheader component="div">条件に当てはまるアイテムが見つかりました！</ListSubheader>
                         </ImageListItem>
-                        <Grid container spacing={1} direction="row" alignItems="center" style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
+                        <Grid container spacing={1} direction="row" justifyContent="flex-start" style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
                             {item.map((item, index) => (
                                 <Grid item xs={2} key={index} onClick={() => { navigate(`/item/${item.id}`) }}>
                                     <ImageListItem key={item.img}>
@@ -202,7 +202,7 @@ export const ItemSearch = () => {
                                             src={item.img}
                                             alt={item.name}
                                             loading="lazy"
-                                            style={{ maxWidth: '300px', height: '100%', margin: '0 auto' }}
+                                            style={{ maxWidth: '300px', height: '100%' }}
                                         />
                                         <ImageListItemBar
                                             title={item.brand}
@@ -279,7 +279,7 @@ export const ItemSearch = () => {
                         {skinTroubles.map((skinTrouble, index) => (
                             <FormControlLabel 
                             key={index} 
-                            sx={{ mx: 'auto' }} 
+                            sx={{ margin: '0 20%' }} 
                             control={
                                 <Checkbox
                                     checked={selectedSkinTrouble.includes(skinTrouble.id)}
@@ -294,7 +294,7 @@ export const ItemSearch = () => {
                         {categories.map((category, index) => (
                             <FormControlLabel
                                 key={index}
-                                sx={{ mx: 'auto' }} 
+                                sx={{ margin: '0 20%' }} 
                                 control={
                                     <Checkbox 
                                         checked={selectedCategory.includes(category.id)}
