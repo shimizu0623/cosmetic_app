@@ -2,16 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-
 class User extends Authenticatable
     {
-    // use HasFactory;
     use HasApiTokens, HasFactory, Notifiable;
     
     protected $fillable = ['name','gender_id','birth_date','email','password','skin_type_id','contact_id'];
@@ -21,7 +20,6 @@ class User extends Authenticatable
         parent::boot();
 
         self::deleting(function (User $user) {
-
             foreach ($user->favorites as $favorite)
             {
                 $favorite->delete();
@@ -38,16 +36,20 @@ class User extends Authenticatable
             // {
             //     $history->delete();
             // }
-            // ↑comparison
+            // ↑TODO:comparisonのものも作る
 
             // TODO: ↓user_idなしのテーブル作成後削除する
             foreach ($user->requests as $request)
             {
                 $request->delete();
             }
-
         });
     }
+
+    // public function ingredients()
+    // {
+    //     return $this->belongsToMany(Ingredient::class, ItemIngredient::class);
+    // }
 
     public function favorites()
     {
@@ -116,16 +118,14 @@ class User extends Authenticatable
             'birthday_string' => $this->birthday_string(),
             'birth_date' => $this->birth_date,
             'gender_name' => $this->gender->name,
-            // 'gender_name' => $this->gender()->name,
             'skin_type_name' => $this->skin_type->name,
             'skin_type_id' => $this->skin_type->id,
-            // 'skin_type_name' => $this->skin_type()->name,
         ];
     }
 
     public function getFavoriteItems() {
         return Item::userFavoriteOnly($this->id)
-              ->get();
+            ->get();
     }
     
     public function getPossibleUnmatchedIngredients()
@@ -153,5 +153,14 @@ class User extends Authenticatable
             return $ingredientIds->contains($ingredientId);
           });
         })->values();
+    }
+
+    public function getCommonUnmatchedIngredientNames()
+    { 
+        // $ids = $this->getCommonUnmatchedIngredientIds();
+
+        // Log::debug($this->ingredients()->where('ingredients.id', $ids));
+
+        // return $this->ingredients()->where('ingredients.id', $ids);
     }
 }
