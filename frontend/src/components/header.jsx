@@ -127,7 +127,7 @@ export const Header = () => {
               marginTop: '45px',
             }} 
           >
-            <MenuItem component={RouterLink} to="/itemSearch">
+            <MenuItem component={RouterLink} to="/itemSearch?manual=1">
               <ListItemIcon>
                 <SearchIcon />
               </ListItemIcon>

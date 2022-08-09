@@ -21,6 +21,7 @@ import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 const useStyles = makeStyles({
     searchBox: {
@@ -44,6 +45,7 @@ export const ItemSearch = () => {
     const [selectedBrand, setSelectedBrand] = useState(null);
     const [searching, setSearching] = useState(false);
     const navigate = useNavigate();
+    const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(async () => {
         const responseUser = await axios.get('/me');
@@ -59,6 +61,72 @@ export const ItemSearch = () => {
         setCategories(c);
         setBrands(b);
     }, []);
+
+    useEffect(async () => {
+        if (searchParams.get('manual') === '1') {
+            return;
+        }
+
+        const params = {};
+        const skinTroubleIds = searchParams.getAll('skin_trouble_id[]');
+        const categoryIds = searchParams.getAll('category_id[]');
+        const isSafeOnly = searchParams.get('is_safe_only');
+        const isMatchingOnly = searchParams.get('is_matching_only');
+        const brandId = searchParams.get('brand_id');
+
+        if (skinTroubleIds){
+            params['skin_trouble_id'] = skinTroubleIds;
+        }
+
+        if (categoryIds){
+            params['category_id'] = categoryIds;
+        }
+
+        if (isSafeOnly){
+            params['is_safe_only'] = isSafeOnly;
+        }
+
+        if (isMatchingOnly){
+            params['is_matching_only'] = isMatchingOnly;
+        }
+
+        if (brandId){
+            params['brand_id'] = brandId;
+        }
+
+        const responseItem = await axios.get('/items', {
+            params: params,            
+        });
+        const i = responseItem.data;
+        setItem(i);
+
+        if (skinTroubleIds.length !== 0){
+            setSelectedSkinTrouble(skinTroubleIds.map(n => parseInt(n)));
+        }
+
+        if (categoryIds.length !== 0){
+            setSelectedCategory(categoryIds.map(n => parseInt(n)));
+        }
+
+        if (brandId.length !== 0){
+            setSelectedBrand(parseInt(brandId));
+        }
+
+        if (skinTroubleItem.length === 0){
+            setSkinTroubleItem([]);
+        }
+
+        if (selectedSkinTrouble.length !== 0){
+            const responseSkinTroubleItem = await axios.get('/items', {
+                params: {
+                    skin_trouble_id: selectedSkinTrouble,
+                }
+            });
+            const s = responseSkinTroubleItem.data;
+            setSkinTroubleItem(s);
+        }
+        setSearching(true);
+    }, [searchParams]);
     
     const message = () => {
         if (user === null){
@@ -108,31 +176,14 @@ export const ItemSearch = () => {
     };
 
     const handleSearch = async () => {
-        const responseItem = await axios.get('/items', {
-            params: {
-                skin_trouble_id: selectedSkinTrouble,
-                category_id: selectedCategory,
-                is_safe_only: selectedSafeOnly,
-                is_matching_only: selectedMatchingOnly,
-                brand_id: selectedBrand,
-            }
+        setSearchParams({
+            'skin_trouble_id[]': selectedSkinTrouble,
+            'category_id[]': selectedCategory,
+            is_safe_only: selectedSafeOnly,
+            is_matching_only: selectedMatchingOnly,
+            brand_id: selectedBrand,
         });
-        const i = responseItem.data;
-        setItem(i);
-        
-        if (selectedSkinTrouble.length === 0){
-            setSkinTroubleItem([]);
-        }
-        if (selectedSkinTrouble.length !== 0){
-            const responseSkinTroubleItem = await axios.get('/items', {
-                params: {
-                    skin_trouble_id: selectedSkinTrouble,
-                }
-            });
-            const s = responseSkinTroubleItem.data;
-            setSkinTroubleItem(s);
-        }
-        setSearching(true);
+        return;
     };
 
     const searchItem = () => {
@@ -230,7 +281,7 @@ export const ItemSearch = () => {
                             key={index} 
                             sx={{ mx: 'auto' }} 
                             control={
-                                <Checkbox 
+                                <Checkbox
                                     checked={selectedSkinTrouble.includes(skinTrouble.id)}
                                     onChange={(e) => { handleSkinTroubleChecked(e, skinTrouble.id) }} 
                                 />

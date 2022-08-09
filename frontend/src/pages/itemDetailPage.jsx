@@ -364,7 +364,7 @@ export const ItemDetail = () => {
             <div className={classes.styleParent}>
                 <img src={item.img} alt="itemImg" style={{ maxWidth: '370px', height: '100%', margin: 'auto 30px' }} />
                 <div>
-                    <Button onClick={() => { navigate('/catalogPage') }} style={{ display: 'block', padding: '0', fontSize: '25px', background: 'none' }} className={classes.link}>{item.brand}</Button>
+                    <Button onClick={() => { navigate(`/itemSearch?brand_id=${item.brand_id}`) }} style={{ display: 'block', padding: '0', fontSize: '25px', background: 'none' }} className={classes.link}>{item.brand}</Button>
                     <p style={{ textAlign: 'left', fontSize: '40px' }}>{item.name}</p>
                     <div className={classes.styleP}>
                         {star()}
@@ -374,7 +374,7 @@ export const ItemDetail = () => {
                     </div>
                     <div className={classes.styleP}>
                         <p className={classes.itemDetail}>カテゴリー：</p>
-                        <Button onClick={() => { navigate('/catalogPage') }} style={{ padding: '0', background: 'none' }} className={classes.link}>{item.category}</Button>
+                        <Button onClick={() => { navigate(`/itemSearch?category_id[]=${item.category_id}`) }} style={{ padding: '0', background: 'none' }} className={classes.link}>{item.category}</Button>
                     </div>
                     <div className={classes.styleP}>
                         <p className={classes.itemDetail}>内容量：</p>
