@@ -96,7 +96,7 @@ export const UnmatchedItem = () => {
                     memo: items[index].memo,
                 });
                 const responseItems = await axios.get('/user_unmatchedItems');
-                const i = responseItems.data;
+                const i = responseItems.data.unmatched_items;
                 setItems(i);
                 window.alert('保存しました');
             } catch (e) {
@@ -115,7 +115,7 @@ export const UnmatchedItem = () => {
             try {
                 const response = await axios.delete(`/user_unmatchedItems/${id}`);
                 const responseItems = await axios.get('/user_unmatchedItems');
-                const i = responseItems.data;
+                const i = responseItems.data.unmatched_items;
                 setItems(i);
                 window.alert('削除しました');
             } catch (e) {
