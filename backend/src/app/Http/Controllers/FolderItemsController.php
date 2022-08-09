@@ -30,13 +30,12 @@ class FolderItemsController extends Controller
      */
     public function store(Request $request)
     {
-
         $validator = Validator::make($request->all(),[
             'folder_id' => 'required',
             'item_id' => 'required',
         ]);
 
-        if ($validator->fails()) {
+        if ($validator->fails()){
             return response()->json(['message' => $validator->messages()], 
             Response::HTTP_UNPROCESSABLE_ENTITY);
         }
@@ -60,30 +59,6 @@ class FolderItemsController extends Controller
     
             return response()->noContent();
         }
-
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     public function delete(Request $request)
