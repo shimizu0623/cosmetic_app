@@ -147,67 +147,87 @@ export const HomePage = () => {
         if (toner === null){
             return <CircularProgress color="success" size="15px" />
         }
-        return (
-            <ImageList style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
-                <Grid container spacing={1} direction="row" justifyContent="center" alignItems="center">
-                    {toner.map((toner, index) => (
-                        <ImageListItem 
-                            key={index} 
-                            className={classes.CardPaper} 
-                            onClick={() => { navigate(`/item/${toner.id}`) }}
-                        >
-                            <img
-                                src={toner.img}
-                                alt={toner.name}
-                                loading="lazy"
-                                className={classes.StyleImg} 
-                            />
-                            <ImageListItemBar
-                                title={toner.brand}
-                                subtitle={toner.name}
-                                className={classes.StyleBar} 
-                            />
-                        </ImageListItem>
-                    ))}
-                </Grid>
-            </ImageList>
-        );
+        if (toner.length === 0){
+            return (
+                <ImageList style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
+                    <Grid direction="row" justifyContent="center" alignItems="center">
+                        <p>アイテムが見つかりませんでした。</p>
+                    </Grid>
+                </ImageList>
+            )
+        } else {
+            return (
+                <ImageList style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
+                    <Grid container spacing={1} direction="row" justifyContent="center" alignItems="center">
+                        {toner.map((toner, index) => (
+                            <ImageListItem
+                                key={index}
+                                className={classes.CardPaper}
+                                onClick={() => { navigate(`/item/${toner.id}`) }}
+                            >
+                                <img
+                                    src={toner.img}
+                                    alt={toner.name}
+                                    loading="lazy"
+                                    className={classes.StyleImg}
+                                />
+                                <ImageListItemBar
+                                    title={toner.brand}
+                                    subtitle={toner.name}
+                                    className={classes.StyleBar}
+                                />
+                            </ImageListItem>
+                        ))}
+                    </Grid>
+                </ImageList>
+            );
+        };
     };
 
     const recommendEmulsion = () => {
         if (emulsion === null){
             return <CircularProgress color="success" size="15px" />
         }
-        return (
-            <ImageList style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
-                <Grid container spacing={1} direction="row" justifyContent="center" alignItems="center">
-                    {emulsion.map((emulsion, index) => (
-                        <ImageListItem 
-                            key={index} 
-                            className={classes.CardPaper}
-                            onClick={() => { navigate(`/item/${emulsion.id}`) }}
-                        >
-                            <img
-                                src={emulsion.img}
-                                alt={emulsion.name}
-                                loading="lazy"
-                                style={{
-                                    maxWidth: '250px', 
-                                    height: '100%',
-                                    margin: '0 auto'
-                                }}
-                                className={classes.StyleImg} 
-                            />
-                            <ImageListItemBar
-                                title={emulsion.brand}
-                                subtitle={emulsion.name}
-                                className={classes.StyleBar} 
-                            />
-                        </ImageListItem>
-                    ))}
-                </Grid>
-            </ImageList>
-        );
+        if (emulsion.length === 0){
+            return (
+                <ImageList style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
+                    <Grid direction="row" justifyContent="center" alignItems="center">
+                        <p>アイテムが見つかりませんでした。</p>
+                    </Grid>
+                </ImageList>
+            )
+        } else {
+            return (
+                <ImageList style={{ gridTemplateColumns: '1, 1fr', gap: '1' }}>
+                    <Grid container spacing={1} direction="row" justifyContent="center" alignItems="center">
+                        {emulsion.map((emulsion, index) => (
+                            <ImageListItem
+                                key={index}
+                                className={classes.CardPaper}
+                                onClick={() => { navigate(`/item/${emulsion.id}`) }}
+                            >
+                                <img
+                                    src={emulsion.img}
+                                    alt={emulsion.name}
+                                    loading="lazy"
+                                    style={{
+                                        maxWidth: '250px',
+                                        height: '100%',
+                                        margin: '0 auto'
+                                    }}
+                                    className={classes.StyleImg}
+                                />
+                                <ImageListItemBar
+                                    title={emulsion.brand}
+                                    subtitle={emulsion.name}
+                                    className={classes.StyleBar}
+                                />
+                            </ImageListItem>
+                        ))}
+                    </Grid>
+                </ImageList>
+            );
+        };
     };
 
     const recommendSerum = () => {
