@@ -154,9 +154,9 @@ class User extends Authenticatable
     { 
         $ids = $this->getCommonUnmatchedIngredients();
         if (empty($ids)){
-            return '[]';
+            return [];
         }
-        // Log::debug($ids);
+        Log::debug($ids);
         $ingredients = Ingredient::where('id', $ids);
 
         return $ingredients->pluck('name');

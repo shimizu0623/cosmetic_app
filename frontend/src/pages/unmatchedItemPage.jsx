@@ -49,8 +49,8 @@ export const UnmatchedItem = () => {
     const classes = useStyles();
     const navigate = useNavigate();
     const { id } = useParams();
-    const [items, setItems] = useState(null);
-    const [attention, setAttention] = useState(null);
+    const [items, setItems] = useState([]);
+    const [attention, setAttention] = useState([]);
 
     useEffect(async () => {
         const responseItems = await axios.get('/user_unmatchedItems');
