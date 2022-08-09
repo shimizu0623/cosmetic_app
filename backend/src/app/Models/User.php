@@ -46,11 +46,6 @@ class User extends Authenticatable
         });
     }
 
-    // public function ingredients()
-    // {
-    //     return $this->belongsToMany(Ingredient::class, ItemIngredient::class);
-    // }
-
     public function favorites()
     {
         return $this->hasMany(UserFavoriteItem::class);
@@ -157,10 +152,9 @@ class User extends Authenticatable
 
     public function getCommonUnmatchedIngredientNames()
     { 
-        // $ids = $this->getCommonUnmatchedIngredientIds();
-
-        // Log::debug($this->ingredients()->where('ingredients.id', $ids));
-
-        // return $this->ingredients()->where('ingredients.id', $ids);
+        $ids = $this->getCommonUnmatchedIngredients();
+        $ingredients = Ingredient::where('id', $ids);
+        
+        return $ingredients->pluck('name');
     }
 }

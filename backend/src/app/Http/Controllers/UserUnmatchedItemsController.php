@@ -28,9 +28,7 @@ class UserUnmatchedItemsController extends Controller
         return response()->json(
             [
                 'unmatched_items' => $unmatchedItems->map(function($item) { return $item->toArrayItemId(); }),
-                // TODO: ↓idが渡っているけど、ingredientsのnameを渡したい
-                'unmatched_ingredients' => $user->getCommonUnmatchedIngredients($user),
-                // 'unmatched_ingredients' => $user->getCommonUnmatchedIngredientNames($user),
+                'unmatched_ingredients' => $user->getCommonUnmatchedIngredientNames($user),
             ]
         );
     }
