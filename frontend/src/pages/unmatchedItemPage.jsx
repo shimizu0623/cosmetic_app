@@ -78,7 +78,6 @@ export const UnmatchedItem = () => {
                     <h4 style={{ color: 'red', paddingTop: '10px', fontSize: '20px' }}>共通成分が見つかりました！</h4>
                     <div style={{ paddingBottom: '10px' }}>
                         <ul style={{ listStyle: 'none', padding: 0, fontWeight: 'bold', fontSize: '20px' }}>
-                            {/* TODO: ↓成分名を渡す */}
                             {attention.map(ingredient => (<li>{ingredient}</li>))}
                         </ul>
                     </div>
