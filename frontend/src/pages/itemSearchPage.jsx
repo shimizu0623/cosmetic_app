@@ -274,7 +274,7 @@ export const ItemSearch = () => {
                     <p>当てはまる項目をチェックして、検索するボタンをクリックして下さい。</p>
                 </div>
                 <div style={{ background: '#c8eee8af', borderRadius: '20px', padding: '20px 0', margin: '30px auto' }}>
-                    <h2 style={{ marginTop: '0' }}>改善したい肌の悩みはございますか？</h2>
+                    <h2 style={{ marginTop: '0', textAlign: 'left', paddingLeft: '40px' }}>肌の悩み</h2>
                     <FormGroup sx={{ justifyContent: 'center',display: 'grid', gap: 1, gridTemplateColumns: 'repeat(5, 1fr)' }}>
                         {skinTroubles.map((skinTrouble, index) => (
                             <FormControlLabel 
@@ -289,7 +289,7 @@ export const ItemSearch = () => {
                             label={skinTrouble.name} />
                         ))}
                     </FormGroup>
-                    <h2>お探しのカテゴリーはどちらですか？</h2>
+                    <h2 style={{ textAlign: 'left', paddingLeft: '40px' }}>カテゴリー</h2>
                     <FormGroup sx={{ justifyContent: 'center', display: 'grid', gap: 1, gridTemplateColumns: 'repeat(5, 1fr)' }}>
                         {categories.map((category, index) => (
                             <FormControlLabel
@@ -305,7 +305,7 @@ export const ItemSearch = () => {
                             />
                         ))}
                     </FormGroup>
-                    <h2>他に条件はありますか？</h2>
+                    <h2 style={{ textAlign: 'left', paddingLeft: '40px' }}>他の条件</h2>
                     <FormGroup sx={{ justifyContent: 'center', display: 'grid', gap: 1, gridTemplateColumns: 'repeat(2, 1fr)' }}>
                         <FormControlLabel 
                             sx={{ mx: 'auto' }} 
@@ -328,7 +328,7 @@ export const ItemSearch = () => {
                             label='肌に合わない成分が入っていないアイテムで探す'
                         />
                     </FormGroup>
-                    <h2 style={{ marginBottom: 0 }}>ブランド名を選択すると、ブランドの中から条件に当てはまるアイテムを探すことができます。</h2>
+                    <h2 style={{ marginBottom: 0, textAlign: 'left', paddingLeft: '40px' }}>ブランド</h2>
                     <Box sx={{ width: 300 }} className={classes.searchBox}>
                         <FormControl fullWidth>
                             <InputLabel id="demo-simple-select-label">ブランドを選択する</InputLabel>
