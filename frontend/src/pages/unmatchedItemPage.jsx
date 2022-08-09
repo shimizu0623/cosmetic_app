@@ -3,11 +3,12 @@ import axios from '../axios';
 import { GoBackBtn } from '../components/goBackBtn';
 import { makeStyles } from "@material-ui/core/styles";
 import { useParams } from 'react-router-dom';
-import Checkbox from '@mui/material/Checkbox';
+import { useNavigate } from "react-router-dom";
 import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
+// import Checkbox from '@mui/material/Checkbox';
+// import Autocomplete from '@mui/material/Autocomplete';
+// import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+// import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import green_leaf from '../img/green_leaf_img_clear.png';
@@ -21,9 +22,8 @@ const useStyles = makeStyles({
     alertForm: {
         background: '#ffeaea',
         maxWidth: '300px',
-        margin: '0 auto',
+        margin: '0 auto 50px',
     },
-
 });
 
 // const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
@@ -47,50 +47,42 @@ const useStyles = makeStyles({
 
 export const UnmatchedItem = () => {
     const classes = useStyles();
+    const navigate = useNavigate();
     const { id } = useParams();
     const [items, setItems] = useState(null);
     const [attention, setAttention] = useState(null);
 
     useEffect(async () => {
         const responseItems = await axios.get('/user_unmatchedItems');
-        const i = responseItems.data;
+        const responseIngredients = await axios.get('/user_unmatchedItems');
+        const i = responseItems.data.unmatched_items;
+        const ing = responseIngredients.data.unmatched_ingredients;
         setItems(i);
-        console.log('useEffect')
+        setAttention(ing);
     }, []);
 
-    const attentionMessage = () => {
+    const attentionMessage = (attention) => {
         if (attention === null){
             return <CircularProgress color="success" size="15px" />
         }
         if (attention.length === 0){
             return (
                 <div className={classes.alertForm}>
-                    <h4 style={{color: 'black', padding: '10px'}}>共通成分はありません</h4>
+                    <h4 style={{ color: 'black', padding: '10px' }}>共通成分はありません</h4>
                 </div>
             )
         }
-
         return (
             <>
-            {/* <div className={classes.alertForm}>
-                <h4 style={{ color: 'red', paddingTop: '10px', fontSize: '20px' }}>共通成分が見つかりました！</h4>
-                <p>肌に合わなかった共通成分があります</p>
-                <div style={{ paddingBottom: '10px' }}>
-                    <ul style={{ listStyle: 'none', padding: 0, fontWeight: 'bold', fontSize: '20px' }}>
-                        {item.unmatched_ingredients.map(ingredient => (<li>{ingredient.name}</li>))}
-                    </ul>
-                </div>
-            </div> */}
-
-            <div className={classes.alertForm}>
-                <h4 style={{color: 'red', paddingTop: '10px'}}>共通成分が見つかりました！</h4>
-                <div style={{paddingBottom: '10px'}}>
-                    <ul style={{ listStyle: 'none', padding: 0 }}>
-                        <li>○○酸</li>
-                    </ul>
-                </div>
-            </div>
-            
+                <div className={classes.alertForm}>
+                    <h4 style={{ color: 'red', paddingTop: '10px', fontSize: '20px' }}>共通成分が見つかりました！</h4>
+                    <div style={{ paddingBottom: '10px' }}>
+                        <ul style={{ listStyle: 'none', padding: 0, fontWeight: 'bold', fontSize: '20px' }}>
+                            {/* TODO: ↓成分名を渡す */}
+                            {attention.map(ingredient => (<li>{ingredient}</li>))}
+                        </ul>
+                    </div>
+                </div>            
             </>
         );
     }
@@ -109,7 +101,6 @@ export const UnmatchedItem = () => {
                 window.alert('保存しました');
             } catch (e) {
                 window.alert('保存できませんでした');
-                // console.error(e)
                 return;
             }                
         } else {
@@ -160,18 +151,27 @@ export const UnmatchedItem = () => {
             <table style={{ margin: '0 auto' }}>
                 <tr>
                     <th className={classes.tableHeader}></th>
-                    <th className={classes.tableHeader}>ブランド</th>
                     <th className={classes.tableHeader}>商品名</th>
+                    <th className={classes.tableHeader}>ブランド</th>
                     {/* TODO: ↓後程実装する */}
                     {/* <th className={classes.tableHeader}>使用後の肌状態</th> */}
                     <th className={classes.tableHeader}>メモ</th>
+                    <th className={classes.tableHeader}></th>
+                    <th className={classes.tableHeader}></th>
                 </tr>
 
                 {items.map((item, index) => (
                     <tr key={index}>
-                    <td scope="row"><img src={item.img} alt="itemImg" style={{ maxWidth: '90px', height: '100%', margin: 'auto 30px' }} /></td>
+                    <td scope="row">
+                        <img
+                            src={item.img}
+                            alt="itemImg"
+                            style={{ maxWidth: '90px', height: '100%', margin: 'auto 30px', cursor: 'pointer' }}
+                            onClick={() => navigate(`/item/${item.item_id}`)}
+                        />
+                    </td>
+                    <td onClick={() => navigate(`/item/${item.item_id}`)} style={{ cursor: 'pointer' }}>{item.name}</td>
                     <td>{item.brand}</td>
-                    <td>{item.name}</td>
                     {/* <td>
                     <Autocomplete
                         multiple
@@ -215,6 +215,7 @@ export const UnmatchedItem = () => {
                                 color: 'white',
                                 background: 'rgba(141, 203, 193)',
                                 borderRadius: '7px',
+                                // zIndex: '-2147483647',
                             }}
                             onClick={(e) => handleSave(index, item.id)}>
                         メモを保存
@@ -228,6 +229,7 @@ export const UnmatchedItem = () => {
                                 color: 'white',
                                 background: '#f04b4be7',
                                 borderRadius: '7px',
+                                // zIndex: '-2147483647',
                             }}
                             onClick={(e) => handleDelete(e, item.item_id)}>
                         削除
@@ -258,9 +260,9 @@ export const UnmatchedItem = () => {
 
             <img src={green_leaf} alt="" style={{ maxWidth: '90px', display: 'inline-block', verticalAlign: 'middle', margin: '0 auto 40px' }} />
             <h1 style={{ fontSize: '40px', display: 'inline-block' }}>登録中の肌に合わなかったアイテム</h1>
-            <div style={ {margin: '50px 0 20px 0' }}>
+            <div style={{ margin: '50px 0 20px 0' }}>
 
-            {attentionMessage()}
+            {attentionMessage(attention)}
 
             {itemInformation()}
 
