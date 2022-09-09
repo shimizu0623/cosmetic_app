@@ -153,11 +153,11 @@ class User extends Authenticatable
     public function getCommonUnmatchedIngredientNames()
     { 
         $ids = $this->getCommonUnmatchedIngredients();
-        if (empty($ids)){
+
+        if ($ids->isEmpty()) {
             return [];
         }
-        Log::debug($ids);
-        $ingredients = Ingredient::where('id', $ids);
+        $ingredients = Ingredient::whereIn('id', $ids);
 
         return $ingredients->pluck('name');
     }
