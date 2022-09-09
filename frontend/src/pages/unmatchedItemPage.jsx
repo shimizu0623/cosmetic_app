@@ -49,8 +49,8 @@ export const UnmatchedItem = () => {
     const classes = useStyles();
     const navigate = useNavigate();
     const { id } = useParams();
-    const [items, setItems] = useState([]);
-    const [attention, setAttention] = useState([]);
+    const [items, setItems] = useState(null);
+    const [attention, setAttention] = useState(null);
 
     useEffect(async () => {
         const responseItems = await axios.get('/user_unmatchedItems');
@@ -119,7 +119,6 @@ export const UnmatchedItem = () => {
                 window.alert('削除しました');
             } catch (e) {
                 window.alert('削除できませんでした');
-                console.error(e)
                 return;
             }                
         } else {
