@@ -108,8 +108,10 @@ export const ItemSearch = () => {
             setSelectedCategory(categoryIds.map(n => parseInt(n)));
         }
 
-        if (brandId.length !== 0){
-            setSelectedBrand(parseInt(brandId));
+        const brandIdOrNan = parseInt(brandId);
+
+        if (!isNaN(brandIdOrNan)){
+            setSelectedBrand(brandIdOrNan);
         }
 
         if (skinTroubleItem.length === 0){
@@ -176,13 +178,16 @@ export const ItemSearch = () => {
     };
 
     const handleSearch = async () => {
-        setSearchParams({
+        const params = {
             'skin_trouble_id[]': selectedSkinTrouble,
             'category_id[]': selectedCategory,
             is_safe_only: selectedSafeOnly,
             is_matching_only: selectedMatchingOnly,
-            brand_id: selectedBrand,
-        });
+        }
+        if (selectedBrand){
+            params.brand_id = selectedBrand;
+        }
+        setSearchParams(params);
         return;
     };
 
